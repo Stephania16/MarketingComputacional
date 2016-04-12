@@ -1,0 +1,7 @@
+atributoName, min, max, productorName, posProd, valor, perfilName, posPerfil,  puntuacion0,puntuacion1,puntuacion2,puntuacion3
+atributo1,1,4,productor,0,1,perfil,0,1,1,2,3
+atributo2,1,4,productor,0,3,perfil,0,3,2,0,1
+atributo1,1,4,productor,1,2,perfil,1,2,2,1,0
+atributo2,1,4,productor,1,0,perfil,1,0,1,2,3
+atributo1,1,4,productor,2,2,perfil,2,1,2,0,1
+atributo2,1,4,productor,2,3,perfil,2,2,0,3,1

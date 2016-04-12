@@ -1,0 +1,17 @@
+@atributo
+atributo1 1 3
+atributo2 1 4
+@productor
+productor 0 atributo1 1 3 1
+productor 0 atributo2 1 4 3
+productor 1 atributo1 1 3 2
+productor 1 atributo2 1 4 0
+productor 2 atributo1 1 3 2
+productor 2 atributo2 1 4 3
+@perfil
+perfil 0 atributo1 1 3 1 1 2
+perfil 0 atributo2 1 4 3 2 0 1
+perfil 1 atributo1 1 3 2 2 1
+perfil 1 atributo2 1 4 0 1 2 3
+perfil 2 atributo1 1 3 1 2 0 
+perfil 2 atributo2 1 4 2 0 3 1
