@@ -81,9 +81,15 @@ public class Añadir {
 
 	/** Add valoration desde gui**/
 	 public void AñadirValorAtributo(Attribute attr, int punt, int posProducer) {
-
-		 int pos = getIndexHash(TotalAttributes,attr);
-		 Producers.get(posProducer).getProduct().getAttributeValue().put(TotalAttributes.get(pos), punt);
+		 ArrayList<Boolean> avaiableValues = new ArrayList<Boolean>();
+		 for (int j = 0; j < attr.getMAX(); j++)
+			 avaiableValues.add(true);
+	     attr.setAvailableValues(avaiableValues);
+	     
+	     Producers.get(posProducer).getAvailableAttribute().add(attr);
+	     
+	     int pos = getIndexHash(TotalAttributes,attr);
+	     Producers.get(posProducer).getProduct().getAttributeValue().put(TotalAttributes.get(pos), punt);
 	 }
 
 	private int getIndexHash(ArrayList<Attribute> totalAttributes, Attribute attr) {
@@ -95,36 +101,20 @@ public class Añadir {
 	}
 
 	/**Generating the producers desde la gui**/
-	 public void AñadirProducer(Attribute attr,int punt, int posProd){
-		 	if(Producers.size() > posProd)
-			{
-				ArrayList<Boolean> availablevalues = new ArrayList<>();
-		        for (int j = 0; j < attr.getMAX(); j++) {
-		                availablevalues.add(true);
-		        }
-		        attr.setAvailableValues(availablevalues);
-		        Producers.get(posProd).getAvailableAttribute().add(attr);
-		        Producers.get(posProd).getProduct().getAttributeValue().put(attr, punt);
-			}
-		 	else 
-		 	{
-			 	Producer new_producer = new Producer();
-				new_producer.setName("Productor " + posProd);
-				
-				ArrayList<Boolean> availablevalues = new ArrayList<>();
-		        for (int j = 0; j < attr.getMAX(); j++) {
-		                availablevalues.add(true);
-		        }
-		        attr.setAvailableValues(availablevalues);
-				ArrayList<Attribute> availableAttr = new ArrayList<>();
-				availableAttr.add(attr);
-	            new_producer.setAvailableAttribute(availableAttr);
+	public void AñadirProducer(int posProd){
+		 
+		 if(Producers.size() <= posProd){
+			 Producer producer = new Producer();
+			 producer.setName("Productor " + posProd);
+			 
+			 ArrayList<Attribute> availableAttr = new ArrayList<Attribute>();
+	         producer.setAvailableAttribute(availableAttr);
 	            
-	            HashMap<Attribute,Integer> values = new HashMap<>();
-	            new_producer.setProduct(new Product(values));
-	            Producers.add(new_producer);
-		 	}
-	 }
+	         HashMap<Attribute,Integer> values = new HashMap<>();
+	         producer.setProduct(new Product(values));
+	         Producers.add(producer);
+		 }
+	}
 	    
 	 
 	/** Add valoration desde gui**/
@@ -228,16 +218,12 @@ public class Añadir {
 						  int min = in.nextInt();
 						  max = in.nextInt();
 						  Attribute attr = new Attribute(atrib,min,max);
+						  int valor = in.nextInt();
 						  if(isElement(TotalAttributes,attr)){
-								  int valor = in.nextInt();
-								  AñadirProducer(attr, valor, posProducer);
-								  if(posProducer > posProducerAux){ 
-									  AñadirValorAtributo(attr, valor, posProducer);
-								  } 
-								  if(!in.hasNextInt()){
-									  AñadirValorAtributo(attr, valor, posProducer);
-								  }
-						  } 
+								AñadirProducer(posProducer);
+								AñadirValorAtributo(attr, valor, posProducer);
+								
+							  }  
 							  productor = in.next();
 						  posProducerAux = posProducer;
 					   } while (!(productor.equals("@perfil")));

@@ -56,7 +56,6 @@ public class GeneticAlgorithm {
     private ArrayList<Integer> Results = new ArrayList<>();
     private ArrayList<Integer> Initial_Results = new ArrayList<>();
     private int wscSum;
-    //private boolean generarDatosEntrada = true;
 
     private ArrayList<Integer> Prices = new ArrayList<>();
     private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
@@ -644,19 +643,18 @@ public class GeneticAlgorithm {
         Fitness = new ArrayList<>();
 
         Population.add((Producers.get(MY_PRODUCER).getProduct()).clone());
-//        mPopu.get(0).setFitness(computeWSC(mPopu.get(0), 0));
         Fitness.add(computeWSC(Population.get(MY_PRODUCER), MY_PRODUCER));
         BestWSC = Fitness.get(MY_PRODUCER);
         Initial_Results.add(BestWSC);
 
         for (int i = 1; i < NUM_POPULATION; i++) {
 
-            if (i % 2 == 0) /*We create a random product*/
-                Population.add(createRndProduct(Producers.get(MY_PRODUCER).getAvailableAttribute()));
-            else /*We create a near product*/
-                Population.add(createNearProduct(Producers.get(MY_PRODUCER).getAvailableAttribute(), (int) (CustomerProfiles.size() * Math.random())));  /////////??verificar//////////
-
-            Fitness.add(computeWSC(Population.get(i), MY_PRODUCER));
+	            if (i % 2 == 0) /*We create a random product*/
+	                Population.add(createRndProduct(Producers.get(MY_PRODUCER).getAvailableAttribute()));
+	            else /*We create a near product*/
+	                Population.add(createNearProduct(Producers.get(MY_PRODUCER).getAvailableAttribute(), (int) (CustomerProfiles.size() * Math.random())));  /////////??verificar//////////
+           
+	            Fitness.add(computeWSC(Population.get(i), MY_PRODUCER));
 
             if (Fitness.get(i) > BestWSC) {
                 BestWSC = Fitness.get(i);

@@ -488,7 +488,7 @@ public class GUI extends JFrame implements ActionListener{
 							if(añadir.getnum_prod() <= x20) JOptionPane.showMessageDialog(tab4, "Sobrepasa el número de productores");
 							//ga.AñadirProducer(attr,x16, x20); 
 							//minimax.AñadirProducer(attr,x16, x20); 
-							añadir.AñadirProducer(attr, x16, x20);
+							añadir.AñadirProducer(x20);
 							text20.setEnabled(false);
 							text10.setEnabled(false);
 							text11.setEnabled(false);
