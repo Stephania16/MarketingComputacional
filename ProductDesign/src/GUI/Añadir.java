@@ -1,8 +1,11 @@
 package GUI;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -16,10 +19,10 @@ public class Añadir {
 	 private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
 	 private static ArrayList<Producer> Producers = new ArrayList<>();
 	 private static boolean generarDatosEntrada = false;
-	 private static int num_attr = 70;
+	 private static int num_attr = 100;
 	 private static int num_prod = 10;
 	 private static int num_prof = 16;
-	 private static int num_prof_num = 200;
+	 private static int num_prof_num = 200;//200;
 
 	 public Añadir(){
 	 }
@@ -88,17 +91,19 @@ public class Añadir {
 	     
 	     Producers.get(posProducer).getAvailableAttribute().add(attr);
 	     
-	     int pos = getIndexHash(TotalAttributes,attr);
+	     int pos = getIndexOf(TotalAttributes,attr);
 	     Producers.get(posProducer).getProduct().getAttributeValue().put(TotalAttributes.get(pos), punt);
 	 }
 
-	private int getIndexHash(ArrayList<Attribute> totalAttributes, Attribute attr) {
+	public Attribute getAttribute(ArrayList<Attribute> totalAttributes, String name) {
 		for(int i = 0; i < totalAttributes.size(); i++)
 		{
-			if(totalAttributes.get(i).equals(attr)) return i;
+			if(totalAttributes.get(i).getName().equals(name))
+				return totalAttributes.get(i);
 		}
-		return -1;
+		return null;
 	}
+
 
 	/**Generating the producers desde la gui**/
 	public void AñadirProducer(int posProd){
@@ -119,16 +124,17 @@ public class Añadir {
 	 
 	/** Add valoration desde gui**/
 	 public void AñadirValoracion(Attribute attr, int punt, int posCustomer) {
-
+		 
 		     int pos = getIndexOf(CustomerProfiles.get(posCustomer).getScoreAttributes(), attr);
 		     CustomerProfiles.get(posCustomer).getScoreAttributes().get(pos).getScoreValues().add(punt);    
 	 }
 	 
+	 
 	 /**
 	     * Generating the customerprofile desde la gui
 	     */
-	 public void AñadirCustomer(Attribute attr,int punt, int posCustomer){
-		if(CustomerProfiles.isEmpty())
+	 public void AñadirCustomer(Attribute attr,int posCustomer){
+		/*if(CustomerProfiles.isEmpty())
 		{
 			ArrayList<Attribute> attrs = new ArrayList<>();
 			ArrayList<Integer> scoreValues = new ArrayList<>();
@@ -136,7 +142,7 @@ public class Añadir {
 			attrs.add(attr);
 			CustomerProfiles.add(new CustomerProfile(attrs));
 		}
-		else if(CustomerProfiles.size() > posCustomer)
+		else*/ if(CustomerProfiles.size() > posCustomer)
 		{
 			ArrayList<Integer> scoreValues = new ArrayList<>();
 			attr.setScoreValues(scoreValues);
@@ -183,14 +189,51 @@ public class Añadir {
 		Producers = producers;
 	}
 	
-	 public boolean isElement(ArrayList<Attribute> attr, Attribute at)
+	 public boolean isElement(ArrayList<Attribute> attr, Attribute atributo)
      {
 	    	for(int i = 0; i < attr.size(); i++)
 	    	{
-	    		if(attr.get(i).equals(at)) return true;
+	    		if(attr.get(i).equals(atributo)) return true;
 	    	}
 	    	return false;
-  }
+     
+     }
+	 
+	 public void addTxt(String archivo)throws FileNotFoundException, IOException
+	 {
+		 File fichero = new File(archivo);
+		 FileWriter writer = new FileWriter(fichero);
+		 PrintWriter salida = new PrintWriter(writer);
+		 salida.println("@atributo");
+		 for(int i = 0; i < TotalAttributes.size(); i++){
+			 salida.println(TotalAttributes.get(i).getName() + " " + TotalAttributes.get(i).getMIN() + " " + TotalAttributes.get(i).getMAX());
+		 }
+		 salida.println("@productor");
+		 for (int i = 0; i < Producers.size(); i++) {
+	            Producer p = Producers.get(i);
+	            for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+	            	salida.print("productor " + (i + 1) + " ");
+	            	salida.println(p.getAvailableAttribute().get(j).getName() + " " + p.getProduct().getAttributeValue().get(TotalAttributes.get(j)));
+	    
+	            }
+	     }
+		 salida.println("@perfil");
+		 for (int i = 0; i < CustomerProfiles.size(); i++) {
+	            CustomerProfile cp = CustomerProfiles.get(i);          
+	            for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
+	            	salida.print("perfil " + (i + 1) + " ");
+	            	salida.print(cp.getScoreAttributes().get(j).getName() + " ");
+	            	for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
+	            		if(z == cp.getScoreAttributes().get(j).getScoreValues().size() - 1)
+	            			salida.println(cp.getScoreAttributes().get(j).getScoreValues().get(z));
+	            		else
+	            			salida.print(cp.getScoreAttributes().get(j).getScoreValues().get(z) + " ");
+	            	}
+	            }
+	    	}
+		 salida.println();
+		 salida.close();
+	 }
 	 
 		public void muestraContenido(String archivo) throws FileNotFoundException, IOException {
 			  Scanner in = null;
@@ -214,15 +257,13 @@ public class Añadir {
 					  int posProducerAux = -1;
 					  do{		
 						  int posProducer = in.nextInt();
-						  String atrib = in.next();
-						  int min = in.nextInt();
-						  max = in.nextInt();
-						  Attribute attr = new Attribute(atrib,min,max);
+						  String atrib_prod = in.next();
 						  int valor = in.nextInt();
-						  if(isElement(TotalAttributes,attr)){
+						  Attribute attr = getAttribute(TotalAttributes,atrib_prod);
+						  Attribute atribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
+						  if(isElement(TotalAttributes,atribute)){
 								AñadirProducer(posProducer);
-								AñadirValorAtributo(attr, valor, posProducer);
-								
+								AñadirValorAtributo(atribute, valor, posProducer);
 							  }  
 							  productor = in.next();
 						  posProducerAux = posProducer;
@@ -231,24 +272,22 @@ public class Añadir {
 					  while (in.hasNext()) {		
 						  String perfil = in.next();
 						  int posCustomer = in.nextInt();
-						  String atrib = in.next();
-						  int min = in.nextInt();
-						  max = in.nextInt();
-						  Attribute attr = new Attribute(atrib,min,max);
-						  
-						  if(isElement(TotalAttributes,attr)){
+						  String atrib_perfil = in.next(); 
+						  Attribute attr = getAttribute(TotalAttributes,atrib_perfil);
+						  Attribute atribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
+						  if(isElement(TotalAttributes,atribute)){
 							  int puntuacion = in.nextInt();
 							  int cont = 1;
 							  while (in.hasNextInt()  && attr.getMAX() > puntuacion) {
-								  AñadirCustomer(attr, puntuacion, posCustomer);
-									  
+								  AñadirCustomer(atribute, posCustomer);
+								  
 								  while(cont < attr.getMAX()) {
-									  AñadirValoracion(attr, puntuacion, posCustomer);
+									  AñadirValoracion(atribute, puntuacion, posCustomer);
 								  	  puntuacion = in.nextInt();
 								  	  cont++;
 								  }
 								  if(!in.hasNextInt()){
-									  AñadirValoracion(attr, puntuacion, posCustomer);
+									  AñadirValoracion(atribute, puntuacion, posCustomer);
 							      }			
 							  }
 						  }					  

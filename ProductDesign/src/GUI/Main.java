@@ -12,7 +12,7 @@ public class Main {
         public void run() {
         	try {
 				GUI gui = new GUI();
-				gui.setBounds(0,0,900,720);
+				gui.setBounds(0,0,900,900);
 				gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);					
 				gui.setResizable(false);
 				gui.setVisible(true);

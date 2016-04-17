@@ -57,7 +57,7 @@ public class Attribute {
 	}
 
 	public boolean equals (Attribute a){	 
-	        if(a.getName().equals(name) && a.getMIN() == MIN && a.getMAX() == MAX){
+	        if(a.getName().equals(name)){
 	            return true;
 	        }else{
 	            return false;

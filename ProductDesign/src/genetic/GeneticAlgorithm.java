@@ -143,8 +143,8 @@ public class GeneticAlgorithm {
 
         if(input_txt){ 
         	añadir.muestraContenido(datos_txt);
-        	generareNumberOfCustomers();
         	generarDatosGUI();
+        	generareNumberOfCustomers();
         	divideCustomerProfile();
         }
         else{
@@ -180,6 +180,7 @@ public class GeneticAlgorithm {
         		   "Num productores: " + Producers.size() + "\n" + 
         		   "Num perfiles: " + CustomerProfiles.size() + "\n" + 
         		   "Number CustProf: " + añadir.getnum() + "\n" + 
+        		   "BestWSC: " + BestWSC + "\n" + 
         		   "Mean: " + String.format("%.2f", mean) + "\n" + 
                    "initMean: " + String.format("%.2f", initMean) + "\n" + 
         		   "variance: " + String.format("%.2f", variance) + "\n" + 

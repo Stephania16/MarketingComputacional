@@ -21,8 +21,8 @@ public class Minimax {
     private int MIN_VAL = 0; // Minimum valuation of an attribute
     private int MAX_VAL = 5; // Maximum valuation of an attribute
 
-    private int MIN_NUM_CUST = 5; // Minimum number of customers of a profile
-    private int MAX_NUM_CUST = 5; // Maximum number of customers of a profile
+    private int MIN_NUM_CUST = 0; // Minimum number of customers of a profile
+    private int MAX_NUM_CUST = 10000; // Maximum number of customers of a profile
 
     private int NEAR_CUST_PROFS = 5; //  Number of near customer profiles to generate a product
 
@@ -30,10 +30,10 @@ public class Minimax {
     private double SPECIAL_ATTRIBUTES = 33; // % of special attributes known for some producers
     public double MUT_PROB_CUSTOMER_PROFILE = 33; // % of mutated attributes in a customer profile
 
-    private int MAX_DEPTH_0 = 4; //Maximun depth of the minimax //depth 8 in initial
+    private int MAX_DEPTH_0 = 8; //Maximun depth of the minimax //depth 8 in initial
     private int MAX_DEPTH_1 = 2; //Maximun depth of the minimax //depth 2 in initial
 
-    private int NUM_EXEC = 5;
+    private int NUM_EXEC = 20;
 
 
     // INPUT VARIABLES
@@ -52,9 +52,6 @@ public class Minimax {
     // mCustProf(i)(j)(k) = valuation for the customer type number i,
     // attribute number j, value k of attribute (each attribute can take k possible values)
     private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
-    
-    private boolean generarDatosEntrada = true;
-    private int num_prof_num = 200;
     
     // STATISTICAL VARIABLES
     private ArrayList<Integer> mResults = new ArrayList<>();
