@@ -1,45 +1,35 @@
 package minimax;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JTextArea;
-
 import Comunes.Attribute;
 import Comunes.CustomerProfile;
 import Comunes.Producer;
 import Comunes.Product;
 import GUI.Añadir;
+import GUI.InputRandom;
 
 public class Minimax {
 
     private int MY_PRODUCER = 0;
 
-    private int MIN_ATTR = 2; // Minimum number of attributes values
-    private int MAX_ATTR = 2; // Maximum number of attributes values
-
-    private int MIN_VAL = 0; // Minimum valuation of an attribute
-    private int MAX_VAL = 5; // Maximum valuation of an attribute
-
-    private int MIN_NUM_CUST = 0; // Minimum number of customers of a profile
-    private int MAX_NUM_CUST = 10000; // Maximum number of customers of a profile
-
-    private int NEAR_CUST_PROFS = 5; //  Number of near customer profiles to generate a product
+ //   private int NEAR_CUST_PROFS = 5; //  Number of near customer profiles to generate a product
 
     private double KNOWN_ATTRIBUTES = 100; // % of attributes known for all producers
-    private double SPECIAL_ATTRIBUTES = 33; // % of special attributes known for some producers
-    public double MUT_PROB_CUSTOMER_PROFILE = 33; // % of mutated attributes in a customer profile
+ //   private double SPECIAL_ATTRIBUTES = 33; // % of special attributes known for some producers
+ //   public double MUT_PROB_CUSTOMER_PROFILE = 33; // % of mutated attributes in a customer profile
 
-    private int MAX_DEPTH_0 = 8; //Maximun depth of the minimax //depth 8 in initial
+    private int MAX_DEPTH_0 = 4; //Maximun depth of the minimax //depth 8 in initial
     private int MAX_DEPTH_1 = 2; //Maximun depth of the minimax //depth 2 in initial
 
     private int NUM_EXEC = 20;
 
 
     // INPUT VARIABLES
-    private int mNAttrMod; // Number of attributes the producer can modify (D)
-    private int mPrevTurns; // Number of previous turns to compute (tp)
-    private int mNTurns; // Number of turns to play (tf)
+    private int mNAttrMod = 1; // Number of attributes the producer can modify (D)
+    private int mPrevTurns = 5; // Number of previous turns to compute (tp)
+    private int mNTurns = 5; // Number of turns to play (tf)
 
     private int mNAttr = 10; // Number of attributes
     private int mNProd = 2; // Number of producers
@@ -57,6 +47,7 @@ public class Minimax {
     private ArrayList<Integer> mResults = new ArrayList<>();
     private ArrayList<Integer> mInitialResults = new ArrayList<>();
     Añadir añadir = new Añadir();
+    InputRandom in = new InputRandom();
 
     /************************
      * INITIAL METHOD
@@ -82,11 +73,7 @@ public class Minimax {
 		
 		if(input_txt)
     	{
-    		mNAttrMod = 1;
-            mPrevTurns = 5;
-            mNTurns = 5;
     		añadir.muestraContenido(datos_txt);
-    		genCustomerProfilesNum();
     		generarDatosGUI();    		
     	}
 		
@@ -94,7 +81,7 @@ public class Minimax {
         for(int i = 0; i < getNumExecutions(); i++){
             playPDG(datos_txt, input_txt);
             sum += mResults.get(i);
-            sumCust += countCustomers() * mNTurns * 2;
+            sumCust += countCustomers() * getmNTurns() * 2;
         }
 		
 		mean = sum / getNumExecutions();
@@ -109,8 +96,12 @@ public class Minimax {
 	     		   "Num productores: " + getProducers().size() + "\n" + 
 	     		   "Num perfiles: " + getCustomerProfiles().size() + "\n" + 
 	     		   "Number CustProf: " + añadir.getnum() + "\n" + 
-	    		   "Depth Prod 0: " + MAX_DEPTH_0 + "\n" + 
-	               "Depth Prod 1: " + MAX_DEPTH_1 + "\n" +
+	    		   "Depth Prod 0: " + getMAX_DEPTH_0() + "\n" + 
+	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\n" +
+	               "Num atributos modificables: " + getmNAttrMod() + "\n" + 
+	               "Num turnos previos: " + getmPrevTurns() + "\n" +
+	               "************* RESULTS *************" + "\n" + 
+	               "Num turnos: " + getmNTurns() + "\n" +
 	    		   "Mean: " + String.format("%.2f", mean) + "\n" + 
 	               "stdDev: " + String.format("%.2f", stdDev) + "\n" + 
 	    		   "custMean: " + String.format("%.2f", custMean) + "\n" + 
@@ -124,108 +115,40 @@ public class Minimax {
     }
     
     private void generarDatosGUI() throws Exception {
-    	mNAttrMod = 1;
-        mPrevTurns = 5;
-        mNTurns = 5;
         TotalAttributes = añadir.getTotalAttributes();
-		CustomerProfiles = añadir.getCustomerProfiles();
-    	añadir.setProfiles();
-    	Producers = añadir.getProducers();
+        CustomerProfiles = añadir.getCustomerProfiles();
+        añadir.setProfiles();
+        Producers = añadir.getProducers();
 	}
     
     public void playPDG(String datos_txt, boolean input_txt) throws Exception {
     	if(!input_txt)
     	{	if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
-    		else if (Producers.size() == 0) generateInput();
+    		else if (Producers.size() == 0){
+    			in.generateInput();
+    			TotalAttributes = in.getTotalAttributes();
+    			Producers = in.getProducers();
+    			CustomerProfiles = in.getCustomerProfiles();
+    		}
     	}
         playGame();
     }
     
-    /*******************
-     * INPUT METHODS
-     ************************/
-    public void generateInput() {
-        mNAttrMod = 1;
-        mPrevTurns = 5;
-        mNTurns = 5;
-      //  mNAttr = 10;
-      //  mNProd = 2;
-        genAttrVal();
-        genCustomerProfiles();
-        genCustomerProfilesNum();
-        genProducers();
-    }
-    
-    
 
     public void playGame() throws Exception {
-        mInitialResults.add(computeWSC(Producers.get(MY_PRODUCER).getProduct(), MY_PRODUCER));
+    	 mInitialResults.add(computeWSC(Producers.get(MY_PRODUCER).getProduct(), MY_PRODUCER));
 
-        for (int i = 0; i < mNTurns; i++) {
-            for (int j = 0; j < Producers.size(); j++) {
-                changeProduct(j);
-                updateCustGathered(i);
-            }
-        }
+         for (int i = 0; i < getmNTurns(); i++) {
+             for (int j = 0; j < Producers.size(); j++) {
+                 changeProduct(j);
+                 updateCustGathered(i);
+             }
+         }
 
-        mResults.add(Producers.get(MY_PRODUCER).getNumber_CustomerGathered());
+         mResults.add(Producers.get(MY_PRODUCER).getNumber_CustomerGathered());
     }
 
-    /**************
-     * INPUT METHODS
-     ***********************/
-    public void genAttrVal() {
-        TotalAttributes.clear();
-        for (int i = 0; i < añadir.getnum_attr(); i++) {
-            int valueMax = (int) (Math.floor((MAX_ATTR - MIN_ATTR + 1) * Math.random()) + MIN_ATTR);
-            TotalAttributes.add(new Attribute("Atributo " + (i + 1), 1, valueMax));
-        }
-    }
-
-    
-    public void genCustomerProfiles() {
-        CustomerProfiles.clear();
-
-        //Generate 4 random Customer Profile
-        for (int i = 0; i < 4; i++) {
-            ArrayList<Attribute> attrs = new ArrayList<>();
-            for (int j = 0; j < TotalAttributes.size(); j++) {
-                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-
-                ArrayList<Integer> scoreValues = new ArrayList<>();
-                for (int k = 0; k < attr.MAX; k++) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                }
-                attr.setScoreValues(scoreValues);
-                attrs.add(attr);
-            }
-            CustomerProfiles.add(new CustomerProfile(attrs));
-        }
-
-        //Create 2 mutants for each basic profile
-        for (int i = 0; i < 4; i++) {
-            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-        }
-
-        //Creating 4 isolated profiles
-        for (int i = 0; i < 4; i++) {
-            ArrayList<Attribute> attrs = new ArrayList<>();
-            for (int j = 0; j < TotalAttributes.size(); j++) {
-                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-                ArrayList<Integer> scoreValues = new ArrayList<>();
-                for (int k = 0; k < attr.MAX; k++) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                }
-                attr.setScoreValues(scoreValues);
-                attrs.add(attr);
-            }
-            CustomerProfiles.add(new CustomerProfile(attrs));
-        }
-    }
-
+   
     public void showAttributes(JTextArea jTextArea1) {
     	jTextArea1.setText("");
         for (int k = 0; k < TotalAttributes.size(); k++) {
@@ -267,151 +190,19 @@ public class Minimax {
     	jTextArea1.repaint();
     }
     
-    
-    private CustomerProfile mutateCustomerProfile(CustomerProfile customerProfile) {
-        CustomerProfile mutant = new CustomerProfile(null);
-        ArrayList<Attribute> attrs = new ArrayList<>();
-        for (int i = 0; i < TotalAttributes.size(); i++) {
-            Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
-            ArrayList<Integer> scoreValues = new ArrayList<>();
-            for (int k = 0; k < attr.MAX; k++) {
-                if (Math.random() < (MUT_PROB_CUSTOMER_PROFILE / 100)) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                } else
-                    scoreValues.add(customerProfile.getScoreAttributes().get(i).getScoreValues().get(k));
-            }
-            attr.setScoreValues(scoreValues);
-            attrs.add(attr);
-        }
-        mutant.setScoreAttributes(attrs);
-        return mutant;
-    }
-
-    private void genCustomerProfilesNum() {
-        for (int i = 0; i < CustomerProfiles.size(); i++) {
-            int number_customers = (int) (Math.floor(MAX_NUM_CUST - MIN_NUM_CUST + 1) * Math.random()) + MIN_NUM_CUST;
-            CustomerProfiles.get(i).setNumberCustomers(number_customers);
-        }
-    }
-
-    public void genProducers() {
-        Producers.clear();
-
-        Producers = new ArrayList<>();
-        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos 10 productores random
-            Producer new_producer = new Producer();
-            new_producer.setName("Productor " + (i + 1));
-            new_producer.setAvailableAttribute(createAvailableAttributes());
-            new_producer.setProduct(createProduct(new_producer.getAvailableAttribute()));
-            Producers.add(new_producer);
-        }
-    }
-
-    private ArrayList<Attribute> createAvailableAttributes() {
-        ArrayList<Attribute> availableAttributes = new ArrayList<>();
-        int limit = (int) (TotalAttributes.size() * KNOWN_ATTRIBUTES / 100);
-
-		/*All producers know the first ATTRIBUTES_KNOWN % of the attributes*/
-        for (int i = 0; i < limit; i++) {
-            Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
-            ArrayList<Boolean> availablevalues = new ArrayList<>();
-            for (int j = 0; j < attr.getMAX(); j++) {
-                availablevalues.add(true);
-            }
-
-            attr.setAvailableValues(availablevalues);
-            availableAttributes.add(attr);
-        }
-
-		/*The remaining attributes are only known by SPECIAL_ATTRIBUTES % producers*/
-        for (int k = limit; k < TotalAttributes.size(); k++) {
-            Attribute attr = new Attribute(TotalAttributes.get(k).getName(), TotalAttributes.get(k).getMIN(), TotalAttributes.get(k).getMAX());
-            ArrayList<Boolean> availableValues = new ArrayList<>();
-
-            for (int j = 0; j < attr.getMAX(); j++) {
-                double rnd = Math.random();
-                double rndVal = Math.random();
-                /*Furthermore, with a 50% of probabilities it can know this attribute*/
-                if (rndVal < (SPECIAL_ATTRIBUTES / 100) && rnd < 0.5)
-                    availableValues.add(true);
-                else
-                    availableValues.add(false);
-            }
-            attr.setAvailableValues(availableValues);
-            availableAttributes.add(attr);
-        }
-
-        return availableAttributes;
-    }
-
-    private Product createProduct(ArrayList<Attribute> availableAttrs) {
-
-        Product product = new Product(new HashMap<Attribute, Integer>());
-        ArrayList<Integer> customNearProfs = new ArrayList<>();
-
-        for (int i = 0; i < NEAR_CUST_PROFS; i++)
-            customNearProfs.add((int) Math.floor(CustomerProfiles.size() * Math.random()));
-
-        HashMap<Attribute, Integer> attrValues = new HashMap<>();
-
-        for (int j = 0; j < TotalAttributes.size(); j++)
-            attrValues.put(TotalAttributes.get(j), chooseAttribute(j, customNearProfs, availableAttrs)); //TotalAttributes.get(j) o availableAttrs.get(j)
-
-        product.setAttributeValue(attrValues);
-        return product;
-    }
-
-    /**
-     * Chosing an attribute near to the customer profiles given
-     */
-    private int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd, ArrayList<Attribute> availableAttrs) {
-        int attrVal;
-
-        ArrayList<Integer> possibleAttr = new ArrayList<>();
-
-        for (int i = 0; i < TotalAttributes.get(attrInd).getMAX(); i++) {
-            /*We count the valoration of each selected profile for attribute attrInd value i*/
-            int possible = 0;
-            for (int j = 0; j < custProfInd.size(); j++) {
-                possible += CustomerProfiles.get(custProfInd.get(j)).getScoreAttributes().get(attrInd).getScoreValues().get(i);
-            }
-            possibleAttr.add(possible);
-        }
-        attrVal = getMaxAttrVal(attrInd, possibleAttr, availableAttrs);
-
-        return attrVal;
-    }
-
-    /**
-     * Chosing the attribute with the maximum score for the customer profiles given
-     */
-    private int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
-
-        int attrVal = -1;
-        double max = -1;
-
-        for (int i = 0; i < possibleAttr.size(); i++) {
-            if (availableAttr.get(attrInd).getAvailableValues().get(i) && possibleAttr.get(i) > max) {
-                max = possibleAttr.get(i);
-                attrVal = i;
-            }
-        }
-        return attrVal;
-    }
-
+   
     /************************
      * AUXILIARY METHOD PlayGame
      ***********************/
 
     public void changeProduct(int producerIndex) throws Exception {
-        int depth;
+    	int depth;
         Producer producer = Producers.get(producerIndex);
 
         if (producer == Producers.get(MY_PRODUCER))
-            depth = MAX_DEPTH_0;
+            depth = getMAX_DEPTH_0();
         else
-            depth = MAX_DEPTH_1;
+            depth = getMAX_DEPTH_1();
 
         ArrayList<Product> list_products = new ArrayList<>();
         for (int i = 0; i < Producers.size(); i++)
@@ -526,34 +317,34 @@ public class Minimax {
      * @throws Exception
      **/
     private int computeWSC(Product product, int prodInd) throws Exception {
-        int wsc = 0;
-        boolean isTheFavourite;
-        int meScore, score, k, numTies;
+    	 int wsc = 0;
+         boolean isTheFavourite;
+         int meScore, score, k, numTies;
 
-        for (int i = 0; i < CustomerProfiles.size(); i++) {
-            isTheFavourite = true;
-            numTies = 1;
-            meScore = scoreProduct(CustomerProfiles.get(i), product);
-            k = 0;
-            while (isTheFavourite && k < Producers.size()) {
-                if (k != prodInd) {
+         for (int i = 0; i < CustomerProfiles.size(); i++) {
+             isTheFavourite = true;
+             numTies = 1;
+             meScore = scoreProduct(CustomerProfiles.get(i), product);
+             k = 0;
+             while (isTheFavourite && k < Producers.size()) {
+                 if (k != prodInd) {
 
-                    score = scoreProduct(CustomerProfiles.get(i), Producers.get(k).product);
+                     score = scoreProduct(CustomerProfiles.get(i), Producers.get(k).getProduct());
 
-                    if (score > meScore)
-                        isTheFavourite = false;
+                     if (score > meScore)
+                         isTheFavourite = false;
 
-                    else if (score == meScore)
-                        numTies += 1;
-                }
-                k++;
-            }
-				/*TODO: When there exists ties we loose some voters because of decimals (undecided voters)*/
-            if (isTheFavourite)
-                wsc += CustomerProfiles.get(i).getNumberCustomers() / numTies;
-        }
+                     else if (score == meScore)
+                         numTies += 1;
+                 }
+                 k++;
+             }
+ 				/*TODO: When there exists ties we loose some voters because of decimals (undecided voters)*/
+             if (isTheFavourite)
+                 wsc += CustomerProfiles.get(i).getNumberCustomers() / numTies;
+         }
 
-        return wsc;
+         return wsc;
     }
 
 
@@ -591,7 +382,7 @@ public class Minimax {
         for(int i = 0;i < Producers.size(); i++){
             int wsc = computeWSC(Producers.get(i).getProduct(), i);
 
-            if(Producers.get(i).getCustomersGathered().size() == mPrevTurns * 2){
+            if(Producers.get(i).getCustomersGathered().size() == getmPrevTurns() * 2){
                 Producers.get(i).getCustomersGathered().remove(0);
             }
 
@@ -604,10 +395,10 @@ public class Minimax {
      */
     private double computeVariance(double mean) {
         double sqrSum = 0;
-        for (int i = 0; i < NUM_EXEC; i++) {
+        for (int i = 0; i < getNumExecutions(); i++) {
             sqrSum += Math.pow(mResults.get(i) - mean, 2);
         }
-        return (sqrSum / NUM_EXEC);
+        return (sqrSum / getNumExecutions());
     }
 
     public int countCustomers(){
@@ -637,5 +428,69 @@ public class Minimax {
 	public ArrayList<CustomerProfile> getCustomerProfiles() {
 		return CustomerProfiles;
 	}
-	
+
+	public double getKNOWN_ATTRIBUTES() {
+		return KNOWN_ATTRIBUTES;
+	}
+
+/*	public double getMUT_PROB_CUSTOMER_PROFILE() {
+		return MUT_PROB_CUSTOMER_PROFILE;
+	}*/
+
+	public int getMAX_DEPTH_0() {
+		return MAX_DEPTH_0;
+	}
+
+	public int getMAX_DEPTH_1() {
+		return MAX_DEPTH_1;
+	}
+
+	public int getmPrevTurns() {
+		return mPrevTurns;
+	}
+
+	public int getmNTurns() {
+		return mNTurns;
+	}
+
+	public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
+		KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;
+	}
+
+/*	public void setMUT_PROB_CUSTOMER_PROFILE(double mUT_PROB_CUSTOMER_PROFILE) {
+		MUT_PROB_CUSTOMER_PROFILE = mUT_PROB_CUSTOMER_PROFILE;
+	}*/
+
+	public void setMAX_DEPTH_0(int mAX_DEPTH_0) {
+		MAX_DEPTH_0 = mAX_DEPTH_0;
+	}
+
+	public void setMAX_DEPTH_1(int mAX_DEPTH_1) {
+		MAX_DEPTH_1 = mAX_DEPTH_1;
+	}
+
+	public void setmPrevTurns(int mPrevTurns) {
+		this.mPrevTurns = mPrevTurns;
+	}
+
+	public void setmNTurns(int mNTurns) {
+		this.mNTurns = mNTurns;
+	}
+
+	public int getmNAttrMod() {
+		return mNAttrMod;
+	}
+
+	public void setmNAttrMod(int mNAttrMod) {
+		this.mNAttrMod = mNAttrMod;
+	}
+
+/*	public double getSPECIAL_ATTRIBUTES() {
+		return SPECIAL_ATTRIBUTES;
+	}
+
+	public void setSPECIAL_ATTRIBUTES(double sPECIAL_ATTRIBUTES) {
+		SPECIAL_ATTRIBUTES = sPECIAL_ATTRIBUTES;
+	}
+	*/
 }

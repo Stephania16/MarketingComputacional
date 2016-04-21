@@ -9,20 +9,23 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
 import Comunes.Attribute;
 import Comunes.CustomerProfile;
 import Comunes.Producer;
 import Comunes.Product;
+import genetic.SubProfile;
 
 public class Añadir {
 	 private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 	 private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
 	 private static ArrayList<Producer> Producers = new ArrayList<>();
 	 private static boolean generarDatosEntrada = false;
-	 private static int num_attr = 100;
+	 private static int num_attr = 70;
 	 private static int num_prod = 10;
 	 private static int num_prof = 16;
-	 private static int num_prof_num = 200;//200;
+	 private static int num_prof_num = 200;
+	 static final int RESP_PER_GROUP = 20; /* * We divide the respondents of each
 
 	 public Añadir(){
 	 }
@@ -81,6 +84,74 @@ public class Añadir {
 	 public void setisGenerarDatosEntrada(boolean generargui){
 		 generarDatosEntrada = generargui;
 	 }
+	 
+	  /**
+	     * Dividing the customer profiles into sub-profiles
+	     *
+	     * @throws Exception
+	     */
+	    public void divideCustomerProfile() throws Exception {
+
+
+	        int numOfSubProfile;
+	        for (int i = 0; i < CustomerProfiles.size(); i++) {
+	            ArrayList<SubProfile> subProfiles = new ArrayList<>();
+	            numOfSubProfile = CustomerProfiles.get(i).getNumberCustomers() / RESP_PER_GROUP;
+
+	            if ((CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) != 0)
+	                numOfSubProfile++;
+
+	            for (int j = 0; j < numOfSubProfile; j++) { //We divide into sub-profiles
+	                SubProfile subprofile = new SubProfile();
+	                subprofile.setName("Subperfil " + (j + 1));// + ", Perfil " + (i+1));
+
+	                HashMap<Attribute, Integer> valuesChosen = new HashMap<>();
+	                for (int k = 0; k < TotalAttributes.size(); k++) //Each of the sub-profiles choose a value for each of the attributes
+	                    valuesChosen.put(TotalAttributes.get(k), chooseValueForAttribute(CustomerProfiles.get(i).getScoreAttributes().get(k)));
+
+	                subprofile.setValueChosen(valuesChosen);
+	                subProfiles.add(subprofile);
+	            }
+	            CustomerProfiles.get(i).setSubProfiles(subProfiles);
+	        }
+	    }
+
+
+	    /**
+	     * Given an index of a customer profile and the index of an attribute we choose a value
+	     * for that attribute of the sub-profile having into account the values of the poll
+	     */
+	    private Integer chooseValueForAttribute(Attribute attribute) throws Exception {
+
+	        int total = 0;
+	        int accumulated = 0;
+	        boolean found = false;
+
+	        for (int i = 0; i < attribute.getScoreValues().size(); i++)
+	            total += attribute.getScoreValues().get(i);
+
+	        int rndVal = (int) (total * Math.random());
+
+	        int value = 0;
+	        while (!found) {
+	            accumulated += attribute.getScoreValues().get(value);
+	            if (rndVal <= accumulated)
+	                found = true;
+	            else
+	                value++;
+	            ;
+
+	            if (value >= attribute.getScoreValues().size())
+	                throw new Exception("Error 1 in chooseValueForAttribute() method: Value not found");
+
+	        }
+
+	        if (value >= attribute.getScoreValues().size())
+	            throw new Exception("Error 2 in chooseValueForAttribute() method: Value not found");
+
+	        return value;
+	    }
+	 
 
 	/** Add valoration desde gui**/
 	 public void AñadirValorAtributo(Attribute attr, int punt, int posProducer) {
@@ -134,15 +205,7 @@ public class Añadir {
 	     * Generating the customerprofile desde la gui
 	     */
 	 public void AñadirCustomer(Attribute attr,int posCustomer){
-		/*if(CustomerProfiles.isEmpty())
-		{
-			ArrayList<Attribute> attrs = new ArrayList<>();
-			ArrayList<Integer> scoreValues = new ArrayList<>();
-			attr.setScoreValues(scoreValues);
-			attrs.add(attr);
-			CustomerProfiles.add(new CustomerProfile(attrs));
-		}
-		else*/ if(CustomerProfiles.size() > posCustomer)
+		if(CustomerProfiles.size() > posCustomer)
 		{
 			ArrayList<Integer> scoreValues = new ArrayList<>();
 			attr.setScoreValues(scoreValues);
@@ -212,7 +275,7 @@ public class Añadir {
 		 for (int i = 0; i < Producers.size(); i++) {
 	            Producer p = Producers.get(i);
 	            for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-	            	salida.print("productor " + (i + 1) + " ");
+	            	salida.print("productor " + i + " ");
 	            	salida.println(p.getAvailableAttribute().get(j).getName() + " " + p.getProduct().getAttributeValue().get(TotalAttributes.get(j)));
 	    
 	            }
@@ -221,7 +284,7 @@ public class Añadir {
 		 for (int i = 0; i < CustomerProfiles.size(); i++) {
 	            CustomerProfile cp = CustomerProfiles.get(i);          
 	            for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
-	            	salida.print("perfil " + (i + 1) + " ");
+	            	salida.print("perfil " + i  + " ");
 	            	salida.print(cp.getScoreAttributes().get(j).getName() + " ");
 	            	for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
 	            		if(z == cp.getScoreAttributes().get(j).getScoreValues().size() - 1)
@@ -296,6 +359,7 @@ public class Añadir {
 			   } 
 			  catch (FileNotFoundException e) {
 				  System.out.println("Error abriendo el fichero " + archivo);
+				  //JOptionPane.showMessageDialog(tab4, e.getMessage());
 			   } 
 			  finally {
 				   if (in!=null){

@@ -8,41 +8,41 @@ import Comunes.CustomerProfile;
 import Comunes.Producer;
 import Comunes.Product;
 import GUI.Añadir;
+import GUI.InputRandom;
 
 import java.util.ArrayList;
 
 public class GeneticAlgorithm {
 
-    static final double KNOWN_ATTRIBUTES = 100; /* 100
+    static double KNOWN_ATTRIBUTES = 100; /* 100
                                                  * % of attributes known for all
 												 * producers
 												 */
-    static final double SPECIAL_ATTRIBUTES = 33; /* 33
+    static double SPECIAL_ATTRIBUTES = 33; /* 33
                                                  * % of special attributes known
 												 * for some producers
 
 												 						 */
-    static final double MUT_PROB_CUSTOMER_PROFILE = 33; /*  * % of mutated
+    static double MUT_PROB_CUSTOMER_PROFILE = 33; /*  * % of mutated
                                                          * attributes in a
 														 * customer profile
 														 */
-    static final int CROSSOVER_PROB = 80; /* % of crossover */
-    static final int MUTATION_PROB = 1; /* % of mutation */
-    static final int NUM_GENERATIONS = 100; /* number of generations */
-    static final int NUM_POPULATION = 20; /* number of population */
-    static final int RESP_PER_GROUP = 20; /* * We divide the respondents of each
+    static int CROSSOVER_PROB = 80; /* % of crossover */
+    static int MUTATION_PROB = 1; /* % of mutation */
+    static int NUM_GENERATIONS = 100; /* number of generations */
+    static int NUM_POPULATION = 20; /* number of population */
+    static int RESP_PER_GROUP = 20; /* * We divide the respondents of each
                                              * profile in groups of
 											 * RESP_PER_GROUP respondents
 											 */
-    static final int NEAR_CUST_PROFS = 4;
+    static int NEAR_CUST_PROFS = 4;
     static int NUM_EXECUTIONS = 20; /* number of executions = 20*/
 
     static final int MY_PRODUCER = 0;  //The index of my producer
-
-    // static final String SOURCE = "D:\Pablo\EncuestasCIS.xlsx";
-    static final int SHEET_AGE_STUDIES = 1;
-    static final int SHEET_POLITICAL_PARTIES = 2;
-    static final String EOF = "EOF";
+    
+    public static int fit = 0;
+    public static int customers = 0;
+    public static int Benefits = 1;
 
     private ArrayList<Attribute> TotalAttributes = new ArrayList<>();
     private ArrayList<Producer> Producers = new ArrayList<>();
@@ -60,6 +60,7 @@ public class GeneticAlgorithm {
     private ArrayList<Integer> Prices = new ArrayList<>();
     private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
     Añadir añadir = new Añadir();
+    InputRandom in = new InputRandom();
 
     /***************************************
      * " AUXILIARY EXCEL METHODS " * @throws Exception
@@ -79,28 +80,7 @@ public class GeneticAlgorithm {
     /***************************************
      * " PRIVATE METHODS "
      ***************************************/
-
-  /*  private void solvePD() throws Exception {
-
-        generateInput();
-        solvePD_GA();
-    }*/
-
-    /**
-     * Generating the input data
-     *
-     * @throws Exception
-     */
-    public void generateInput() throws Exception {
-
-        generateAttributeRandom();
-    	generateCustomerProfiles();
-    	generareNumberOfCustomers();
-        divideCustomerProfile();
-        generateProducers();
-    }
-
-
+    
     /**
      * Solving the PD problem by using a GA
      */
@@ -109,13 +89,17 @@ public class GeneticAlgorithm {
         ArrayList<Product> newPopu;
         ArrayList<Integer> newFitness = new ArrayList<>();
         createInitPopu();
-        for (int generation = 0; generation < NUM_GENERATIONS; generation++) {
+        for (int generation = 0; generation < getNUM_GENERATIONS(); generation++) {
             newPopu = createNewPopu(newFitness);
             Population = tournament(newPopu, newFitness);
         }
 
         Results.add(BestWSC);
         showWSC();
+        
+        int price_MyProduct = calculatePrice(Producers.get(MY_PRODUCER).getProduct());
+        Producers.get(MY_PRODUCER).getProduct().setPrice(price_MyProduct);
+        Prices.add(price_MyProduct);
     }
 
     /**
@@ -135,22 +119,28 @@ public class GeneticAlgorithm {
         double initStdDev;
         double percCust; /*% of customers achieved*/
         double initPercCust; /*% of initial customers achieved*/
-
+        int price = 0;
+        int My_price;
+        
         Results = new ArrayList<>();
         Initial_Results = new ArrayList<>();
+        Prices = new ArrayList<>();
 
         Math.random();
 
         if(input_txt){ 
         	añadir.muestraContenido(datos_txt);
         	generarDatosGUI();
-        	generareNumberOfCustomers();
-        	divideCustomerProfile();
         }
         else{
         	if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
         	else 
-        		if (Producers.size() == 0) generateInput();
+        		if (Producers.size() == 0){ 
+        			in.generate();
+        			TotalAttributes = in.getTotalAttributes();
+        			Producers = in.getProducers();
+        			CustomerProfiles = in.getCustomerProfiles();
+        		}
         }
 
 
@@ -162,6 +152,7 @@ public class GeneticAlgorithm {
             sum += Results.get(i);
             initSum += Initial_Results.get(i);
             sumCust += wscSum;
+            price += Prices.get(i);
         }
         
         mean = sum / getNumExecutions();
@@ -180,6 +171,16 @@ public class GeneticAlgorithm {
         		   "Num productores: " + Producers.size() + "\n" + 
         		   "Num perfiles: " + CustomerProfiles.size() + "\n" + 
         		   "Number CustProf: " + añadir.getnum() + "\n" + 
+        		   "Num Población: " +  + getNUM_POPULATION() + "\n" + 
+        		   "Num Generaciones: " + getNUM_GENERATIONS() + "\n" + 
+        		   "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\n" + 
+        		   "Atributos especiales: " + getSPECIAL_ATTRIBUTES() + " %" + "\n" + 
+        		   "% Mutación de atributos: " + getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\n" + 
+        		   "% Crossover: " + getCROSSOVER_PROB() + " %" + "\n" + 
+        		   "% Mutación: " + getMUTATION_PROB() + " %" + "\n" + 
+        		   "Num grupos de perfil: " + getRESP_PER_GROUP() + "\n" + 
+        		   "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\n" + 
+        		   "************* RESULTS *************" + "\n" + 
         		   "BestWSC: " + BestWSC + "\n" + 
         		   "Mean: " + String.format("%.2f", mean) + "\n" + 
                    "initMean: " + String.format("%.2f", initMean) + "\n" + 
@@ -187,10 +188,17 @@ public class GeneticAlgorithm {
         		   "initVariance: " + String.format("%.2f", initVariance) + "\n" + 
         		   "stdDev: " + String.format("%.2f", stdDev) + "\n" + 
         		   "initStdDev: " + String.format("%.2f", initStdDev) + "\n" + 
-        		   "custMean: " + String.format("%.2f", custMean) + "\n" + 
-        		   "percCust: " + String.format("%.2f", percCust) + " %" + "\n" + 
-        		   "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\n");
-      /*  System.out.println("mean: " + mean);
+        		   "custMean: " + String.format("%.2f", custMean) + "\n"); 
+     
+        if(fit == customers){
+        	jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\n" + 
+         		       "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\n");
+        }else if (fit == Benefits){
+        	jtA.append("percCust: " + String.format("%.2f",(100 * mean) / initMean) + " %" + "\n");
+        }
+        
+        My_price = price / getNUM_GENERATIONS();
+        /*  System.out.println("mean: " + mean);
         System.out.println("initMean: " + initMean);
         System.out.println("variance: " + variance);
         System.out.println("initVariance: " + initVariance);
@@ -202,14 +210,15 @@ public class GeneticAlgorithm {
 		
     }
 
-	  public void generarDatosGUI() throws Exception {
+	 public void generarDatosGUI() throws Exception {
 		  TotalAttributes = añadir.getTotalAttributes();
 		  CustomerProfiles = añadir.getCustomerProfiles();
-	    	añadir.setProfiles();
-	    	divideCustomerProfile();
+	      añadir.setProfiles();
+	      añadir.divideCustomerProfile();
 	      Producers = añadir.getProducers();
 			
 		}
+	  
 	/*************************************** " AUXILIARY METHODS GENERATEINPUT()" ***************************************/
 
     /**
@@ -292,19 +301,6 @@ public class GeneticAlgorithm {
     	jTextArea.repaint();
     }
     
-    private void generateAttributeRandom() {
-        TotalAttributes.clear();
-        for (int i = 0; i < añadir.getnum_attr(); i++) {
-
-            double rnd = Math.random();
-            if (rnd < 0.34)
-                TotalAttributes.add(new Attribute("Atributo " + (i + 1), 1, 3));
-            else if (rnd < 0.67)
-                TotalAttributes.add(new Attribute("Atributo " + (i + 1), 1, 4));
-            else
-                TotalAttributes.add(new Attribute("Atributo " + (i + 1), 1, 5));
-        }
-    }
 
    /* private static void showExcelData(List sheetData) {
         // Iterates the data and print it out to the console.
@@ -329,209 +325,11 @@ public class GeneticAlgorithm {
 
 
     /**
-     * Generating the producers
-     */
-    private void generateProducers() {
-        Producers.clear();
-
-        Producers = new ArrayList<>();
-        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos 10 productores random
-            Producer new_producer = new Producer();
-            new_producer.setName("Productor " + (i + 1));
-            new_producer.setAvailableAttribute(createAvailableAttributes());
-            new_producer.setProduct(createProduct(new_producer.getAvailableAttribute()));
-            Producers.add(new_producer);
-        }
-    }
-
-
-
-	/**
-     * Creating different customer profiles
-     */
-    private void generateCustomerProfiles() {
-        CustomerProfiles.clear();
-
-        //Generate 4 random Customer Profile
-        for (int i = 0; i < 4; i++) {
-            ArrayList<Attribute> attrs = new ArrayList<>();
-            for (int j = 0; j < TotalAttributes.size(); j++) {
-                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-
-                ArrayList<Integer> scoreValues = new ArrayList<>();
-                for (int k = 0; k < attr.MAX; k++) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                }
-                attr.setScoreValues(scoreValues);
-                attrs.add(attr);
-            }
-            CustomerProfiles.add(new CustomerProfile(attrs));
-        }
-
-        //Create 2 mutants for each basic profile
-        for (int i = 0; i < 4; i++) {
-            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-        }
-
-        //Creating 4 isolated profiles
-        for (int i = 0; i < 4; i++) {
-            ArrayList<Attribute> attrs = new ArrayList<>();
-            for (int j = 0; j < TotalAttributes.size(); j++) {
-                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-                ArrayList<Integer> scoreValues = new ArrayList<>();
-                for (int k = 0; k < attr.MAX; k++) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                }
-                attr.setScoreValues(scoreValues);
-                attrs.add(attr);
-            }
-            CustomerProfiles.add(new CustomerProfile(attrs));
-        }
-    }
-
-    private CustomerProfile mutateCustomerProfile(CustomerProfile customerProfile) {
-        CustomerProfile mutant = new CustomerProfile(null);
-        ArrayList<Attribute> attrs = new ArrayList<>();
-        for (int i = 0; i < TotalAttributes.size(); i++) {
-            Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
-            ArrayList<Integer> scoreValues = new ArrayList<>();
-            for (int k = 0; k < attr.MAX; k++) {
-                if (Math.random() < (MUT_PROB_CUSTOMER_PROFILE / 100)) {
-                    int random = (int) (attr.MAX * Math.random());
-                    scoreValues.add(random);
-                } else
-                    scoreValues.add(customerProfile.getScoreAttributes().get(i).getScoreValues().get(k));
-            }
-            attr.setScoreValues(scoreValues);
-            attrs.add(attr);
-        }
-        mutant.setScoreAttributes(attrs);
-        return mutant;
-    }
-
-
-    private void generareNumberOfCustomers() {
-        for (int i = 0; i < CustomerProfiles.size(); i++)
-            CustomerProfiles.get(i).setNumberCustomers((int) ((Math.random() * 100) + (Math.random() * 100)));
-    }
-
-    /**
-     * Dividing the customer profiles into sub-profiles
-     *
-     * @throws Exception
-     */
-    private void divideCustomerProfile() throws Exception {
-
-
-        int numOfSubProfile;
-//        CustomerProfileListAux = new ArrayList<>();
-
-        for (int i = 0; i < CustomerProfiles.size(); i++) {
-            ArrayList<SubProfile> subProfiles = new ArrayList<>();
-            numOfSubProfile = CustomerProfiles.get(i).getNumberCustomers() / RESP_PER_GROUP;
-
-            if ((CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) != 0)
-                numOfSubProfile++;
-
-            for (int j = 0; j < numOfSubProfile; j++) { //We divide into sub-profiles
-                SubProfile subprofile = new SubProfile();
-                subprofile.setName("Subperfil " + (j + 1));// + ", Perfil " + (i+1));
-
-                HashMap<Attribute, Integer> valuesChosen = new HashMap<>();
-                for (int k = 0; k < TotalAttributes.size(); k++) //Each of the sub-profiles choose a value for each of the attributes
-                    valuesChosen.put(TotalAttributes.get(k), chooseValueForAttribute(CustomerProfiles.get(i).getScoreAttributes().get(k)));
-
-                subprofile.setValueChosen(valuesChosen);
-                subProfiles.add(subprofile);
-            }
-            CustomerProfiles.get(i).setSubProfiles(subProfiles);
-        }
-    }
-
-    /**
-     * Given an index of a customer profile and the index of an attribute we choose a value
-     * for that attribute of the sub-profile having into account the values of the poll
-     */
-    private Integer chooseValueForAttribute(Attribute attribute) throws Exception {
-
-        int total = 0;
-        int accumulated = 0;
-        boolean found = false;
-
-        for (int i = 0; i < attribute.getScoreValues().size(); i++)
-            total += attribute.getScoreValues().get(i);
-
-        int rndVal = (int) (total * Math.random());
-
-        int value = 0;
-        while (!found) {
-            accumulated += attribute.getScoreValues().get(value);
-            if (rndVal <= accumulated)
-                found = true;
-            else
-                value++;
-            ;
-
-            if (value >= attribute.getScoreValues().size())
-                throw new Exception("Error 1 in chooseValueForAttribute() method: Value not found");
-
-        }
-
-        if (value >= attribute.getScoreValues().size())
-            throw new Exception("Error 2 in chooseValueForAttribute() method: Value not found");
-
-        return value;
-    }
-
-    /**
-     * Creating available attributes for the producer
-     */
-    private ArrayList<Attribute> createAvailableAttributes() {
-        ArrayList<Attribute> availableAttributes = new ArrayList<>();
-        int limit = (int) (TotalAttributes.size() * KNOWN_ATTRIBUTES / 100);
-		
-		/*All producers know the first ATTRIBUTES_KNOWN % of the attributes*/
-        for (int i = 0; i < limit; i++) {
-            Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
-            ArrayList<Boolean> availablevalues = new ArrayList<>();
-            for (int j = 0; j < attr.getMAX(); j++) {
-                availablevalues.add(true);
-            }
-
-            attr.setAvailableValues(availablevalues);
-            availableAttributes.add(attr);
-        }
-		
-		/*The remaining attributes are only known by SPECIAL_ATTRIBUTES % producers*/
-        for (int k = limit; k < TotalAttributes.size(); k++) {
-            Attribute attr = new Attribute(TotalAttributes.get(k).getName(), TotalAttributes.get(k).getMIN(), TotalAttributes.get(k).getMAX());
-            ArrayList<Boolean> availableValues = new ArrayList<>();
-
-            for (int j = 0; j < attr.getMAX(); j++) {
-                double rnd = Math.random();
-                double rndVal = Math.random();
-				/*Furthermore, with a 50% of probabilities it can know this attribute*/
-                if (rndVal < (SPECIAL_ATTRIBUTES / 100) && rnd < 0.5)
-                    availableValues.add(true);
-                else
-                    availableValues.add(false);
-            }
-            attr.setAvailableValues(availableValues);
-            availableAttributes.add(attr);
-        }
-
-        return availableAttributes;
-    }
-
-    /**
      * Creating a random product
      */
     private Product createRndProduct(ArrayList<Attribute> availableAttribute) {
         Product product = new Product(new HashMap<Attribute, Integer>());
-        int limit = (int) (TotalAttributes.size() * KNOWN_ATTRIBUTES / 100);
+        int limit = (int) (TotalAttributes.size() * getKNOWN_ATTRIBUTES() / 100);
         int attrVal = 0;
 
         for (int i = 0; i < limit; i++) {
@@ -543,7 +341,6 @@ public class GeneticAlgorithm {
         for (int i = limit; i < TotalAttributes.size(); i++) {
             boolean attrFound = false;
             while (!attrFound) {
-//                attrVal =  TotalAttributes.get(i).getScoreValues().get((int) (Math.random() * TotalAttributes.get(i).getScoreValues().size()));
 
                 attrVal = (int) (TotalAttributes.get(i).getMAX() * Math.random());
 
@@ -553,6 +350,7 @@ public class GeneticAlgorithm {
             }
             product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
         }
+        product.setPrice(calculatePrice(product));
         return product;
     }
 
@@ -573,25 +371,10 @@ public class GeneticAlgorithm {
             attrVal = chooseAttribute(i, custProfsInd, availableAttribute);
             product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
         }
+        product.setPrice(calculatePrice(product));
         return product;
     }
 
-    private Product createProduct(ArrayList<Attribute> availableAttrs) {
-
-        Product product = new Product(new HashMap<Attribute, Integer>());
-        ArrayList<Integer> customNearProfs = new ArrayList<>();
-
-        for (int i = 0; i < NEAR_CUST_PROFS; i++)
-            customNearProfs.add((int) Math.floor(CustomerProfiles.size() * Math.random()));
-
-        HashMap<Attribute, Integer> attrValues = new HashMap<>();
-
-        for (int j = 0; j < TotalAttributes.size(); j++)
-            attrValues.put(TotalAttributes.get(j), chooseAttribute(j, customNearProfs, availableAttrs)); //TotalAttributes.get(j) o availableAttrs.get(j)
-
-        product.setAttributeValue(attrValues);
-        return product;
-    }
 
     /**
      * Chosing an attribute near to the customer profiles given
@@ -644,18 +427,25 @@ public class GeneticAlgorithm {
         Fitness = new ArrayList<>();
 
         Population.add((Producers.get(MY_PRODUCER).getProduct()).clone());
-        Fitness.add(computeWSC(Population.get(MY_PRODUCER), MY_PRODUCER));
+        if (fit == customers)
+            Fitness.add(computeWSC(Population.get(MY_PRODUCER), MY_PRODUCER));
+        else
+            Fitness.add(computeBenefits(Population.get(MY_PRODUCER), MY_PRODUCER));
+       
         BestWSC = Fitness.get(MY_PRODUCER);
         Initial_Results.add(BestWSC);
 
-        for (int i = 1; i < NUM_POPULATION; i++) {
+        for (int i = 1; i < getNUM_POPULATION(); i++) {
 
 	            if (i % 2 == 0) /*We create a random product*/
 	                Population.add(createRndProduct(Producers.get(MY_PRODUCER).getAvailableAttribute()));
 	            else /*We create a near product*/
 	                Population.add(createNearProduct(Producers.get(MY_PRODUCER).getAvailableAttribute(), (int) (CustomerProfiles.size() * Math.random())));  /////////??verificar//////////
-           
-	            Fitness.add(computeWSC(Population.get(i), MY_PRODUCER));
+	            
+            if (fit == customers)
+                Fitness.add(computeWSC(Population.get(i), MY_PRODUCER));
+            else
+                Fitness.add(computeBenefits(Population.get(i), MY_PRODUCER));
 
             if (Fitness.get(i) > BestWSC) {
                 BestWSC = Fitness.get(i);
@@ -664,6 +454,10 @@ public class GeneticAlgorithm {
         }
     }
 
+    private Integer computeBenefits(Product product, int myProducer) throws Exception {
+        return computeWSC(product, myProducer) * product.getPrice();
+    }
+    
     /***
      * Computing the weighted score of the producer
      * prodInd is the index of the producer
@@ -696,10 +490,10 @@ public class GeneticAlgorithm {
                 }
 				/*TODO: When there exists ties we loose some voters because of decimals (undecided voters)*/
                 if (isTheFavourite) {
-                    if ((j == CustomerProfiles.get(i).getSubProfiles().size()) && ((CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) != 0)) {
-                        wsc += (CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) / numTies;
+                    if ((j == CustomerProfiles.get(i).getSubProfiles().size()) && ((CustomerProfiles.get(i).getNumberCustomers() % getRESP_PER_GROUP()) != 0)) {
+                        wsc += (CustomerProfiles.get(i).getNumberCustomers() % getRESP_PER_GROUP()) / numTies;
                     } else {
-                        wsc += RESP_PER_GROUP / numTies;
+                        wsc += getRESP_PER_GROUP() / numTies;
                     }
                 }
 
@@ -782,13 +576,17 @@ public class GeneticAlgorithm {
         int father, mother;
         Product son;
 
-        for (int i = 0; i < NUM_POPULATION; i++) {
+        for (int i = 0; i < getNUM_POPULATION(); i++) {
             father = chooseFather(fitnessSum);
             mother = chooseFather(fitnessSum);
             son = mutate(breed(father, mother));
 
             newPopu.add(son);
-            fitness.add(computeWSC(newPopu.get(i), MY_PRODUCER));
+            
+            if (fit == customers)
+            	fitness.add(computeWSC(newPopu.get(i), MY_PRODUCER));
+            else
+            	fitness.add(computeBenefits(newPopu.get(i), MY_PRODUCER));
         }
 
         return newPopu;
@@ -820,7 +618,7 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * Mï¿½todo que dado un padre y una madre los cruza para obtener un hijo.
+     * Metodo que dado un padre y una madre los cruza para obtener un hijo.
      * Para cada posiciï¿½n del array eligiremos aleatoriamente si el hijo heredarï¿½
      * esa posiciï¿½n del padre o de la madre.
      */
@@ -830,7 +628,7 @@ public class GeneticAlgorithm {
         int crossover = (int) (100 * Math.random());
         int rndVal;
 
-        if (crossover <= CROSSOVER_PROB) {//El hijo sera una mezcla de la madre y el padre
+        if (crossover <= getCROSSOVER_PROB()) {//El hijo sera una mezcla de la madre y el padre
             HashMap<Attribute, Integer> crossover_attributeValue = new HashMap<>();
             for (int i = 0; i < TotalAttributes.size(); i++) { //With son
 
@@ -867,7 +665,7 @@ public class GeneticAlgorithm {
         for (int j = 0; j < TotalAttributes.size(); j++) {
 			/*Random value in range [0,100)*/
             double mutation = 100 * Math.random();
-            if (mutation <= MUTATION_PROB) {
+            if (mutation <= getMUTATION_PROB()) {
                 boolean attrFound = false;
                 while (!attrFound) {
                     attrVal = (int) (Math.floor(TotalAttributes.get(j).getMAX() * Math.random()));
@@ -877,7 +675,7 @@ public class GeneticAlgorithm {
                 mutant.getAttributeValue().put(TotalAttributes.get(j), attrVal);
             }
         }
-
+        mutant.setPrice(calculatePrice(mutant));
         return mutant;
     }
 
@@ -889,7 +687,7 @@ public class GeneticAlgorithm {
     private ArrayList<Product> tournament(ArrayList<Product> newPopu, ArrayList<Integer> newFitness) {
 
         ArrayList<Product> nextGeneration = new ArrayList<>();
-        for (int i = 0; i < NUM_POPULATION; i++) {
+        for (int i = 0; i < getNUM_POPULATION(); i++) {
 
             if (Fitness.get(i) >= newFitness.get(i))
                 nextGeneration.add((Population.get(i)).clone());
@@ -932,14 +730,14 @@ public class GeneticAlgorithm {
      */
     private double computeVariance(double mean) {
         double sqrSum = 0;
-        for (int i = 0; i < NUM_EXECUTIONS; i++) {
+        for (int i = 0; i < getNumExecutions(); i++) {
             sqrSum += Math.pow(Results.get(i) - mean, 2);
         }
-        return (sqrSum / NUM_EXECUTIONS);
+        return (sqrSum / getNumExecutions());
     }
 
     
-    /*************************************** " NEW " ***************************************/
+    /*************************************** " GETTERS Y SETTERS OF ATTRIBUTES " ***************************************/
 	public int getNumExecutions() {
 		return NUM_EXECUTIONS;
 	}
@@ -948,7 +746,96 @@ public class GeneticAlgorithm {
 		NUM_EXECUTIONS = exec;
 	}
 
-	
+	public double getKNOWN_ATTRIBUTES() {
+		return KNOWN_ATTRIBUTES;
+	}
+
+
+	public double getSPECIAL_ATTRIBUTES() {
+		return SPECIAL_ATTRIBUTES;
+	}
+
+
+	public double getMUT_PROB_CUSTOMER_PROFILE() {
+		return MUT_PROB_CUSTOMER_PROFILE;
+	}
+
+
+	public int getCROSSOVER_PROB() {
+		return CROSSOVER_PROB;
+	}
+
+
+	public int getMUTATION_PROB() {
+		return MUTATION_PROB;
+	}
+
+
+	public int getNUM_GENERATIONS() {
+		return NUM_GENERATIONS;
+	}
+
+
+	public int getNUM_POPULATION() {
+		return NUM_POPULATION;
+	}
+
+
+	public int getRESP_PER_GROUP() {
+		return RESP_PER_GROUP;
+	}
+
+
+	public int getNEAR_CUST_PROFS() {
+		return NEAR_CUST_PROFS;
+	}
+
+
+	public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
+		KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;
+	}
+
+
+	public void setSPECIAL_ATTRIBUTES(double sPECIAL_ATTRIBUTES) {
+		SPECIAL_ATTRIBUTES = sPECIAL_ATTRIBUTES;
+	}
+
+
+	public void setMUT_PROB_CUSTOMER_PROFILE(double mUT_PROB_CUSTOMER_PROFILE) {
+		MUT_PROB_CUSTOMER_PROFILE = mUT_PROB_CUSTOMER_PROFILE;
+	}
+
+
+	public void setCROSSOVER_PROB(int cROSSOVER_PROB) {
+		CROSSOVER_PROB = cROSSOVER_PROB;
+	}
+
+
+	public void setMUTATION_PROB(int mUTATION_PROB) {
+		MUTATION_PROB = mUTATION_PROB;
+	}
+
+
+	public void setNUM_GENERATIONS(int nUM_GENERATIONS) {
+		NUM_GENERATIONS = nUM_GENERATIONS;
+	}
+
+
+	public void setNUM_POPULATION(int nUM_POPULATION) {
+		NUM_POPULATION = nUM_POPULATION;
+	}
+
+
+	public void setRESP_PER_GROUP(int rESP_PER_GROUP) {
+		RESP_PER_GROUP = rESP_PER_GROUP;
+	}
+
+
+	public void setNEAR_CUST_PROFS(int nEAR_CUST_PROFS) {
+		NEAR_CUST_PROFS = nEAR_CUST_PROFS;
+	}
+
+
 	public ArrayList<Attribute> getTotalAttributes() {
 		return TotalAttributes;
 	}
@@ -958,56 +845,42 @@ public class GeneticAlgorithm {
 		return Producers;
 	}
 
-
-/*	public void setProducers(ArrayList<Attribute> availableAttribute, Product prod) {
-		Producers.add(new Producer(availableAttribute, prod));
-	}
-
-*/
 	public ArrayList<CustomerProfile> getCustomerProfiles() {
 		return CustomerProfiles;
 	}
 
+    /***************************************
+     * " AUXILIARY METHODS TO CALCULATE THE PRICE"
+     ***************************************/
+	
+    private int calculatePrice(Product product) {
+    	int price_MyProduct = 0;
 
-	 
-	 
-	 /*************************************** " AUXILIARY METHODS TO CALCULATE THE PRICE" ***************************************/
-
-    private void calculatePrice() {
-        int price_MyProduct = 0;
-        int media_precios = 0;
-
-        for(int i = 1; i < Producers.size(); i++){
+        for (int i = 1; i < Producers.size(); i++) {
             Product prod_competence = Producers.get(i).getProduct();
-            double distance_product = getDistanceTo(prod_competence);
+            double distance_product = getDistanceTo(product, prod_competence);
 
-            if(distance_product == 0){
+            if (distance_product == 0) {
                 price_MyProduct = prod_competence.getPrice();
                 break;
             }
 
             price_MyProduct += prod_competence.getPrice() / distance_product;
-            media_precios += prod_competence.getPrice();
         }
-        media_precios /= Producers.size();
-        Producers.get(MY_PRODUCER).getProduct().setPrice(price_MyProduct);
-        Prices.add(price_MyProduct);
+
+        return price_MyProduct;
 
     }
 
-    private double getDistanceTo(Product prod_competence) {
-        Product my_product = Producers.get(MY_PRODUCER).getProduct();
+    private double getDistanceTo(Product my_product, Product prod_competence) {
         double distance = 0;
-        for(int i = 0; i < TotalAttributes.size(); i++){
+        for (int i = 0; i < TotalAttributes.size(); i++) {
             distance += Math.pow(my_product.getAttributeValue().get(TotalAttributes.get(i)) - prod_competence.getAttributeValue().get(TotalAttributes.get(i)), 2);
         }
         distance = Math.sqrt(distance);
         return distance;
     }
-	 
-	 
-	 
-	 
+ 
 //		// An excel file name. You can create a file name with a full path
 //		// information.
 //		String filename = "EncuestasCIS.xlsx";
