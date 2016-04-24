@@ -100,7 +100,7 @@ public class Minimax {
 	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\n" +
 	               "Num atributos modificables: " + getmNAttrMod() + "\n" + 
 	               "Num turnos previos: " + getmPrevTurns() + "\n" +
-	               "************* RESULTS *************" + "\n" + 
+	    		   "************* RESULTS *************" + "\n" + 
 	               "Num turnos: " + getmNTurns() + "\n" +
 	    		   "Mean: " + String.format("%.2f", mean) + "\n" + 
 	               "stdDev: " + String.format("%.2f", stdDev) + "\n" + 
@@ -124,7 +124,7 @@ public class Minimax {
     public void playPDG(String datos_txt, boolean input_txt) throws Exception {
     	if(!input_txt)
     	{	if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
-    		else if (Producers.size() == 0){
+    		else{
     			in.generateInput();
     			TotalAttributes = in.getTotalAttributes();
     			Producers = in.getProducers();

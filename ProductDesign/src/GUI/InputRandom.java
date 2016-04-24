@@ -34,7 +34,7 @@ public class InputRandom {
 	                                             * profile in groups of
 												 * RESP_PER_GROUP respondents
 												 */
-	    static int NEAR_CUST_PROFS = 4;
+	    static int NEAR_CUST_PROFS = 5; //4
 	    
 	    /**Variables minimax*/
 	    private int MIN_ATTR = 2; // Minimum number of attributes values
@@ -44,7 +44,7 @@ public class InputRandom {
 	    private int MAX_VAL = 5; // Maximum valuation of an attribute
 
 	    private int MIN_NUM_CUST = 0; // Minimum number of customers of a profile
-	    private int MAX_NUM_CUST = 200; // Maximum number of customers of a profile
+	    private int MAX_NUM_CUST = 10000; // Maximum number of customers of a profile
 	    
 	    /**
 	     * Generating the input data

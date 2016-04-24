@@ -46,7 +46,7 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel labelAttrCon, labelAttrEsp,labelMutAttr,labelProfNear,labelNumPop,
 				   labelNumGen,labelGruPer,labelCross,labelMutProb,labelDepth0,labelDepth1,
 				   labelNumAttr,labelTurPrev,labelTur;
-	private JTextField textAttrCon, textAttrEsp, textMutAttr, textProfNear, textNumPop, GruPer,
+	private JTextField textAttrCon, textAttrEsp, textMutAttr, textProfNear, textNumPop, 
 					   textNumGen,textGruPer,textCross,textMutProb,textDepth0,textDepth1,textNumAttr,
 					   textTurPrev,textTur;
 	private JButton buttonAttrCon,buttonAttrEsp,buttonMutAttr,buttonProfNear,buttonNumPop,buttonNumGen,
@@ -55,7 +55,6 @@ public class GUI extends JFrame implements ActionListener{
 
 	//En el constructor solo llamamos un método:
 	public GUI() throws Exception{
-		 
 		iniciarGUI();
 	}
 	
@@ -76,6 +75,8 @@ public class GUI extends JFrame implements ActionListener{
 	private void instanciarGUI() throws Exception {
 		ga = new GeneticAlgorithm();
 		minimax = new Minimax();
+		iniciarOpcion();
+		
 		//FRAME
 		window = new JFrame();
 
@@ -534,6 +535,19 @@ public class GUI extends JFrame implements ActionListener{
 		//Se llama a pack después de haber agregado componenetes a la ventana
 		pack();
 	}
+	private void iniciarOpcion() {
+		int resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
+		while(JOptionPane.CANCEL_OPTION == resp){
+			resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
+		}
+		if (JOptionPane.YES_OPTION == resp){
+	    	  ga.setMaximizar(true);
+		}
+		else if(JOptionPane.NO_OPTION == resp){
+			ga.setMaximizar(false);
+		}	
+	}
+
 	/**
 	  * Se encarga de añadir los oyentes, ya sea de mouse,
 	  * teclado o similares.
