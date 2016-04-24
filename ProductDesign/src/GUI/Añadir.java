@@ -359,9 +359,9 @@ public class Añadir {
 					}
 				}
 			}
-		} catch (FileNotFoundException e) {
+		} /*catch (FileNotFoundException e) {
 			System.out.println("Error abriendo el fichero " + archivo);
-		} finally {
+		}*/ finally {
 			if (in != null) {
 				in.close();
 			}

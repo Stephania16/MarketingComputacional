@@ -742,28 +742,28 @@ public class GUI extends JFrame implements ActionListener{
 			case "Añadir Perfil":
 				String posCust = text17.getText();
 				String nombre = text4.getText();
-				if(posCust.isEmpty() || nombre.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
-				}
-				else 
-				{
-					try{
-						Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), nombre);
-						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
-						maxValoraciones = attribute.getMAX();
-						int x17 = Integer.parseInt(posCust); 
-						if(añadir.isElement(añadir.getTotalAttributes(), attribute)){
-							añadir.AñadirCustomer(attribute,x17);
-							text17.setEnabled(false);
-							text4.setEnabled(false);
-						}
-						else{
-							JOptionPane.showMessageDialog(tab4, "Este atributo no existe");
-						}
-					}catch(NumberFormatException nfe)
-					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
+				try{
+					if(posCust.isEmpty() || nombre.isEmpty()){
+						JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+					}
+					else 
+					{
+							Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), nombre);
+							Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
+							maxValoraciones = attribute.getMAX();
+							int x17 = Integer.parseInt(posCust); 
+							if(añadir.isElement(añadir.getTotalAttributes(), attribute)){
+								añadir.AñadirCustomer(attribute,x17);
+								text17.setEnabled(false);
+								text4.setEnabled(false);
+							}
+							else{
+								JOptionPane.showMessageDialog(tab4, "Este atributo no existe");
+							}
+					}
+				}catch(NumberFormatException nfe)
+				{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 							
-				}
 			break;
 			
 			case "Añadir Valoracion":
