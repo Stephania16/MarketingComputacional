@@ -71,10 +71,10 @@ public class GeneticAlgorithm {
 	 * " AUXILIARY EXCEL METHODS " * @throws Exception
 	 ***************************************/
 
-	public void start(JTextArea jtA, String datos_txt, boolean input_txt) throws Exception { // String
+	public void start(JTextArea jtA, String archivo, boolean input_txt) throws Exception { // String
 																								// args[]
 		long inicio = System.currentTimeMillis();
-		statisticsPD(jtA, datos_txt, input_txt);
+		statisticsPD(jtA, archivo, input_txt);
 		// calculatePrice();
 		long tiempo = System.currentTimeMillis() - inicio;
 
@@ -110,7 +110,7 @@ public class GeneticAlgorithm {
 	/**
 	 * Generating statistics about the PD problem
 	 */
-	private void statisticsPD(JTextArea jtA, String datos_txt, boolean input_txt) throws Exception {
+	private void statisticsPD(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
 
 		double mean;
 		double initMean;
@@ -134,7 +134,9 @@ public class GeneticAlgorithm {
 		Math.random();
 
 		if (input_txt) {
-			añadir.muestraContenido(datos_txt);
+			int input = archivo.indexOf(".xml");
+			if(input != -1) añadir.inputXML(archivo);
+			else añadir.muestraContenido(archivo);
 			generarDatosGUI();
 		} else {
 			if (añadir.isGenerarDatosEntrada())

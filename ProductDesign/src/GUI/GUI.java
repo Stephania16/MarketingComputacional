@@ -94,7 +94,7 @@ public class GUI extends JFrame implements ActionListener{
 		genetic.setLayout(new GridLayout(3,1));
 		button1 = new JButton("Start Genetic Algorithm");
 		button1.addActionListener(this);
-		button_txt = new JButton("Start Input Genetic(.txt):");
+		button_txt = new JButton("Start Input Genetic(.txt o .xml):");
 		nombre_txt = new JTextField(5);
 		button_txt.addActionListener(this);
 		jtA1 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
@@ -108,7 +108,7 @@ public class GUI extends JFrame implements ActionListener{
 		panel_minimax.setLayout(new GridLayout(3,1));
 		button2 = new JButton("Start Minimax Algorithm");
 		button2.addActionListener(this);
-		button_txt_min = new JButton("Start Input Minimax(.txt):");
+		button_txt_min = new JButton("Start Input Minimax(.txt o .xml):");
 		nombre_txt_min = new JTextField(5);
 		button_txt_min.addActionListener(this);
 		jtA2 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
@@ -567,7 +567,7 @@ public class GUI extends JFrame implements ActionListener{
 			}
 			break;
 			
-			case "Start Input Genetic(.txt):":
+			case "Start Input Genetic(.txt o .xml):":
 				try {
 					String nombre = nombre_txt.getText();
 					if(nombre.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
@@ -588,7 +588,7 @@ public class GUI extends JFrame implements ActionListener{
 			}
 			break;
 			
-			case "Start Input Minimax(.txt):":
+			case "Start Input Minimax(.txt o .xml):":
 				try {
 					String nombre_min = nombre_txt_min.getText();
 					if(nombre_min.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
@@ -848,7 +848,10 @@ public class GUI extends JFrame implements ActionListener{
 			case "Guardar":
 				String archivo = textTxt.getText();
 				try {
-					añadir.addTxt(archivo);
+					int cadena = archivo.indexOf(".xml");
+					if(cadena != -1) añadir.writeXML(archivo);
+					else añadir.addTxt(archivo);
+					
 				} catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(tab4, e1.getMessage());
 				} catch (IOException e1) {

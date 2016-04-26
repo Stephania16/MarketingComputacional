@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<listas>
+	<attr id="@atributo">
+		<name>atributo1</name>
+		<min>1</min>
+		<max>3</max>
+	</attr>
+	<attr id="@atributo">
+		<name>atributo2</name>
+		<min>1</min>
+		<max>4</max>
+	</attr>
+	
+	
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>0</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>1</valor>
+		</prod>
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>2</valor>
+	</prod>
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>2</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>2</valor>
+	</prod>
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>0</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>3</valor>
+	</prod>
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>1</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>2</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>3</valor>
+	</prod>
+
+	
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>0</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valoracion>1</valoracion>
+		<valoracion>1</valoracion>
+		<valoracion>2</valoracion>
+	</prof>
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>1</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valoracion>2</valoracion>
+		<valoracion>2</valoracion>
+		<valoracion>1</valoracion>
+	</prof>
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>2</indice>
+		<nameAtributo>atributo1</nameAtributo>
+		<valoracion>1</valoracion>
+		<valoracion>2</valoracion>
+		<valoracion>0</valoracion>
+	</prof>
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>0</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valoracion>3</valoracion>
+		<valoracion>2</valoracion>
+		<valoracion>0</valoracion>
+		<valoracion>1</valoracion>
+	</prof>
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>1</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valoracion>0</valoracion>
+		<valoracion>1</valoracion>
+		<valoracion>2</valoracion>
+		<valoracion>3</valoracion>
+	</prof>
+	<prof id="@perfil">
+		<name>perfil</name>
+		<indice>2</indice>
+		<nameAtributo>atributo2</nameAtributo>
+		<valoracion>2</valoracion>
+		<valoracion>0</valoracion>
+		<valoracion>3</valoracion>
+		<valoracion>1</valoracion>
+	</prof>
+	
+</listas>

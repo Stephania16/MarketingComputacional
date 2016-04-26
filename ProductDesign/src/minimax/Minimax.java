@@ -53,16 +53,16 @@ public class Minimax {
      * INITIAL METHOD
      **********************/
 
-    public void start(JTextArea jtA, String datos_txt, boolean input_txt) throws Exception {
+    public void start(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
     	long inicio = System.currentTimeMillis();
-        statisticsPDG(jtA, datos_txt, input_txt);
+        statisticsPDG(jtA, archivo, input_txt);
         long tiempo = System.currentTimeMillis()- inicio;
             
         double elapsedTimeSec = tiempo / 1.0E03;
         jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
     }
 
-    public void statisticsPDG(JTextArea jtA, String datos_txt, boolean input_txt) throws Exception {
+    public void statisticsPDG(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
     	double mean;
 		double sum = 0; /*sum of customers achieved*/
 		int sumCust = 0; /*sum of the total number of customers*/
@@ -73,13 +73,15 @@ public class Minimax {
 		
 		if(input_txt)
     	{
-    		añadir.muestraContenido(datos_txt);
-    		generarDatosGUI();    		
+			int input = archivo.indexOf(".xml");
+			if(input != -1) añadir.inputXML(archivo);
+			else añadir.muestraContenido(archivo);
+			generarDatosGUI();    		
     	}
 		
 		mResults = new ArrayList<>();
         for(int i = 0; i < getNumExecutions(); i++){
-            playPDG(datos_txt, input_txt);
+            playPDG(archivo, input_txt);
             sum += mResults.get(i);
             sumCust += countCustomers() * getmNTurns() * 2;
         }

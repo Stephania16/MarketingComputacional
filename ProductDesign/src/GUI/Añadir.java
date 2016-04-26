@@ -10,6 +10,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
+
 import Comunes.Attribute;
 import Comunes.CustomerProfile;
 import Comunes.Producer;
@@ -368,4 +390,250 @@ public class Añadir {
 		} // try
 	}
 
+	public void inputXML(String archivo_xml) {
+
+	    try {
+
+		File fXmlFile = new File(archivo_xml); //"nuevo.xml"
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(fXmlFile);
+				
+		doc.getDocumentElement().normalize();
+
+		//System.out.println("Datos :" + doc.getDocumentElement().getNodeName());
+				
+		NodeList nListAttr = doc.getElementsByTagName("attr");
+				
+		//System.out.println("----------------------------");
+
+		for (int atributo = 0; atributo < nListAttr.getLength(); atributo++) {
+
+			Node nAttr = nListAttr.item(atributo);
+					
+			//System.out.println("\nCurrent Element :" + nAttr.getNodeName());
+					
+			if (nAttr.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElement = (Element) nAttr;
+
+				//System.out.println("attr id : " + eElement.getAttribute("id"));
+				String name = eElement.getElementsByTagName("name").item(0).getTextContent();
+				//System.out.println("name : " + name);
+				int min = Integer.parseInt(eElement.getElementsByTagName("min").item(0).getTextContent());
+				//System.out.println("min : " + min);
+				int max = Integer.parseInt(eElement.getElementsByTagName("max").item(0).getTextContent());
+				//System.out.println("max : " + max);
+				
+				Attribute attr = new Attribute(name, min,max);
+				TotalAttributes.add(attr);
+			}
+		}
+		
+		NodeList nListProd = doc.getElementsByTagName("prod");
+		for (int productor = 0; productor < nListProd.getLength(); productor++) {
+
+			Node nProd = nListProd.item(productor);
+			//System.out.println("\nProducers :" + nProd.getNodeName());
+			
+			if (nProd.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElementProd = (Element) nProd;
+			
+				//System.out.println("prod id : " + eElementProd.getAttribute("id"));
+				String name = eElementProd.getElementsByTagName("name").item(0).getTextContent();
+				//System.out.println("name : " + name);
+				
+				int indice = Integer.parseInt(eElementProd.getElementsByTagName("indice").item(0).getTextContent());
+				//System.out.println("indice : " + indice);
+				
+				String nameAttr = eElementProd.getElementsByTagName("nameAtributo").item(0).getTextContent();
+				//System.out.println("name atributo : " + nameAttr);
+				
+				int valor = Integer.parseInt(eElementProd.getElementsByTagName("valor").item(0).getTextContent());
+				//System.out.println("valor : " + valor);
+				
+				Attribute attr = getAttribute(TotalAttributes, nameAttr);
+				Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
+				if (isElement(TotalAttributes, atribute)) {
+					AñadirProducer(indice);
+					AñadirValorAtributo(atribute, valor, indice);
+				}
+			}
+
+		}
+		
+		NodeList nListProf = doc.getElementsByTagName("prof");
+		for (int perfil = 0; perfil < nListProf.getLength(); perfil++) {
+
+			Node nProf = nListProf.item(perfil);
+			//System.out.println("\nCustomer profile :" + nProf.getNodeName());
+			
+			if (nProf.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElementProf = (Element) nProf;
+				
+				//System.out.println("prof id : " + eElementProf.getAttribute("id"));
+				String name = eElementProf.getElementsByTagName("name").item(0).getTextContent();
+				//System.out.println("name : " + name);
+				
+				int indice = Integer.parseInt(eElementProf.getElementsByTagName("indice").item(0).getTextContent());
+				//System.out.println("indice : " + indice);
+				
+				String nameAttr = eElementProf.getElementsByTagName("nameAtributo").item(0).getTextContent();
+				//System.out.println("name atributo : " + nameAttr);
+				
+				Attribute attr = getAttribute(TotalAttributes, nameAttr);
+				Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
+				if (isElement(TotalAttributes, atribute)) {
+					int cont = 1;
+					AñadirCustomer(atribute, indice);
+					while (cont < attr.getMAX()) {
+						for(int i = 0; i < eElementProf.getElementsByTagName("valoracion").getLength(); i++){
+							int valoracion = Integer.parseInt(eElementProf.getElementsByTagName("valoracion").item(i).getTextContent());
+							//System.out.println("valoracion : " + valoracion);
+							AñadirValoracion(atribute, valoracion, indice);
+							cont++;
+						}
+					}		
+				}
+			}	
+		}
+	    } catch (SAXException ex) {
+	        System.out.println("ERROR: El formato XML del fichero no es correcto\n"+ex.getMessage());
+	        ex.printStackTrace();
+	    } catch (IOException ex) {
+	        System.out.println("ERROR: Se ha producido un error el leer el fichero\n"+ex.getMessage());
+	        ex.printStackTrace();
+	    } catch (ParserConfigurationException ex) {
+	        System.out.println("ERROR: No se ha podido crear el generador de documentos XML\n"+ex.getMessage());
+	        ex.printStackTrace();
+	    }
+	  }
+	
+	public void writeXML(String archivo){
+		try {
+		    DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
+		    DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
+		    //Crear un nuevo documento XML
+		    Document documento = creadorDocumento.newDocument();
+		 
+		    //Crear el nodo raíz y colgarlo del documento
+		    Element elementoRaiz = documento.createElement("listas");
+		    documento.appendChild(elementoRaiz);
+		 
+		    for(int attr = 0; attr < getTotalAttributes().size(); attr++){
+			    //Crear un elemento EMPLEADO colgando de EMPLEADOS
+			    Element elementoAtributo = documento.createElement("attr");
+			    elementoAtributo.setAttribute("id", "@atributo");
+			    elementoRaiz.appendChild(elementoAtributo);
+			 
+			    //Crear cada uno de los textos de datos del empleado
+			    Element elementoNombre = documento.createElement("name");
+			    elementoAtributo.appendChild(elementoNombre);
+			    Text textoNombre = documento.createTextNode(getTotalAttributes().get(attr).getName());
+			    elementoNombre.appendChild(textoNombre);
+			 
+			    Element elementoMin = documento.createElement("min");
+			    elementoAtributo.appendChild(elementoMin);
+			    String min = Integer.toString(getTotalAttributes().get(attr).getMIN());
+			    Text textoMin = documento.createTextNode(min);
+			    elementoMin.appendChild(textoMin);
+			    
+			    String max = Integer.toString(getTotalAttributes().get(attr).getMAX());
+			    Element elementoMax = documento.createElement("max");
+			    elementoAtributo.appendChild(elementoMax);
+			    Text textoMax = documento.createTextNode(max);
+			    elementoMax.appendChild(textoMax);
+		    }
+		    
+		    for(int prod = 0; prod < getProducers().size(); prod++){
+			    Producer p = getProducers().get(prod);
+			    for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+			    	//Crear un elemento EMPLEADO colgando de EMPLEADOS
+			    	Element elementoProd = documento.createElement("prod");
+			    	elementoProd.setAttribute("id", "@productor");
+			    	elementoRaiz.appendChild(elementoProd);
+			    	//Crear cada uno de los textos de datos del empleado
+				    Element elementoNombre = documento.createElement("name");
+				    elementoProd.appendChild(elementoNombre);
+				    Text textoNombre = documento.createTextNode("productor");
+				    elementoNombre.appendChild(textoNombre);
+				 
+				    Element elementoIndice = documento.createElement("indice");
+				    elementoProd.appendChild(elementoIndice);
+				    String indice = Integer.toString(prod);
+				    Text textoIndice = documento.createTextNode(indice);
+				    elementoIndice.appendChild(textoIndice);
+				    
+				    Element elementoNameAttr = documento.createElement("nameAtributo");
+				    elementoProd.appendChild(elementoNameAttr);
+				    Text textoNameAttr = documento.createTextNode(p.getAvailableAttribute().get(j).getName());
+				    elementoNameAttr.appendChild(textoNameAttr);
+				    
+				    Element valor = documento.createElement("valor");
+				    elementoProd.appendChild(valor);
+				    String valores = Integer.toString(p.getProduct().getAttributeValue().get(getTotalAttributes().get(j)));
+				    Text textvalue = documento.createTextNode(valores);
+				    valor.appendChild(textvalue);
+			    }
+		    }
+		    
+		    for(int prof = 0; prof < getCustomerProfiles().size(); prof++){
+			    CustomerProfile cp = getCustomerProfiles().get(prof);
+			    for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
+			    	 //Crear un elemento EMPLEADO colgando de EMPLEADOS
+			    	Element elementoProf = documento.createElement("prof");
+			    	elementoProf.setAttribute("id", "@perfil");
+			    	elementoRaiz.appendChild(elementoProf);
+				  //Crear cada uno de los textos de datos del empleado
+				    Element elementoNombre = documento.createElement("name");
+				    elementoProf.appendChild(elementoNombre);
+				    Text textoNombre = documento.createTextNode("perfil");
+				    elementoNombre.appendChild(textoNombre);
+				    
+				    Element elementoIndice = documento.createElement("indice");
+				    elementoProf.appendChild(elementoIndice);
+				    String indice = Integer.toString(prof);
+				    Text textoIndice = documento.createTextNode(indice);
+				    elementoIndice.appendChild(textoIndice);
+				    
+				    
+				    Element elementoNameAttr = documento.createElement("nameAtributo");
+				    elementoProf.appendChild(elementoNameAttr);
+				    Text textoNameAttr = documento.createTextNode(cp.getScoreAttributes().get(j).getName());
+				    elementoNameAttr.appendChild(textoNameAttr);
+				    for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
+				    	Element valorac = documento.createElement("valoracion");
+					    elementoProf.appendChild(valorac);
+					    String valoracion = Integer.toString(cp.getScoreAttributes().get(j).getScoreValues().get(z));
+					    Text textvalue = documento.createTextNode(valoracion);
+					    valorac.appendChild(textvalue);
+				    }   
+			    }
+		    }
+		    //Generar el tranformador para obtener el documento XML en un fichero
+		    TransformerFactory fábricaTransformador = TransformerFactory.newInstance();
+		    Transformer transformador = fábricaTransformador.newTransformer();
+		    //Insertar saltos de línea al final de cada línea
+		    transformador.setOutputProperty(OutputKeys.INDENT, "yes");
+		    //Añadir 3 espacios delante, en función del nivel de cada nodo
+		   // transformador.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, );
+		    Source origen = new DOMSource(documento);
+		    Result destino = new StreamResult(); //archivo
+		    destino.setSystemId(archivo);
+		    transformador.transform(origen, destino);
+		 
+		} catch (ParserConfigurationException ex) {
+		    System.out.println("ERROR: No se ha podido crear el generador de documentos XML\n"+ex.getMessage());
+		    ex.printStackTrace();
+		} catch (TransformerConfigurationException ex) {
+		    System.out.println("ERROR: No se ha podido crear el transformador del documento XML\n"+ex.getMessage());
+		    ex.printStackTrace();
+		} catch (TransformerException ex) {
+		    System.out.println("ERROR: No se ha podido crear la salida del documento XML\n"+ex.getMessage());
+		    ex.printStackTrace();
+		}
+	}
+	
 }
