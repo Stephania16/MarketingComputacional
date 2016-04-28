@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import Comunes.Attribute;
 import Comunes.CustomerProfile;
+import Comunes.LinkedAttribute;
 import Comunes.Producer;
 import Comunes.Product;
 import genetic.SubProfile;
@@ -15,7 +16,7 @@ public class InputRandom {
 	    private static ArrayList<Producer> Producers = new ArrayList<>();
 	    private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 	    Añadir añadir = new Añadir();
-
+	    private static final double PROB_ATTRIBUTE_LINKED = 10;
 	    static double KNOWN_ATTRIBUTES = 100; /* 100
 	                                                 * % of attributes known for all
 													 * producers
@@ -35,16 +36,8 @@ public class InputRandom {
 												 * RESP_PER_GROUP respondents
 												 */
 	    static int NEAR_CUST_PROFS = 5; //4
-	    
-	    /**Variables minimax*/
-	    private int MIN_ATTR = 2; // Minimum number of attributes values
-	    private int MAX_ATTR = 2; // Maximum number of attributes values
-
-	    private int MIN_VAL = 0; // Minimum valuation of an attribute
-	    private int MAX_VAL = 5; // Maximum valuation of an attribute
-
-	    private int MIN_NUM_CUST = 0; // Minimum number of customers of a profile
-	    private int MAX_NUM_CUST = 10000; // Maximum number of customers of a profile
+	    public static int number_Products = 1;
+	    public static boolean isAttributesLinked = false;
 	    
 	    /**
 	     * Generating the input data
@@ -54,7 +47,7 @@ public class InputRandom {
 	    public void generate() throws Exception {
 	        generateAttributeRandom();
 	        generateCustomerProfiles();
-	        generareNumberOfCustomers();
+	        genCustomerProfilesNum();
 	        divideCustomerProfile();
 	        generateProducers();
 	    }
@@ -64,13 +57,10 @@ public class InputRandom {
 	     * INPUT METHODS MINIMAX
 	     ************************/
 	    public void generateInput() {
-	        
-	      //  mNAttr = 10;
-	      //  mNProd = 2;
-	        genAttrVal();
-	        genCustomerProfiles();
+	    	generateAttributeRandom();
+	        generateCustomerProfiles();
 	        genCustomerProfilesNum();
-	        genProducers();
+	        generateProducers();
 	    }
 
 
@@ -92,7 +82,7 @@ public class InputRandom {
 	     * Creating different customer profiles
 	     */
 	    private void generateCustomerProfiles() {
-	        CustomerProfiles.clear();
+	    	CustomerProfiles.clear();
 
 	        //Generate 4 random Customer Profile
 	        for (int i = 0; i < 4; i++) {
@@ -108,7 +98,27 @@ public class InputRandom {
 	                attr.setScoreValues(scoreValues);
 	                attrs.add(attr);
 	            }
-	            CustomerProfiles.add(new CustomerProfile(attrs));
+	            CustomerProfile custProf = new CustomerProfile(attrs);
+
+	            if (isAttributesLinked()) {
+	                ArrayList<LinkedAttribute> linkedAttributes = new ArrayList<>();
+	                for (int k = 0; k < TotalAttributes.size(); k++) {
+	                    if (Math.random() < (PROB_ATTRIBUTE_LINKED / 100)) {
+	                        LinkedAttribute link = new LinkedAttribute();
+
+	                        link.setAttribute1(TotalAttributes.get(k));
+	                        link.setValue1((int) (link.getAttribute1().MAX * Math.random()));
+	                        link.setAttribute2(TotalAttributes.get((int) (TotalAttributes.size() * Math.random())));
+	                        link.setValue2((int) (link.getAttribute2().MAX * Math.random()));
+	                        link.setScoreModification((int) (-1 * (2 * (TotalAttributes.get(k).MAX * Math.random() + TotalAttributes.get(k).MAX * Math.random()))));
+
+	                        linkedAttributes.add(link);
+	                    }
+	                }
+	                custProf.setLinkedAttributes(linkedAttributes);
+	            }
+
+	            CustomerProfiles.add(custProf);
 	        }
 
 	        //Create 2 mutants for each basic profile
@@ -130,34 +140,50 @@ public class InputRandom {
 	                attr.setScoreValues(scoreValues);
 	                attrs.add(attr);
 	            }
-	            CustomerProfiles.add(new CustomerProfile(attrs));
+
+	            CustomerProfile custProf = new CustomerProfile(attrs);
+
+	            if (isAttributesLinked()) {
+	                ArrayList<LinkedAttribute> linkedAttributes = new ArrayList<>();
+	                for (int k = 0; k < TotalAttributes.size(); k++) {
+	                    if (Math.random() < (PROB_ATTRIBUTE_LINKED / 100)) {
+	                        LinkedAttribute link = new LinkedAttribute();
+
+	                        link.setAttribute1(TotalAttributes.get(k));
+	                        link.setValue1((int) (link.getAttribute1().MAX * Math.random()));
+	                        link.setAttribute2(TotalAttributes.get((int) (TotalAttributes.size() * Math.random())));
+	                        link.setValue2((int) (link.getAttribute2().MAX * Math.random()));
+	                        link.setScoreModification((int) (-1 * (2 * (TotalAttributes.get(k).MAX * Math.random() + TotalAttributes.get(k).MAX * Math.random()))));
+
+	                        linkedAttributes.add(link);
+	                    }
+	                }
+	                custProf.setLinkedAttributes(linkedAttributes);
+	            }
+
+	            CustomerProfiles.add(custProf);
 	        }
 	    }
 
 	    private CustomerProfile mutateCustomerProfile(CustomerProfile customerProfile) {
-	        CustomerProfile mutant = new CustomerProfile(null);
-	        ArrayList<Attribute> attrs = new ArrayList<>();
-	        for (int i = 0; i < TotalAttributes.size(); i++) {
-	            Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
-	            ArrayList<Integer> scoreValues = new ArrayList<>();
-	            for (int k = 0; k < attr.MAX; k++) {
-	                if (Math.random() < (getMUT_PROB_CUSTOMER_PROFILE() / 100)) {
-	                    int random = (int) (attr.MAX * Math.random());
-	                    scoreValues.add(random);
-	                } else
-	                    scoreValues.add(customerProfile.getScoreAttributes().get(i).getScoreValues().get(k));
-	            }
-	            attr.setScoreValues(scoreValues);
-	            attrs.add(attr);
-	        }
-	        mutant.setScoreAttributes(attrs);
-	        return mutant;
-	    }
-
-
-	    private void generareNumberOfCustomers() {
-	        for (int i = 0; i < añadir.getnum_prof(); i++)
-	            CustomerProfiles.get(i).setNumberCustomers((int) ((Math.random() * 100) + (Math.random() * 100)));
+	    	 CustomerProfile mutant = new CustomerProfile(null);
+	         ArrayList<Attribute> attrs = new ArrayList<>();
+	         for (int i = 0; i < TotalAttributes.size(); i++) {
+	             Attribute attr = new Attribute(TotalAttributes.get(i).getName(), TotalAttributes.get(i).getMIN(), TotalAttributes.get(i).getMAX());
+	             ArrayList<Integer> scoreValues = new ArrayList<>();
+	             for (int k = 0; k < attr.MAX; k++) {
+	                 if (Math.random() < (MUT_PROB_CUSTOMER_PROFILE / 100)) {
+	                     int random = (int) (attr.MAX * Math.random());
+	                     scoreValues.add(random);
+	                 } else
+	                     scoreValues.add(customerProfile.getScoreAttributes().get(i).getScoreValues().get(k));
+	             }
+	             attr.setScoreValues(scoreValues);
+	             attrs.add(attr);
+	         }
+	         mutant.setScoreAttributes(attrs);
+	         mutant.setLinkedAttributes(customerProfile.getLinkedAttributes());
+	         return mutant;
 	    }
 
 
@@ -270,6 +296,12 @@ public class InputRandom {
 	            new_producer.setName("Productor " + (i + 1));
 	            new_producer.setAvailableAttribute(createAvailableAttributes());
 	            new_producer.setProduct(createProduct(new_producer.getAvailableAttribute()));
+	            
+	            ArrayList<Product> products = new ArrayList<>();
+	            for (int k = 0; k < getNumber_Products(); k++)
+	                products.add(createProduct(new_producer.getAvailableAttribute()));
+	            new_producer.setProducts(products);
+	            
 	            Producers.add(new_producer);
 	        }
 	    }
@@ -371,81 +403,12 @@ public class InputRandom {
 	        return attrVal;
 	    }
 	    
-	    /**************
-	     * INPUT METHODS MINIMAX
-	     ***********************/
-	    public void genAttrVal() {
-	        TotalAttributes.clear();
-	        for (int i = 0; i < añadir.getnum_attr(); i++) {
-	            int valueMax = (int) (Math.floor((MAX_ATTR - MIN_ATTR + 1) * Math.random()) + MIN_ATTR);
-	            TotalAttributes.add(new Attribute("Atributo " + (i + 1), 1, valueMax));
-	        }
-	    }
-
-	    
-	    public void genCustomerProfiles() {
-	        CustomerProfiles.clear();
-
-	        //Generate 4 random Customer Profile
-	        for (int i = 0; i < 4; i++) {
-	            ArrayList<Attribute> attrs = new ArrayList<>();
-	            for (int j = 0; j < TotalAttributes.size(); j++) {
-	                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-
-	                ArrayList<Integer> scoreValues = new ArrayList<>();
-	                for (int k = 0; k < attr.MAX; k++) {
-	                    int random = (int) (attr.MAX * Math.random());
-	                    scoreValues.add(random);
-	                }
-	                attr.setScoreValues(scoreValues);
-	                attrs.add(attr);
-	            }
-	            CustomerProfiles.add(new CustomerProfile(attrs));
-	        }
-
-	        //Create 2 mutants for each basic profile
-	        for (int i = 0; i < 4; i++) {
-	            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-	            CustomerProfiles.add(mutateCustomerProfile(CustomerProfiles.get(i)));
-	        }
-
-	        //Creating 4 isolated profiles
-	        for (int i = 0; i < 4; i++) {
-	            ArrayList<Attribute> attrs = new ArrayList<>();
-	            for (int j = 0; j < TotalAttributes.size(); j++) {
-	                Attribute attr = new Attribute(TotalAttributes.get(j).getName(), TotalAttributes.get(j).getMIN(), TotalAttributes.get(j).getMAX());
-	                ArrayList<Integer> scoreValues = new ArrayList<>();
-	                for (int k = 0; k < attr.MAX; k++) {
-	                    int random = (int) (attr.MAX * Math.random());
-	                    scoreValues.add(random);
-	                }
-	                attr.setScoreValues(scoreValues);
-	                attrs.add(attr);
-	            }
-	            CustomerProfiles.add(new CustomerProfile(attrs));
-	        }
-	    }
-	    
 	    private void genCustomerProfilesNum() {
-	        for (int i = 0; i < CustomerProfiles.size(); i++) {
-	            int number_customers = (int) (Math.floor(MAX_NUM_CUST - MIN_NUM_CUST + 1) * Math.random()) + MIN_NUM_CUST;
+	        for (int i = 0; i < añadir.getnum_prof(); i++) {
+	            int number_customers = (int) (Math.floor(añadir.getnum()+ 1) * Math.random());
 	            CustomerProfiles.get(i).setNumberCustomers(number_customers);
 	        }
 	    }
-
-	    public void genProducers() {
-	        Producers.clear();
-
-	        Producers = new ArrayList<>();
-	        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos 10 productores random
-	            Producer new_producer = new Producer();
-	            new_producer.setName("Productor " + (i + 1));
-	            new_producer.setAvailableAttribute(createAvailableAttributes());
-	            new_producer.setProduct(createProduct(new_producer.getAvailableAttribute()));
-	            Producers.add(new_producer);
-	        }
-	    }
-
 
 		
 	    public static double getKNOWN_ATTRIBUTES() {
@@ -497,6 +460,23 @@ public class InputRandom {
 			NEAR_CUST_PROFS = nEAR_CUST_PROFS;
 		}
 
+
+		public static boolean isAttributesLinked() {
+			return isAttributesLinked;
+		}
+
+
+		public static void setAttributesLinked(boolean isAttributesLinked) {
+			InputRandom.isAttributesLinked = isAttributesLinked;
+		}
+		
+		public int getNumber_Products() {
+			return number_Products;
+		}
+
+		public void setNumber_Products(int number) {
+			number_Products = number;
+		}
 
 
 

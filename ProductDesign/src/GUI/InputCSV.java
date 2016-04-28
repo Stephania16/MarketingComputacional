@@ -8,11 +8,11 @@ import Comunes.Attribute;
 import genetic.GeneticAlgorithm;
 import minimax.Minimax;
 
-public class Input {
+public class InputCSV {
 	static GeneticAlgorithm ga = new GeneticAlgorithm();
 	static Minimax minimax = new Minimax();
 
-	public Input(){}
+	public InputCSV(){}
 	
 	/*public static void main(String[] args)  {
 		try {

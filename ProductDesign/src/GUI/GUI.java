@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import Comunes.Attribute;
 import genetic.GeneticAlgorithm;
+import genetic.GeneticAlgorithmVariant;
 import minimax.Minimax;
 
 /**
@@ -19,6 +20,7 @@ public class GUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
     private static final int NUMERO_COLUMNAS = 35;
     private static final int NUMERO_FILAS = 25;
+    private int numProd = 1;
 	JFrame window;
 	JTextArea jtA1, jtA2, jtA3,jtA4,jt;
 	JLabel label, label2, label3, label4, label5, label6, label7,label8,
@@ -35,6 +37,7 @@ public class GUI extends JFrame implements ActionListener{
 	           text5,text6,text7,text8,text9,text10,text13, text14, text15,text16, text17,text18,
 	           text19,text20,text21, nombre_txt, nombre_txt_min, textTxt;
 	GeneticAlgorithm ga;
+	GeneticAlgorithmVariant gaVar;
 	Minimax minimax;
 	Añadir añadir = new Añadir();
 	InputRandom in = new InputRandom();
@@ -74,478 +77,497 @@ public class GUI extends JFrame implements ActionListener{
 	  */
 	private void instanciarGUI() throws Exception {
 		ga = new GeneticAlgorithm();
+		gaVar = new GeneticAlgorithmVariant();
 		minimax = new Minimax();
-		iniciarOpcion();
-		
-		//FRAME
-		window = new JFrame();
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		setTitle("Marketing Computacional");
-        setResizable(false);
-
-		//JTABBEPANE
-		pestaña = new JTabbedPane();
-		
-		//JTAB 1
-		tab1 = new JPanel();
-		tab1.setBorder(BorderFactory.createTitledBorder("Genetic Algorithm"));
-		JPanel genetic = new JPanel();
-		genetic.setLayout(new GridLayout(3,1));
-		button1 = new JButton("Start Genetic Algorithm");
-		button1.addActionListener(this);
-		button_txt = new JButton("Start Input Genetic(.txt o .xml):");
-		nombre_txt = new JTextField(5);
-		button_txt.addActionListener(this);
-		jtA1 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
-		jtA1.setBorder(BorderFactory.createLineBorder(Color.black));
-		jtA1.setEditable(false);
-				
-		//JTAB2
-		tab2 = new JPanel();
-		tab2.setBorder(BorderFactory.createTitledBorder("Minimax Algorithm"));
-		JPanel panel_minimax = new JPanel();
-		panel_minimax.setLayout(new GridLayout(3,1));
-		button2 = new JButton("Start Minimax Algorithm");
-		button2.addActionListener(this);
-		button_txt_min = new JButton("Start Input Minimax(.txt o .xml):");
-		nombre_txt_min = new JTextField(5);
-		button_txt_min.addActionListener(this);
-		jtA2 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
-		jtA2.setBorder(BorderFactory.createLineBorder(Color.black));
-		jtA2.setEditable(false);
-		
-		
-
-		//JTAB3 -  contenedor
-		tab3 = new JPanel();
-		tab3.setBorder(BorderFactory.createTitledBorder("Datos Estadisticos"));
-		// Panel de botones de la pestaña 3
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(4, 1));
-
-		// Inicializamos el text area
-		jtA3 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
-		jtA3.setBorder(BorderFactory.createLineBorder(Color.black));
-		jtA3.setEditable(false);
-		// Añadimos el Scroll
-		sp1 = new JScrollPane();
-		sp1.setViewportView(jtA3);
-
-		attr = new JButton("Attributes");
-		prod = new JButton("Producers");
-		prof = new JButton("Profiles");
-		subprof = new JButton("SubProfiles");
-		attr.addActionListener(this);
-		prod.addActionListener(this);
-		prof.addActionListener(this);
-		subprof.addActionListener(this);
-
-		// Añadimos opciones al panel de botones
-		panel.add(attr);
-		panel.add(prod);
-		panel.add(prof);
-		panel.add(subprof);
-
-		FlowLayout tab3fl = new FlowLayout();
-		tab3.setLayout(tab3fl);
-
-		tab3.add(sp1);
-		tab3.add(panel);
-		
-		//JTAB4
-		tab4 = new JPanel(new GridLayout(1,1));
-		panelLabel = new JPanel();
-	    panelLabel.setLayout(new GridLayout(4,1));
-	    JPanel paneltexts = new JPanel();
-	    JPanel paneltextArea = new JPanel();
-	    JPanel panelTxt = new JPanel(new GridLayout(1,1));
-	    panelTxt.setBorder(BorderFactory.createTitledBorder("Guardar en TXT"));
-	    
-	    jtA4 = new JTextArea(28, 28);
-	    //jtA4.setBorder(BorderFactory.createLineBorder(Color.black));
-	    jtA4.setEditable(false);
-	    // Añadimos el Scroll
- 		sp2 = new JScrollPane();
- 		sp2.setViewportView(jtA4);
-    
-	    /*Guardar en txt*/
-	    labelTxt = new JLabel("Nombre del fichero: ");
-	    textTxt = new JTextField(8);
-	    buttonTxt = new JButton("Guardar");
-	    buttonTxt.addActionListener(this);
-	    
-		
-		/*Atributo*/
-		JPanel atributos = new JPanel();
-		atributos.setBorder(BorderFactory.createTitledBorder("Atributos"));
-		atributos.setLayout(new GridLayout(2,1));
-		JPanel num_atributos = new JPanel();
-		JPanel atributo = new JPanel();
-		//atributos.setLayout(new GridLayout(1,1));
-		label18 = new JLabel("Número de Atributos:");
-		text21 = new JTextField(5);
-		button11 = new JButton("Modificar Atributos");
-		button11.addActionListener(this);
-		label3 = new JLabel("Atributos:");
-		label17 = new JLabel("Name");
-		posAttr1 = new JTextField(5);
-		label15 = new JLabel("MIN");
-		posAttr2 = new JTextField(5);
-		label16 = new JLabel("MAX");
-		posAttr3 = new JTextField(5);
-		button4 = new JButton("Añadir Atributo");
-		borrar = new JButton("Borrar Atributos");
-		button4.addActionListener(this);
-		borrar.addActionListener(this);
-		
-		/*Productores*/
-		JPanel productores = new JPanel();
-		productores.setBorder(BorderFactory.createTitledBorder("Productores"));
-		productores.setLayout(new GridLayout(4,1));
-		JPanel num_product = new JPanel();
-		JPanel attr_disp = new JPanel();
-		JPanel product = new JPanel(new GridLayout(2,1)); //new GridLayout(2,3)
-		JPanel borrar_total_prod = new JPanel();
-		label4 = new JLabel("Número de productores");
-		text3 = new JTextField(5);
-		button10 = new JButton("Añadir productores");
-		button10.addActionListener(this);
-		JLabel prod = new JLabel("Productor:");
-		text20 = new JTextField(5);
-		JLabel disp = new JLabel("Atributos disponibles:");
-		label5 = new JLabel("Name");
-		text10 = new JTextField(5); 
-	    JLabel valor = new JLabel("Valor atributo del producto:");
-	    text16 = new JTextField(5);
-		button5 = new JButton("Añadir atributo disponible");
-		button5.addActionListener(this);
-		button9 = new JButton("Añadir Productor");
-		button9.addActionListener(this); 
-		
-		button_prod = new JButton("Borrar Productores");
-		button_prod.addActionListener(this);
-		
-		
-		/*Perfiles*/
-		JPanel perfiles = new JPanel();
-		perfiles.setBorder(BorderFactory.createTitledBorder("Perfiles"));
-		JPanel attr_pef = new JPanel();
-		JPanel num_pef = new JPanel();
-		perfiles.setLayout(new GridLayout(2,2));
-		JPanel borrar_total_prof = new JPanel();
-		label9 = new JLabel("Perfil:");
-		text17 = new JTextField(5);
-		label6 = new JLabel("Atributo:");
-		label12 = new JLabel("Name");
-		text4 = new JTextField(5);
-		label7 = new JLabel("Puntuación:");
-		text7 = new JTextField(5);
-		button8 = new JButton("Añadir Valoracion");
-		button8.addActionListener(this);
-		button6 = new JButton("Añadir Perfil");
-		button6.addActionListener(this);
-		label8 = new JLabel("Número de perfiles de un cliente");
-		text8 = new JTextField(5);
-		button7 = new JButton("Añadir Perfiles");
-		button7.addActionListener(this);
-		button_prof = new JButton("Borrar Perfiles");
-		button_prof.addActionListener(this);
-		
-		//JTAB5
-		tab5 = new JPanel(new GridLayout(1,1));
-		panelGeneral = new JPanel();
-		panelGeneral.setLayout(new GridLayout(3,1));
-
-	    /*Ejecuciones*/
-	    JPanel ejecuciones = new JPanel();
-	    ejecuciones.setLayout(new GridLayout(5,1));
-	    ejecuciones.setBorder(BorderFactory.createTitledBorder("Ejecuciones"));
-	    JPanel exec = new JPanel();
-	    JPanel attrKnow = new JPanel();
-	    JPanel attrEsp = new JPanel();
-	    JPanel mutAttr = new JPanel();
-	    JPanel profNear = new JPanel();
-		label2 = new JLabel("Número de ejecuciones:");
-		textEjecucion = new JTextField(5);
-		button3 = new JButton("Modificar Ejecuciones");
-		button3.addActionListener(this);
-		
-		labelAttrCon = new JLabel("% Atributos Conocidos: ");
-		textAttrCon = new JTextField(5);
-		buttonAttrCon = new JButton("Modificar Atributos Conocidos");
-		buttonAttrCon.addActionListener(this);
-		
-		labelAttrEsp = new JLabel("% Atributos Especiales: ");
-		textAttrEsp = new JTextField(5);
-		buttonAttrEsp = new JButton("Modificar Atributos Especiales");
-		buttonAttrEsp.addActionListener(this);
-		
-		labelMutAttr = new JLabel("% Mutación Atributos: ");
-		textMutAttr = new JTextField(5);
-		buttonMutAttr = new JButton("Modificar Mutación Atributos");
-		buttonMutAttr.addActionListener(this);
-		
-		labelProfNear = new JLabel("Número de perfiles cercanos: ");
-		textProfNear = new JTextField(5);
-		buttonProfNear = new JButton("Modificar perfiles cercanos");
-		buttonProfNear.addActionListener(this);
-		
-		/*Panel Genetico*/
-	    JPanel panelGenetico = new JPanel();
-	    panelGenetico.setLayout(new GridLayout(5,1));
-	    panelGenetico.setBorder(BorderFactory.createTitledBorder("Algoritmo Genético"));
-	    JPanel numPopu = new JPanel();
-	    JPanel numGen = new JPanel();
-	    JPanel grupProf = new JPanel();
-	    JPanel cross = new JPanel();
-	    JPanel mutprob = new JPanel();
-	    
-	    labelNumPop = new JLabel("Número de Población: ");
-		textNumPop = new JTextField(5);
-		buttonNumPop = new JButton("Modificar Número de Población");
-		buttonNumPop.addActionListener(this);
-	    
-		labelNumGen = new JLabel("Número de Generaciones: ");
-		textNumGen = new JTextField(5);
-		buttonNumGen = new JButton("Modificar Número de Generaciones");
-		buttonNumGen.addActionListener(this);
-	    		
-		labelGruPer = new JLabel("Número de Grupos del Perfil: ");
-		textGruPer = new JTextField(5);
-		buttonGruPer = new JButton("Modificar Grupos del Perfil");
-		buttonGruPer.addActionListener(this);
-		
-		labelCross = new JLabel("% de Crossover: ");
-		textCross = new JTextField(5);
-		buttonCross = new JButton("Modificar Crossover");
-		buttonCross.addActionListener(this);
-		
-		labelMutProb = new JLabel("% de Mutación: ");
-		textMutProb = new JTextField(5);
-		buttonMutProb = new JButton("Modificar Mutación");
-		buttonMutProb.addActionListener(this);
-	    
-	    JPanel panelMinimax = new JPanel();
-	    panelMinimax.setBorder(BorderFactory.createTitledBorder("Algoritmo Minimax"));
-	    panelMinimax.setLayout(new GridLayout(5,1));
-	    JPanel depth = new JPanel();
-	    JPanel numberAttr = new JPanel();
-	    JPanel numberPrev = new JPanel();
-	    JPanel numberTurn = new JPanel();
-	    
-	    labelDepth0 = new JLabel("Depth 0: ");
-		textDepth0 = new JTextField(5);
-		buttonDepth0 = new JButton("Modificar Depth 0");
-		buttonDepth0.addActionListener(this);
-		
-		labelDepth1 = new JLabel("Depth 1: ");
-		textDepth1 = new JTextField(5);
-		buttonDepth1 = new JButton("Modificar Depth 1");
-		buttonDepth1.addActionListener(this);
-		
-		labelNumAttr = new JLabel("Número de atributos modificables: ");
-		textNumAttr = new JTextField(5);
-		buttonNumAttr = new JButton("Modificar atributos modificables");
-		buttonNumAttr.addActionListener(this);
-		
-		labelTurPrev = new JLabel("Número de turnos previos: ");
-		textTurPrev = new JTextField(5);
-		buttonTurPrev = new JButton("Modificar turnos previos");
-		buttonTurPrev.addActionListener(this);
-		
-		labelTur = new JLabel("Número de turnos en el juego: ");
-		textTur = new JTextField(5);
-		buttonTur = new JButton("Modificar turnos");
-		buttonTur.addActionListener(this);
-	    
-
-		/*AÑADIR*/
-		add(pestaña);
-		pestaña.add("Genetic Algorithm", tab1);
-		pestaña.add("Minimax Algorithm", tab2);
-		pestaña.add("Generar Listas", tab3);
-		pestaña.add("Modificar Datos de Entrada", tab4);
-		pestaña.add("Modificar Datos Generales", tab5);
-		
-		tab1.add(jtA1);
-		tab1.add(genetic);
-		genetic.add(button1);
-		genetic.add(button_txt);
-		genetic.add(nombre_txt);
-		tab2.add(jtA2);
-		tab2.add(panel_minimax);
-		panel_minimax.add(button2);
-		panel_minimax.add(button_txt_min);
-		panel_minimax.add(nombre_txt_min);
-	
-		//tab4
-		tab4.add(panelLabel);
-		tab4.add(paneltexts);
-		
-		panelLabel.add(atributos);
-		panelLabel.add(productores);
-		panelLabel.add(perfiles);
-		
-		paneltexts.add(paneltextArea);
-		paneltexts.add(panelTxt);
-		paneltextArea.add(sp2);
-		panelTxt.add(labelTxt);
-		panelTxt.add(textTxt);
-		panelTxt.add(buttonTxt);
-		
-
-		atributos.add(num_atributos);
-		atributos.add(atributo);
-		num_atributos.add(label18);
-		num_atributos.add(text21);
-		num_atributos.add(button11);
-		atributo.add(label3);
-		atributo.add(label17);
-		atributo.add(posAttr1);
-		atributo.add(label15);
-		atributo.add(posAttr2);
-		atributo.add(label16);
-		atributo.add(posAttr3);
-		atributo.add(button4);
-		atributo.add(borrar);
-
-		productores.add(num_product);
-		num_product.add(label4);
-		num_product.add(text3);
-		num_product.add(button10);
-		
-		productores.add(attr_disp);
-		attr_disp.add(prod);
-		attr_disp.add(text20);
-		attr_disp.add(disp);
-		attr_disp.add(label5);
-		attr_disp.add(text10);
-		
-		productores.add(product);
-		product.add(valor);
-		product.add(text16);
-		product.add(button5);
-		product.add(button9);
-		
-		productores.add(borrar_total_prod);
-		borrar_total_prod.add(button_prod);
-			
-		perfiles.add(attr_pef);
-		attr_pef.add(label9);
-		attr_pef.add(text17);
-		attr_pef.add(label6);
-		attr_pef.add(label12);
-		attr_pef.add(text4);
-		attr_pef.add(label7);
-		attr_pef.add(text7);
-		attr_pef.add(button8);
-		attr_pef.add(button6);
-		
-		perfiles.add(num_pef);
-		num_pef.add(label8);
-		num_pef.add(text8);
-		num_pef.add(button7);
-		num_pef.add(borrar_total_prof);
-		num_pef.add(button_prof);
-
-		tab5.add(panelGeneral);
-		panelGeneral.add(ejecuciones);
-		panelGeneral.add(panelGenetico);
-		panelGeneral.add(panelMinimax);
-		
-		ejecuciones.add(exec);
-		ejecuciones.add(attrKnow);
-		ejecuciones.add(attrEsp);
-		ejecuciones.add(mutAttr);
-		ejecuciones.add(profNear);
-		
-		exec.add(label2);
-		exec.add(textEjecucion);
-		exec.add(button3);
-		
-		attrKnow.add(labelAttrCon);
-		attrKnow.add(textAttrCon);
-		attrKnow.add(buttonAttrCon);
-
-	    attrEsp.add(labelAttrEsp);
-	    attrEsp.add(textAttrEsp);
-	    attrEsp.add(buttonAttrEsp);
-	
-	    mutAttr.add(labelMutAttr);
-	    mutAttr.add(textMutAttr);
-	    mutAttr.add(buttonMutAttr);
-		
-	    profNear.add(labelProfNear);
-	    profNear.add(textProfNear);
-	    profNear.add(buttonProfNear);
-		
-	    
-	    panelGenetico.add(numPopu);
-	    panelGenetico.add(numGen);
-	    panelGenetico.add(grupProf);
-	    panelGenetico.add(cross);
-	    panelGenetico.add(mutprob);
-	    
-	    numPopu.add(labelNumPop);
-	    numPopu.add(textNumPop);
-	    numPopu.add(buttonNumPop);
-	    
-	    numGen.add(labelNumGen);
-	    numGen.add(textNumGen);
-	    numGen.add(buttonNumGen);
-
-	    grupProf.add(labelGruPer);
-	    grupProf.add(textGruPer);
-	    grupProf.add(buttonGruPer);
-	
-	    cross.add(labelCross);
-	    cross.add(textCross);
-	    cross.add(buttonCross);
-	    
-	    mutprob.add(labelMutProb);
-	    mutprob.add(textMutProb);
-	    mutprob.add(buttonMutProb);
-	  
-	    panelMinimax.add(depth);
-	    panelMinimax.add(numberAttr);
-	    panelMinimax.add(numberPrev);
-	    panelMinimax.add(numberTurn);
-	    
-	    depth.add(labelDepth0);
-	    depth.add(textDepth0);
-	    depth.add(buttonDepth0);
-	    
-	    depth.add(labelDepth1);
-	    depth.add(textDepth1);
-	    depth.add(buttonDepth1);
-		
-	    numberAttr.add(labelNumAttr);
-	    numberAttr.add(textNumAttr);
-	    numberAttr.add(buttonNumAttr);
-	    
-	    numberPrev.add(labelTurPrev);
-	    numberPrev.add(textTurPrev);
-	    numberPrev.add(buttonTurPrev);
-	    
-	    numberTurn.add(labelTur);
-	    numberTurn.add(textTur);
-	    numberTurn.add(buttonTur);
-	    
-		//Se llama a pack después de haber agregado componenetes a la ventana
-		pack();
-	}
-	private void iniciarOpcion() {
 		int resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
+	
 		while(JOptionPane.CANCEL_OPTION == resp){
 			resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
 		}
 		if (JOptionPane.YES_OPTION == resp){
 	    	  ga.setMaximizar(true);
+	    	  gaVar.setMaximizar(true);
+	    	  minimax.setMaximizar(true);
 		}
 		else if(JOptionPane.NO_OPTION == resp){
 			ga.setMaximizar(false);
-		}	
+			gaVar.setMaximizar(false);
+			minimax.setMaximizar(false);
+		}
+		
+		if(JOptionPane.CLOSED_OPTION != resp){
+			String produc = JOptionPane.showInputDialog(null, "Número de productos de cada productor", "Productos", JOptionPane.INFORMATION_MESSAGE);
+			numProd = Integer.parseInt(produc);
+			while(numProd < 1) {
+				JOptionPane.showMessageDialog(null, "El número tiene que ser mayor que uno");
+				produc = JOptionPane.showInputDialog(null, "Número de productos de cada productor", "Productos", JOptionPane.INFORMATION_MESSAGE);
+				try{
+					numProd = Integer.parseInt(produc);
+				}catch(NumberFormatException e)
+				{
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+			in.setNumber_Products(numProd);
+			gaVar.setNumber_Products(numProd);
+			//FRAME
+			window = new JFrame();
+		
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+			setTitle("Marketing Computacional");
+		    setResizable(false);
+		
+			//JTABBEPANE
+			pestaña = new JTabbedPane();
+			
+			//JTAB 1
+			tab1 = new JPanel();
+			tab1.setBorder(BorderFactory.createTitledBorder("Genetic Algorithm"));
+			JPanel genetic = new JPanel();
+			genetic.setLayout(new GridLayout(3,1));
+			button1 = new JButton("Start Genetic Algorithm");
+			button1.addActionListener(this);
+			button_txt = new JButton("Start Input Genetic(.txt o .xml):");
+			nombre_txt = new JTextField(5);
+			button_txt.addActionListener(this);
+			jtA1 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
+			jtA1.setBorder(BorderFactory.createLineBorder(Color.black));
+			jtA1.setEditable(false);
+					
+			//JTAB2
+			tab2 = new JPanel();
+			tab2.setBorder(BorderFactory.createTitledBorder("Minimax Algorithm"));
+			JPanel panel_minimax = new JPanel();
+			panel_minimax.setLayout(new GridLayout(3,1));
+			button2 = new JButton("Start Minimax Algorithm");
+			button2.addActionListener(this);
+			button_txt_min = new JButton("Start Input Minimax(.txt o .xml):");
+			nombre_txt_min = new JTextField(5);
+			button_txt_min.addActionListener(this);
+			jtA2 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
+			jtA2.setBorder(BorderFactory.createLineBorder(Color.black));
+			jtA2.setEditable(false);
+			
+			
+		
+			//JTAB3 -  contenedor
+			tab3 = new JPanel();
+			tab3.setBorder(BorderFactory.createTitledBorder("Datos Estadisticos"));
+			// Panel de botones de la pestaña 3
+			panel = new JPanel();
+			panel.setLayout(new GridLayout(4, 1));
+		
+			// Inicializamos el text area
+			jtA3 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
+			jtA3.setBorder(BorderFactory.createLineBorder(Color.black));
+			jtA3.setEditable(false);
+			// Añadimos el Scroll
+			sp1 = new JScrollPane();
+			sp1.setViewportView(jtA3);
+		
+			attr = new JButton("Attributes");
+			prod = new JButton("Producers");
+			prof = new JButton("Profiles");
+			subprof = new JButton("SubProfiles");
+			attr.addActionListener(this);
+			prod.addActionListener(this);
+			prof.addActionListener(this);
+			subprof.addActionListener(this);
+		
+			// Añadimos opciones al panel de botones
+			panel.add(attr);
+			panel.add(prod);
+			panel.add(prof);
+			panel.add(subprof);
+		
+			FlowLayout tab3fl = new FlowLayout();
+			tab3.setLayout(tab3fl);
+		
+			tab3.add(sp1);
+			tab3.add(panel);
+			
+			//JTAB4
+			tab4 = new JPanel(new GridLayout(1,1));
+			panelLabel = new JPanel();
+		    panelLabel.setLayout(new GridLayout(4,1));
+		    JPanel paneltexts = new JPanel();
+		    JPanel paneltextArea = new JPanel();
+		    JPanel panelTxt = new JPanel(new GridLayout(1,1));
+		    panelTxt.setBorder(BorderFactory.createTitledBorder("Guardar en TXT"));
+		    
+		    jtA4 = new JTextArea(28, 28);
+		    //jtA4.setBorder(BorderFactory.createLineBorder(Color.black));
+		    jtA4.setEditable(false);
+		    // Añadimos el Scroll
+			sp2 = new JScrollPane();
+			sp2.setViewportView(jtA4);
+		
+		    /*Guardar en txt*/
+		    labelTxt = new JLabel("Nombre del fichero: ");
+		    textTxt = new JTextField(8);
+		    buttonTxt = new JButton("Guardar");
+		    buttonTxt.addActionListener(this);
+		    
+			
+			/*Atributo*/
+			JPanel atributos = new JPanel();
+			atributos.setBorder(BorderFactory.createTitledBorder("Atributos"));
+			atributos.setLayout(new GridLayout(2,1));
+			JPanel num_atributos = new JPanel();
+			JPanel atributo = new JPanel();
+			//atributos.setLayout(new GridLayout(1,1));
+			label18 = new JLabel("Número de Atributos:");
+			text21 = new JTextField(5);
+			button11 = new JButton("Modificar Atributos");
+			button11.addActionListener(this);
+			label3 = new JLabel("Atributos:");
+			label17 = new JLabel("Name");
+			posAttr1 = new JTextField(5);
+			label15 = new JLabel("MIN");
+			posAttr2 = new JTextField(5);
+			label16 = new JLabel("MAX");
+			posAttr3 = new JTextField(5);
+			button4 = new JButton("Añadir Atributo");
+			borrar = new JButton("Borrar Atributos");
+			button4.addActionListener(this);
+			borrar.addActionListener(this);
+			
+			/*Productores*/
+			JPanel productores = new JPanel();
+			productores.setBorder(BorderFactory.createTitledBorder("Productores"));
+			productores.setLayout(new GridLayout(4,1));
+			JPanel num_product = new JPanel();
+			JPanel attr_disp = new JPanel();
+			JPanel product = new JPanel(new GridLayout(2,1)); //new GridLayout(2,3)
+			JPanel borrar_total_prod = new JPanel();
+			label4 = new JLabel("Número de productores");
+			text3 = new JTextField(5);
+			button10 = new JButton("Añadir productores");
+			button10.addActionListener(this);
+			JLabel prod = new JLabel("Productor:");
+			text20 = new JTextField(5);
+			JLabel disp = new JLabel("Atributos disponibles:");
+			label5 = new JLabel("Name");
+			text10 = new JTextField(5); 
+		    JLabel valor = new JLabel("Valor atributo del producto:");
+		    text16 = new JTextField(5);
+			button5 = new JButton("Añadir atributo disponible");
+			button5.addActionListener(this);
+			button9 = new JButton("Añadir Productor");
+			button9.addActionListener(this); 
+			
+			button_prod = new JButton("Borrar Productores");
+			button_prod.addActionListener(this);
+			
+			
+			/*Perfiles*/
+			JPanel perfiles = new JPanel();
+			perfiles.setBorder(BorderFactory.createTitledBorder("Perfiles"));
+			JPanel attr_pef = new JPanel();
+			JPanel num_pef = new JPanel();
+			perfiles.setLayout(new GridLayout(2,2));
+			JPanel borrar_total_prof = new JPanel();
+			label9 = new JLabel("Perfil:");
+			text17 = new JTextField(5);
+			label6 = new JLabel("Atributo:");
+			label12 = new JLabel("Name");
+			text4 = new JTextField(5);
+			label7 = new JLabel("Puntuación:");
+			text7 = new JTextField(5);
+			button8 = new JButton("Añadir Valoracion");
+			button8.addActionListener(this);
+			button6 = new JButton("Añadir Perfil");
+			button6.addActionListener(this);
+			label8 = new JLabel("Número de perfiles de un cliente");
+			text8 = new JTextField(5);
+			button7 = new JButton("Añadir Perfiles");
+			button7.addActionListener(this);
+			button_prof = new JButton("Borrar Perfiles");
+			button_prof.addActionListener(this);
+			
+			//JTAB5
+			tab5 = new JPanel(new GridLayout(1,1));
+			panelGeneral = new JPanel();
+			panelGeneral.setLayout(new GridLayout(3,1));
+		
+		    /*Ejecuciones*/
+		    JPanel ejecuciones = new JPanel();
+		    ejecuciones.setLayout(new GridLayout(5,1));
+		    ejecuciones.setBorder(BorderFactory.createTitledBorder("Ejecuciones"));
+		    JPanel exec = new JPanel();
+		    JPanel attrKnow = new JPanel();
+		    JPanel attrEsp = new JPanel();
+		    JPanel mutAttr = new JPanel();
+		    JPanel profNear = new JPanel();
+			label2 = new JLabel("Número de ejecuciones:");
+			textEjecucion = new JTextField(5);
+			button3 = new JButton("Modificar Ejecuciones");
+			button3.addActionListener(this);
+			
+			labelAttrCon = new JLabel("% Atributos Conocidos: ");
+			textAttrCon = new JTextField(5);
+			buttonAttrCon = new JButton("Modificar Atributos Conocidos");
+			buttonAttrCon.addActionListener(this);
+			
+			labelAttrEsp = new JLabel("% Atributos Especiales: ");
+			textAttrEsp = new JTextField(5);
+			buttonAttrEsp = new JButton("Modificar Atributos Especiales");
+			buttonAttrEsp.addActionListener(this);
+			
+			labelMutAttr = new JLabel("% Mutación Atributos: ");
+			textMutAttr = new JTextField(5);
+			buttonMutAttr = new JButton("Modificar Mutación Atributos");
+			buttonMutAttr.addActionListener(this);
+			
+			labelProfNear = new JLabel("Número de perfiles cercanos: ");
+			textProfNear = new JTextField(5);
+			buttonProfNear = new JButton("Modificar perfiles cercanos");
+			buttonProfNear.addActionListener(this);
+			
+			/*Panel Genetico*/
+		    JPanel panelGenetico = new JPanel();
+		    panelGenetico.setLayout(new GridLayout(5,1));
+		    panelGenetico.setBorder(BorderFactory.createTitledBorder("Algoritmo Genético"));
+		    JPanel numPopu = new JPanel();
+		    JPanel numGen = new JPanel();
+		    JPanel grupProf = new JPanel();
+		    JPanel cross = new JPanel();
+		    JPanel mutprob = new JPanel();
+		    
+		    labelNumPop = new JLabel("Número de Población: ");
+			textNumPop = new JTextField(5);
+			buttonNumPop = new JButton("Modificar Número de Población");
+			buttonNumPop.addActionListener(this);
+		    
+			labelNumGen = new JLabel("Número de Generaciones: ");
+			textNumGen = new JTextField(5);
+			buttonNumGen = new JButton("Modificar Número de Generaciones");
+			buttonNumGen.addActionListener(this);
+		    		
+			labelGruPer = new JLabel("Número de Grupos del Perfil: ");
+			textGruPer = new JTextField(5);
+			buttonGruPer = new JButton("Modificar Grupos del Perfil");
+			buttonGruPer.addActionListener(this);
+			
+			labelCross = new JLabel("% de Crossover: ");
+			textCross = new JTextField(5);
+			buttonCross = new JButton("Modificar Crossover");
+			buttonCross.addActionListener(this);
+			
+			labelMutProb = new JLabel("% de Mutación: ");
+			textMutProb = new JTextField(5);
+			buttonMutProb = new JButton("Modificar Mutación");
+			buttonMutProb.addActionListener(this);
+		    
+		    JPanel panelMinimax = new JPanel();
+		    panelMinimax.setBorder(BorderFactory.createTitledBorder("Algoritmo Minimax"));
+		    panelMinimax.setLayout(new GridLayout(5,1));
+		    JPanel depth = new JPanel();
+		    JPanel numberAttr = new JPanel();
+		    JPanel numberPrev = new JPanel();
+		    JPanel numberTurn = new JPanel();
+		    
+		    labelDepth0 = new JLabel("Depth 0: ");
+			textDepth0 = new JTextField(5);
+			buttonDepth0 = new JButton("Modificar Depth 0");
+			buttonDepth0.addActionListener(this);
+			
+			labelDepth1 = new JLabel("Depth 1: ");
+			textDepth1 = new JTextField(5);
+			buttonDepth1 = new JButton("Modificar Depth 1");
+			buttonDepth1.addActionListener(this);
+			
+			labelNumAttr = new JLabel("Número de atributos modificables: ");
+			textNumAttr = new JTextField(5);
+			buttonNumAttr = new JButton("Modificar atributos modificables");
+			buttonNumAttr.addActionListener(this);
+			
+			labelTurPrev = new JLabel("Número de turnos previos: ");
+			textTurPrev = new JTextField(5);
+			buttonTurPrev = new JButton("Modificar turnos previos");
+			buttonTurPrev.addActionListener(this);
+			
+			labelTur = new JLabel("Número de turnos en el juego: ");
+			textTur = new JTextField(5);
+			buttonTur = new JButton("Modificar turnos");
+			buttonTur.addActionListener(this);
+		    
+		
+			/*AÑADIR*/
+			add(pestaña);
+			pestaña.add("Genetic Algorithm", tab1);
+			pestaña.add("Minimax Algorithm", tab2);
+			pestaña.add("Generar Listas", tab3);
+			pestaña.add("Modificar Datos de Entrada", tab4);
+			pestaña.add("Modificar Datos Generales", tab5);
+			
+			tab1.add(jtA1);
+			tab1.add(genetic);
+			genetic.add(button1);
+			genetic.add(button_txt);
+			genetic.add(nombre_txt);
+			tab2.add(jtA2);
+			tab2.add(panel_minimax);
+			panel_minimax.add(button2);
+			panel_minimax.add(button_txt_min);
+			panel_minimax.add(nombre_txt_min);
+		
+			//tab4
+			tab4.add(panelLabel);
+			tab4.add(paneltexts);
+			
+			panelLabel.add(atributos);
+			panelLabel.add(productores);
+			panelLabel.add(perfiles);
+			
+			paneltexts.add(paneltextArea);
+			paneltexts.add(panelTxt);
+			paneltextArea.add(sp2);
+			panelTxt.add(labelTxt);
+			panelTxt.add(textTxt);
+			panelTxt.add(buttonTxt);
+			
+		
+			atributos.add(num_atributos);
+			atributos.add(atributo);
+			num_atributos.add(label18);
+			num_atributos.add(text21);
+			num_atributos.add(button11);
+			atributo.add(label3);
+			atributo.add(label17);
+			atributo.add(posAttr1);
+			atributo.add(label15);
+			atributo.add(posAttr2);
+			atributo.add(label16);
+			atributo.add(posAttr3);
+			atributo.add(button4);
+			atributo.add(borrar);
+		
+			productores.add(num_product);
+			num_product.add(label4);
+			num_product.add(text3);
+			num_product.add(button10);
+			
+			productores.add(attr_disp);
+			attr_disp.add(prod);
+			attr_disp.add(text20);
+			attr_disp.add(disp);
+			attr_disp.add(label5);
+			attr_disp.add(text10);
+			
+			productores.add(product);
+			product.add(valor);
+			product.add(text16);
+			product.add(button5);
+			product.add(button9);
+			
+			productores.add(borrar_total_prod);
+			borrar_total_prod.add(button_prod);
+				
+			perfiles.add(attr_pef);
+			attr_pef.add(label9);
+			attr_pef.add(text17);
+			attr_pef.add(label6);
+			attr_pef.add(label12);
+			attr_pef.add(text4);
+			attr_pef.add(label7);
+			attr_pef.add(text7);
+			attr_pef.add(button8);
+			attr_pef.add(button6);
+			
+			perfiles.add(num_pef);
+			num_pef.add(label8);
+			num_pef.add(text8);
+			num_pef.add(button7);
+			num_pef.add(borrar_total_prof);
+			num_pef.add(button_prof);
+		
+			tab5.add(panelGeneral);
+			panelGeneral.add(ejecuciones);
+			panelGeneral.add(panelGenetico);
+			panelGeneral.add(panelMinimax);
+			
+			ejecuciones.add(exec);
+			ejecuciones.add(attrKnow);
+			ejecuciones.add(attrEsp);
+			ejecuciones.add(mutAttr);
+			ejecuciones.add(profNear);
+			
+			exec.add(label2);
+			exec.add(textEjecucion);
+			exec.add(button3);
+			
+			attrKnow.add(labelAttrCon);
+			attrKnow.add(textAttrCon);
+			attrKnow.add(buttonAttrCon);
+		
+		    attrEsp.add(labelAttrEsp);
+		    attrEsp.add(textAttrEsp);
+		    attrEsp.add(buttonAttrEsp);
+		
+		    mutAttr.add(labelMutAttr);
+		    mutAttr.add(textMutAttr);
+		    mutAttr.add(buttonMutAttr);
+			
+		    profNear.add(labelProfNear);
+		    profNear.add(textProfNear);
+		    profNear.add(buttonProfNear);
+			
+		    
+		    panelGenetico.add(numPopu);
+		    panelGenetico.add(numGen);
+		    panelGenetico.add(grupProf);
+		    panelGenetico.add(cross);
+		    panelGenetico.add(mutprob);
+		    
+		    numPopu.add(labelNumPop);
+		    numPopu.add(textNumPop);
+		    numPopu.add(buttonNumPop);
+		    
+		    numGen.add(labelNumGen);
+		    numGen.add(textNumGen);
+		    numGen.add(buttonNumGen);
+		
+		    grupProf.add(labelGruPer);
+		    grupProf.add(textGruPer);
+		    grupProf.add(buttonGruPer);
+		
+		    cross.add(labelCross);
+		    cross.add(textCross);
+		    cross.add(buttonCross);
+		    
+		    mutprob.add(labelMutProb);
+		    mutprob.add(textMutProb);
+		    mutprob.add(buttonMutProb);
+		  
+		    panelMinimax.add(depth);
+		    panelMinimax.add(numberAttr);
+		    panelMinimax.add(numberPrev);
+		    panelMinimax.add(numberTurn);
+		    
+		    depth.add(labelDepth0);
+		    depth.add(textDepth0);
+		    depth.add(buttonDepth0);
+		    
+		    depth.add(labelDepth1);
+		    depth.add(textDepth1);
+		    depth.add(buttonDepth1);
+			
+		    numberAttr.add(labelNumAttr);
+		    numberAttr.add(textNumAttr);
+		    numberAttr.add(buttonNumAttr);
+		    
+		    numberPrev.add(labelTurPrev);
+		    numberPrev.add(textTurPrev);
+		    numberPrev.add(buttonTurPrev);
+		    
+		    numberTurn.add(labelTur);
+		    numberTurn.add(textTur);
+		    numberTurn.add(buttonTur);
+		    
+			//Se llama a pack después de haber agregado componenetes a la ventana
+			pack();
+			}
 	}
 
 	/**
@@ -560,7 +582,8 @@ public class GUI extends JFrame implements ActionListener{
 		switch(op){
 			case "Start Genetic Algorithm":
 			try {
-				ga.start(jtA1,null, false);
+				if(numProd > 1) gaVar.start(jtA1, null, false);
+				else ga.start(jtA1,null, false);
 				showGenetic = true;
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
@@ -572,7 +595,8 @@ public class GUI extends JFrame implements ActionListener{
 					String nombre = nombre_txt.getText();
 					if(nombre.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 					else 
-					{	ga.start(jtA1,nombre,true);
+					{	if(numProd > 1) gaVar.start(jtA1,nombre,true);
+						else ga.start(jtA1,nombre,true);
 						showInput = true;
 					}
 				} catch (Exception e1) {
@@ -870,6 +894,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						double attrCon = Double.parseDouble(AttrCon);
 						ga.setKNOWN_ATTRIBUTES(attrCon);
+						gaVar.setKNOWN_ATTRIBUTES(attrCon);
 						minimax.setKNOWN_ATTRIBUTES(attrCon);
 						in.setKNOWN_ATTRIBUTES(attrCon);
 					}catch(NumberFormatException nfe)
@@ -886,7 +911,6 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						double attrEs = Double.parseDouble(AttrEs);
-						ga.setSPECIAL_ATTRIBUTES(attrEs);
 						in.setSPECIAL_ATTRIBUTES(attrEs);
 						//minimax.setSPECIAL_ATTRIBUTES(attrEs);
 					}catch(NumberFormatException nfe)
@@ -903,7 +927,6 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						double mutAttr = Double.parseDouble(MutAt);
-						ga.setMUT_PROB_CUSTOMER_PROFILE(mutAttr);
 						in.setMUT_PROB_CUSTOMER_PROFILE(mutAttr);
 						//minimax.setMUT_PROB_CUSTOMER_PROFILE(mutAttr);
 					}catch(NumberFormatException nfe)
@@ -921,6 +944,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int profne = Integer.parseInt(profNe);
 						ga.setNEAR_CUST_PROFS(profne);
+						gaVar.setNEAR_CUST_PROFS(profne);
 						in.setNEAR_CUST_PROFS(profne);
 						//minimax.setNEAR_CUST_PROFS(profne);
 					}catch(NumberFormatException nfe)
@@ -937,6 +961,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int numpob = Integer.parseInt(nump);
 						ga.setNUM_POPULATION(numpob);
+						gaVar.setNUM_POPULATION(numpob);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
@@ -951,6 +976,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int numgen = Integer.parseInt(Numge);
 						ga.setNUM_GENERATIONS(numgen);
+						gaVar.setNUM_GENERATIONS(numgen);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
@@ -965,6 +991,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int gruper = Integer.parseInt(GruPe);
 						ga.setRESP_PER_GROUP(gruper);
+						gaVar.setRESP_PER_GROUP(gruper);
 						in.setRESP_PER_GROUP(gruper);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
@@ -980,6 +1007,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int cross = Integer.parseInt(Cro);
 						ga.setCROSSOVER_PROB(cross);
+						gaVar.setCROSSOVER_PROB(cross);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
@@ -994,6 +1022,7 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int mutpro = Integer.parseInt(MutPro);
 						ga.setMUTATION_PROB(mutpro);
+						gaVar.setMUTATION_PROB(mutpro);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}

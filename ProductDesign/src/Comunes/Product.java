@@ -28,7 +28,6 @@ public class Product implements Cloneable{
 	public Product clone(){
 		Product product = new Product(this.attributeValue);
 		product.setPrice(this.Price);
-//		product.setFitness(this.Fitness);
 		return product;
 	}
 	public int getPrice() {

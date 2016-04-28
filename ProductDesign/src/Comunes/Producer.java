@@ -7,6 +7,8 @@ public class Producer {
 	private String Name;
 	public ArrayList<Attribute> AvailableAttribute;
 	public Product product;
+	
+	private ArrayList<Product> products = new ArrayList<>();
 
 	/****** FOR MINIMAX *******/
 	private ArrayList<Integer> CustomersGathered = new ArrayList<>();
@@ -60,5 +62,13 @@ public class Producer {
 			Number_CG += CustomersGathered.get(Cust);
 
 		return Number_CG;
+	}
+	
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(ArrayList<Product> products) {
+		this.products = products;
 	}
 }

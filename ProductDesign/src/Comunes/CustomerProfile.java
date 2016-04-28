@@ -9,6 +9,7 @@ public class CustomerProfile {
 	private int numberCustomers;
 	private ArrayList<Attribute> scoreAttributes;
 	private ArrayList<SubProfile> subProfiles;
+	private ArrayList<LinkedAttribute> linkedAttributes;
 
 	public CustomerProfile(ArrayList<Attribute> scoreAttributes) {
 		super();
@@ -36,6 +37,13 @@ public class CustomerProfile {
 
 	public void setSubProfiles(ArrayList<SubProfile> subProfiles) {
 		this.subProfiles = subProfiles;
+	}
+	public ArrayList<LinkedAttribute> getLinkedAttributes() {
+		return linkedAttributes;
+	}
+
+	public void setLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes) {
+		this.linkedAttributes = linkedAttributes;
 	}
 }
 
