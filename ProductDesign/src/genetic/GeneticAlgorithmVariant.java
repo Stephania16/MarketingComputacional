@@ -289,6 +289,7 @@ public class GeneticAlgorithmVariant {
 				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\n" 
 				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\n" 
 				+ "Num productos: " + in.getNumber_Products() + "\n" 
+				+ "Atributos linkados: " + isAttributesLinked() + "\n" 
 				+ "************* RESULTS *************" + "\n"  
 				+ "BestWSC: " + BestWSC + "\n" 
 				 + "Mean: " + meanTXT + "\n"
@@ -894,12 +895,12 @@ public class GeneticAlgorithmVariant {
 		this.maximizar = maximizar;
 	}
 
-	public static boolean isAttributesLinked() {
+	public boolean isAttributesLinked() {
 		return isAttributesLinked;
 	}
 
-	public static void setAttributesLinked(boolean isAttributesLinked) {
-		GeneticAlgorithm.isAttributesLinked = isAttributesLinked;
+	public void setAttributesLinked(boolean AttributesLinked) {
+		isAttributesLinked = AttributesLinked;
 	}
 	
 	public int getNumber_Products() {

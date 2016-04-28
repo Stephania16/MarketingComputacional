@@ -89,7 +89,7 @@ public class GUI extends JFrame implements ActionListener{
 	    	  gaVar.setMaximizar(true);
 	    	  minimax.setMaximizar(true);
 		}
-		else if(JOptionPane.NO_OPTION == resp){
+		else{ // if(JOptionPane.NO_OPTION == resp)
 			ga.setMaximizar(false);
 			gaVar.setMaximizar(false);
 			minimax.setMaximizar(false);
@@ -108,6 +108,24 @@ public class GUI extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
+			
+			int linkados = JOptionPane.showConfirmDialog(null,"Ejecutar con atributos linkados?");
+			while(JOptionPane.CANCEL_OPTION == linkados){
+				linkados = JOptionPane.showConfirmDialog(null,"Ejecutar con atributos linkados?");
+			}
+			if (JOptionPane.YES_OPTION == linkados){
+				  in.setAttributesLinked(true);
+		    	  ga.setAttributesLinked(true);
+		    	  gaVar.setAttributesLinked(true);
+		    	  minimax.setAttributesLinked(true);
+			}
+			else{ // if(JOptionPane.NO_OPTION == linkados)
+				in.setAttributesLinked(true);
+				ga.setAttributesLinked(false);
+				gaVar.setAttributesLinked(false);
+				minimax.setAttributesLinked(false);
+			}
+			
 			in.setNumber_Products(numProd);
 			gaVar.setNumber_Products(numProd);
 			//FRAME
@@ -622,6 +640,7 @@ public class GUI extends JFrame implements ActionListener{
 					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab2, e1.getMessage());
+					e1.printStackTrace();
 				}
 				break;
 			

@@ -35,7 +35,7 @@ public class InputRandom {
 	                                             * profile in groups of
 												 * RESP_PER_GROUP respondents
 												 */
-	    static int NEAR_CUST_PROFS = 5; //4
+	    static int NEAR_CUST_PROFS = 4; 
 	    public static int number_Products = 1;
 	    public static boolean isAttributesLinked = false;
 	    
@@ -193,8 +193,6 @@ public class InputRandom {
 	     * @throws Exception
 	     */
 	    private void divideCustomerProfile() throws Exception {
-
-
 	        int numOfSubProfile;
 	        for (int i = 0; i < CustomerProfiles.size(); i++) {
 	            ArrayList<SubProfile> subProfiles = new ArrayList<>();
@@ -291,7 +289,7 @@ public class InputRandom {
 	        Producers.clear();
 
 	        Producers = new ArrayList<>();
-	        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos 10 productores random
+	        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos productores random
 	            Producer new_producer = new Producer();
 	            new_producer.setName("Productor " + (i + 1));
 	            new_producer.setAvailableAttribute(createAvailableAttributes());
@@ -405,7 +403,7 @@ public class InputRandom {
 	    
 	    private void genCustomerProfilesNum() {
 	        for (int i = 0; i < añadir.getnum_prof(); i++) {
-	            int number_customers = (int) (Math.floor(añadir.getnum()+ 1) * Math.random());
+	            int number_customers = (int) (Math.floor(añadir.getnum() + 1) * Math.random());
 	            CustomerProfiles.get(i).setNumberCustomers(number_customers);
 	        }
 	    }
@@ -461,12 +459,12 @@ public class InputRandom {
 		}
 
 
-		public static boolean isAttributesLinked() {
+		public boolean isAttributesLinked() {
 			return isAttributesLinked;
 		}
 
 
-		public static void setAttributesLinked(boolean isAttributesLinked) {
+		public void setAttributesLinked(boolean isAttributesLinked) {
 			InputRandom.isAttributesLinked = isAttributesLinked;
 		}
 		

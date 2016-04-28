@@ -21,7 +21,7 @@ public class Minimax {
  //   private double SPECIAL_ATTRIBUTES = 33; // % of special attributes known for some producers
  //   public double MUT_PROB_CUSTOMER_PROFILE = 33; // % of mutated attributes in a customer profile
 
-    private int MAX_DEPTH_0 = 4; //Maximun depth of the minimax //depth 8 in initial
+    private int MAX_DEPTH_0 = 4; //4; //Maximun depth of the minimax //depth 8 in initial
     private int MAX_DEPTH_1 = 2; //Maximun depth of the minimax //depth 2 in initial
 
     private int NUM_EXEC = 5;
@@ -66,7 +66,7 @@ public class Minimax {
         jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
     }
 
-    public void statisticsPDG(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
+    public void statisticsPDG(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
     	double mean, initMean;
 		double sum = 0; /*sum of customers achieved*/
 		int sumCust = 0; /*sum of the total number of customers*/
@@ -79,25 +79,20 @@ public class Minimax {
 		double My_price;
 		double initPercCust; /* % of initial customers achieved */
 		
-		if(input_txt)
+		mResults = new ArrayList<>();
+        mInitialResults = new ArrayList<>();
+        Prices = new ArrayList<>();
+		
+        if(inputFile)
     	{
 			int input = archivo.indexOf(".xml");
 			if(input != -1) añadir.inputXML(archivo);
 			else añadir.muestraContenido(archivo);
 			generarDatosGUI();    		
     	}	
-		else
-    	{	if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
-    		else{
-    			in.generateInput();
-    			TotalAttributes = in.getTotalAttributes();
-    			Producers = in.getProducers();
-    			CustomerProfiles = in.getCustomerProfiles();
-    		}
-    	}
-		mResults = new ArrayList<>();
+        
         for(int i = 0; i < getNumExecutions(); i++){
-            playPDG();
+            playPDG(archivo,inputFile);
             sum += mResults.get(i);
             initSum = mInitialResults.get(i);
             sumCust += countCustomers() * getmNTurns() * 2;
@@ -123,6 +118,8 @@ public class Minimax {
 	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\n" +
 	               "Num atributos modificables: " + getmNAttrMod() + "\n" + 
 	               "Num turnos previos: " + getmPrevTurns() + "\n" +
+	               "Num productos: " + in.getNumber_Products() + "\n" +
+	               "Atributos linkados: " + isAttributesLinked() + "\n" +
 	    		   "************* RESULTS *************" + "\n" + 
 	               "Num turnos: " + getmNTurns() + "\n" +
 	    		   "Mean: " + String.format("%.2f", mean) + "\n" + 
@@ -136,13 +133,6 @@ public class Minimax {
 			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\n");
 		}
 	    
-	    
-	    /*System.out.println("Depth Prod 0: " + MAX_DEPTH_0);
-		System.out.println("Depth Prod 1: " + MAX_DEPTH_1);
-		System.out.println("Mean: " + mean);
-		System.out.println("stdDev: " + stdDev);
-		System.out.println("custMean: " + custMean);
-		System.out.println("percCust: " + percCust + " %");*/
     }
     
     private void generarDatosGUI() throws Exception {
@@ -152,7 +142,17 @@ public class Minimax {
         Producers = añadir.getProducers();
 	}
     
-    public void playPDG() throws Exception {
+    public void playPDG(String archivo, boolean inputFile) throws Exception {
+    	if(!inputFile)
+    	{	
+    		if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
+    		else{
+    			in.generateInput();
+    			TotalAttributes = in.getTotalAttributes();
+    			Producers = in.getProducers();
+    			CustomerProfiles = in.getCustomerProfiles();
+    		}
+    	}
         playGame();
     }
     
@@ -554,11 +554,11 @@ public class Minimax {
 		this.maximizar = maximizar;
 	}
 	
-    public static boolean isAttributesLinked() {
+    public boolean isAttributesLinked() {
 		return isAttributesLinked;
 	}
 
-	public static void setAttributesLinked(boolean isAttributesLinked) {
+	public void setAttributesLinked(boolean isAttributesLinked) {
 		Minimax.isAttributesLinked = isAttributesLinked;
 	}
 
