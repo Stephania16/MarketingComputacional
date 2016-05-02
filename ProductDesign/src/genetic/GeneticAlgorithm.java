@@ -10,7 +10,11 @@ import Comunes.Producer;
 import Comunes.Product;
 import GUI.Añadir;
 import GUI.InputRandom;
+import GUI.OutputResults;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class GeneticAlgorithm {
@@ -59,6 +63,7 @@ public class GeneticAlgorithm {
 	private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 	Añadir añadir = new Añadir();
 	InputRandom in = new InputRandom();
+	OutputResults out = new OutputResults();
 
 	/***************************************
 	 * " AUXILIARY EXCEL METHODS " * @throws Exception
@@ -118,7 +123,8 @@ public class GeneticAlgorithm {
 		double initPercCust; /* % of initial customers achieved */
 		int price = 0;
 		double My_price;
-
+		
+		
 		Results = new ArrayList<>();
 		Initial_Results = new ArrayList<>();
 		Prices = new ArrayList<>();
@@ -169,50 +175,42 @@ public class GeneticAlgorithm {
 		My_price = price / getNumExecutions();
 
 		jtA.setText("");
-		jtA.append("Num Ejecuciones: " + getNumExecutions() + "\n" 
-				+ "Num atributos: " + TotalAttributes.size() + "\n"
-				+ "Num productores: " + Producers.size() + "\n" 
-				+ "Num perfiles: " + CustomerProfiles.size() + "\n"
-				+ "Number CustProf: " + añadir.getnum() + "\n" 
-				+ "Num Población: " + getNUM_POPULATION() + "\n"
-				+ "Num Generaciones: " + getNUM_GENERATIONS() + "\n" 
-				+ "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\n" 
-				+ "Atributos especiales: " + in.getSPECIAL_ATTRIBUTES() + " %" + "\n"
-				+ "% Mutación de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\n" 
-				+ "% Crossover: " + getCROSSOVER_PROB() + " %" + "\n" 
-				+ "% Mutación: " + getMUTATION_PROB() + " %" + "\n"
-				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\n" 
-				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\n" 
-				+ "Num productos: " + in.getNumber_Products() + "\n" 
-				+ "Atributos linkados: " + isAttributesLinked() + "\n" 
-				+ "************* RESULTS *************" + "\n"  
-				+ "BestWSC: " + BestWSC + "\n" 
-				+ "Mean: " + String.format("%.2f", mean) + "\n" 
-				+ "initMean: " + String.format("%.2f", initMean) + "\n" 
-				+ "variance: " + String.format("%.2f", variance) + "\n" 
-				+ "initVariance: " + String.format("%.2f", initVariance) + "\n" 
-				+ "stdDev: " + String.format("%.2f", stdDev) + "\n"
-				+ "initStdDev: " + String.format("%.2f", initStdDev) + "\n" 
-				+ "custMean: " + String.format("%.2f", custMean) + "\n" 
-				+ "Price: " + String.format("%.2f", My_price) + " €" + "\n");
+		jtA.append("Num Ejecuciones: " + getNumExecutions() + "\r\n" 
+				+ "Num atributos: " + TotalAttributes.size() + "\r\n"
+				+ "Num productores: " + Producers.size() + "\r\n" 
+				+ "Num perfiles: " + CustomerProfiles.size() + "\r\n"
+				+ "Number CustProf: " + añadir.getnum() + "\r\n" 
+				+ "Num Población: " + getNUM_POPULATION() + "\r\n"
+				+ "Num Generaciones: " + getNUM_GENERATIONS() + "\r\n"
+				+ "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\r\n"
+				+ "Atributos especiales: " + in.getSPECIAL_ATTRIBUTES() + " %" + "\r\n"
+				+ "% Mutación de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\r\n"
+				+ "% Crossover: " + getCROSSOVER_PROB() + " %" + "\r\n"
+				+ "% Mutación: " + getMUTATION_PROB() + " %" + "\r\n"
+				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\r\n" 
+				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\r\n"
+				+ "Num productos: " + in.getNumber_Products() + "\r\n" 
+				+ "Atributos linkados: " + isAttributesLinked() + "\r\n"
+				+ "************* RESULTS *************" + "\r\n"  
+				+ "BestWSC: " + BestWSC + "\r\n" 
+				+ "Mean: " + String.format("%.2f", mean) + "\r\n" 
+				+ "initMean: " + String.format("%.2f", initMean) + "\r\n" 
+				+ "variance: " + String.format("%.2f", variance) + "\r\n"
+				+ "initVariance: " + String.format("%.2f", initVariance) + "\r\n" 
+				+ "stdDev: " + String.format("%.2f", stdDev) + "\r\n"
+				+ "initStdDev: " + String.format("%.2f", initStdDev) + "\r\n" 
+				+ "custMean: " + String.format("%.2f", custMean) + "\r\n"
+				+ "Price: " + String.format("%.2f", My_price) + " €" + "\r\n");
 
 		if (isMaximizar()) { // fit == customers
-			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\n" 
-					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\n");
+			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\r\n"
+					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\r\n");
 		} else { // if (fit == Benefits)
-			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\n");
+			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\r\n");
 		}
-
-		/*
-		 * System.out.println("mean: " + mean); System.out.println("initMean: "
-		 * + initMean); System.out.println("variance: " + variance);
-		 * System.out.println("initVariance: " + initVariance);
-		 * System.out.println("stdDev: " + stdDev); System.out.println(
-		 * "initStdDev: " + initStdDev); System.out.println("custMean: " +
-		 * custMean); System.out.println("percCust: " + percCust + " %");
-		 * System.out.println("initPercCust: " + initPercCust + " %");
-		 */
-
+		
+		out.output(jtA, "Algoritmo Genético");
+		
 	}
 
 	public void generarDatosGUI() throws Exception {
@@ -223,6 +221,8 @@ public class GeneticAlgorithm {
 		Producers = añadir.getProducers();
 
 	}
+	
+	
 
 	/*************************************** " AUXILIARY METHODS GENERATEINPUT()" ***************************************/
 
@@ -292,11 +292,14 @@ public class GeneticAlgorithm {
 		jTextArea.setText("");
 		for (int i = 0; i < Producers.size(); i++) {
 			Producer p = Producers.get(i);
-			jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
-			for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-				jTextArea.append(p.getAvailableAttribute().get(j).getName() + "\n" + "Value -> "
-						+ p.getProduct().getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-
+			for(int k = 0; k < p.getProducts().size(); k++){
+				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
+					jTextArea.append("Producto " + (k + 1) + " ");
+					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
+							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
+	
+				}
 			}
 		}
 		jTextArea.repaint();

@@ -10,6 +10,7 @@ import Comunes.Producer;
 import Comunes.Product;
 import GUI.Añadir;
 import GUI.InputRandom;
+import GUI.OutputResults;
 
 public class Minimax {
 
@@ -52,6 +53,7 @@ public class Minimax {
     public static boolean isAttributesLinked = false;
     Añadir añadir = new Añadir();
     InputRandom in = new InputRandom();
+    OutputResults out = new OutputResults();
 
     /************************
      * INITIAL METHOD
@@ -109,30 +111,30 @@ public class Minimax {
 		My_price = price / getNumExecutions();
         
 		jtA.setText("");
-	    jtA.append("Num Ejecuciones: " + getNumExecutions() + "\n" + 
-	     		   "Num atributos: " + getTotalAttributes().size() + "\n" + 
-	     		   "Num productores: " + getProducers().size() + "\n" + 
-	     		   "Num perfiles: " + getCustomerProfiles().size() + "\n" + 
-	     		   "Number CustProf: " + añadir.getnum() + "\n" + 
-	    		   "Depth Prod 0: " + getMAX_DEPTH_0() + "\n" + 
-	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\n" +
-	               "Num atributos modificables: " + getmNAttrMod() + "\n" + 
-	               "Num turnos previos: " + getmPrevTurns() + "\n" +
-	               "Num productos: " + in.getNumber_Products() + "\n" +
-	               "Atributos linkados: " + isAttributesLinked() + "\n" +
-	    		   "************* RESULTS *************" + "\n" + 
-	               "Num turnos: " + getmNTurns() + "\n" +
-	    		   "Mean: " + String.format("%.2f", mean) + "\n" + 
-	               "stdDev: " + String.format("%.2f", stdDev) + "\n" + 
-	    		   "custMean: " + String.format("%.2f", custMean) + "\n" + 
-	    		   "Price: " + String.format("%.2f", My_price) + " €" + "\n");	    			
+	    jtA.append("Num Ejecuciones: " + getNumExecutions() + "\r\n" + 
+	     		   "Num atributos: " + getTotalAttributes().size() + "\r\n" + 
+	     		   "Num productores: " + getProducers().size() + "\r\n" + 
+	     		   "Num perfiles: " + getCustomerProfiles().size() + "\r\n" + 
+	     		   "Number CustProf: " + añadir.getnum() + "\r\n" + 
+	    		   "Depth Prod 0: " + getMAX_DEPTH_0() + "\r\n" + 
+	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\r\n" +
+	               "Num atributos modificables: " + getmNAttrMod() + "\r\n" + 
+	               "Num turnos previos: " + getmPrevTurns() + "\r\n" +
+	               "Num productos: " + in.getNumber_Products() + "\r\n" +
+	               "Atributos linkados: " + isAttributesLinked() + "\r\n" +
+	    		   "************* RESULTS *************" + "\r\n" + 
+	               "Num turnos: " + getmNTurns() + "\r\n" +
+	    		   "Mean: " + String.format("%.2f", mean) + "\r\n" + 
+	               "stdDev: " + String.format("%.2f", stdDev) + "\r\n" + 
+	    		   "custMean: " + String.format("%.2f", custMean) + "\r\n" + 
+	    		   "Price: " + String.format("%.2f", My_price) + " €" + "\r\n");	    			
 	    if (isMaximizar()) { // fit == customers
-			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\n" 
-					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\n");
+			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\r\n" 
+					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\r\n");
 		} else { // if (fit == Benefits)
-			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\n");
+			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\r\n");
 		}
-	    
+	    out.output(jtA, "Algoritmo Minimax");
     }
     
     private void generarDatosGUI() throws Exception {
@@ -182,19 +184,22 @@ public class Minimax {
         jTextArea1.repaint();
     }
 	
-    public void showProducers(JTextArea jTextArea1) {
-    	jTextArea1.setText("");
-    	for (int i = 0; i < Producers.size(); i++) {
-            Producer p = Producers.get(i);
-            jTextArea1.append("PRODUCTOR " + (i + 1) + "\n");
-           // System.out.println("PRODUCTOR " + (i + 1));
-            for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-            	jTextArea1.append(p.getAvailableAttribute().get(j).getName() + "\n" + "Value -> " + p.getProduct().getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-            	//System.out.println(p.getAvailableAttribute().get(j).getName() +  ":  Value -> "  + p.getProduct().getAttributeValue().get(TotalAttributes.get(j)));
-            }
-        }
-    	jTextArea1.repaint();
-    }
+    public void showProducers(JTextArea jTextArea) {
+		jTextArea.setText("");
+		for (int i = 0; i < Producers.size(); i++) {
+			Producer p = Producers.get(i);
+			for(int k = 0; k < p.getProducts().size(); k++){
+				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
+					jTextArea.append("Producto " + (k + 1) + " ");
+					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
+							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
+	
+				}
+			}
+		}
+		jTextArea.repaint();
+	}
 
     public void showCustomerProfile(JTextArea jTextArea1) {
     	jTextArea1.setText("");

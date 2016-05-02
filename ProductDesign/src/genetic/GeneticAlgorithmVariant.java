@@ -12,6 +12,7 @@ import Comunes.Producer;
 import Comunes.Product;
 import GUI.Añadir;
 import GUI.InputRandom;
+import GUI.OutputResults;
 
 public class GeneticAlgorithmVariant {
 	static double KNOWN_ATTRIBUTES = 100; /*
@@ -59,6 +60,7 @@ public class GeneticAlgorithmVariant {
 	public static int number_Products = 1;
 	Añadir añadir = new Añadir();
 	InputRandom in = new InputRandom();
+	OutputResults out = new OutputResults();
 	private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 
 	/***************************************
@@ -274,31 +276,32 @@ public class GeneticAlgorithmVariant {
 			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\n");
 		}*/
 
-		jtA.append("Num Ejecuciones: " + getNumExecutions() + "\n" 
-				+ "Num atributos: " + TotalAttributes.size() + "\n"
-				+ "Num productores: " + Producers.size() + "\n" 
-				+ "Num perfiles: " + CustomerProfiles.size() + "\n"
-				+ "Number CustProf: " + añadir.getnum() + "\n" 
-				+ "Num Población: " + getNUM_POPULATION() + "\n"
-				+ "Num Generaciones: " + getNUM_GENERATIONS() + "\n" 
-				+ "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\n" 
-				+ "Atributos especiales: " + in.getSPECIAL_ATTRIBUTES() + " %" + "\n"
-				+ "% Mutación de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\n" 
-				+ "% Crossover: " + getCROSSOVER_PROB() + " %" + "\n" 
-				+ "% Mutación: " + getMUTATION_PROB() + " %" + "\n"
-				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\n" 
-				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\n" 
-				+ "Num productos: " + in.getNumber_Products() + "\n" 
-				+ "Atributos linkados: " + isAttributesLinked() + "\n" 
-				+ "************* RESULTS *************" + "\n"  
-				+ "BestWSC: " + BestWSC + "\n" 
-				 + "Mean: " + meanTXT + "\n"
-				 + "initMean: " + initMeanTXT + "\n"
-				 + "stdDev: " + stdDevTXT + "\n"
-				 + "initStdDev: " + initStdDevTXT + "\n"
-				 + "percCust: " + percCustTXT + "\n"
-				 + "initPercCust: " + initPercCustTXT + "\n"
-				 + "My_priceString: " + priceTXT + "\n");
+		jtA.append("Num Ejecuciones: " + getNumExecutions() + "\r\n" 
+				+ "Num atributos: " + TotalAttributes.size() + "\r\n"
+				+ "Num productores: " + Producers.size() + "\r\n" 
+				+ "Num perfiles: " + CustomerProfiles.size() + "\r\n"
+				+ "Number CustProf: " + añadir.getnum() + "\r\n" 
+				+ "Num Población: " + getNUM_POPULATION() + "\r\n"
+				+ "Num Generaciones: " + getNUM_GENERATIONS() + "\r\n" 
+				+ "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\r\n" 
+				+ "Atributos especiales: " + in.getSPECIAL_ATTRIBUTES() + " %" + "\r\n"
+				+ "% Mutación de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\r\n" 
+				+ "% Crossover: " + getCROSSOVER_PROB() + " %" + "\r\n" 
+				+ "% Mutación: " + getMUTATION_PROB() + " %" + "\r\n"
+				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\r\n" 
+				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\r\n" 
+				+ "Num productos: " + in.getNumber_Products() + "\r\n" 
+				+ "Atributos linkados: " + isAttributesLinked() + "\r\n" 
+				+ "************* RESULTS *************" + "\r\n"  
+				+ "BestWSC: " + BestWSC + "\r\n" 
+				 + "Mean: " + meanTXT + "\r\n"
+				 + "initMean: " + initMeanTXT + "\r\n"
+				 + "stdDev: " + stdDevTXT + "\r\n"
+				 + "initStdDev: " + initStdDevTXT + "\r\n"
+				 + "percCust: " + percCustTXT + "\r\n"
+				 + "initPercCust: " + initPercCustTXT + "\r\n"
+				 + "My_priceString: " + priceTXT + "\r\n");
+		out.output(jtA, "Algoritmo Genético");
 
 	}
 
@@ -807,6 +810,65 @@ public class GeneticAlgorithmVariant {
 			sqrSum += Math.pow(Results.get(i).get(0) - mean, 2);
 		}
 		return (sqrSum / getNumExecutions());
+	}
+
+	
+	public void showAttributes(JTextArea jTextArea) {
+		jTextArea.setText("");
+		for (int k = 0; k < TotalAttributes.size(); k++) {
+			jTextArea.append(TotalAttributes.get(k).getName() + "\n" + "MIN: " + TotalAttributes.get(k).getMIN() + "\n"
+					+ "MAX: " + TotalAttributes.get(k).getMAX() + "\n");
+		}
+		jTextArea.repaint();
+	}
+
+	public void showCustomerProfile(JTextArea jTextArea) {
+		jTextArea.setText("");
+		for (int i = 0; i < CustomerProfiles.size(); i++) {
+			CustomerProfile cp = CustomerProfiles.get(i);
+			jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
+			for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
+				jTextArea.append(cp.getScoreAttributes().get(j).getName() + "\n");
+				for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
+					jTextArea.append("Value -> " + cp.getScoreAttributes().get(j).getScoreValues().get(z) + "\n");
+				}
+			}
+		}
+		jTextArea.repaint();
+	}
+
+	public void showSubProfile(JTextArea jTextArea) {
+		jTextArea.setText("");
+		for (int i = 0; i < CustomerProfiles.size(); i++) {
+			CustomerProfile cp = CustomerProfiles.get(i);
+			jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
+			for (int j = 0; j < cp.getSubProfiles().size(); j++) {
+				jTextArea.append(cp.getSubProfiles().get(j).getName() + "\n");
+				for (int z = 0; z < cp.getSubProfiles().get(j).getValueChosen().size(); z++) {
+					jTextArea.append("Value -> "
+							+ cp.getSubProfiles().get(j).getValueChosen().get(TotalAttributes.get(z)) + "\n");
+
+				}
+			}
+		}
+		jTextArea.repaint();
+	}
+
+	public void showProducers(JTextArea jTextArea) {
+		jTextArea.setText("");
+		for (int i = 0; i < Producers.size(); i++) {
+			Producer p = Producers.get(i);
+			for(int k = 0; k < p.getProducts().size(); k++){
+				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
+					jTextArea.append("Producto " + (k + 1) + " ");
+					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
+							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
+	
+				}
+			}
+		}
+		jTextArea.repaint();
 	}
 
 	

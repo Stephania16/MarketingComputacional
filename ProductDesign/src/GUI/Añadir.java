@@ -183,16 +183,19 @@ public class Añadir {
 	}
 
 	/** Add valoration desde gui **/
-	public void AñadirValorAtributo(Attribute attr, int punt, int posProducer) {
+	public void AñadirValorAtributo(Attribute attr, int punt, int posProducer, int posProduct) {
 		ArrayList<Boolean> avaiableValues = new ArrayList<Boolean>();
 		for (int j = 0; j < attr.getMAX(); j++)
 			avaiableValues.add(true);
 		attr.setAvailableValues(avaiableValues);
-
-		Producers.get(posProducer).getAvailableAttribute().add(attr);
+		
+		if(!isElement(Producers.get(posProducer).getAvailableAttribute(), attr))
+			Producers.get(posProducer).getAvailableAttribute().add(attr);
 
 		int pos = getIndexOf(TotalAttributes, attr);
 		Producers.get(posProducer).getProduct().getAttributeValue().put(TotalAttributes.get(pos), punt);
+		Producers.get(posProducer).getProducts().get(posProduct).getAttributeValue().put(TotalAttributes.get(pos), punt);
+		
 	}
 
 	public Attribute getAttribute(ArrayList<Attribute> totalAttributes, String name) {
@@ -204,7 +207,7 @@ public class Añadir {
 	}
 
 	/** Generating the producers desde la gui **/
-	public void AñadirProducer(int posProd) {
+	public void AñadirProducer(int posProd, int posProduct) {
 
 		if (Producers.size() <= posProd) {
 			Producer producer = new Producer();
@@ -218,8 +221,23 @@ public class Añadir {
 			product.setAttributeValue(values);
 			product.setPrice((int)( Math.random() * 400) + 100);
 			producer.setProduct(product);
+			
 			Producers.add(producer);
 		}
+	}
+	
+	public void products(int posProd, int posProduct){
+		if (Producers.get(posProd).getProducts().size() <= posProduct) {
+			HashMap<Attribute, Integer> values = new HashMap<>();
+			Product product = new Product();
+			product.setAttributeValue(values);
+			product.setPrice((int)( Math.random() * 400) + 100);			
+			ArrayList<Product> products = new ArrayList<>();
+			products.add(product);
+			
+			Producers.get(posProd).getProducts().add(product);
+		}
+		
 	}
 
 	/** Add valoration desde gui **/
@@ -299,11 +317,14 @@ public class Añadir {
 		salida.println("@productor");
 		for (int i = 0; i < Producers.size(); i++) {
 			Producer p = Producers.get(i);
-			for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-				salida.print("productor " + i + " ");
-				salida.println(p.getAvailableAttribute().get(j).getName() + " "
-						+ p.getProduct().getAttributeValue().get(TotalAttributes.get(j)));
-
+			for(int k = 0; k < p.getProducts().size(); k++){
+				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+						salida.print("productor " + i + " ");
+						salida.print("producto " + k + " ");
+						salida.println(p.getAvailableAttribute().get(j).getName() + " "
+						+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)));
+			
+				}
 			}
 		}
 		salida.println("@perfil");
@@ -345,13 +366,16 @@ public class Añadir {
 				int posProducerAux = -1;
 				do {
 					int posProducer = in.nextInt();
+					String producto = in.next();
+					int posProduct = in.nextInt();
 					String atrib_prod = in.next();
 					int valor = in.nextInt();
 					Attribute attr = getAttribute(TotalAttributes, atrib_prod);
 					Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
 					if (isElement(TotalAttributes, atribute)) {
-						AñadirProducer(posProducer);
-						AñadirValorAtributo(atribute, valor, posProducer);
+						AñadirProducer(posProducer, posProduct);
+						products(posProducer, posProduct);
+						AñadirValorAtributo(atribute, valor, posProducer, posProduct);
 					}
 					productor = in.next();
 					posProducerAux = posProducer;
@@ -439,13 +463,16 @@ public class Añadir {
 			if (nProd.getNodeType() == Node.ELEMENT_NODE) {
 
 				Element eElementProd = (Element) nProd;
-			
+				
 				//System.out.println("prod id : " + eElementProd.getAttribute("id"));
 				String name = eElementProd.getElementsByTagName("name").item(0).getTextContent();
 				//System.out.println("name : " + name);
 				
 				int indice = Integer.parseInt(eElementProd.getElementsByTagName("indice").item(0).getTextContent());
 				//System.out.println("indice : " + indice);
+				
+				String name_product = eElementProd.getElementsByTagName("name_product").item(0).getTextContent();
+				int pos_product = Integer.parseInt(eElementProd.getElementsByTagName("pos_product").item(0).getTextContent());
 				
 				String nameAttr = eElementProd.getElementsByTagName("nameAtributo").item(0).getTextContent();
 				//System.out.println("name atributo : " + nameAttr);
@@ -456,8 +483,9 @@ public class Añadir {
 				Attribute attr = getAttribute(TotalAttributes, nameAttr);
 				Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
 				if (isElement(TotalAttributes, atribute)) {
-					AñadirProducer(indice);
-					AñadirValorAtributo(atribute, valor, indice);
+					AñadirProducer(indice,pos_product);
+					products(indice, pos_product);
+					AñadirValorAtributo(atribute, valor, indice,pos_product);
 				}
 			}
 
@@ -549,33 +577,46 @@ public class Añadir {
 		    
 		    for(int prod = 0; prod < getProducers().size(); prod++){
 			    Producer p = getProducers().get(prod);
-			    for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-			    	//Crear un elemento EMPLEADO colgando de EMPLEADOS
-			    	Element elementoProd = documento.createElement("prod");
-			    	elementoProd.setAttribute("id", "@productor");
-			    	elementoRaiz.appendChild(elementoProd);
-			    	//Crear cada uno de los textos de datos del empleado
-				    Element elementoNombre = documento.createElement("name");
-				    elementoProd.appendChild(elementoNombre);
-				    Text textoNombre = documento.createTextNode("productor");
-				    elementoNombre.appendChild(textoNombre);
-				 
-				    Element elementoIndice = documento.createElement("indice");
-				    elementoProd.appendChild(elementoIndice);
-				    String indice = Integer.toString(prod);
-				    Text textoIndice = documento.createTextNode(indice);
-				    elementoIndice.appendChild(textoIndice);
-				    
-				    Element elementoNameAttr = documento.createElement("nameAtributo");
-				    elementoProd.appendChild(elementoNameAttr);
-				    Text textoNameAttr = documento.createTextNode(p.getAvailableAttribute().get(j).getName());
-				    elementoNameAttr.appendChild(textoNameAttr);
-				    
-				    Element valor = documento.createElement("valor");
-				    elementoProd.appendChild(valor);
-				    String valores = Integer.toString(p.getProduct().getAttributeValue().get(getTotalAttributes().get(j)));
-				    Text textvalue = documento.createTextNode(valores);
-				    valor.appendChild(textvalue);
+			    for(int k = 0; k < p.getProducts().size(); k++){
+				    for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
+				    	//Crear un elemento EMPLEADO colgando de EMPLEADOS
+				    	Element elementoProd = documento.createElement("prod");
+				    	elementoProd.setAttribute("id", "@productor");
+				    	elementoRaiz.appendChild(elementoProd);
+				    	//Crear cada uno de los textos de datos del empleado
+					    Element elementoNombre = documento.createElement("name");
+					    elementoProd.appendChild(elementoNombre);
+					    Text textoNombre = documento.createTextNode("productor");
+					    elementoNombre.appendChild(textoNombre);
+					 
+					    Element elementoIndice = documento.createElement("indice");
+					    elementoProd.appendChild(elementoIndice);
+					    String indice = Integer.toString(prod);
+					    Text textoIndice = documento.createTextNode(indice);
+					    elementoIndice.appendChild(textoIndice);
+					    
+					    Element elementoNameProd = documento.createElement("name_product");
+					    elementoProd.appendChild(elementoNameProd);
+					    Text textoNameProd = documento.createTextNode("producto");
+					    elementoNameProd.appendChild(textoNameProd);
+					    
+					    Element elementoPosPro = documento.createElement("pos_product");
+					    elementoProd.appendChild(elementoPosPro);
+					    String posP = Integer.toString(k);
+					    Text textoProd = documento.createTextNode(posP);
+					    elementoPosPro.appendChild(textoProd);
+					    
+					    Element elementoNameAttr = documento.createElement("nameAtributo");
+					    elementoProd.appendChild(elementoNameAttr);
+					    Text textoNameAttr = documento.createTextNode(p.getAvailableAttribute().get(j).getName());
+					    elementoNameAttr.appendChild(textoNameAttr);
+					    
+					    Element valor = documento.createElement("valor");
+					    elementoProd.appendChild(valor);
+					    String valores = Integer.toString(p.getProducts().get(k).getAttributeValue().get(getTotalAttributes().get(j)));
+					    Text textvalue = documento.createTextNode(valores);
+					    valor.appendChild(textvalue);
+				    }
 			    }
 		    }
 		    

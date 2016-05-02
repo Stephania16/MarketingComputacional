@@ -35,7 +35,7 @@ public class GUI extends JFrame implements ActionListener{
 	JPanel tab1, tab2, tab3, tab4, panel,panel2, panelLabel,tab5,panelGeneral;
 	JTextField textEjecucion,posAttr1, posAttr2, posAttr3,text3, text4,
 	           text5,text6,text7,text8,text9,text10,text13, text14, text15,text16, text17,text18,
-	           text19,text20,text21, nombre_txt, nombre_txt_min, textTxt;
+	           text19,text20,text21, nombre_txt, nombre_txt_min, textTxt,textProducto;
 	GeneticAlgorithm ga;
 	GeneticAlgorithmVariant gaVar;
 	Minimax minimax;
@@ -252,11 +252,13 @@ public class GUI extends JFrame implements ActionListener{
 			
 			/*Productores*/
 			JPanel productores = new JPanel();
+			productores.setLayout(new GridLayout(6,1));
 			productores.setBorder(BorderFactory.createTitledBorder("Productores"));
-			productores.setLayout(new GridLayout(4,1));
 			JPanel num_product = new JPanel();
+			JPanel productor_producto = new JPanel();
 			JPanel attr_disp = new JPanel();
-			JPanel product = new JPanel(new GridLayout(2,1)); //new GridLayout(2,3)
+			JPanel product = new JPanel(); //new GridLayout(2,1)
+			JPanel button_add = new JPanel();
 			JPanel borrar_total_prod = new JPanel();
 			label4 = new JLabel("Número de productores");
 			text3 = new JTextField(5);
@@ -264,6 +266,8 @@ public class GUI extends JFrame implements ActionListener{
 			button10.addActionListener(this);
 			JLabel prod = new JLabel("Productor:");
 			text20 = new JTextField(5);
+			JLabel producto = new JLabel("Producto:");
+			textProducto = new JTextField(5);
 			JLabel disp = new JLabel("Atributos disponibles:");
 			label5 = new JLabel("Name");
 			text10 = new JTextField(5); 
@@ -466,9 +470,12 @@ public class GUI extends JFrame implements ActionListener{
 			num_product.add(text3);
 			num_product.add(button10);
 			
+			productores.add(productor_producto);
+			productor_producto.add(prod);
+			productor_producto.add(text20);
+			productor_producto.add(producto);
+			productor_producto.add(textProducto);
 			productores.add(attr_disp);
-			attr_disp.add(prod);
-			attr_disp.add(text20);
 			attr_disp.add(disp);
 			attr_disp.add(label5);
 			attr_disp.add(text10);
@@ -476,8 +483,10 @@ public class GUI extends JFrame implements ActionListener{
 			productores.add(product);
 			product.add(valor);
 			product.add(text16);
-			product.add(button5);
-			product.add(button9);
+			
+			productores.add(button_add);
+			button_add.add(button5);
+			button_add.add(button9);
 			
 			productores.add(borrar_total_prod);
 			borrar_total_prod.add(button_prod);
@@ -724,21 +733,25 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Añadir Productor":
 				String t20 = text20.getText();
+				String tProd = textProducto.getText();
 				String t10 = text10.getText();
-				if(t20.isEmpty() || t10.isEmpty()){
+				if(t20.isEmpty() || t10.isEmpty() || tProd.isEmpty()){
 					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
 				}
 				else{
 					try{
 						int x20 = Integer.parseInt(t20);
+						int xProd = Integer.parseInt(tProd);
 						Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), t10);
 						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
 						if(añadir.isElement(añadir.getTotalAttributes(),attribute)) 
 						{ 
 							if(añadir.getnum_prod() <= x20) JOptionPane.showMessageDialog(tab4, "Sobrepasa el número de productores");
 							else {
-								añadir.AñadirProducer(x20);
+								añadir.AñadirProducer(x20,xProd);
+								añadir.products(x20,xProd);
 								text20.setEnabled(false);
+								textProducto.setEnabled(false);
 								text10.setEnabled(false);
 							}
 						}
@@ -752,6 +765,7 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Añadir atributo disponible":
 				t20 = text20.getText();
+				tProd = textProducto.getText();
 				t10 = text10.getText();
 				String t16 = text16.getText();
 				if(t16.isEmpty()){
@@ -760,14 +774,16 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						int x20 = Integer.parseInt(t20);
+						int xProd = Integer.parseInt(tProd);
 						int x16 = Integer.parseInt(t16);
 						Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), t10);
 						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
 						if(añadir.isElement(añadir.getTotalAttributes(),attribute)) 
 						{ 
-							añadir.AñadirValorAtributo(attribute,x16,x20);
-							jtA4.append("Productor " + x20 + "  " + "Nombre: " + attribute.getName() + " " + "Valor: " + x16 + "\n");
+							añadir.AñadirValorAtributo(attribute,x16,x20,xProd);
+							jtA4.append("Productor " + x20 + "  " + "Producto " + xProd + "  " + "Nombre: " + attribute.getName() + " " + "Valor: " + x16 + "\n");
 							text20.setEnabled(true);
+							textProducto.setEnabled(true);
 							text10.setEnabled(true);
 						}
 						else 
@@ -867,24 +883,32 @@ public class GUI extends JFrame implements ActionListener{
 			break;
 			
 			case "Attributes":
-					if(showGenetic || showInput)
+					if(showGenetic || showInput){
 						ga.showAttributes(jtA3);
+						gaVar.showAttributes(jtA3);
+					}
 					else minimax.showAttributes(jtA3);
 			break;
 			case "Producers":
-					if(showGenetic || showInput)
+					if(showGenetic || showInput){
 						ga.showProducers(jtA3);
+						gaVar.showProducers(jtA3);
+					}
 					else minimax.showProducers(jtA3);
 			break;
 			case "Profiles":
-					if(showGenetic || showInput)
+					if(showGenetic || showInput){
 						ga.showCustomerProfile(jtA3);
+						gaVar.showCustomerProfile(jtA3);
+					}
 					else
 					minimax.showCustomerProfile(jtA3);
 			break;
 			case "SubProfiles":
-					if(showGenetic || showInput)
+					if(showGenetic || showInput){
 						ga.showSubProfile(jtA3);
+						gaVar.showSubProfile(jtA3);
+					}
 					else jtA3.setText("Subprofiles not available");			
 			break;
 			

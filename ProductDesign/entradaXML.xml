@@ -15,40 +15,159 @@
 	<prod id="@productor">
 		<name>productor</name>
 		<indice>0</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
 		<nameAtributo>atributo1</nameAtributo>
 		<valor>1</valor>
 		</prod>
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>0</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>3</valor>
+		</prod>
+	
 	<prod id="@productor">	
 		<name>productor</name>
-		<indice>1</indice>
-		<nameAtributo>atributo1</nameAtributo>
-		<valor>2</valor>
-	</prod>
-	<prod id="@productor">	
-		<name>productor</name>
-		<indice>2</indice>
+		<indice>0</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
 		<nameAtributo>atributo1</nameAtributo>
 		<valor>2</valor>
 	</prod>
 	<prod id="@productor">
 		<name>productor</name>
 		<indice>0</indice>
-		<nameAtributo>atributo2</nameAtributo>
-		<valor>3</valor>
-	</prod>
-	<prod id="@productor">
-		<name>productor</name>
-		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
 		<nameAtributo>atributo2</nameAtributo>
 		<valor>0</valor>
 	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>0</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>1</valor>
+	</prod>
 	<prod id="@productor">
 		<name>productor</name>
+		<indice>0</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>2</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>1</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>1</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>1</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	
+	<prod id="@productor">	
+		<name>productor</name>
 		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>2</valor>
+	</prod>
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>0</pos_product>
 		<nameAtributo>atributo2</nameAtributo>
 		<valor>3</valor>
 	</prod>
-
+	
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>0</valor>
+	</prod>
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>1</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>3</valor>
+	</prod>
+	
+	<prod id="@productor">
+		<name>productor</name>
+		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo1</nameAtributo>
+		<valor>1</valor>
+	</prod>
+	<prod id="@productor">	
+		<name>productor</name>
+		<indice>2</indice>
+		<name_product>producto</name_product>
+		<pos_product>2</pos_product>
+		<nameAtributo>atributo2</nameAtributo>
+		<valor>3</valor>
+	</prod>
+	
 	
 	<prof id="@perfil">
 		<name>perfil</name>
