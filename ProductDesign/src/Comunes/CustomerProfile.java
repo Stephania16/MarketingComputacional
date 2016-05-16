@@ -45,5 +45,17 @@ public class CustomerProfile {
 	public void setLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes) {
 		this.linkedAttributes = linkedAttributes;
 	}
+	
+	public boolean equals(CustomerProfile cust)
+	{
+		for(int i = 0; i < cust.getScoreAttributes().size(); i++)
+		{
+			if((cust.getScoreAttributes().get(i).getName().equals(scoreAttributes.get(i).getName())) &&
+			   (cust.getScoreAttributes().get(i).getMAX() == (scoreAttributes.get(i).getMAX()))	&&
+			   (cust.getScoreAttributes().get(i).getMIN() == (scoreAttributes.get(i).getMIN()))) return true;
+			
+		}
+		return false;
+	}
 }
 

@@ -8,9 +8,9 @@ import Comunes.CustomerProfile;
 import Comunes.LinkedAttribute;
 import Comunes.Producer;
 import Comunes.Product;
-import GUI.Añadir;
-import GUI.InputRandom;
-import GUI.OutputResults;
+import input.InputGUI;
+import input.InputRandom;
+import output.OutputResults;
 
 public class Minimax {
 
@@ -51,7 +51,7 @@ public class Minimax {
     private ArrayList<Integer> mInitialResults = new ArrayList<>();
     public boolean maximizar = false;
     public static boolean isAttributesLinked = false;
-    Añadir añadir = new Añadir();
+    InputGUI inputGUI = new InputGUI();
     InputRandom in = new InputRandom();
     OutputResults out = new OutputResults();
 
@@ -65,7 +65,7 @@ public class Minimax {
         long tiempo = System.currentTimeMillis()- inicio;
             
         double elapsedTimeSec = tiempo / 1.0E03;
-        jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
+        jtA.append("\nTiempo de ejecuciï¿½n = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
     }
 
     public void statisticsPDG(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
@@ -88,8 +88,8 @@ public class Minimax {
         if(inputFile)
     	{
 			int input = archivo.indexOf(".xml");
-			if(input != -1) añadir.inputXML(archivo);
-			else añadir.muestraContenido(archivo);
+			if(input != -1) inputGUI.inputXML(archivo);
+			else inputGUI.muestraContenido(archivo);
 			generarDatosGUI();    		
     	}	
         
@@ -115,7 +115,7 @@ public class Minimax {
 	     		   "Num atributos: " + getTotalAttributes().size() + "\r\n" + 
 	     		   "Num productores: " + getProducers().size() + "\r\n" + 
 	     		   "Num perfiles: " + getCustomerProfiles().size() + "\r\n" + 
-	     		   "Number CustProf: " + añadir.getnum() + "\r\n" + 
+	     		   "Number CustProf: " + inputGUI.getnum() + "\r\n" + 
 	    		   "Depth Prod 0: " + getMAX_DEPTH_0() + "\r\n" + 
 	               "Depth Prod 1: " + getMAX_DEPTH_1() + "\r\n" +
 	               "Num atributos modificables: " + getmNAttrMod() + "\r\n" + 
@@ -127,7 +127,7 @@ public class Minimax {
 	    		   "Mean: " + String.format("%.2f", mean) + "\r\n" + 
 	               "stdDev: " + String.format("%.2f", stdDev) + "\r\n" + 
 	    		   "custMean: " + String.format("%.2f", custMean) + "\r\n" + 
-	    		   "Price: " + String.format("%.2f", My_price) + " €" + "\r\n");	    			
+	    		   "Price: " + String.format("%.2f", My_price) + " â‚¬" + "\r\n");	    			
 	    if (isMaximizar()) { // fit == customers
 			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\r\n" 
 					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\r\n");
@@ -138,16 +138,16 @@ public class Minimax {
     }
     
     private void generarDatosGUI() throws Exception {
-        TotalAttributes = añadir.getTotalAttributes();
-        CustomerProfiles = añadir.getCustomerProfiles();
-        añadir.setProfiles();
-        Producers = añadir.getProducers();
+        TotalAttributes = inputGUI.getTotalAttributes();
+        CustomerProfiles = inputGUI.getCustomerProfiles();
+        inputGUI.setProfiles();
+        Producers = inputGUI.getProducers();
 	}
     
     public void playPDG(String archivo, boolean inputFile) throws Exception {
     	if(!inputFile)
     	{	
-    		if(añadir.isGenerarDatosEntrada()) generarDatosGUI();
+    		if(inputGUI.isGenerarDatosEntrada()) generarDatosGUI();
     		else{
     			in.generateInput();
     			TotalAttributes = in.getTotalAttributes();

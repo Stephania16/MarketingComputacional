@@ -1,4 +1,4 @@
-package GUI;
+package output;
 
 import java.io.File;
 import java.io.FileWriter;

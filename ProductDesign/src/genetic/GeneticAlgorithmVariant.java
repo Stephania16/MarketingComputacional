@@ -10,9 +10,9 @@ import Comunes.CustomerProfile;
 import Comunes.LinkedAttribute;
 import Comunes.Producer;
 import Comunes.Product;
-import GUI.Añadir;
-import GUI.InputRandom;
-import GUI.OutputResults;
+import input.InputGUI;
+import input.InputRandom;
+import output.OutputResults;
 
 public class GeneticAlgorithmVariant {
 	static double KNOWN_ATTRIBUTES = 100; /*
@@ -58,7 +58,7 @@ public class GeneticAlgorithmVariant {
 	public boolean maximizar = false;
 	public static boolean isAttributesLinked = false;
 	public static int number_Products = 1;
-	Añadir añadir = new Añadir();
+	InputGUI añadir = new InputGUI();
 	InputRandom in = new InputRandom();
 	OutputResults out = new OutputResults();
 	private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();

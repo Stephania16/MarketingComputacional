@@ -8,13 +8,12 @@ import Comunes.CustomerProfile;
 import Comunes.LinkedAttribute;
 import Comunes.Producer;
 import Comunes.Product;
-import GUI.Añadir;
-import GUI.InputRandom;
-import GUI.OutputResults;
+import input.InputGUI;
+import input.InputRandom;
+import input.InputWeka;
+import output.OutputCSV;
+import output.OutputResults;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class GeneticAlgorithm {
@@ -61,9 +60,10 @@ public class GeneticAlgorithm {
 
 	private ArrayList<Integer> Prices = new ArrayList<>();
 	private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
-	Añadir añadir = new Añadir();
+	InputGUI inputGUI = new InputGUI();
 	InputRandom in = new InputRandom();
 	OutputResults out = new OutputResults();
+	InputWeka inWeka = new InputWeka();
 
 	/***************************************
 	 * " AUXILIARY EXCEL METHODS " * @throws Exception
@@ -76,7 +76,7 @@ public class GeneticAlgorithm {
 		long tiempo = System.currentTimeMillis() - inicio;
 
 		double elapsedTimeSec = tiempo / 1.0E03;
-		jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
+		jtA.append("\nTiempo de ejecuciÃ³n = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
 	}
 
 	/***************************************
@@ -133,28 +133,36 @@ public class GeneticAlgorithm {
 
 		if (inputFile) {
 			int input = archivo.indexOf(".xml");
-			if(input != -1) añadir.inputXML(archivo);
-			else añadir.muestraContenido(archivo);
+			if(input != -1) inputGUI.inputXML(archivo);
+			else inputGUI.muestraContenido(archivo);
 			generarDatosGUI();
 		} else {
-			if (añadir.isGenerarDatosEntrada())
+			if (inputGUI.isGenerarDatosEntrada())
 				generarDatosGUI();
 			else if (Producers.size() == 0) {
 				in.generate();
 				TotalAttributes = in.getTotalAttributes();
 				Producers = in.getProducers();
 				CustomerProfiles = in.getCustomerProfiles();
+				//inCsv.WriteCSV(CustomerProfiles);
 			}
 		}
 
 		for (int i = 0; i < getNumExecutions(); i++) {
-			if (i != 0) /*
-						 * We reset myPP and create a new product as the first
-						 * product
-						 */ {
-				Producers.get(MY_PRODUCER)
-						.setProduct(createNearProduct(Producers.get(MY_PRODUCER).getAvailableAttribute(),
-								(int) (CustomerProfiles.size() * Math.random())));
+			if (i != 0) {
+				if(inWeka.isClusters())
+				{
+					Producers.get(MY_PRODUCER)
+					.setProduct(createNearProductCluster(Producers.get(MY_PRODUCER).getAvailableAttribute(), inWeka.getCustomerProfiles().size()));
+				}
+				else {/*
+					 * We reset myPP and create a new product as the first
+					 * product
+					 */ 
+			Producers.get(MY_PRODUCER)
+					.setProduct(createNearProduct(Producers.get(MY_PRODUCER).getAvailableAttribute(),
+							(int) (CustomerProfiles.size() * Math.random())));
+				}
 			}
 			solvePD_GA();
 			sum += Results.get(i);
@@ -179,14 +187,14 @@ public class GeneticAlgorithm {
 				+ "Num atributos: " + TotalAttributes.size() + "\r\n"
 				+ "Num productores: " + Producers.size() + "\r\n" 
 				+ "Num perfiles: " + CustomerProfiles.size() + "\r\n"
-				+ "Number CustProf: " + añadir.getnum() + "\r\n" 
-				+ "Num Población: " + getNUM_POPULATION() + "\r\n"
+				+ "Number CustProf: " + inputGUI.getnum() + "\r\n" 
+				+ "Num PoblaciÃ³n: " + getNUM_POPULATION() + "\r\n"
 				+ "Num Generaciones: " + getNUM_GENERATIONS() + "\r\n"
 				+ "Atributos conocidos: " + getKNOWN_ATTRIBUTES() + " %" + "\r\n"
 				+ "Atributos especiales: " + in.getSPECIAL_ATTRIBUTES() + " %" + "\r\n"
-				+ "% Mutación de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\r\n"
+				+ "% MutaciÃ³n de atributos: " + in.getMUT_PROB_CUSTOMER_PROFILE() + " %" + "\r\n"
 				+ "% Crossover: " + getCROSSOVER_PROB() + " %" + "\r\n"
-				+ "% Mutación: " + getMUTATION_PROB() + " %" + "\r\n"
+				+ "% MutaciÃ³n: " + getMUTATION_PROB() + " %" + "\r\n"
 				+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\r\n" 
 				+ "Num perfiles cercanos: " + getNEAR_CUST_PROFS() + "\r\n"
 				+ "Num productos: " + in.getNumber_Products() + "\r\n" 
@@ -200,7 +208,7 @@ public class GeneticAlgorithm {
 				+ "stdDev: " + String.format("%.2f", stdDev) + "\r\n"
 				+ "initStdDev: " + String.format("%.2f", initStdDev) + "\r\n" 
 				+ "custMean: " + String.format("%.2f", custMean) + "\r\n"
-				+ "Price: " + String.format("%.2f", My_price) + " €" + "\r\n");
+				+ "Price: " + String.format("%.2f", My_price) + " â‚¬" + "\r\n");
 
 		if (isMaximizar()) { // fit == customers
 			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\r\n"
@@ -209,17 +217,17 @@ public class GeneticAlgorithm {
 			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\r\n");
 		}
 		
-		out.output(jtA, "Algoritmo Genético");
+		out.output(jtA, "Algoritmo GenÃ©tico");
 		
 	}
 
 	public void generarDatosGUI() throws Exception {
-		TotalAttributes = añadir.getTotalAttributes();
-		CustomerProfiles = añadir.getCustomerProfiles();
-		añadir.setProfiles();
-		añadir.divideCustomerProfile();
-		Producers = añadir.getProducers();
-
+		TotalAttributes = inputGUI.getTotalAttributes();
+		CustomerProfiles = inputGUI.getCustomerProfiles();
+		inputGUI.setProfiles();
+		inputGUI.divideCustomerProfile();
+		Producers = inputGUI.getProducers();
+		//inCsv.WriteCSV(CustomerProfiles);
 	}
 	
 	
@@ -369,6 +377,32 @@ public class GeneticAlgorithm {
 		return product;
 	}
 
+	/**
+	 * Creating a product near various customer profiles cluster
+	 */
+	private Product createNearProductCluster(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
+		// improve having into account the sub-profiles*/
+		Product product = new Product(new HashMap<Attribute, Integer>());
+		int possible = 0;
+		int attrVal = 0;
+
+		ArrayList<Integer> possibleAttr = new ArrayList<>();		
+		for(int z = 0; z < nearCustProfs; z++){
+			for(int j = 0; j < inWeka.getCustomerProfiles().get(z).getScoreAttributes().size(); j++)
+			{
+				for(int k = 0; k < inWeka.getCustomerProfiles().get(z).getScoreAttributes().get(j).getScoreValues().size(); k++){
+					possible += inWeka.getCustomerProfiles().get(z).getScoreAttributes().get(j).getScoreValues().get(k);
+				}
+				possibleAttr.add(possible);
+				attrVal = getMaxAttrVal(j, possibleAttr, availableAttribute);
+				product.getAttributeValue().put(inWeka.getCustomerProfiles().get(z).getScoreAttributes().get(j), attrVal);
+			}
+		}
+		
+		product.setPrice(calculatePrice(product));
+		return product;
+	}
+	
 	/**
 	 * Chosing an attribute near to the customer profiles given
 	 */
@@ -730,7 +764,7 @@ public class GeneticAlgorithm {
 	}
 
 	/**
-	 * Mï¿½todo que dada la poblaciï¿½n original y una nueva poblaciï¿½n elige
+	 * Mï¿½todo que dada la PoblaciÃ³n original y una nueva PoblaciÃ³n elige
 	 * la siguente ' generaciï¿½n de individuos. Actualizo la mejor soluciï¿½n
 	 * encontrada en caso de mejorarla.
 	 */

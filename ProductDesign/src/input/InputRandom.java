@@ -1,4 +1,4 @@
-package GUI;
+package input;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class InputRandom {
 	 private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
 	    private static ArrayList<Producer> Producers = new ArrayList<>();
 	    private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
-	    Añadir añadir = new Añadir();
+	    InputGUI inputGUI = new InputGUI();
 	    private static final double PROB_ATTRIBUTE_LINKED = 10;
 	    static double KNOWN_ATTRIBUTES = 100; /* 100
 	                                                 * % of attributes known for all
@@ -66,7 +66,7 @@ public class InputRandom {
 
 	    private void generateAttributeRandom() {
 	        TotalAttributes.clear();
-	        for (int i = 0; i < añadir.getnum_attr(); i++) {
+	        for (int i = 0; i < inputGUI.getnum_attr(); i++) {
 
 	            double rnd = Math.random();
 	            if (rnd < 0.34)
@@ -289,7 +289,7 @@ public class InputRandom {
 	        Producers.clear();
 
 	        Producers = new ArrayList<>();
-	        for (int i = 0; i < añadir.getnum_prod(); i++) { //Creamos productores random
+	        for (int i = 0; i < inputGUI.getnum_prod(); i++) { //Creamos productores random
 	            Producer new_producer = new Producer();
 	            new_producer.setName("Productor " + (i + 1));
 	            new_producer.setAvailableAttribute(createAvailableAttributes());
@@ -402,8 +402,8 @@ public class InputRandom {
 	    }
 	    
 	    private void genCustomerProfilesNum() {
-	        for (int i = 0; i < añadir.getnum_prof(); i++) {
-	            int number_customers = (int) (Math.floor(añadir.getnum() + 1) * Math.random());
+	        for (int i = 0; i < inputGUI.getnum_prof(); i++) {
+	            int number_customers = (int) (Math.floor(inputGUI.getnum() + 1) * Math.random());
 	            CustomerProfiles.get(i).setNumberCustomers(number_customers);
 	        }
 	    }

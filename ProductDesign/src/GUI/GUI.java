@@ -9,7 +9,11 @@ import javax.swing.*;
 import Comunes.Attribute;
 import genetic.GeneticAlgorithm;
 import genetic.GeneticAlgorithmVariant;
+import input.InputGUI;
+import input.InputRandom;
+import input.InputWeka;
 import minimax.Minimax;
+import pso.PSOAlgorithm;
 
 /**
  * Genetic Algorithm GUI
@@ -22,47 +26,54 @@ public class GUI extends JFrame implements ActionListener{
     private static final int NUMERO_FILAS = 25;
     private int numProd = 1;
 	JFrame window;
-	JTextArea jtA1, jtA2, jtA3,jtA4,jt;
+	JTextArea jtA1, jtA2, jtA3,jtA4,jt,jtA6,jtA7,jtA8;
 	JLabel label, label2, label3, label4, label5, label6, label7,label8,
 	       label9, label10,label11,label12, label13,label14,label15,label16,
-	       label17,label18, labelTxt;
+	       label17,label18, labelTxt, numClusters, archivoCSV;
 	JButton button1, button2, button3, button4, button5, 
 	        button6, button7, button8, button9, button10, 
 	        button11, button_prod, button_prof, button_txt,
-	        borrar, attr, prod, prof, subprof, button_txt_min, buttonTxt;
-	JScrollPane sp1,sp2;
-	JTabbedPane pestaña;
-	JPanel tab1, tab2, tab3, tab4, panel,panel2, panelLabel,tab5,panelGeneral;
+	        borrar, attr, prod, prof, subprof, button_txt_min, 
+	        buttonTxt, buttonCSV,buttonPSO,button_txt_pso, buttonSA ,button_txt_SA;
+	JScrollPane sp1,sp2,sp3;
+	JTabbedPane pestaÃ±a;
+	JPanel tab1, tab2, tab3, tab4, tab7, tab8, panel, panel2, panelLabel,tab5,panelGeneral,tab6;
 	JTextField textEjecucion,posAttr1, posAttr2, posAttr3,text3, text4,
 	           text5,text6,text7,text8,text9,text10,text13, text14, text15,text16, text17,text18,
-	           text19,text20,text21, nombre_txt, nombre_txt_min, textTxt,textProducto;
+	           text19,text20,text21, nombre_txt, nombre_txt_min, textTxt,textProducto,textP, 
+	           textClusters, textCSV;
 	GeneticAlgorithm ga;
 	GeneticAlgorithmVariant gaVar;
+	PSOAlgorithm pso;
 	Minimax minimax;
-	Añadir añadir = new Añadir();
+	InputGUI inputGUI = new InputGUI();
 	InputRandom in = new InputRandom();
+	InputWeka inW = new InputWeka();
 	int maxValoraciones = 0;
 	int valoracionActual = 0;
 	
 	boolean showGenetic = false;
 	boolean showInput = false;
+	boolean showPSO = false;
 	private JLabel labelAttrCon, labelAttrEsp,labelMutAttr,labelProfNear,labelNumPop,
 				   labelNumGen,labelGruPer,labelCross,labelMutProb,labelDepth0,labelDepth1,
-				   labelNumAttr,labelTurPrev,labelTur;
+				   labelNumAttr,labelTurPrev,labelTur,pAttr, sAttr, puntNueva, a1,a2;
 	private JTextField textAttrCon, textAttrEsp, textMutAttr, textProfNear, textNumPop, 
 					   textNumGen,textGruPer,textCross,textMutProb,textDepth0,textDepth1,textNumAttr,
-					   textTurPrev,textTur;
+					   textTurPrev,textTur,textPAttr, textSAttr, textpuntNueva, textA1, textA2, nombre_txt_pso,
+					   nombre_txt_SA;
 	private JButton buttonAttrCon,buttonAttrEsp,buttonMutAttr,buttonProfNear,buttonNumPop,buttonNumGen,
 					buttonGruPer,buttonCross,buttonMutProb,buttonDepth0,buttonDepth1,buttonNumAttr,
-					buttonTurPrev,buttonTur;
+					buttonTurPrev,buttonTur, buttonP, buttonPunt;
+	
 
-	//En el constructor solo llamamos un método:
+	//En el constructor solo llamamos un mï¿½todo:
 	public GUI() throws Exception{
 		iniciarGUI();
 	}
 	
 	/**
-	  * Método que se encarga de llamar a todos los métodos
+	  * Mï¿½todo que se encarga de llamar a todos los mï¿½todos
 	  * encargados de crear la GUI y mostrarla.
 	 * @throws Exception 
 	  */
@@ -79,55 +90,24 @@ public class GUI extends JFrame implements ActionListener{
 		ga = new GeneticAlgorithm();
 		gaVar = new GeneticAlgorithmVariant();
 		minimax = new Minimax();
-		int resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
-	
-		while(JOptionPane.CANCEL_OPTION == resp){
-			resp = JOptionPane.showConfirmDialog(null,"¿Quieres máximizar el número de clientes?");
-		}
+		pso = new PSOAlgorithm();
+		Object[] opciones = { "Maximizar clientes", "Maximizar ingresos"};
+		int resp = JOptionPane.showOptionDialog(null, "Seleccione opciÃ³n", "Opciones", 
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
 		if (JOptionPane.YES_OPTION == resp){
 	    	  ga.setMaximizar(true);
 	    	  gaVar.setMaximizar(true);
+	    	  pso.setMaximizar(true);
 	    	  minimax.setMaximizar(true);
 		}
 		else{ // if(JOptionPane.NO_OPTION == resp)
 			ga.setMaximizar(false);
 			gaVar.setMaximizar(false);
+			pso.setMaximizar(false);
 			minimax.setMaximizar(false);
 		}
 		
-		if(JOptionPane.CLOSED_OPTION != resp){
-			String produc = JOptionPane.showInputDialog(null, "Número de productos de cada productor", "Productos", JOptionPane.INFORMATION_MESSAGE);
-			numProd = Integer.parseInt(produc);
-			while(numProd < 1) {
-				JOptionPane.showMessageDialog(null, "El número tiene que ser mayor que uno");
-				produc = JOptionPane.showInputDialog(null, "Número de productos de cada productor", "Productos", JOptionPane.INFORMATION_MESSAGE);
-				try{
-					numProd = Integer.parseInt(produc);
-				}catch(NumberFormatException e)
-				{
-					JOptionPane.showMessageDialog(null, e.getMessage());
-				}
-			}
-			
-			int linkados = JOptionPane.showConfirmDialog(null,"Ejecutar con atributos linkados?");
-			while(JOptionPane.CANCEL_OPTION == linkados){
-				linkados = JOptionPane.showConfirmDialog(null,"Ejecutar con atributos linkados?");
-			}
-			if (JOptionPane.YES_OPTION == linkados){
-				  in.setAttributesLinked(true);
-		    	  ga.setAttributesLinked(true);
-		    	  gaVar.setAttributesLinked(true);
-		    	  minimax.setAttributesLinked(true);
-			}
-			else{ // if(JOptionPane.NO_OPTION == linkados)
-				in.setAttributesLinked(true);
-				ga.setAttributesLinked(false);
-				gaVar.setAttributesLinked(false);
-				minimax.setAttributesLinked(false);
-			}
-			
-			in.setNumber_Products(numProd);
-			gaVar.setNumber_Products(numProd);
 			//FRAME
 			window = new JFrame();
 		
@@ -136,11 +116,11 @@ public class GUI extends JFrame implements ActionListener{
 		    setResizable(false);
 		
 			//JTABBEPANE
-			pestaña = new JTabbedPane();
+			pestaÃ±a = new JTabbedPane();
 			
 			//JTAB 1
 			tab1 = new JPanel();
-			tab1.setBorder(BorderFactory.createTitledBorder("Genetic Algorithm"));
+			tab1.setBorder(BorderFactory.createTitledBorder("Algoritmo GenÃ©tico"));
 			JPanel genetic = new JPanel();
 			genetic.setLayout(new GridLayout(3,1));
 			button1 = new JButton("Start Genetic Algorithm");
@@ -154,7 +134,7 @@ public class GUI extends JFrame implements ActionListener{
 					
 			//JTAB2
 			tab2 = new JPanel();
-			tab2.setBorder(BorderFactory.createTitledBorder("Minimax Algorithm"));
+			tab2.setBorder(BorderFactory.createTitledBorder("Algoritmo Minimax"));
 			JPanel panel_minimax = new JPanel();
 			panel_minimax.setLayout(new GridLayout(3,1));
 			button2 = new JButton("Start Minimax Algorithm");
@@ -167,11 +147,38 @@ public class GUI extends JFrame implements ActionListener{
 			jtA2.setEditable(false);
 			
 			
-		
+			//JTAB7
+			tab7 = new JPanel();
+			tab7.setBorder(BorderFactory.createTitledBorder("Algoritmo PSO"));
+			JPanel panel_pso = new JPanel();
+			panel_pso.setLayout(new GridLayout(3,1));
+			buttonPSO = new JButton("Ejecutar PSO");
+			buttonPSO.addActionListener(this);
+			button_txt_pso = new JButton("Ejecutar PSO(.txt o .xml):");
+			nombre_txt_pso = new JTextField(5);
+			button_txt_pso.addActionListener(this);
+			jtA7 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
+			jtA7.setBorder(BorderFactory.createLineBorder(Color.black));
+			jtA7.setEditable(false);
+			
+			//JTAB8
+			tab8 = new JPanel();
+			tab8.setBorder(BorderFactory.createTitledBorder("Algoritmo SA"));
+			JPanel panel_SA = new JPanel();
+			panel_SA.setLayout(new GridLayout(3,1));
+			buttonSA = new JButton("Ejecutar SA");
+			buttonSA.addActionListener(this);
+			button_txt_SA = new JButton("Ejecutar SA(.txt o .xml):");
+			nombre_txt_SA = new JTextField(5);
+			button_txt_SA.addActionListener(this);
+			jtA8 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
+			jtA8.setBorder(BorderFactory.createLineBorder(Color.black));
+			jtA8.setEditable(false);
+			
 			//JTAB3 -  contenedor
 			tab3 = new JPanel();
-			tab3.setBorder(BorderFactory.createTitledBorder("Datos Estadisticos"));
-			// Panel de botones de la pestaña 3
+			tab3.setBorder(BorderFactory.createTitledBorder("Datos EstadÃ­sticos"));
+			// Panel de botones de la pestaÃ±a 3
 			panel = new JPanel();
 			panel.setLayout(new GridLayout(4, 1));
 		
@@ -179,7 +186,7 @@ public class GUI extends JFrame implements ActionListener{
 			jtA3 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 			jtA3.setBorder(BorderFactory.createLineBorder(Color.black));
 			jtA3.setEditable(false);
-			// Añadimos el Scroll
+			// Aï¿½adimos el Scroll
 			sp1 = new JScrollPane();
 			sp1.setViewportView(jtA3);
 		
@@ -192,7 +199,7 @@ public class GUI extends JFrame implements ActionListener{
 			prof.addActionListener(this);
 			subprof.addActionListener(this);
 		
-			// Añadimos opciones al panel de botones
+			// Aï¿½adimos opciones al panel de botones
 			panel.add(attr);
 			panel.add(prod);
 			panel.add(prof);
@@ -207,16 +214,19 @@ public class GUI extends JFrame implements ActionListener{
 			//JTAB4
 			tab4 = new JPanel(new GridLayout(1,1));
 			panelLabel = new JPanel();
-		    panelLabel.setLayout(new GridLayout(4,1));
+		    panelLabel.setLayout(new GridLayout(3,1));
+	
 		    JPanel paneltexts = new JPanel();
 		    JPanel paneltextArea = new JPanel();
 		    JPanel panelTxt = new JPanel(new GridLayout(1,1));
-		    panelTxt.setBorder(BorderFactory.createTitledBorder("Guardar en TXT"));
+		    panelTxt.setBorder(BorderFactory.createTitledBorder("Guardar en TXT o XML"));
+		    JPanel borrar_total = new JPanel();
+		   // JPanel borrar_total_prof = new JPanel();
 		    
 		    jtA4 = new JTextArea(28, 28);
 		    //jtA4.setBorder(BorderFactory.createLineBorder(Color.black));
 		    jtA4.setEditable(false);
-		    // Añadimos el Scroll
+		    // Aï¿½adimos el Scroll
 			sp2 = new JScrollPane();
 			sp2.setViewportView(jtA4);
 		
@@ -226,6 +236,12 @@ public class GUI extends JFrame implements ActionListener{
 		    buttonTxt = new JButton("Guardar");
 		    buttonTxt.addActionListener(this);
 		    
+		    /*Borrar productores y perfiles*/
+		    button_prod = new JButton("Borrar Productores");
+			button_prod.addActionListener(this);
+			button_prof = new JButton("Borrar Perfiles");
+			button_prof.addActionListener(this);
+		    
 			
 			/*Atributo*/
 			JPanel atributos = new JPanel();
@@ -234,7 +250,7 @@ public class GUI extends JFrame implements ActionListener{
 			JPanel num_atributos = new JPanel();
 			JPanel atributo = new JPanel();
 			//atributos.setLayout(new GridLayout(1,1));
-			label18 = new JLabel("Número de Atributos:");
+			label18 = new JLabel("NÃºmero de Atributos:");
 			text21 = new JTextField(5);
 			button11 = new JButton("Modificar Atributos");
 			button11.addActionListener(this);
@@ -245,7 +261,7 @@ public class GUI extends JFrame implements ActionListener{
 			posAttr2 = new JTextField(5);
 			label16 = new JLabel("MAX");
 			posAttr3 = new JTextField(5);
-			button4 = new JButton("Añadir Atributo");
+			button4 = new JButton("AÃ±adir Atributo");
 			borrar = new JButton("Borrar Atributos");
 			button4.addActionListener(this);
 			borrar.addActionListener(this);
@@ -254,15 +270,20 @@ public class GUI extends JFrame implements ActionListener{
 			JPanel productores = new JPanel();
 			productores.setLayout(new GridLayout(6,1));
 			productores.setBorder(BorderFactory.createTitledBorder("Productores"));
-			JPanel num_product = new JPanel();
+			JPanel numeroProductos = new JPanel();
+			JPanel num_product = new JPanel(); 
 			JPanel productor_producto = new JPanel();
 			JPanel attr_disp = new JPanel();
-			JPanel product = new JPanel(); //new GridLayout(2,1)
+			JPanel product = new JPanel(); 
 			JPanel button_add = new JPanel();
-			JPanel borrar_total_prod = new JPanel();
-			label4 = new JLabel("Número de productores");
+			
+			JLabel numProds = new JLabel("NÃºmero de productos");
+			textP = new JTextField(5);
+			buttonP = new JButton("AÃ±adir productos");
+			buttonP.addActionListener(this);
+			label4 = new JLabel("NÃºmero de productores");
 			text3 = new JTextField(5);
-			button10 = new JButton("Añadir productores");
+			button10 = new JButton("AÃ±adir productores");
 			button10.addActionListener(this);
 			JLabel prod = new JLabel("Productor:");
 			text20 = new JTextField(5);
@@ -273,39 +294,47 @@ public class GUI extends JFrame implements ActionListener{
 			text10 = new JTextField(5); 
 		    JLabel valor = new JLabel("Valor atributo del producto:");
 		    text16 = new JTextField(5);
-			button5 = new JButton("Añadir atributo disponible");
+			button5 = new JButton("AÃ±adir atributo disponible");
 			button5.addActionListener(this);
-			button9 = new JButton("Añadir Productor");
+			button9 = new JButton("AÃ±adir Productor");
 			button9.addActionListener(this); 
 			
-			button_prod = new JButton("Borrar Productores");
-			button_prod.addActionListener(this);
-			
-			
+					
 			/*Perfiles*/
 			JPanel perfiles = new JPanel();
 			perfiles.setBorder(BorderFactory.createTitledBorder("Perfiles"));
+			perfiles.setLayout(new GridLayout(3,1));
 			JPanel attr_pef = new JPanel();
 			JPanel num_pef = new JPanel();
-			perfiles.setLayout(new GridLayout(2,2));
-			JPanel borrar_total_prof = new JPanel();
+			JPanel attr_linkados = new JPanel();
 			label9 = new JLabel("Perfil:");
 			text17 = new JTextField(5);
 			label6 = new JLabel("Atributo:");
 			label12 = new JLabel("Name");
 			text4 = new JTextField(5);
-			label7 = new JLabel("Puntuación:");
+			label7 = new JLabel("PuntuaciÃ³n:");
 			text7 = new JTextField(5);
-			button8 = new JButton("Añadir Valoracion");
+			button8 = new JButton("AÃ±adir Valoracion");
 			button8.addActionListener(this);
-			button6 = new JButton("Añadir Perfil");
+			button6 = new JButton("AÃ±adir Perfil");
 			button6.addActionListener(this);
-			label8 = new JLabel("Número de perfiles de un cliente");
+			label8 = new JLabel("NÃºmero de perfiles de un cliente");
 			text8 = new JTextField(5);
-			button7 = new JButton("Añadir Perfiles");
+			button7 = new JButton("AÃ±adir Perfiles");
 			button7.addActionListener(this);
-			button_prof = new JButton("Borrar Perfiles");
-			button_prof.addActionListener(this);
+			
+			a1 = new JLabel("Atributo 1: ");
+			textA1 = new JTextField(5);
+			pAttr = new JLabel("Valor Primer Atributo: ");
+			textPAttr = new JTextField(5);
+			a2 = new JLabel("Atributo 2: ");
+			textA2 = new JTextField(5);
+			sAttr = new JLabel("Valor Segundo Atributo: ");
+			textSAttr = new JTextField(5);
+			puntNueva = new JLabel("PuntuaciÃ³n nueva:");
+			textpuntNueva = new JTextField(5);
+			buttonPunt = new JButton("AÃ±adir PuntuaciÃ³n");
+			buttonPunt.addActionListener(this);
 			
 			//JTAB5
 			tab5 = new JPanel(new GridLayout(1,1));
@@ -321,7 +350,7 @@ public class GUI extends JFrame implements ActionListener{
 		    JPanel attrEsp = new JPanel();
 		    JPanel mutAttr = new JPanel();
 		    JPanel profNear = new JPanel();
-			label2 = new JLabel("Número de ejecuciones:");
+			label2 = new JLabel("NÃºmero de ejecuciones:");
 			textEjecucion = new JTextField(5);
 			button3 = new JButton("Modificar Ejecuciones");
 			button3.addActionListener(this);
@@ -336,12 +365,12 @@ public class GUI extends JFrame implements ActionListener{
 			buttonAttrEsp = new JButton("Modificar Atributos Especiales");
 			buttonAttrEsp.addActionListener(this);
 			
-			labelMutAttr = new JLabel("% Mutación Atributos: ");
+			labelMutAttr = new JLabel("% MutaciÃ³n Atributos: ");
 			textMutAttr = new JTextField(5);
-			buttonMutAttr = new JButton("Modificar Mutación Atributos");
+			buttonMutAttr = new JButton("Modificar MutaciÃ³n Atributos");
 			buttonMutAttr.addActionListener(this);
 			
-			labelProfNear = new JLabel("Número de perfiles cercanos: ");
+			labelProfNear = new JLabel("NÃºmero de perfiles cercanos: ");
 			textProfNear = new JTextField(5);
 			buttonProfNear = new JButton("Modificar perfiles cercanos");
 			buttonProfNear.addActionListener(this);
@@ -349,24 +378,24 @@ public class GUI extends JFrame implements ActionListener{
 			/*Panel Genetico*/
 		    JPanel panelGenetico = new JPanel();
 		    panelGenetico.setLayout(new GridLayout(5,1));
-		    panelGenetico.setBorder(BorderFactory.createTitledBorder("Algoritmo Genético"));
+		    panelGenetico.setBorder(BorderFactory.createTitledBorder("Algoritmo Genï¿½tico"));
 		    JPanel numPopu = new JPanel();
 		    JPanel numGen = new JPanel();
 		    JPanel grupProf = new JPanel();
 		    JPanel cross = new JPanel();
 		    JPanel mutprob = new JPanel();
 		    
-		    labelNumPop = new JLabel("Número de Población: ");
+		    labelNumPop = new JLabel("NÃºmero de PoblaciÃ³n: ");
 			textNumPop = new JTextField(5);
-			buttonNumPop = new JButton("Modificar Número de Población");
+			buttonNumPop = new JButton("Modificar NÃºmero de PoblaciÃ³n");
 			buttonNumPop.addActionListener(this);
 		    
-			labelNumGen = new JLabel("Número de Generaciones: ");
+			labelNumGen = new JLabel("NÃºmero de Generaciones: ");
 			textNumGen = new JTextField(5);
-			buttonNumGen = new JButton("Modificar Número de Generaciones");
+			buttonNumGen = new JButton("Modificar NÃºmero de Generaciones");
 			buttonNumGen.addActionListener(this);
 		    		
-			labelGruPer = new JLabel("Número de Grupos del Perfil: ");
+			labelGruPer = new JLabel("NÃºmero de Grupos del Perfil: ");
 			textGruPer = new JTextField(5);
 			buttonGruPer = new JButton("Modificar Grupos del Perfil");
 			buttonGruPer.addActionListener(this);
@@ -376,9 +405,9 @@ public class GUI extends JFrame implements ActionListener{
 			buttonCross = new JButton("Modificar Crossover");
 			buttonCross.addActionListener(this);
 			
-			labelMutProb = new JLabel("% de Mutación: ");
+			labelMutProb = new JLabel("% de MutaciÃ³n: ");
 			textMutProb = new JTextField(5);
-			buttonMutProb = new JButton("Modificar Mutación");
+			buttonMutProb = new JButton("Modificar MutaciÃ³n");
 			buttonMutProb.addActionListener(this);
 		    
 		    JPanel panelMinimax = new JPanel();
@@ -399,29 +428,52 @@ public class GUI extends JFrame implements ActionListener{
 			buttonDepth1 = new JButton("Modificar Depth 1");
 			buttonDepth1.addActionListener(this);
 			
-			labelNumAttr = new JLabel("Número de atributos modificables: ");
+			labelNumAttr = new JLabel("NÃºmero de atributos modificables: ");
 			textNumAttr = new JTextField(5);
 			buttonNumAttr = new JButton("Modificar atributos modificables");
 			buttonNumAttr.addActionListener(this);
 			
-			labelTurPrev = new JLabel("Número de turnos previos: ");
+			labelTurPrev = new JLabel("NÃºmero de turnos previos: ");
 			textTurPrev = new JTextField(5);
 			buttonTurPrev = new JButton("Modificar turnos previos");
 			buttonTurPrev.addActionListener(this);
 			
-			labelTur = new JLabel("Número de turnos en el juego: ");
+			labelTur = new JLabel("NÃºmero de turnos en el juego: ");
 			textTur = new JTextField(5);
 			buttonTur = new JButton("Modificar turnos");
 			buttonTur.addActionListener(this);
-		    
+			
+			//JTAB6 
+			tab6 = new JPanel(new GridLayout(1,1)); //
+			JPanel panelClusterBut = new JPanel();
+			panelClusterBut.setBorder(BorderFactory.createTitledBorder("Datos de Entrada Weka"));
+			JPanel panelClusterTex = new JPanel();
+			panelClusterTex.setBorder(BorderFactory.createTitledBorder("Resultados"));
+			//Clusters
+			numClusters = new JLabel("NÃºmero de clusters: ");
+			textClusters = new JTextField(5);
+			archivoCSV = new JLabel("Archivo .csv");
+			textCSV = new JTextField(5);
+			buttonCSV = new JButton("Guardar CSV");
+			buttonCSV.addActionListener(this); 
+			
+			jtA6 = new JTextArea(35, NUMERO_COLUMNAS);
+		    jtA6.setBorder(BorderFactory.createLineBorder(Color.black));
+		    jtA6.setEditable(false);
+		    // AÃ±adimos el Scroll
+			sp3 = new JScrollPane();
+			sp3.setViewportView(jtA6);
 		
-			/*AÑADIR*/
-			add(pestaña);
-			pestaña.add("Genetic Algorithm", tab1);
-			pestaña.add("Minimax Algorithm", tab2);
-			pestaña.add("Generar Listas", tab3);
-			pestaña.add("Modificar Datos de Entrada", tab4);
-			pestaña.add("Modificar Datos Generales", tab5);
+			/*AÃ±adir*/
+			add(pestaÃ±a);
+			pestaÃ±a.add("Algoritmo GenÃ©tico", tab1);
+			pestaÃ±a.add("Algoritmo Minimax", tab2);
+			pestaÃ±a.add("Algoritmo PSO", tab7);
+			pestaÃ±a.add("Algoritmo SA", tab8);
+			pestaÃ±a.add("Generar Listas", tab3);
+			pestaÃ±a.add("Modificar Datos de Entrada", tab4);
+			pestaÃ±a.add("Modificar Datos Generales", tab5);
+			pestaÃ±a.add("ClusterizaciÃ³n", tab6);			
 			
 			tab1.add(jtA1);
 			tab1.add(genetic);
@@ -434,6 +486,20 @@ public class GUI extends JFrame implements ActionListener{
 			panel_minimax.add(button_txt_min);
 			panel_minimax.add(nombre_txt_min);
 		
+			//tab7
+			tab7.add(jtA7);
+			tab7.add(panel_pso);
+			panel_pso.add(buttonPSO);
+			panel_pso.add(button_txt_pso);
+			panel_pso.add(nombre_txt_pso);
+			
+			//tab7
+			tab8.add(jtA8);
+			tab8.add(panel_SA);
+			panel_SA.add(buttonSA);
+			panel_SA.add(button_txt_SA);
+			panel_SA.add(nombre_txt_SA);
+			
 			//tab4
 			tab4.add(panelLabel);
 			tab4.add(paneltexts);
@@ -442,14 +508,18 @@ public class GUI extends JFrame implements ActionListener{
 			panelLabel.add(productores);
 			panelLabel.add(perfiles);
 			
+			
 			paneltexts.add(paneltextArea);
 			paneltexts.add(panelTxt);
 			paneltextArea.add(sp2);
 			panelTxt.add(labelTxt);
 			panelTxt.add(textTxt);
 			panelTxt.add(buttonTxt);
-			
-		
+			paneltexts.add(borrar_total);
+			borrar_total.add(borrar);
+			borrar_total.add(button_prod);
+			borrar_total.add(button_prof);
+
 			atributos.add(num_atributos);
 			atributos.add(atributo);
 			num_atributos.add(label18);
@@ -463,34 +533,40 @@ public class GUI extends JFrame implements ActionListener{
 			atributo.add(label16);
 			atributo.add(posAttr3);
 			atributo.add(button4);
-			atributo.add(borrar);
-		
+			//atributo.add(borrar);
+			
+			productores.add(numeroProductos);
 			productores.add(num_product);
+			productores.add(productor_producto);
+			productores.add(attr_disp);
+			productores.add(product);
+			productores.add(button_add);
+			
+			
+			numeroProductos.add(numProds);
+			numeroProductos.add(textP);
+			numeroProductos.add(buttonP);
+
 			num_product.add(label4);
 			num_product.add(text3);
 			num_product.add(button10);
-			
-			productores.add(productor_producto);
+
 			productor_producto.add(prod);
 			productor_producto.add(text20);
 			productor_producto.add(producto);
 			productor_producto.add(textProducto);
-			productores.add(attr_disp);
+			
 			attr_disp.add(disp);
 			attr_disp.add(label5);
 			attr_disp.add(text10);
-			
-			productores.add(product);
+
 			product.add(valor);
 			product.add(text16);
 			
-			productores.add(button_add);
 			button_add.add(button5);
 			button_add.add(button9);
-			
-			productores.add(borrar_total_prod);
-			borrar_total_prod.add(button_prod);
-				
+		
+	
 			perfiles.add(attr_pef);
 			attr_pef.add(label9);
 			attr_pef.add(text17);
@@ -506,9 +582,24 @@ public class GUI extends JFrame implements ActionListener{
 			num_pef.add(label8);
 			num_pef.add(text8);
 			num_pef.add(button7);
-			num_pef.add(borrar_total_prof);
-			num_pef.add(button_prof);
+			
+			num_pef.add(a1);
+			num_pef.add(textA1);
+			num_pef.add(pAttr);
+			num_pef.add(textPAttr);
+			//num_pef.add(button_prof);
 		
+			perfiles.add(attr_linkados);
+			
+			attr_linkados.add(a2);
+			attr_linkados.add(textA2);
+			attr_linkados.add(sAttr);
+			attr_linkados.add(textSAttr);
+			attr_linkados.add(puntNueva);
+			attr_linkados.add(textpuntNueva);
+			attr_linkados.add(buttonPunt);
+
+
 			tab5.add(panelGeneral);
 			panelGeneral.add(ejecuciones);
 			panelGeneral.add(panelGenetico);
@@ -539,8 +630,7 @@ public class GUI extends JFrame implements ActionListener{
 		    profNear.add(labelProfNear);
 		    profNear.add(textProfNear);
 		    profNear.add(buttonProfNear);
-			
-		    
+			    
 		    panelGenetico.add(numPopu);
 		    panelGenetico.add(numGen);
 		    panelGenetico.add(grupProf);
@@ -592,13 +682,24 @@ public class GUI extends JFrame implements ActionListener{
 		    numberTurn.add(textTur);
 		    numberTurn.add(buttonTur);
 		    
-			//Se llama a pack después de haber agregado componenetes a la ventana
+		    tab6.add(panelClusterBut);
+		    tab6.add(panelClusterTex);
+
+		    panelClusterBut.add(numClusters);
+		    panelClusterBut.add(textClusters);
+		    panelClusterBut.add(archivoCSV);
+		    panelClusterBut.add(textCSV);
+		    panelClusterBut.add(buttonCSV);
+
+		    panelClusterTex.add(sp3);
+		    
+			//Se llama a pack despuï¿½s de haber agregado componenetes a la ventana
 			pack();
-			}
+		//	}
 	}
 
 	/**
-	  * Se encarga de añadir los oyentes, ya sea de mouse,
+	  * Se encarga de AÃ±adir los oyentes, ya sea de mouse,
 	  * teclado o similares.
 	 * @throws Exception 
 	  */
@@ -609,11 +710,12 @@ public class GUI extends JFrame implements ActionListener{
 		switch(op){
 			case "Start Genetic Algorithm":
 			try {
-				if(numProd > 1) gaVar.start(jtA1, null, false);
+				if(getNumProd() > 1) gaVar.start(jtA1, null, false);
 				else ga.start(jtA1,null, false);
 				showGenetic = true;
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
+				//e1.printStackTrace();
 			}
 			break;
 			
@@ -622,7 +724,7 @@ public class GUI extends JFrame implements ActionListener{
 					String nombre = nombre_txt.getText();
 					if(nombre.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 					else 
-					{	if(numProd > 1) gaVar.start(jtA1,nombre,true);
+					{	if(getNumProd() > 1) gaVar.start(jtA1,nombre,true);
 						else ga.start(jtA1,nombre,true);
 						showInput = true;
 					}
@@ -651,12 +753,63 @@ public class GUI extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(tab2, e1.getMessage());
 					e1.printStackTrace();
 				}
-				break;
+			break;
+				
+			case "Ejecutar PSO":
+				try {
+					pso.setPSO(true);
+					pso.start(jtA7,null,false);
+					showPSO = false;
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(tab7, e1.getMessage());
+				}
+			break;
+				
+			case "Ejecutar PSO(.txt o .xml):":
+				try {
+					String nombre_pso = nombre_txt_pso.getText();
+					if(nombre_pso.equals("")) JOptionPane.showMessageDialog(jtA7, "Error abriendo el fichero");
+					else
+					{	
+						pso.setPSO(true);
+						pso.start(jtA7,nombre_pso,true);
+						showInput = false;
+					}
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(tab7, e1.getMessage());
+					//e1.printStackTrace();
+				}
+			break;
 			
+			case "Ejecutar SA":
+				try {
+					/*pso.setPSO(true);
+					pso.start(jtA8,null,false);
+					showPSO = false;*/
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(tab8, e1.getMessage());
+				}
+			break;
+				
+			case "Ejecutar SA(.txt o .xml):":
+				try {
+					String nombre_SA = nombre_txt_SA.getText();
+					if(nombre_SA.equals("")) JOptionPane.showMessageDialog(jtA8, "Error abriendo el fichero");
+				/*	else
+					{	
+						pso.setPSO(true);
+						pso.start(jtA7,nombre_SA,true);
+						showInput = false;
+					}*/
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(tab8, e1.getMessage());
+					
+				}
+			break;
 			case "Modificar Ejecuciones":
 				String num = textEjecucion.getText();
 				if(num.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -671,22 +824,22 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar Atributos":
 				String num_attr = text21.getText();
 				if(num_attr.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
 				}
 				else{
 					try{
 						int x1 = Integer.parseInt(num_attr);
-						añadir.setnum_attr(x1);
+						inputGUI.setnum_attr(x1);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 				}
 			break;
 			
-			case "Añadir Atributo":
+			case "AÃ±adir Atributo":
 				String name = posAttr1.getText();
 				min = posAttr2.getText();
 				max = posAttr3.getText();
-				if(name.isEmpty() || min.isEmpty() || max.isEmpty()){JOptionPane.showMessageDialog(tab4, "Casilla Vacía");}
+				if(name.isEmpty() || min.isEmpty() || max.isEmpty()){JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");}
 				else {
 					try{
 						int x2 = Integer.parseInt(min);
@@ -696,14 +849,14 @@ public class GUI extends JFrame implements ActionListener{
 						else 
 						{	Attribute attr = new Attribute(name,x2,x3);
 						
-							if(añadir.isElement(añadir.getTotalAttributes(),attr)) { JOptionPane.showMessageDialog(tab4, "Ya existe"); }
+							if(inputGUI.isElement(inputGUI.getTotalAttributes(),attr)) { JOptionPane.showMessageDialog(tab4, "Ya existe"); }
 							else { 
-								if(añadir.getTotalAttributes().size() < añadir.getnum_attr()){
-									añadir.setTotalAttributes(attr); 
+								if(inputGUI.getTotalAttributes().size() < inputGUI.getnum_attr()){
+									inputGUI.setTotalAttributes(attr); 
 									jtA4.append("Nombre: " + name + "  " + "MIN: "+ min + "  " + "MAX: " + max + "\n");
-									añadir.setisGenerarDatosEntrada(true);
+									inputGUI.setisGenerarDatosEntrada(true);
 								}
-								else JOptionPane.showMessageDialog(tab4, "No se puede añadir mas atributos");
+								else JOptionPane.showMessageDialog(tab4, "No se puede AÃ±adir mas atributos");
 							}
 						}
 					}catch(NumberFormatException nfe)
@@ -713,43 +866,60 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Borrar Atributos":
 				jtA4.append("Borrando todos los atributos.." + "\n");
-				añadir.getTotalAttributes().clear();
+				inputGUI.getTotalAttributes().clear();
 			break;
 			
-			case "Añadir productores":
-				String num2 = text3.getText();
-				if(num2.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+			case "AÃ±adir productos":
+				String numProduc = textP.getText();
+				if(numProduc.isEmpty()){
+					JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
 				}
 				else{
 					try{
-						int x2 = Integer.parseInt(num2);
-						añadir.setnum_prod(x2);
+						numProd = Integer.parseInt(numProduc);
+						setNumProd(numProd);
+						in.setNumber_Products(numProd);
+						gaVar.setNumber_Products(numProd);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 
 				}
 			break;
 			
-			case "Añadir Productor":
+			case "AÃ±adir productores":
+				String num2 = text3.getText();
+				if(num2.isEmpty()){
+					JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
+				}
+				else{
+					try{
+						int x2 = Integer.parseInt(num2);
+						inputGUI.setnum_prod(x2);
+					}catch(NumberFormatException nfe)
+					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
+
+				}
+			break;
+			
+			case "AÃ±adir Productor":
 				String t20 = text20.getText();
 				String tProd = textProducto.getText();
 				String t10 = text10.getText();
 				if(t20.isEmpty() || t10.isEmpty() || tProd.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
 				}
 				else{
 					try{
 						int x20 = Integer.parseInt(t20);
 						int xProd = Integer.parseInt(tProd);
-						Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), t10);
+						Attribute attr = inputGUI.getAttribute(inputGUI.getTotalAttributes(), t10);
 						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
-						if(añadir.isElement(añadir.getTotalAttributes(),attribute)) 
+						if(inputGUI.isElement(inputGUI.getTotalAttributes(),attribute)) 
 						{ 
-							if(añadir.getnum_prod() <= x20) JOptionPane.showMessageDialog(tab4, "Sobrepasa el número de productores");
+							if(inputGUI.getnum_prod() <= x20) JOptionPane.showMessageDialog(tab4, "Sobrepasa el NÃºmero de productores");
 							else {
-								añadir.AñadirProducer(x20,xProd);
-								añadir.products(x20,xProd);
+								inputGUI.inputGUIProducer(x20,xProd);
+								inputGUI.products(x20,xProd);
 								text20.setEnabled(false);
 								textProducto.setEnabled(false);
 								text10.setEnabled(false);
@@ -763,25 +933,25 @@ public class GUI extends JFrame implements ActionListener{
 			break;
 			
 			
-			case "Añadir atributo disponible":
+			case "AÃ±adir atributo disponible":
 				t20 = text20.getText();
 				tProd = textProducto.getText();
 				t10 = text10.getText();
 				String t16 = text16.getText();
 				if(t16.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Valor Vacío");
+					JOptionPane.showMessageDialog(tab4, "Valor Vacï¿½o");
 				}
 				else{
 					try{
 						int x20 = Integer.parseInt(t20);
 						int xProd = Integer.parseInt(tProd);
 						int x16 = Integer.parseInt(t16);
-						Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), t10);
+						Attribute attr = inputGUI.getAttribute(inputGUI.getTotalAttributes(), t10);
 						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
-						if(añadir.isElement(añadir.getTotalAttributes(),attribute)) 
+						if(inputGUI.isElement(inputGUI.getTotalAttributes(),attribute)) 
 						{ 
-							añadir.AñadirValorAtributo(attribute,x16,x20,xProd);
-							jtA4.append("Productor " + x20 + "  " + "Producto " + xProd + "  " + "Nombre: " + attribute.getName() + " " + "Valor: " + x16 + "\n");
+							inputGUI.inputGUIValorAtributo(attribute,x16,x20,xProd);
+							jtA4.append("Productor " + x20 + "  " + "Producto " + xProd + "  " + "Nombre: " + attribute.getName() + " " + "Valor " +  inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute) + ": " + x16 + "\n");
 							text20.setEnabled(true);
 							textProducto.setEnabled(true);
 							text10.setEnabled(true);
@@ -795,24 +965,24 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Borrar Productores":
 				jtA4.append("Borrando todos los productores.." + "\n");
-				añadir.getProducers().clear();
+				inputGUI.getProducers().clear();
 			break;
 			
-			case "Añadir Perfil":
+			case "AÃ±adir Perfil":
 				String posCust = text17.getText();
 				String nombre = text4.getText();
 				try{
 					if(posCust.isEmpty() || nombre.isEmpty()){
-						JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+						JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
 					}
 					else 
 					{
-							Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), nombre);
+							Attribute attr = inputGUI.getAttribute(inputGUI.getTotalAttributes(), nombre);
 							Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
 							maxValoraciones = attribute.getMAX();
 							int x17 = Integer.parseInt(posCust); 
-							if(añadir.isElement(añadir.getTotalAttributes(), attribute)){
-								añadir.AñadirCustomer(attribute,x17);
+							if(inputGUI.isElement(inputGUI.getTotalAttributes(), attribute)){
+								inputGUI.inputGUICustomer(attribute,x17);
 								text17.setEnabled(false);
 								text4.setEnabled(false);
 							}
@@ -825,14 +995,15 @@ public class GUI extends JFrame implements ActionListener{
 							
 			break;
 			
-			case "Añadir Valoracion":
+			case "AÃ±adir Valoracion":
 				 posCust = text17.getText();
 				 nombre = text4.getText();
+				
 				 String puntuacion = text7.getText();
-				 Attribute attr = añadir.getAttribute(añadir.getTotalAttributes(), nombre);
+				 Attribute attr = inputGUI.getAttribute(inputGUI.getTotalAttributes(), nombre);
 				 Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
 				if(puntuacion.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Puntuación Vacía");
+					JOptionPane.showMessageDialog(tab4, "PuntuaciÃ³n VacÃ­a");
 				}
 				else if(valoracionActual ==  maxValoraciones - 1){ //habilitar todo lo deshabilitado y poner a 0 el valoracionActual
 					try{
@@ -840,8 +1011,8 @@ public class GUI extends JFrame implements ActionListener{
 						int x17 = Integer.parseInt(posCust);
 						if(attribute.getMAX() < x7) JOptionPane.showMessageDialog(tab4, "Puntuacion incorrecta");
 						else {
-							añadir.AñadirValoracion(attribute, x7, x17);
-							jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor: " + x7 + "\n");
+							inputGUI.inputGUIValoracion(attribute, x7, x17);
+							jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor " +  valoracionActual + ": " + x7 + "\n");
 							valoracionActual = 0;
 							text17.setEnabled(true);
 							text4.setEnabled(true);
@@ -854,8 +1025,9 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int x7 = Integer.parseInt(puntuacion);
 						int x17 = Integer.parseInt(posCust);
-						añadir.AñadirValoracion(attribute, x7, x17);
-						jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor: " + x7 + "\n");
+						inputGUI.inputGUIValoracion(attribute, x7, x17);
+						
+						jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor " + valoracionActual + ": " + x7 + "\n");
 						valoracionActual++;
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
@@ -863,15 +1035,56 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			break;
 			
-			case "Añadir Perfiles":
+			case "AÃ±adir PuntuaciÃ³n":
+				String cust = text17.getText();
+				String a1 = textA1.getText();
+				String Va1 = textPAttr.getText();
+				String a2 = textA2.getText();
+				String Va2 = textSAttr.getText();
+				String pun = textpuntNueva.getText();
+				 int pos = 0;
+				try{
+					if(a1.isEmpty() || Va1.isEmpty() || a2.isEmpty() || Va2.isEmpty() || pun.isEmpty()){
+						JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
+					}
+					else 
+					{
+							Attribute attr1 = inputGUI.getAttribute(inputGUI.getTotalAttributes(), a1);
+							Attribute attribute1 = new Attribute(attr1.getName(),attr1.getMIN(),attr1.getMAX());
+							Attribute attr2 = inputGUI.getAttribute(inputGUI.getTotalAttributes(), a2);
+							Attribute attribute2 = new Attribute(attr2.getName(),attr2.getMIN(),attr2.getMAX());
+							int postCust = Integer.parseInt(cust);
+							int xVa1 = Integer.parseInt(Va1);
+							int xVa2 = Integer.parseInt(Va2); 
+							int Xpun = Integer.parseInt(pun); 
+							if(inputGUI.isElement(inputGUI.getTotalAttributes(), attribute1) && inputGUI.isElement(inputGUI.getTotalAttributes(), attribute2)){
+								in.setAttributesLinked(true);
+								ga.setAttributesLinked(true);
+								gaVar.setAttributesLinked(true);
+								minimax.setAttributesLinked(true);
+								inputGUI.AtributosLinkados(postCust, attribute1, attribute2, xVa1, xVa2, Xpun);
+								jtA4.append("Perfil " + postCust + "  " + "Atributo 1: " + attribute1.getName() + " " + "Valor " + xVa1 + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute1)).getScoreValues().indexOf(xVa1) +  "\n");
+								jtA4.append("Perfil " + postCust + "  " + "Atributo 2: " + attribute2.getName() + " " + "Valor " + xVa2  + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute2)).getScoreValues().indexOf(xVa2) + "\n");
+								jtA4.append("Puntuacion nueva: " + Xpun + "\n");
+							}
+							else{
+								JOptionPane.showMessageDialog(tab4, "Este atributo no existe");
+							}
+					}
+				}catch(NumberFormatException nfe)
+				{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
+							
+			break;
+				
+			case "AÃ±adir Perfiles":
 				String t8 = text8.getText();
 				if(t8.isEmpty()){
-					JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab4, "Casilla VacÃ­a");
 				}
 				else{
 					try{
 						int x8 = Integer.parseInt(t8);
-						añadir.setnum(x8);
+						inputGUI.setnum(x8);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 				}
@@ -879,35 +1092,39 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Borrar Perfiles":
 				jtA4.append("Borrando todos los perfiles.." + "\n");
-				añadir.getCustomerProfiles().clear();
+				inputGUI.getCustomerProfiles().clear();
 			break;
 			
 			case "Attributes":
-					if(showGenetic || showInput){
+					if(showGenetic || showInput || showPSO){
 						ga.showAttributes(jtA3);
 						gaVar.showAttributes(jtA3);
+						pso.showAttributes(jtA7);
 					}
 					else minimax.showAttributes(jtA3);
 			break;
 			case "Producers":
-					if(showGenetic || showInput){
+					if(showGenetic || showInput || showPSO){
 						ga.showProducers(jtA3);
 						gaVar.showProducers(jtA3);
+						pso.showAttributes(jtA7);
 					}
 					else minimax.showProducers(jtA3);
 			break;
 			case "Profiles":
-					if(showGenetic || showInput){
+					if(showGenetic || showInput || showPSO){
 						ga.showCustomerProfile(jtA3);
 						gaVar.showCustomerProfile(jtA3);
+						pso.showAttributes(jtA7);
 					}
 					else
 					minimax.showCustomerProfile(jtA3);
 			break;
 			case "SubProfiles":
-					if(showGenetic || showInput){
+					if(showGenetic || showInput || showPSO){
 						ga.showSubProfile(jtA3);
 						gaVar.showSubProfile(jtA3);
+						pso.showAttributes(jtA7);
 					}
 					else jtA3.setText("Subprofiles not available");			
 			break;
@@ -916,8 +1133,8 @@ public class GUI extends JFrame implements ActionListener{
 				String archivo = textTxt.getText();
 				try {
 					int cadena = archivo.indexOf(".xml");
-					if(cadena != -1) añadir.writeXML(archivo);
-					else añadir.addTxt(archivo);
+					if(cadena != -1) inputGUI.writeXML(archivo);
+					else inputGUI.addTxt(archivo);
 					
 				} catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(tab4, e1.getMessage());
@@ -931,7 +1148,7 @@ public class GUI extends JFrame implements ActionListener{
 				String AttrCon = textAttrCon.getText();
 				
 				if(AttrCon.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -949,7 +1166,7 @@ public class GUI extends JFrame implements ActionListener{
 				String AttrEs = textAttrEsp.getText();
 				
 				if(AttrEs.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -961,11 +1178,11 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			break;
 			
-			case "Modificar Mutación Atributos":
+			case "Modificar MutaciÃ³n Atributos":
 				String MutAt = textMutAttr.getText();
 				
 				if(MutAt.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -981,7 +1198,7 @@ public class GUI extends JFrame implements ActionListener{
 				String profNe = textProfNear.getText();
 				
 				if(profNe.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -995,10 +1212,10 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			break;
 			
-			case "Modificar Número de Población":
+			case "Modificar NÃºmero de PoblaciÃ³n":
 				String nump = textNumPop.getText();
 				if(nump.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1010,10 +1227,10 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			break;
 			
-			case "Modificar Número de Generaciones":
+			case "Modificar NÃºmero de Generaciones":
 				String Numge = textNumGen.getText();
 				if(Numge.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1028,7 +1245,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar Grupos del Perfil":
 				String GruPe = textGruPer.getText();
 				if(GruPe.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1044,7 +1261,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar Crossover":
 				String Cro = textCross.getText();
 				if(Cro.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1056,10 +1273,10 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			break;
 			
-			case "Modificar Mutación":
+			case "Modificar MutaciÃ³n":
 				String MutPro = textMutProb.getText();
 				if(MutPro.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1074,7 +1291,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar Depth 0":
 				String depth0 = textDepth0.getText();
 				if(depth0.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1088,7 +1305,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar Depth 1":
 				String depth1 = textDepth1.getText();
 				if(depth1.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1102,7 +1319,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar atributos modificables":
 				String NumAtt = textNumAttr.getText();
 				if(NumAtt.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1116,7 +1333,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar turnos previos":
 				String turPre = textTurPrev.getText();
 				if(turPre.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1130,7 +1347,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Modificar turnos":
 				String turno = textTur.getText();
 				if(turno.isEmpty()){
-					JOptionPane.showMessageDialog(tab5, "Casilla Vacía");
+					JOptionPane.showMessageDialog(tab5, "Casilla VacÃ­a");
 				}
 				else{
 					try{
@@ -1140,7 +1357,39 @@ public class GUI extends JFrame implements ActionListener{
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
 			break;
+			
+			case "Guardar CSV":
+				String clusters = textClusters.getText();
+				String archcsv = textCSV.getText();
+				
+				if(clusters.isEmpty() || archcsv.isEmpty()){
+					JOptionPane.showMessageDialog(tab6, "Casilla VacÃ­a");
+				}
+				else{
+					try{
+						int clus = Integer.parseInt(clusters);
+						try {
+							inW.ClusteringWeka(jtA6,clus,archcsv,"archivoAr.arff");
+							inW.setClusters(true);
+						} catch (FileNotFoundException e1) {
+							JOptionPane.showMessageDialog(tab6, e1.getMessage());
+						} catch (IOException e1) {
+							JOptionPane.showMessageDialog(tab6, e1.getMessage());
+						}
+					}catch(NumberFormatException nfe)
+					{ JOptionPane.showMessageDialog(tab6, nfe.getMessage());}
+				}
+			break;
+			
 		}
+	}
+
+	public int getNumProd() {
+		return numProd;
+	}
+
+	public void setNumProd(int numProd) {
+		this.numProd = numProd;
 	}
 
 }

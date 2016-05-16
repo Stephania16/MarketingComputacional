@@ -1,4 +1,4 @@
-package GUI;
+package input;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,11 +33,12 @@ import org.xml.sax.SAXException;
 
 import Comunes.Attribute;
 import Comunes.CustomerProfile;
+import Comunes.LinkedAttribute;
 import Comunes.Producer;
 import Comunes.Product;
 import genetic.SubProfile;
 
-public class Añadir {
+public class InputGUI {
 	private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 	private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
 	private static ArrayList<Producer> Producers = new ArrayList<>();
@@ -47,11 +47,12 @@ public class Añadir {
 	private static int num_prod = 2; //10
 	private static int num_prof = 16;
 	private static int num_prof_num = 200;
+	public static boolean isAttributesLinked = false;
 	static int RESP_PER_GROUP = 20; /*
 											 * * We divide the respondents of
 											 * each
 											 * 
-											 * public Añadir(){ } /** Generating
+											 * public inputGUI(){ } /** Generating
 											 * the input data
 											 *
 											 * @throws Exception
@@ -105,6 +106,14 @@ public class Añadir {
 
 	public void setisGenerarDatosEntrada(boolean generargui) {
 		generarDatosEntrada = generargui;
+	}
+
+	public static boolean isAttributesLinked() {
+		return isAttributesLinked;
+	}
+
+	public static void setAttributesLinked(boolean isAttributesLinked) {
+		InputGUI.isAttributesLinked = isAttributesLinked;
 	}
 
 	/**
@@ -183,7 +192,7 @@ public class Añadir {
 	}
 
 	/** Add valoration desde gui **/
-	public void AñadirValorAtributo(Attribute attr, int punt, int posProducer, int posProduct) {
+	public void inputGUIValorAtributo(Attribute attr, int punt, int posProducer, int posProduct) {
 		ArrayList<Boolean> avaiableValues = new ArrayList<Boolean>();
 		for (int j = 0; j < attr.getMAX(); j++)
 			avaiableValues.add(true);
@@ -207,7 +216,7 @@ public class Añadir {
 	}
 
 	/** Generating the producers desde la gui **/
-	public void AñadirProducer(int posProd, int posProduct) {
+	public void inputGUIProducer(int posProd, int posProduct) {
 
 		if (Producers.size() <= posProd) {
 			Producer producer = new Producer();
@@ -241,7 +250,7 @@ public class Añadir {
 	}
 
 	/** Add valoration desde gui **/
-	public void AñadirValoracion(Attribute attr, int punt, int posCustomer) {
+	public void inputGUIValoracion(Attribute attr, int punt, int posCustomer) {
 
 		int pos = getIndexOf(CustomerProfiles.get(posCustomer).getScoreAttributes(), attr);
 		CustomerProfiles.get(posCustomer).getScoreAttributes().get(pos).getScoreValues().add(punt);
@@ -250,21 +259,36 @@ public class Añadir {
 	/**
 	 * Generating the customerprofile desde la gui
 	 */
-	public void AñadirCustomer(Attribute attr, int posCustomer) {
+	public void inputGUICustomer(Attribute attr, int posCustomer) {
 		if (CustomerProfiles.size() > posCustomer) {
 			ArrayList<Integer> scoreValues = new ArrayList<>();
 			attr.setScoreValues(scoreValues);
 			CustomerProfiles.get(posCustomer).getScoreAttributes().add(attr);
+			
 		} else {
 			ArrayList<Attribute> attrs = new ArrayList<>();
 			ArrayList<Integer> scoreValues = new ArrayList<>();
 			attr.setScoreValues(scoreValues);
-			attrs.add(attr);
-			CustomerProfiles.add(new CustomerProfile(attrs));
+			attrs.add(attr);	
+			CustomerProfile custprof = new CustomerProfile(attrs);
+			CustomerProfiles.add(custprof);
 		}
 	}
+	
+	public void AtributosLinkados(int posCust, Attribute a1, Attribute a2, int valor1, int valor2, int puntuacion){
+		 ArrayList<LinkedAttribute> linkedAttributes = new ArrayList<>();
+		 LinkedAttribute link = new LinkedAttribute();
+		 link.setAttribute1(getAttribute(TotalAttributes,a1.getName()));
+         link.setValue1(CustomerProfiles.get(posCust).getScoreAttributes().get(getIndexOf(TotalAttributes,a1)).getScoreValues().get(valor1));
+         link.setAttribute2(getAttribute(TotalAttributes,a2.getName()));
+         link.setValue2(CustomerProfiles.get(posCust).getScoreAttributes().get(getIndexOf(TotalAttributes,a2)).getScoreValues().get(valor2));
+         link.setScoreModification((int) (puntuacion * (2 * (link.getValue1() + link.getValue2()))));
 
-	private int getIndexOf(ArrayList<Attribute> listaAttr, Attribute attr) {
+         linkedAttributes.add(link);
+         CustomerProfiles.get(posCust).setLinkedAttributes(linkedAttributes);
+	}
+
+	public int getIndexOf(ArrayList<Attribute> listaAttr, Attribute attr) {
 		for (int i = 0; i < listaAttr.size(); i++) {
 			if (listaAttr.get(i).equals(attr))
 				return i;
@@ -373,9 +397,9 @@ public class Añadir {
 					Attribute attr = getAttribute(TotalAttributes, atrib_prod);
 					Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
 					if (isElement(TotalAttributes, atribute)) {
-						AñadirProducer(posProducer, posProduct);
+						inputGUIProducer(posProducer, posProduct);
 						products(posProducer, posProduct);
-						AñadirValorAtributo(atribute, valor, posProducer, posProduct);
+						inputGUIValorAtributo(atribute, valor, posProducer, posProduct);
 					}
 					productor = in.next();
 					posProducerAux = posProducer;
@@ -391,15 +415,15 @@ public class Añadir {
 						int puntuacion = in.nextInt();
 						int cont = 1;
 						while (in.hasNextInt() && attr.getMAX() > puntuacion) {
-							AñadirCustomer(atribute, posCustomer);
+							inputGUICustomer(atribute, posCustomer);
 
 							while (cont < attr.getMAX()) {
-								AñadirValoracion(atribute, puntuacion, posCustomer);
+								inputGUIValoracion(atribute, puntuacion, posCustomer);
 								puntuacion = in.nextInt();
 								cont++;
 							}
 							if (!in.hasNextInt()) {
-								AñadirValoracion(atribute, puntuacion, posCustomer);
+								inputGUIValoracion(atribute, puntuacion, posCustomer);
 							}
 						}
 					}
@@ -483,9 +507,9 @@ public class Añadir {
 				Attribute attr = getAttribute(TotalAttributes, nameAttr);
 				Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
 				if (isElement(TotalAttributes, atribute)) {
-					AñadirProducer(indice,pos_product);
+					inputGUIProducer(indice,pos_product);
 					products(indice, pos_product);
-					AñadirValorAtributo(atribute, valor, indice,pos_product);
+					inputGUIValorAtributo(atribute, valor, indice,pos_product);
 				}
 			}
 
@@ -515,12 +539,12 @@ public class Añadir {
 				Attribute atribute = new Attribute(attr.getName(), attr.getMIN(), attr.getMAX());
 				if (isElement(TotalAttributes, atribute)) {
 					int cont = 1;
-					AñadirCustomer(atribute, indice);
+					inputGUICustomer(atribute, indice);
 					while (cont < attr.getMAX()) {
 						for(int i = 0; i < eElementProf.getElementsByTagName("valoracion").getLength(); i++){
 							int valoracion = Integer.parseInt(eElementProf.getElementsByTagName("valoracion").item(i).getTextContent());
 							//System.out.println("valoracion : " + valoracion);
-							AñadirValoracion(atribute, valoracion, indice);
+							inputGUIValoracion(atribute, valoracion, indice);
 							cont++;
 						}
 					}		
@@ -541,12 +565,12 @@ public class Añadir {
 	
 	public void writeXML(String archivo){
 		try {
-		    DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
-		    DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
+		    DocumentBuilderFactory fabricaCreadorDocumento = DocumentBuilderFactory.newInstance();
+		    DocumentBuilder creadorDocumento = fabricaCreadorDocumento.newDocumentBuilder();
 		    //Crear un nuevo documento XML
 		    Document documento = creadorDocumento.newDocument();
 		 
-		    //Crear el nodo raíz y colgarlo del documento
+		    //Crear el nodo raï¿½z y colgarlo del documento
 		    Element elementoRaiz = documento.createElement("listas");
 		    documento.appendChild(elementoRaiz);
 		 
@@ -654,11 +678,11 @@ public class Añadir {
 			    }
 		    }
 		    //Generar el tranformador para obtener el documento XML en un fichero
-		    TransformerFactory fábricaTransformador = TransformerFactory.newInstance();
-		    Transformer transformador = fábricaTransformador.newTransformer();
-		    //Insertar saltos de línea al final de cada línea
+		    TransformerFactory fabricaTransformador = TransformerFactory.newInstance();
+		    Transformer transformador = fabricaTransformador.newTransformer();
+		    //Insertar saltos de lï¿½nea al final de cada lï¿½nea
 		    transformador.setOutputProperty(OutputKeys.INDENT, "yes");
-		    //Añadir 3 espacios delante, en función del nivel de cada nodo
+		    //inputGUI 3 espacios delante, en funciï¿½n del nivel de cada nodo
 		   // transformador.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, );
 		    Source origen = new DOMSource(documento);
 		    Result destino = new StreamResult(); //archivo

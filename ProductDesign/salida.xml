@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<listas>
+<attr id="@atributo">
+<name>a1</name>
+<min>1</min>
+<max>3</max>
+</attr>
+<attr id="@atributo">
+<name>a2</name>
+<min>1</min>
+<max>3</max>
+</attr>
+<prod id="@productor">
+<name>productor</name>
+<indice>0</indice>
+<nameAtributo>a1</nameAtributo>
+<valor>2</valor>
+</prod>
+<prod id="@productor">
+<name>productor</name>
+<indice>0</indice>
+<nameAtributo>a2</nameAtributo>
+<valor>0</valor>
+</prod>
+<prof id="@perfil">
+<name>perfil</name>
+<indice>0</indice>
+<nameAtributo>a1</nameAtributo>
+<valoracion>1</valoracion>
+<valoracion>1</valoracion>
+<valoracion>2</valoracion>
+</prof>
+<prof id="@perfil">
+<name>perfil</name>
+<indice>0</indice>
+<nameAtributo>a2</nameAtributo>
+<valoracion>0</valoracion>
+<valoracion>0</valoracion>
+<valoracion>2</valoracion>
+</prof>
+</listas>
