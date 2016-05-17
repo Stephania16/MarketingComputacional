@@ -1,4 +1,4 @@
-package Comunes;
+package general;
 
 public class LinkedAttribute {
 	private Attribute attribute1;

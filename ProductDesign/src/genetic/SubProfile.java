@@ -3,7 +3,7 @@ package genetic;
 
 import java.util.HashMap;
 
-import Comunes.Attribute;
+import general.Attribute;
 
 /**
  * Created by Borja on 03/03/2016.

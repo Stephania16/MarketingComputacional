@@ -1,4 +1,4 @@
-package Comunes;
+package general;
 
 import java.util.HashMap;
 

@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
 
-import Comunes.Attribute;
+import general.Attribute;
 import genetic.GeneticAlgorithm;
 import genetic.GeneticAlgorithmVariant;
 import input.InputGUI;
@@ -1134,7 +1134,7 @@ public class GUI extends JFrame implements ActionListener{
 				try {
 					int cadena = archivo.indexOf(".xml");
 					if(cadena != -1) inputGUI.writeXML(archivo);
-					else inputGUI.addTxt(archivo);
+					else inputGUI.writeTxt(archivo);
 					
 				} catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(tab4, e1.getMessage());

@@ -3,11 +3,13 @@ package minimax;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+
+import general.Attribute;
+import general.CustomerProfile;
+import general.Interpolation;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import input.InputGUI;
 import input.InputRandom;
 import output.OutputResults;
@@ -54,6 +56,7 @@ public class Minimax {
     InputGUI inputGUI = new InputGUI();
     InputRandom in = new InputRandom();
     OutputResults out = new OutputResults();
+    Interpolation inter = new Interpolation();
 
     /************************
      * INITIAL METHOD
@@ -65,7 +68,7 @@ public class Minimax {
         long tiempo = System.currentTimeMillis()- inicio;
             
         double elapsedTimeSec = tiempo / 1.0E03;
-        jtA.append("\nTiempo de ejecuci�n = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
+        jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
     }
 
     public void statisticsPDG(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
@@ -89,7 +92,7 @@ public class Minimax {
     	{
 			int input = archivo.indexOf(".xml");
 			if(input != -1) inputGUI.inputXML(archivo);
-			else inputGUI.muestraContenido(archivo);
+			else inputGUI.inputTxt(archivo);
 			generarDatosGUI();    		
     	}	
         
@@ -170,7 +173,7 @@ public class Minimax {
          }
 
          mResults.add(Producers.get(MY_PRODUCER).getNumber_CustomerGathered());
-         Prices.add(calculatePrice(Producers.get(MY_PRODUCER).getProduct()));
+         Prices.add(inter.calculatePrice(Producers.get(MY_PRODUCER).getProduct(), getTotalAttributes(), getProducers()));
     }
 
    
@@ -265,7 +268,7 @@ public class Minimax {
                         childs.get(producerindex).getAttributeValue().put(TotalAttributes.get(attrInd), attrVal);
 
                         if (!isMaximizar())
-                            childs.get(producerindex).setPrice(calculatePrice(childs.get(producerindex)));
+                            childs.get(producerindex).setPrice(inter.calculatePrice(childs.get(producerindex), getTotalAttributes(), getProducers()));
 
                         if (!isMaximizar())
                             nCustGathered = computeBenefits(childs.get(producerindex), 0);
@@ -314,7 +317,7 @@ public class Minimax {
                         childs.get(prodIndex).getAttributeValue().put(TotalAttributes.get(attrInd), attrVal);
 
                         if (!isMaximizar())
-                            childs.get(prodIndex).setPrice(calculatePrice(childs.get(prodIndex)));
+                            childs.get(prodIndex).setPrice(inter.calculatePrice(childs.get(prodIndex), getTotalAttributes(), getProducers()));
 
 
                         if (!isMaximizar())
@@ -499,10 +502,6 @@ public class Minimax {
 		return KNOWN_ATTRIBUTES;
 	}
 
-/*	public double getMUT_PROB_CUSTOMER_PROFILE() {
-		return MUT_PROB_CUSTOMER_PROFILE;
-	}*/
-
 	public int getMAX_DEPTH_0() {
 		return MAX_DEPTH_0;
 	}
@@ -522,10 +521,6 @@ public class Minimax {
 	public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
 		KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;
 	}
-
-/*	public void setMUT_PROB_CUSTOMER_PROFILE(double mUT_PROB_CUSTOMER_PROFILE) {
-		MUT_PROB_CUSTOMER_PROFILE = mUT_PROB_CUSTOMER_PROFILE;
-	}*/
 
 	public void setMAX_DEPTH_0(int mAX_DEPTH_0) {
 		MAX_DEPTH_0 = mAX_DEPTH_0;
@@ -571,7 +566,7 @@ public class Minimax {
      * " AUXILIARY METHODS TO CALCULATE THE PRICE"
      ***************************************/
 
-    private int calculatePrice(Product product) {
+ /*   private int calculatePrice(Product product) {
         int price_MyProduct = 0;
 
         for (int i = 1; i < Producers.size(); i++) {
@@ -596,5 +591,5 @@ public class Minimax {
         }
         distance = Math.sqrt(distance);
         return distance;
-    }
+    }*/
 }

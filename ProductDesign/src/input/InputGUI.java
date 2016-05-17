@@ -23,7 +23,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,11 +30,11 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+import general.Attribute;
+import general.CustomerProfile;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import genetic.SubProfile;
 
 public class InputGUI {
@@ -329,7 +328,7 @@ public class InputGUI {
 
 	}
 
-	public void addTxt(String archivo) throws FileNotFoundException, IOException {
+	public void writeTxt(String archivo) throws FileNotFoundException, IOException {
 		File fichero = new File(archivo);
 		FileWriter writer = new FileWriter(fichero);
 		PrintWriter salida = new PrintWriter(writer);
@@ -369,7 +368,7 @@ public class InputGUI {
 		salida.close();
 	}
 
-	public void muestraContenido(String archivo) throws FileNotFoundException, IOException {
+	public void inputTxt(String archivo) throws FileNotFoundException, IOException {
 		Scanner in = null;
 		int max = 0;
 		try {

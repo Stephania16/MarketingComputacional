@@ -3,15 +3,15 @@ package genetic;
 import java.util.HashMap;
 import javax.swing.JTextArea;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+import general.Attribute;
+import general.CustomerProfile;
+import general.Interpolation;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import input.InputGUI;
 import input.InputRandom;
 import input.InputWeka;
-import output.OutputCSV;
 import output.OutputResults;
 
 import java.util.ArrayList;
@@ -64,6 +64,7 @@ public class GeneticAlgorithm {
 	InputRandom in = new InputRandom();
 	OutputResults out = new OutputResults();
 	InputWeka inWeka = new InputWeka();
+	Interpolation inter = new Interpolation();
 
 	/***************************************
 	 * " AUXILIARY EXCEL METHODS " * @throws Exception
@@ -99,7 +100,7 @@ public class GeneticAlgorithm {
 		Results.add(BestWSC);
 		showWSC();
 
-		int price_MyProduct = calculatePrice(Producers.get(MY_PRODUCER).getProduct());
+		int price_MyProduct = inter.calculatePrice(Producers.get(MY_PRODUCER).getProduct(), getTotalAttributes(), getProducers());
 		Producers.get(MY_PRODUCER).getProduct().setPrice(price_MyProduct);
 		Prices.add(price_MyProduct);
 	}
@@ -134,7 +135,7 @@ public class GeneticAlgorithm {
 		if (inputFile) {
 			int input = archivo.indexOf(".xml");
 			if(input != -1) inputGUI.inputXML(archivo);
-			else inputGUI.muestraContenido(archivo);
+			else inputGUI.inputTxt(archivo);
 			generarDatosGUI();
 		} else {
 			if (inputGUI.isGenerarDatosEntrada())
@@ -144,7 +145,6 @@ public class GeneticAlgorithm {
 				TotalAttributes = in.getTotalAttributes();
 				Producers = in.getProducers();
 				CustomerProfiles = in.getCustomerProfiles();
-				//inCsv.WriteCSV(CustomerProfiles);
 			}
 		}
 
@@ -227,7 +227,6 @@ public class GeneticAlgorithm {
 		inputGUI.setProfiles();
 		inputGUI.divideCustomerProfile();
 		Producers = inputGUI.getProducers();
-		//inCsv.WriteCSV(CustomerProfiles);
 	}
 	
 	
@@ -236,23 +235,6 @@ public class GeneticAlgorithm {
 
 	/**
 	 * Creating the attributes and the possible values of them
-	 */
-	/*
-	 * private static void generateAttributeValor(List sheetData) {
-	 * 
-	 * int MIN_VAL = 1;
-	 * 
-	 * double number_valors = 0.0; for (int i = 4; i < sheetData.size(); i++) {
-	 * // System.out.println("Celda [" + i + ", 0]: ");
-	 * 
-	 * if (number_valors == 0) { Cell cell = (Cell) ((List)
-	 * sheetData.get(i)).get(0); if (cell.getCellType() ==
-	 * Cell.CELL_TYPE_NUMERIC) { number_valors = cell.getNumericCellValue() + 1;
-	 * TotalAttributes.add(new Attribute("Attribute " + (TotalAttributes.size()
-	 * + 1), MIN_VAL, (int) number_valors - 1)); } else if (cell.getCellType()
-	 * == Cell.CELL_TYPE_STRING) { if
-	 * (cell.getRichStringCellValue().equals("MMM")) break; } } number_valors--;
-	 * } }
 	 */
 
 	public void showAttributes(JTextArea jTextArea) {
@@ -313,20 +295,6 @@ public class GeneticAlgorithm {
 		jTextArea.repaint();
 	}
 
-	/*
-	 * private static void showExcelData(List sheetData) { // Iterates the data
-	 * and print it out to the console. for (int i = 0; i < sheetData.size();
-	 * i++) { List list = (List) sheetData.get(i); for (int j = 0; j <
-	 * list.size(); j++) { Cell cell = (Cell) list.get(j); if
-	 * (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-	 * System.out.print(cell.getNumericCellValue()); } else if
-	 * (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-	 * System.out.print(cell.getRichStringCellValue()); } else if
-	 * (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
-	 * System.out.print(cell.getBooleanCellValue()); } if (j < list.size() - 1)
-	 * { System.out.print(", "); } } System.out.println(""); } }
-	 */
-
 	/**
 	 * Creating a random product
 	 */
@@ -353,7 +321,7 @@ public class GeneticAlgorithm {
 			}
 			product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
 		}
-		product.setPrice(calculatePrice(product));
+		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}
 
@@ -373,7 +341,7 @@ public class GeneticAlgorithm {
 			attrVal = chooseAttribute(i, custProfsInd, availableAttribute);
 			product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
 		}
-		product.setPrice(calculatePrice(product));
+		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}
 
@@ -399,7 +367,7 @@ public class GeneticAlgorithm {
 			}
 		}
 		
-		product.setPrice(calculatePrice(product));
+		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}
 	
@@ -567,8 +535,6 @@ public class GeneticAlgorithm {
 			score += scoreAttribute(TotalAttributes.get(i).getMAX(),
 					subprofile.getValueChosen().get(TotalAttributes.get(i)),
 					product.getAttributeValue().get(TotalAttributes.get(i)));
-			// score += scoreAttribute(mAttributes(i),
-			// mCustProfAux(custProfInd)(custSubProfInd)(i), product(i))
 		}
 		return score;
 	}
@@ -759,7 +725,7 @@ public class GeneticAlgorithm {
 				mutant.getAttributeValue().put(TotalAttributes.get(j), attrVal);
 			}
 		}
-		mutant.setPrice(calculatePrice(mutant));
+		mutant.setPrice(inter.calculatePrice(mutant, getTotalAttributes(), getProducers()));
 		return mutant;
 	}
 
@@ -915,7 +881,7 @@ public class GeneticAlgorithm {
 	/***************************************
 	 * " AUXILIARY METHODS TO CALCULATE THE PRICE"
 	 ***************************************/
-
+/*
 	private int calculatePrice(Product product) {
 		int price_MyProduct = 0;
 
@@ -943,53 +909,6 @@ public class GeneticAlgorithm {
 		}
 		distance = Math.sqrt(distance);
 		return distance;
-	}
-
-	// // An excel file name. You can create a file name with a full path
-	// // information.
-	// String filename = "EncuestasCIS.xlsx";
-	// // Create an ArrayList to store the data read from excel sheet.
-	// List sheetData = new ArrayList();
-	// FileInputStream fis = null;
-	// try {
-	// // Create a FileInputStream that will be use to read the excel file.
-	// fis = new FileInputStream(filename);
-	//
-	// // Create an excel workbook from the file system.
-	// XSSFWorkbook workbook = new XSSFWorkbook(fis);
-	//
-	// // Get the first sheet on the workbook.
-	// XSSFSheet sheet = workbook.getSheetAt(0);
-	//
-	// /*
-	// * When we have a sheet object in hand we can iterator on each
-	// * sheet's rows and on each row's cells. We store the data read on
-	// * an ArrayList so that we can printed the content of the excel to
-	// * the console.
-	// */
-	// Iterator rows = sheet.rowIterator();
-	// while (rows.hasNext()) {
-	// XSSFRow row = (XSSFRow) rows.next();
-	// Iterator cells = row.cellIterator();
-	// List data = new ArrayList();
-	// while (cells.hasNext()) {
-	// XSSFCell cell = (XSSFCell) cells.next();
-	// // System.out.println("A�adiendo Celda: " +
-	// // cell.toString());
-	// data.add(cell);
-	// }
-	// sheetData.add(data);
-	// }
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// } finally {
-	// if (fis != null) {
-	// try {
-	// fis.close();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// }
+	}*/
 
 }

@@ -3,11 +3,11 @@ package input;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+import general.Attribute;
+import general.CustomerProfile;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import genetic.SubProfile;
 
 public class InputRandom {

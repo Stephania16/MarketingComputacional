@@ -5,7 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.csvreader.CsvWriter;
-import Comunes.CustomerProfile;
+
+import general.CustomerProfile;
+
 import java.util.ArrayList;
 
 public class OutputCSV {

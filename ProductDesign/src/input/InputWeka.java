@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
+import general.Attribute;
+import general.CustomerProfile;
 import output.OutputCSV;
 import weka.clusterers.SimpleKMeans;
 import weka.core.Instance;

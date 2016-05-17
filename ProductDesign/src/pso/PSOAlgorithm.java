@@ -1,17 +1,17 @@
 package pso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.JTextArea;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+import general.Attribute;
+import general.CustomerProfile;
+import general.Interpolation;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import genetic.SubProfile;
 import input.InputGUI;
 import input.InputRandom;
@@ -60,6 +60,7 @@ public class PSOAlgorithm {
 		InputGUI añadir = new InputGUI();
 		InputRandom in = new InputRandom();
 		OutputResults out = new OutputResults();
+		Interpolation inter = new Interpolation();
 
 
 	    public void start(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
@@ -92,7 +93,7 @@ public class PSOAlgorithm {
 	        if (inputFile) {
 				int input = archivo.indexOf(".xml");
 				if(input != -1) añadir.inputXML(archivo);
-				else añadir.muestraContenido(archivo);
+				else añadir.inputTxt(archivo);
 				generarDatosGUI();
 			} else {
 				if (añadir.isGenerarDatosEntrada())
@@ -301,7 +302,7 @@ public class PSOAlgorithm {
 	            }
 	        }
 
-	        product.setPrice(calculatePrice(product));
+	        product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 	        return product;
 	    }
 
@@ -332,7 +333,7 @@ public class PSOAlgorithm {
 	            }
 	        }
 
-	        product.setPrice(calculatePrice(product));
+	        product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 	        return product;
 	    }
 
@@ -442,7 +443,7 @@ public class PSOAlgorithm {
 
 	        ArrayList<Integer> prices = new ArrayList<>();
 	        for (int i = 0; i < Producers.get(MY_PRODUCER).getProducts().size(); i++) {
-	            int price_MyProduct = calculatePrice(Producers.get(MY_PRODUCER).getProducts().get(i));
+	            int price_MyProduct = inter.calculatePrice(Producers.get(MY_PRODUCER).getProducts().get(i), getTotalAttributes(), getProducers());
 	            Producers.get(MY_PRODUCER).getProducts().get(i).setPrice(price_MyProduct);
 	            prices.add(price_MyProduct);
 	        }
@@ -670,7 +671,7 @@ public class PSOAlgorithm {
 	    /***************************************
 	     * " AUXILIARY METHODS TO CALCULATE THE PRICE"
 	     ***************************************/
-
+/*
 	    private int calculatePrice(Product product) {//TODO me fijo solo en el primero
 	        int price_MyProduct = 0;
 
@@ -697,7 +698,7 @@ public class PSOAlgorithm {
 	        distance = Math.sqrt(distance);
 	        return distance;
 	    }
-
+*/
 	    /**
 	     * Showing the wsc of the rest of products
 	     *
@@ -875,8 +876,8 @@ public class PSOAlgorithm {
 			C2 = c2;
 		}
 
-		public void setPSO(boolean isPSO) {
-			this.isPSO = isPSO;
+		public void setPSO(boolean ispso) {
+			this.isPSO = ispso;
 		}
 
 		public int getMAX_ITERATION() {

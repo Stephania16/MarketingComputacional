@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 import javax.swing.JTextArea;
 
-import Comunes.Attribute;
-import Comunes.CustomerProfile;
-import Comunes.LinkedAttribute;
-import Comunes.Producer;
-import Comunes.Product;
+import general.Attribute;
+import general.CustomerProfile;
+import general.Interpolation;
+import general.LinkedAttribute;
+import general.Producer;
+import general.Product;
 import input.InputGUI;
 import input.InputRandom;
 import output.OutputResults;
@@ -61,6 +62,7 @@ public class GeneticAlgorithmVariant {
 	InputGUI añadir = new InputGUI();
 	InputRandom in = new InputRandom();
 	OutputResults out = new OutputResults();
+	Interpolation inter = new Interpolation();
 	private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 
 	/***************************************
@@ -113,7 +115,7 @@ public class GeneticAlgorithmVariant {
 
 		ArrayList<Integer> prices = new ArrayList<>();
 		for (int i = 0; i < Producers.get(MY_PRODUCER).getProducts().size(); i++) {
-			int price_MyProduct = calculatePrice(Producers.get(MY_PRODUCER).getProducts().get(i));
+			int price_MyProduct = inter.calculatePrice(Producers.get(MY_PRODUCER).getProducts().get(i), getTotalAttributes(), getProducers());
 			Producers.get(MY_PRODUCER).getProducts().get(i).setPrice(price_MyProduct);
 			prices.add(price_MyProduct);
 		}
@@ -143,7 +145,7 @@ public class GeneticAlgorithmVariant {
 		if (inputFile) {
 			int input = archivo.indexOf(".xml");
 			if(input != -1) añadir.inputXML(archivo);
-			else añadir.muestraContenido(archivo);
+			else añadir.inputTxt(archivo);
 			generarDatosGUI();
 		} else {
 			if (añadir.isGenerarDatosEntrada())
@@ -333,7 +335,7 @@ public class GeneticAlgorithmVariant {
 			product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
 		}
 
-		product.setPrice(calculatePrice(product));
+		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}
 
@@ -354,7 +356,7 @@ public class GeneticAlgorithmVariant {
 			product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
 		}
 
-		product.setPrice(calculatePrice(product));
+		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}
 
@@ -746,7 +748,7 @@ public class GeneticAlgorithmVariant {
 			}
 		}
 
-		mutant.setPrice(calculatePrice(mutant));
+		mutant.setPrice(inter.calculatePrice(mutant, getTotalAttributes(), getProducers()));
 		return mutant;
 	}
 
@@ -977,7 +979,7 @@ public class GeneticAlgorithmVariant {
 	 * " AUXILIARY METHODS TO CALCULATE THE PRICE"
 	 ***************************************/
 
-	private int calculatePrice(Product product) {// TODO me fijo solo en el
+/*	private int calculatePrice(Product product) {// TODO me fijo solo en el
 													// primero
 		int price_MyProduct = 0;
 
@@ -1004,6 +1006,6 @@ public class GeneticAlgorithmVariant {
 		}
 		distance = Math.sqrt(distance);
 		return distance;
-	}
+	}*/
 
 }
