@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.swing.JTextArea;
 
+import general.Algorithm;
 import general.Attribute;
 import general.CustomerProfile;
 import general.Interpolation;
@@ -15,7 +16,7 @@ import input.InputGUI;
 import input.InputRandom;
 import output.OutputResults;
 
-public class GeneticAlgorithmVariant {
+public class GeneticAlgorithmVariant extends Algorithm{
 	static double KNOWN_ATTRIBUTES = 100; /*
 												 * 100 % of attributes known for
 												 * all producers
@@ -71,8 +72,7 @@ public class GeneticAlgorithmVariant {
 
 	public void start(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
 		long inicio = System.currentTimeMillis();
-		statisticsPD(jtA, archivo, inputFile);
-		// calculatePrice();
+		statisticsAlgorithm(jtA, archivo, inputFile);
 		long tiempo = System.currentTimeMillis() - inicio;
 
 		double elapsedTimeSec = tiempo / 1.0E03;
@@ -125,7 +125,7 @@ public class GeneticAlgorithmVariant {
 	/**
 	 * Generating statistics about the PD problem
 	 */
-	private void statisticsPD(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
+	public void statisticsAlgorithm(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
 
 		ArrayList<Double> sum = new ArrayList<>();
 		ArrayList<Double> initSum = new ArrayList<>();
@@ -312,7 +312,7 @@ public class GeneticAlgorithmVariant {
 	/**
 	 * Creating a random product
 	 */
-	private Product createRndProduct(ArrayList<Attribute> availableAttribute) {
+	public Product createRndProduct(ArrayList<Attribute> availableAttribute) {
 		Product product = new Product(new HashMap<Attribute, Integer>());
 		int limit = (int) (TotalAttributes.size() * getKNOWN_ATTRIBUTES() / 100);
 		int attrVal = 0;
@@ -342,7 +342,7 @@ public class GeneticAlgorithmVariant {
 	/**
 	 * Creating a product near various customer profiles
 	 */
-	private Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
+	public Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
 		// improve having into account the sub-profiles*/
 		Product product = new Product(new HashMap<Attribute, Integer>());
 		int attrVal;
@@ -363,7 +363,7 @@ public class GeneticAlgorithmVariant {
 	/**
 	 * Chosing an attribute near to the customer profiles given
 	 */
-	private static int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd,
+	private int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd,
 			ArrayList<Attribute> availableAttrs) {
 		int attrVal;
 
@@ -390,7 +390,7 @@ public class GeneticAlgorithmVariant {
 	 * Chosing the attribute with the maximum score for the customer profiles
 	 * given
 	 */
-	private static int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
+	public int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
 
 		int attrVal = -1;
 		double max = -1;
@@ -465,7 +465,7 @@ public class GeneticAlgorithmVariant {
 		return -1;
 	}
 
-	private Integer computeBenefits(Product product, int myProducer) throws Exception {
+	public Integer computeBenefits(Product product, int myProducer) throws Exception {
 		return computeWSC(product, myProducer) * product.getPrice();
 	}
 
@@ -475,7 +475,7 @@ public class GeneticAlgorithmVariant {
 	 *
 	 * @throws Exception
 	 **/
-	private int computeWSC(Product product, int prodInd) throws Exception {
+	public int computeWSC(Product product, int prodInd) throws Exception {
 		int wsc = 0;
 		boolean isTheFavourite;
 		int meScore, score, k, p, numTies;
@@ -532,7 +532,7 @@ public class GeneticAlgorithmVariant {
 		return wsc;
 	}
 
-	private int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
+	public int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
 		int modifyScore = 0;
 		for (int i = 0; i < linkedAttributes.size(); i++) {
 			LinkedAttribute link = linkedAttributes.get(i);
@@ -548,7 +548,7 @@ public class GeneticAlgorithmVariant {
 	 * Computing the score of a product given the customer profile index
 	 * custProfInd and the product
 	 */
-	private int scoreProduct(SubProfile subprofile, Product product) throws Exception {
+	public int scoreProduct(SubProfile subprofile, Product product) throws Exception {
 		int score = 0;
 		for (int i = 0; i < TotalAttributes.size(); i++) {
 			score += scoreAttribute(TotalAttributes.get(i).getMAX(),
@@ -564,7 +564,7 @@ public class GeneticAlgorithmVariant {
 	 * Computing the score of an attribute for a product given the ' number of
 	 * values
 	 */
-	private int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) throws Exception {
+	public int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) throws Exception {
 		int score = 0;
 		switch (numOfValsOfAttr) {
 		case 2: {
@@ -788,7 +788,7 @@ public class GeneticAlgorithmVariant {
 	 * @throws Exception
 	 */
 
-	private void showWSC() throws Exception {
+	public void showWSC() throws Exception {
 		int wsc;
 		wscSum = 0;
 
@@ -805,72 +805,13 @@ public class GeneticAlgorithmVariant {
 	/**
 	 * Computing the variance
 	 */
-	private double computeVariance(double mean) {// TODO me fijo solo en el
+	public double computeVariance(double mean) {// TODO me fijo solo en el
 													// primero
 		double sqrSum = 0;
 		for (int i = 0; i < getNumExecutions(); i++) {
 			sqrSum += Math.pow(Results.get(i).get(0) - mean, 2);
 		}
 		return (sqrSum / getNumExecutions());
-	}
-
-	
-	public void showAttributes(JTextArea jTextArea) {
-		jTextArea.setText("");
-		for (int k = 0; k < TotalAttributes.size(); k++) {
-			jTextArea.append(TotalAttributes.get(k).getName() + "\n" + "MIN: " + TotalAttributes.get(k).getMIN() + "\n"
-					+ "MAX: " + TotalAttributes.get(k).getMAX() + "\n");
-		}
-		jTextArea.repaint();
-	}
-
-	public void showCustomerProfile(JTextArea jTextArea) {
-		jTextArea.setText("");
-		for (int i = 0; i < CustomerProfiles.size(); i++) {
-			CustomerProfile cp = CustomerProfiles.get(i);
-			jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
-			for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
-				jTextArea.append(cp.getScoreAttributes().get(j).getName() + "\n");
-				for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
-					jTextArea.append("Value -> " + cp.getScoreAttributes().get(j).getScoreValues().get(z) + "\n");
-				}
-			}
-		}
-		jTextArea.repaint();
-	}
-
-	public void showSubProfile(JTextArea jTextArea) {
-		jTextArea.setText("");
-		for (int i = 0; i < CustomerProfiles.size(); i++) {
-			CustomerProfile cp = CustomerProfiles.get(i);
-			jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
-			for (int j = 0; j < cp.getSubProfiles().size(); j++) {
-				jTextArea.append(cp.getSubProfiles().get(j).getName() + "\n");
-				for (int z = 0; z < cp.getSubProfiles().get(j).getValueChosen().size(); z++) {
-					jTextArea.append("Value -> "
-							+ cp.getSubProfiles().get(j).getValueChosen().get(TotalAttributes.get(z)) + "\n");
-
-				}
-			}
-		}
-		jTextArea.repaint();
-	}
-
-	public void showProducers(JTextArea jTextArea) {
-		jTextArea.setText("");
-		for (int i = 0; i < Producers.size(); i++) {
-			Producer p = Producers.get(i);
-			for(int k = 0; k < p.getProducts().size(); k++){
-				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
-					jTextArea.append("Producto " + (k + 1) + " ");
-					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
-							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-	
-				}
-			}
-		}
-		jTextArea.repaint();
 	}
 
 	
@@ -975,37 +916,5 @@ public class GeneticAlgorithmVariant {
 		number_Products = number;
 	}
 
-	/***************************************
-	 * " AUXILIARY METHODS TO CALCULATE THE PRICE"
-	 ***************************************/
-
-/*	private int calculatePrice(Product product) {// TODO me fijo solo en el
-													// primero
-		int price_MyProduct = 0;
-
-		for (int i = 1; i < Producers.size(); i++) {
-			Product prod_competence = Producers.get(i).getProducts().get(0);
-			double distance_product = getDistanceTo(product, prod_competence);
-
-			if (distance_product == 0) {
-				price_MyProduct = prod_competence.getPrice();
-				break;
-			}
-
-			price_MyProduct += prod_competence.getPrice() / distance_product;
-		}
-
-		return price_MyProduct;
-	}
-
-	private double getDistanceTo(Product my_product, Product prod_competence) {
-		double distance = 0;
-		for (int i = 0; i < TotalAttributes.size(); i++) {
-			distance += Math.pow(my_product.getAttributeValue().get(TotalAttributes.get(i))
-					- prod_competence.getAttributeValue().get(TotalAttributes.get(i)), 2);
-		}
-		distance = Math.sqrt(distance);
-		return distance;
-	}*/
 
 }

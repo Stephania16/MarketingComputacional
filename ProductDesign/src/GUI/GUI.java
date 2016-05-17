@@ -13,6 +13,7 @@ import input.InputGUI;
 import input.InputRandom;
 import input.InputWeka;
 import minimax.Minimax;
+import output.ShowResults;
 import pso.PSOAlgorithm;
 
 /**
@@ -49,12 +50,13 @@ public class GUI extends JFrame implements ActionListener{
 	InputGUI inputGUI = new InputGUI();
 	InputRandom in = new InputRandom();
 	InputWeka inW = new InputWeka();
+	ShowResults show = new ShowResults();
+	
 	int maxValoraciones = 0;
 	int valoracionActual = 0;
 	
-	boolean showGenetic = false;
-	boolean showInput = false;
-	boolean showPSO = false;
+	boolean showGenetic = false, showInputGen = false, showGeneticVar = false, showInputGenVar = false,
+			showPSO = false, showInputPso = false, showMinimax = false, showInputMin = false;
 	private JLabel labelAttrCon, labelAttrEsp,labelMutAttr,labelProfNear,labelNumPop,
 				   labelNumGen,labelGruPer,labelCross,labelMutProb,labelDepth0,labelDepth1,
 				   labelNumAttr,labelTurPrev,labelTur,pAttr, sAttr, puntNueva, a1,a2;
@@ -710,12 +712,16 @@ public class GUI extends JFrame implements ActionListener{
 		switch(op){
 			case "Start Genetic Algorithm":
 			try {
-				if(getNumProd() > 1) gaVar.start(jtA1, null, false);
-				else ga.start(jtA1,null, false);
-				showGenetic = true;
+				if(getNumProd() > 1){
+					gaVar.start(jtA1, null, false);
+					showGeneticVar = true;
+				}
+				else {
+					ga.start(jtA1,null, false);
+					showGenetic = true;
+				}
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
-				//e1.printStackTrace();
 			}
 			break;
 			
@@ -724,9 +730,15 @@ public class GUI extends JFrame implements ActionListener{
 					String nombre = nombre_txt.getText();
 					if(nombre.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 					else 
-					{	if(getNumProd() > 1) gaVar.start(jtA1,nombre,true);
-						else ga.start(jtA1,nombre,true);
-						showInput = true;
+					{	if(getNumProd() > 1){
+							gaVar.start(jtA1,nombre,true);
+							showInputGenVar = true;
+						}
+						else{
+							ga.start(jtA1,nombre,true);
+							showInputGen = true;
+						}
+						
 					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab1, e1.getMessage());
@@ -735,7 +747,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Start Minimax Algorithm":
 			try {
 				minimax.start(jtA2,null,false);
-				showGenetic = false;
+				showMinimax = false;
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab2, e1.getMessage());
 			}
@@ -747,7 +759,7 @@ public class GUI extends JFrame implements ActionListener{
 					if(nombre_min.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 					else
 					{	minimax.start(jtA2,nombre_min,true);
-						showInput = false;
+						showInputMin = false;
 					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab2, e1.getMessage());
@@ -761,23 +773,30 @@ public class GUI extends JFrame implements ActionListener{
 					pso.start(jtA7,null,false);
 					showPSO = false;
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(tab7, e1.getMessage());
+					try {
+						pso.start(jtA7,null,false);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(tab7, e2.getMessage());
+					}
 				}
 			break;
 				
 			case "Ejecutar PSO(.txt o .xml):":
+				String nombre_pso = nombre_txt_pso.getText();
 				try {
-					String nombre_pso = nombre_txt_pso.getText();
 					if(nombre_pso.equals("")) JOptionPane.showMessageDialog(jtA7, "Error abriendo el fichero");
 					else
 					{	
 						pso.setPSO(true);
 						pso.start(jtA7,nombre_pso,true);
-						showInput = false;
+						showInputPso = false;
 					}
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(tab7, e1.getMessage());
-					//e1.printStackTrace();
+					try {
+						pso.start(jtA7,nombre_pso,true);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(tab7, e2.getMessage());
+					}
 				}
 			break;
 			
@@ -1096,36 +1115,40 @@ public class GUI extends JFrame implements ActionListener{
 			break;
 			
 			case "Attributes":
-					if(showGenetic || showInput || showPSO){
-						ga.showAttributes(jtA3);
-						gaVar.showAttributes(jtA3);
-						pso.showAttributes(jtA7);
-					}
-					else minimax.showAttributes(jtA3);
+					if(showGenetic || showInputGen)
+						show.showAttributes(jtA3, ga.getTotalAttributes());
+					else if(showGeneticVar || showInputGenVar)
+						show.showAttributes(jtA3, gaVar.getTotalAttributes());
+					else if(showPSO || showInputPso)
+						show.showAttributes(jtA7, pso.getTotalAttributes());
+					else show.showAttributes(jtA3, minimax.getTotalAttributes());
 			break;
 			case "Producers":
-					if(showGenetic || showInput || showPSO){
-						ga.showProducers(jtA3);
-						gaVar.showProducers(jtA3);
-						pso.showAttributes(jtA7);
-					}
-					else minimax.showProducers(jtA3);
+					if(showGenetic || showInputGen)
+						show.showProducers(jtA3, ga.getTotalAttributes(), ga.getProducers());
+					else if(showGeneticVar || showInputGenVar)
+						show.showProducers(jtA3, gaVar.getTotalAttributes(), gaVar.getProducers());
+					else if(showPSO || showInputPso)
+						show.showProducers(jtA7, pso.getTotalAttributes(), pso.getProducers());
+					else show.showProducers(jtA3, minimax.getTotalAttributes(), minimax.getProducers());
 			break;
 			case "Profiles":
-					if(showGenetic || showInput || showPSO){
-						ga.showCustomerProfile(jtA3);
-						gaVar.showCustomerProfile(jtA3);
-						pso.showAttributes(jtA7);
-					}
+					if(showGenetic || showInputGen)
+						show.showCustomerProfile(jtA3, ga.getCustomerProfiles());
+					else if(showGeneticVar || showInputGenVar)
+						show.showCustomerProfile(jtA3, gaVar.getCustomerProfiles());
+					else if(showPSO || showInputPso)
+						show.showCustomerProfile(jtA7, pso.getCustomerProfiles());
 					else
-					minimax.showCustomerProfile(jtA3);
+						show.showCustomerProfile(jtA3, minimax.getCustomerProfiles());
 			break;
 			case "SubProfiles":
-					if(showGenetic || showInput || showPSO){
-						ga.showSubProfile(jtA3);
-						gaVar.showSubProfile(jtA3);
-						pso.showAttributes(jtA7);
-					}
+					if(showGenetic || showInputGen)
+						show.showSubProfile(jtA3, ga.getTotalAttributes(), ga.getCustomerProfiles());
+					else if(showGeneticVar || showInputGenVar)
+						show.showSubProfile(jtA3, gaVar.getTotalAttributes(), gaVar.getCustomerProfiles());
+					else if(showPSO || showInputPso)
+						show.showSubProfile(jtA7, pso.getTotalAttributes(), pso.getCustomerProfiles());
 					else jtA3.setText("Subprofiles not available");			
 			break;
 			

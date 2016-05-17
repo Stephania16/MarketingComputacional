@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.swing.JTextArea;
 
+import general.Algorithm;
 import general.Attribute;
 import general.CustomerProfile;
 import general.Interpolation;
@@ -17,11 +18,11 @@ import input.InputGUI;
 import input.InputRandom;
 import output.OutputResults;
 
-public class PSOAlgorithm {
+public class PSOAlgorithm extends Algorithm{
 	 	static int NUM_EXECUTIONS = 1; /* number of executions */
 	    static final int MY_PRODUCER = 0;  //The index of my producer
-	    static final int RESP_PER_GROUP = 20; // We divide the respondents of each
-	    static final double KNOWN_ATTRIBUTES = 100;
+	    static int RESP_PER_GROUP = 20; // We divide the respondents of each
+	    static double KNOWN_ATTRIBUTES = 100;
 	    private static final int MY_BEST_PRODUCT = 0;
 	    public static double VEL_LOW = -1;
 		public static double VEL_HIGH = 1;
@@ -65,15 +66,14 @@ public class PSOAlgorithm {
 
 	    public void start(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
 			long inicio = System.currentTimeMillis();
-			statisticsPSO(jtA, archivo, inputFile);
-			// calculatePrice();
+			statisticsAlgorithm(jtA, archivo, inputFile);
 			long tiempo = System.currentTimeMillis() - inicio;
 
 			double elapsedTimeSec = tiempo / 1.0E03;
 			jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
 		}
 
-	    private void statisticsPSO(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
+	    public void statisticsAlgorithm(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
 
 	        ArrayList<Double> sum = new ArrayList<>();
 	        ArrayList<Double> initSum = new ArrayList<>();
@@ -198,20 +198,6 @@ public class PSOAlgorithm {
 					priceTXT += ", " + String.format("%.2f", priceDoub) + " €";
 			}
 
-	       /* StoredData.mean = sum.get(0) / NUM_EXECUTIONS;
-	        StoredData.initMean = initSum.get(0) / NUM_EXECUTIONS;
-	        double variance = computeVariance(StoredData.mean);
-	        double initVariance = computeVariance(StoredData.initMean);
-	        StoredData.stdDev = Math.sqrt(variance);
-	        StoredData.initStdDev = Math.sqrt(initVariance);
-	        if (StoredData.Fitness == StoredData.Customers) {
-	            StoredData.percCust = 100 * StoredData.mean / StoredData.custMean;
-	            StoredData.initPercCust = 100 * StoredData.initMean / StoredData.custMean;
-	        } else if (StoredData.Fitness == StoredData.Benefits) {
-	            StoredData.percCust = (100 * StoredData.mean) / StoredData.initMean;
-	        }
-
-	        StoredData.My_price = prices.get(0) / NUM_EXECUTIONS;*/
 			jtA.setText("");
 
 	        /*StoredData.meanString = meanTXT;
@@ -270,7 +256,7 @@ public class PSOAlgorithm {
 	    /**
 	     * Creating a random product
 	     */
-	    private Product createRndProduct(ArrayList<Attribute> availableAttribute) {
+	    public Product createRndProduct(ArrayList<Attribute> availableAttribute) {
 	        Product product = new Product(new HashMap<Attribute, Integer>());
 	        int limit = (int) (TotalAttributes.size() * KNOWN_ATTRIBUTES / 100);
 	        int attrVal = 0;
@@ -309,7 +295,7 @@ public class PSOAlgorithm {
 	    /**
 	     * Creating a product near various customer profiles
 	     */
-	    private Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
+	    public Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
 	        // improve having into account the sub-profiles*/
 	        Product product = new Product(new HashMap<Attribute, Integer>());
 	        int attrVal;
@@ -341,7 +327,7 @@ public class PSOAlgorithm {
 	    /**
 	     * Chosing an attribute near to the customer profiles given
 	     */
-	    private static int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd, ArrayList<Attribute> availableAttrs) {
+	    private int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd, ArrayList<Attribute> availableAttrs) {
 	        int attrVal;
 
 	        ArrayList<Integer> possibleAttr = new ArrayList<>();
@@ -362,7 +348,7 @@ public class PSOAlgorithm {
 	    /**
 	     * Chosing the attribute with the maximum score for the customer profiles given
 	     */
-	    private static int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
+	    public int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
 
 	        int attrVal = -1;
 	        double max = -1;
@@ -521,7 +507,7 @@ public class PSOAlgorithm {
 	        return -1;
 	    }
 
-	    private Integer computeBenefits(Product product, int myProducer) {
+	    public Integer computeBenefits(Product product, int myProducer) {
 	        return computeWSC(product, myProducer) * product.getPrice();
 	    }
 
@@ -531,7 +517,7 @@ public class PSOAlgorithm {
 	     *
 	     * @throws Exception
 	     **/
-	    private int computeWSC(Product product, int prodInd) {
+	    public int computeWSC(Product product, int prodInd) {
 	        int wsc = 0;
 	        boolean isTheFavourite;
 	        int meScore, score, k, p, numTies;
@@ -583,7 +569,7 @@ public class PSOAlgorithm {
 	        return wsc;
 	    }
 
-	    private int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
+	    public int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
 	        int modifyScore = 0;
 	        for (int i = 0; i < linkedAttributes.size(); i++) {
 	            LinkedAttribute link = linkedAttributes.get(i);
@@ -599,7 +585,7 @@ public class PSOAlgorithm {
 	     * Computing the score of a product given the customer profile index
 	     * custProfInd and the product
 	     */
-	    private int scoreProduct(SubProfile subprofile, Product product) {
+	    public int scoreProduct(SubProfile subprofile, Product product) {
 	        int score = 0;
 	        for (int i = 0; i < TotalAttributes.size(); i++) {
 	            score += scoreAttribute(TotalAttributes.get(i).getMAX(), subprofile.getValueChosen().get(TotalAttributes.get(i)), product.getAttributeValue().get(TotalAttributes.get(i)));
@@ -612,7 +598,7 @@ public class PSOAlgorithm {
 	     * Computing the score of an attribute for a product given the
 	     * ' number of values
 	     */
-	    private int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) {
+	    public int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) {
 	        int score = 0;
 	        switch (numOfValsOfAttr) {
 	            case 2: {
@@ -660,7 +646,7 @@ public class PSOAlgorithm {
 	    /**
 	     * Computing the variance
 	     */
-	    private double computeVariance(double mean) {//TODO me fijo solo en el primero
+	    public double computeVariance(double mean) {//TODO me fijo solo en el primero
 	        double sqrSum = 0;
 	        for (int i = 0; i < NUM_EXECUTIONS; i++) {
 	            sqrSum += Math.pow(Results.get(i).get(0) - mean, 2);
@@ -668,44 +654,13 @@ public class PSOAlgorithm {
 	        return (sqrSum / NUM_EXECUTIONS);
 	    }
 
-	    /***************************************
-	     * " AUXILIARY METHODS TO CALCULATE THE PRICE"
-	     ***************************************/
-/*
-	    private int calculatePrice(Product product) {//TODO me fijo solo en el primero
-	        int price_MyProduct = 0;
-
-	        for (int i = 1; i < Producers.size(); i++) {
-	            Product prod_competence = Producers.get(i).getProducts().get(0);
-	            double distance_product = getDistanceTo(product, prod_competence);
-
-	            if (distance_product == 0) {
-	                price_MyProduct = prod_competence.getPrice();
-	                break;
-	            }
-
-	            price_MyProduct += prod_competence.getPrice() / distance_product;
-	        }
-
-	        return price_MyProduct;
-	    }
-
-	    private double getDistanceTo(Product my_product, Product prod_competence) {
-	        double distance = 0;
-	        for (int i = 0; i < TotalAttributes.size(); i++) {
-	            distance += Math.pow(my_product.getAttributeValue().get(TotalAttributes.get(i)) - prod_competence.getAttributeValue().get(TotalAttributes.get(i)), 2);
-	        }
-	        distance = Math.sqrt(distance);
-	        return distance;
-	    }
-*/
 	    /**
 	     * Showing the wsc of the rest of products
 	     *
 	     * @throws Exception
 	     */
 
-	    private void showWSC() {
+	    public void showWSC() {
 	        int wsc;
 	        wscSum = 0;
 
@@ -722,7 +677,7 @@ public class PSOAlgorithm {
 		/**
 		 * Computing the variance
 		 */
-	    public void showAttributes(JTextArea jTextArea) {
+/*	    public void showAttributes(JTextArea jTextArea) {
 			jTextArea.setText("");
 			for (int k = 0; k < TotalAttributes.size(); k++) {
 				jTextArea.append(TotalAttributes.get(k).getName() + "\n" + "MIN: " + TotalAttributes.get(k).getMIN() + "\n"
@@ -779,7 +734,7 @@ public class PSOAlgorithm {
 			}
 			jTextArea.repaint();
 		}
-
+*/
 		/*************************************** " GETTERS Y SETTERS OF ATTRIBUTES " ***************************************/
 		public int getNumExecutions() {
 			return NUM_EXECUTIONS;
@@ -787,13 +742,6 @@ public class PSOAlgorithm {
 
 		public void setNumExecutions(int exec) {
 			NUM_EXECUTIONS = exec;
-		}
-
-		public double getKNOWN_ATTRIBUTES() {
-			return KNOWN_ATTRIBUTES;
-		}
-		public int getRESP_PER_GROUP() {
-			return RESP_PER_GROUP;
 		}
 
 		public ArrayList<Attribute> getTotalAttributes() {
@@ -887,4 +835,25 @@ public class PSOAlgorithm {
 		public void setMAX_ITERATION(int mAX_ITERATION) {
 			MAX_ITERATION = mAX_ITERATION;
 		}
+
+
+		public double getKNOWN_ATTRIBUTES() {
+			return KNOWN_ATTRIBUTES;
+		}
+
+		@Override
+		public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
+			KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;			
+		}
+		public int getRESP_PER_GROUP() {
+			return RESP_PER_GROUP;
+		}
+		@Override
+		public void setRESP_PER_GROUP(int rESP_PER_GROUP) {
+			RESP_PER_GROUP = rESP_PER_GROUP;
+			
+		}
+
+
+		
 }

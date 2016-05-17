@@ -4,25 +4,22 @@ import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
+import general.Algorithm;
 import general.Attribute;
 import general.CustomerProfile;
 import general.Interpolation;
 import general.LinkedAttribute;
 import general.Producer;
 import general.Product;
+import genetic.SubProfile;
 import input.InputGUI;
 import input.InputRandom;
 import output.OutputResults;
 
-public class Minimax {
+public class Minimax extends Algorithm{ //extends Algorithm
 
     private int MY_PRODUCER = 0;
-
- //   private int NEAR_CUST_PROFS = 5; //  Number of near customer profiles to generate a product
-
     private double KNOWN_ATTRIBUTES = 100; // % of attributes known for all producers
- //   private double SPECIAL_ATTRIBUTES = 33; // % of special attributes known for some producers
- //   public double MUT_PROB_CUSTOMER_PROFILE = 33; // % of mutated attributes in a customer profile
 
     private int MAX_DEPTH_0 = 4; //4; //Maximun depth of the minimax //depth 8 in initial
     private int MAX_DEPTH_1 = 2; //Maximun depth of the minimax //depth 2 in initial
@@ -34,10 +31,6 @@ public class Minimax {
     private int mNAttrMod = 1; // Number of attributes the producer can modify (D)
     private int mPrevTurns = 5; // Number of previous turns to compute (tp)
     private int mNTurns = 5; // Number of turns to play (tf)
-
-    private int mNAttr = 10; // Number of attributes
-    private int mNProd = 2; // Number of producers
-    private int mNCustProf; // Number of customer profiles
     // Represents the list of attributes, its possible values, and its possible valuations:
     // mAttributes(i)(j) = valuation for attribute number i, value number j
     private ArrayList<Attribute> TotalAttributes = new ArrayList<>();
@@ -64,14 +57,14 @@ public class Minimax {
 
     public void start(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
     	long inicio = System.currentTimeMillis();
-        statisticsPDG(jtA, archivo, input_txt);
+    	statisticsAlgorithm(jtA, archivo, input_txt);
         long tiempo = System.currentTimeMillis()- inicio;
             
         double elapsedTimeSec = tiempo / 1.0E03;
         jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
     }
 
-    public void statisticsPDG(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
+    public void statisticsAlgorithm(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
     	double mean, initMean;
 		double sum = 0; /*sum of customers achieved*/
 		int sumCust = 0; /*sum of the total number of customers*/
@@ -176,51 +169,6 @@ public class Minimax {
          Prices.add(inter.calculatePrice(Producers.get(MY_PRODUCER).getProduct(), getTotalAttributes(), getProducers()));
     }
 
-   
-    public void showAttributes(JTextArea jTextArea1) {
-    	jTextArea1.setText("");
-        for (int k = 0; k < TotalAttributes.size(); k++) {
-        	jTextArea1.append(TotalAttributes.get(k).getName() + "\n" + 
-                              "MIN: " + TotalAttributes.get(k).getMIN() + "\n" + 
-        			          "MAX: " + TotalAttributes.get(k).getMAX() + "\n");
-        }
-        jTextArea1.repaint();
-    }
-	
-    public void showProducers(JTextArea jTextArea) {
-		jTextArea.setText("");
-		for (int i = 0; i < Producers.size(); i++) {
-			Producer p = Producers.get(i);
-			for(int k = 0; k < p.getProducts().size(); k++){
-				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
-					jTextArea.append("Producto " + (k + 1) + " ");
-					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
-							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-	
-				}
-			}
-		}
-		jTextArea.repaint();
-	}
-
-    public void showCustomerProfile(JTextArea jTextArea1) {
-    	jTextArea1.setText("");
-    	for (int i = 0; i < CustomerProfiles.size(); i++) {
-            CustomerProfile cp = CustomerProfiles.get(i);
-            jTextArea1.append("CUSTOMER PROFILE " + (i + 1) + "\n");
-           // System.out.println("PRODUCTOR " + (i + 1));
-            for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
-            	jTextArea1.append(cp.getScoreAttributes().get(j).getName() + "\n");
-            	for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
-            		jTextArea1.append("Value -> " + cp.getScoreAttributes().get(j).getScoreValues().get(z) + "\n");
-            	//System.out.println(p.getAvailableAttribute().get(j).getName() +  ":  Value -> "  + p.getProduct().getAttributeValue().get(TotalAttributes.get(j)));
-            	}
-            }
-    	}
-    	jTextArea1.repaint();
-    }
-    
    
     /************************
      * AUXILIARY METHOD PlayGame
@@ -354,7 +302,7 @@ public class Minimax {
     }
 
 
-    private Integer computeBenefits(Product product, int myProducer) throws Exception {
+    public Integer computeBenefits(Product product, int myProducer) throws Exception {
         return computeWSC(product, myProducer) * product.getPrice();
     }
     
@@ -364,7 +312,7 @@ public class Minimax {
      *
      * @throws Exception
      **/
-    private int computeWSC(Product product, int prodInd) throws Exception {
+    public int computeWSC(Product product, int prodInd) throws Exception {
     	 int wsc = 0;
          boolean isTheFavourite;
          int meScore, score, k, numTies;
@@ -416,7 +364,7 @@ public class Minimax {
     }
 
 
-    private int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
+    public int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
         int modifyScore = 0;
         for (int i = 0; i < linkedAttributes.size(); i++) {
             LinkedAttribute link = linkedAttributes.get(i);
@@ -460,7 +408,7 @@ public class Minimax {
     /**
      * Computing the variance
      */
-    private double computeVariance(double mean) {
+    public double computeVariance(double mean) {
         double sqrSum = 0;
         for (int i = 0; i < getNumExecutions(); i++) {
             sqrSum += Math.pow(mResults.get(i) - mean, 2);
@@ -562,34 +510,54 @@ public class Minimax {
 		Minimax.isAttributesLinked = isAttributesLinked;
 	}
 
-	/***************************************
-     * " AUXILIARY METHODS TO CALCULATE THE PRICE"
-     ***************************************/
+	@Override
+	public Product createRndProduct(ArrayList<Attribute> availableAttribute) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
- /*   private int calculatePrice(Product product) {
-        int price_MyProduct = 0;
+	@Override
+	public Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        for (int i = 1; i < Producers.size(); i++) {
-            Product prod_competence = Producers.get(i).getProduct();
-            double distance_product = getDistanceTo(product, prod_competence);
+	@Override
+	public int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-            if (distance_product == 0) {
-                price_MyProduct = prod_competence.getPrice();
-                break;
-            }
+	@Override
+	public int scoreProduct(SubProfile subprofile, Product product) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-            price_MyProduct += prod_competence.getPrice() / distance_product;
-        }
+	@Override
+	public int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-        return price_MyProduct;
-    }
+	@Override
+	public void showWSC() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
-    private double getDistanceTo(Product my_product, Product prod_competence) {
-        double distance = 0;
-        for (int i = 0; i < TotalAttributes.size(); i++) {
-            distance += Math.pow(my_product.getAttributeValue().get(TotalAttributes.get(i)) - prod_competence.getAttributeValue().get(TotalAttributes.get(i)), 2);
-        }
-        distance = Math.sqrt(distance);
-        return distance;
-    }*/
+	@Override
+	public int getRESP_PER_GROUP() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setRESP_PER_GROUP(int rESP_PER_GROUP) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
 }
