@@ -23,6 +23,7 @@ public class InputWeka {
 	InputRandom in = new InputRandom();
 	InputGUI inputGUI = new InputGUI();
 	static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
+	static ArrayList<Integer> indexProfiles = new ArrayList<>();
 	static boolean clusters = false;
 	public InputWeka(){}
 	
@@ -96,11 +97,13 @@ public class InputWeka {
                 Attribute attr = inputGUI.getAttribute(in.getTotalAttributes(), in.getCustomerProfiles().get((int)(centroide.value(centroide.attribute(0)))).getScoreAttributes().get((int)(centroide.value(1))).getName());
                 for(int i = 2; i < centroide.numAttributes();i++)
                 {
-                	ScoreValues.add((int)(centroide.value(i)));
+                	//if(centroide.value(i) != 0)
+                		ScoreValues.add((int)(centroide.value(i)));
                 }
                 attr.setScoreValues(ScoreValues);
                 attrs.add(attr);
                 CustomerProfile custprof = new CustomerProfile(attrs);
+                indexProfiles.add(Integer.parseInt(centroide.toString((centroide.attribute(0)))));
                 CustomerProfiles.add(custprof);
             }
             jtA.append("\r\n");
@@ -109,7 +112,7 @@ public class InputWeka {
             jtA.append("Time taken to build model (full training data): " + elapsed + " seconds" + "\r\n");
             
         } catch (Exception e) {
-        	jtA.append("Error en clustering: " + e.getMessage() + "\r\n");
+        	jtA.append("Error en clustering: Ejecutar primero un algoritmo para generar perfiles" /*e.getMessage()*/ + "\r\n");
         }
     }
 
@@ -130,8 +133,16 @@ public class InputWeka {
 		return clusters;
 	}
 
-	public void setClusters(boolean cluster) {
-		this.clusters = cluster;
+	public void setClusters(boolean clus) {
+		clusters = clus;
+	}
+
+	public ArrayList<Integer> getIndexProfiles() {
+		return indexProfiles;
+	}
+
+	public void setIndexProfiles(ArrayList<Integer> indexProf) {
+		indexProfiles = indexProf;
 	}
 		
 	

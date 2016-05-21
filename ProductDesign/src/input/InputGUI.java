@@ -38,15 +38,16 @@ import general.Product;
 import genetic.SubProfile;
 
 public class InputGUI {
-	private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
-	private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
-	private static ArrayList<Producer> Producers = new ArrayList<>();
-	private static boolean generarDatosEntrada = false;
-	private static int num_attr = 10;//70
-	private static int num_prod = 2; //10
-	private static int num_prof = 16;
-	private static int num_prof_num = 200;
+	static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
+	static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
+	static ArrayList<Producer> Producers = new ArrayList<>();
+	static boolean generarDatosEntrada = false;
+	static int num_attr = 10;//70
+	static int num_prod = 2; //10
+	static int num_prof = 16;
+	static int num_prof_num = 200;
 	public static boolean isAttributesLinked = false;
+	public static boolean isNumData = false;
 	static int RESP_PER_GROUP = 20; /*
 											 * * We divide the respondents of
 											 * each
@@ -105,6 +106,14 @@ public class InputGUI {
 
 	public void setisGenerarDatosEntrada(boolean generargui) {
 		generarDatosEntrada = generargui;
+	}
+
+	public boolean isNumData() {
+		return isNumData;
+	}
+
+	public void setNumData(boolean isNumDat) {
+		isNumData = isNumDat;
 	}
 
 	public static boolean isAttributesLinked() {

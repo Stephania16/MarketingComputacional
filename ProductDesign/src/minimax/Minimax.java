@@ -1,69 +1,28 @@
 package minimax;
 
 import java.util.ArrayList;
-
 import javax.swing.JTextArea;
-
 import general.Algorithm;
-import general.Attribute;
 import general.CustomerProfile;
-import general.Interpolation;
-import general.LinkedAttribute;
 import general.Producer;
 import general.Product;
-import genetic.SubProfile;
-import input.InputGUI;
-import input.InputRandom;
-import output.OutputResults;
 
-public class Minimax extends Algorithm{ //extends Algorithm
-
-    private int MY_PRODUCER = 0;
-    private double KNOWN_ATTRIBUTES = 100; // % of attributes known for all producers
+public class Minimax extends Algorithm{
 
     private int MAX_DEPTH_0 = 4; //4; //Maximun depth of the minimax //depth 8 in initial
     private int MAX_DEPTH_1 = 2; //Maximun depth of the minimax //depth 2 in initial
 
-    private int NUM_EXEC = 5;
 
 
     // INPUT VARIABLES
     private int mNAttrMod = 1; // Number of attributes the producer can modify (D)
     private int mPrevTurns = 5; // Number of previous turns to compute (tp)
     private int mNTurns = 5; // Number of turns to play (tf)
-    // Represents the list of attributes, its possible values, and its possible valuations:
-    // mAttributes(i)(j) = valuation for attribute number i, value number j
-    private ArrayList<Attribute> TotalAttributes = new ArrayList<>();
-    private ArrayList<Producer> Producers = new ArrayList<>();
-    // Represents the customer profiles:
-    // mCustProf(i)(j)(k) = valuation for the customer type number i,
-    // attribute number j, value k of attribute (each attribute can take k possible values)
-    private ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
-    
-    // STATISTICAL VARIABLES
-    private ArrayList<Integer> mResults = new ArrayList<>();
-    private ArrayList<Integer> Prices = new ArrayList<>();
-    private ArrayList<Integer> mInitialResults = new ArrayList<>();
-    public boolean maximizar = false;
-    public static boolean isAttributesLinked = false;
-    InputGUI inputGUI = new InputGUI();
-    InputRandom in = new InputRandom();
-    OutputResults out = new OutputResults();
-    Interpolation inter = new Interpolation();
+
 
     /************************
      * INITIAL METHOD
      **********************/
-
-    public void start(JTextArea jtA, String archivo, boolean input_txt) throws Exception {
-    	long inicio = System.currentTimeMillis();
-    	statisticsAlgorithm(jtA, archivo, input_txt);
-        long tiempo = System.currentTimeMillis()- inicio;
-            
-        double elapsedTimeSec = tiempo / 1.0E03;
-        jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
-    }
-
     public void statisticsAlgorithm(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
     	double mean, initMean;
 		double sum = 0; /*sum of customers achieved*/
@@ -77,8 +36,8 @@ public class Minimax extends Algorithm{ //extends Algorithm
 		double My_price;
 		double initPercCust; /* % of initial customers achieved */
 		
-		mResults = new ArrayList<>();
-        mInitialResults = new ArrayList<>();
+		Results = new ArrayList<>();
+		Initial_Results = new ArrayList<>();
         Prices = new ArrayList<>();
 		
         if(inputFile)
@@ -91,8 +50,8 @@ public class Minimax extends Algorithm{ //extends Algorithm
         
         for(int i = 0; i < getNumExecutions(); i++){
             playPDG(archivo,inputFile);
-            sum += mResults.get(i);
-            initSum = mInitialResults.get(i);
+            sum += Results.get(i);
+            initSum = Initial_Results.get(i);
             sumCust += countCustomers() * getmNTurns() * 2;
             price += Prices.get(i);
         }
@@ -133,13 +92,6 @@ public class Minimax extends Algorithm{ //extends Algorithm
 	    out.output(jtA, "Algoritmo Minimax");
     }
     
-    private void generarDatosGUI() throws Exception {
-        TotalAttributes = inputGUI.getTotalAttributes();
-        CustomerProfiles = inputGUI.getCustomerProfiles();
-        inputGUI.setProfiles();
-        Producers = inputGUI.getProducers();
-	}
-    
     public void playPDG(String archivo, boolean inputFile) throws Exception {
     	if(!inputFile)
     	{	
@@ -156,7 +108,7 @@ public class Minimax extends Algorithm{ //extends Algorithm
     
 
     public void playGame() throws Exception {
-    	 mInitialResults.add(computeWSC(Producers.get(MY_PRODUCER).getProduct(), MY_PRODUCER));
+    	Initial_Results.add(computeWSC(Producers.get(MY_PRODUCER).getProduct(), MY_PRODUCER));
 
          for (int i = 0; i < getmNTurns(); i++) {
              for (int j = 0; j < Producers.size(); j++) {
@@ -165,7 +117,7 @@ public class Minimax extends Algorithm{ //extends Algorithm
              }
          }
 
-         mResults.add(Producers.get(MY_PRODUCER).getNumber_CustomerGathered());
+         Results.add(Producers.get(MY_PRODUCER).getNumber_CustomerGathered());
          Prices.add(inter.calculatePrice(Producers.get(MY_PRODUCER).getProduct(), getTotalAttributes(), getProducers()));
     }
 
@@ -302,12 +254,8 @@ public class Minimax extends Algorithm{ //extends Algorithm
     }
 
 
-    public Integer computeBenefits(Product product, int myProducer) throws Exception {
-        return computeWSC(product, myProducer) * product.getPrice();
-    }
-    
     /***
-     * Computing the weighted score of the producer
+   /  * Computing the weighted score of the producer
      * prodInd is the index of the producer
      *
      * @throws Exception
@@ -363,17 +311,6 @@ public class Minimax extends Algorithm{ //extends Algorithm
         return score;
     }
 
-
-    public int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
-        int modifyScore = 0;
-        for (int i = 0; i < linkedAttributes.size(); i++) {
-            LinkedAttribute link = linkedAttributes.get(i);
-            if (product.getAttributeValue().get(link.getAttribute1()) == link.getValue1() && product.getAttributeValue().get(link.getAttribute2()) == link.getValue2()) {
-                modifyScore += link.getScoreModification();
-            }
-        }
-        return modifyScore;
-    }
     
     
     private StrAB bestMovement(ArrayList<StrAB> abList, int best) {
@@ -405,16 +342,6 @@ public class Minimax extends Algorithm{ //extends Algorithm
             //TODO write results
         }
     }
-    /**
-     * Computing the variance
-     */
-    public double computeVariance(double mean) {
-        double sqrSum = 0;
-        for (int i = 0; i < getNumExecutions(); i++) {
-            sqrSum += Math.pow(mResults.get(i) - mean, 2);
-        }
-        return (sqrSum / getNumExecutions());
-    }
 
     public int countCustomers(){
         int total = 0;
@@ -427,28 +354,6 @@ public class Minimax extends Algorithm{ //extends Algorithm
     /***************************************
      * " AUXILIARY METHODS GETTERS Y SETTERS
      ***************************************/
-	public int getNumExecutions() {
-		return NUM_EXEC;
-	}
-    	
-	public void setNumExecutions(int exec){
-		NUM_EXEC = exec;
-	}
-	
-	public ArrayList<Attribute> getTotalAttributes() {
-		return TotalAttributes;
-	}
-	
-	public ArrayList<Producer> getProducers() {
-		return Producers;
-	}
-	public ArrayList<CustomerProfile> getCustomerProfiles() {
-		return CustomerProfiles;
-	}
-
-	public double getKNOWN_ATTRIBUTES() {
-		return KNOWN_ATTRIBUTES;
-	}
 
 	public int getMAX_DEPTH_0() {
 		return MAX_DEPTH_0;
@@ -464,10 +369,6 @@ public class Minimax extends Algorithm{ //extends Algorithm
 
 	public int getmNTurns() {
 		return mNTurns;
-	}
-
-	public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
-		KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;
 	}
 
 	public void setMAX_DEPTH_0(int mAX_DEPTH_0) {
@@ -493,71 +394,5 @@ public class Minimax extends Algorithm{ //extends Algorithm
 	public void setmNAttrMod(int mNAttrMod) {
 		this.mNAttrMod = mNAttrMod;
 	}
-
-	public boolean isMaximizar() {
-		return maximizar;
-	}
-
-	public void setMaximizar(boolean maximizar) {
-		this.maximizar = maximizar;
-	}
-	
-    public boolean isAttributesLinked() {
-		return isAttributesLinked;
-	}
-
-	public void setAttributesLinked(boolean isAttributesLinked) {
-		Minimax.isAttributesLinked = isAttributesLinked;
-	}
-
-	@Override
-	public Product createRndProduct(ArrayList<Attribute> availableAttribute) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int scoreProduct(SubProfile subprofile, Product product) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void showWSC() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getRESP_PER_GROUP() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setRESP_PER_GROUP(int rESP_PER_GROUP) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 
 }

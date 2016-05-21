@@ -1,31 +1,14 @@
 package pso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
-
 import javax.swing.JTextArea;
-
 import general.Algorithm;
-import general.Attribute;
-import general.CustomerProfile;
-import general.Interpolation;
-import general.LinkedAttribute;
-import general.Producer;
 import general.Product;
-import genetic.SubProfile;
-import input.InputGUI;
-import input.InputRandom;
-import output.OutputResults;
+
 
 public class PSOAlgorithm extends Algorithm{
-	 	static int NUM_EXECUTIONS = 1; /* number of executions */
-	    static final int MY_PRODUCER = 0;  //The index of my producer
-	    static int RESP_PER_GROUP = 20; // We divide the respondents of each
-	    static double KNOWN_ATTRIBUTES = 100;
 	    private static final int MY_BEST_PRODUCT = 0;
-	    public static double VEL_LOW = -1;
-		public static double VEL_HIGH = 1;
 
 	    public int MAX_ITERATION = 60;
 	    public int SWARM_SIZE = 20;
@@ -34,10 +17,6 @@ public class PSOAlgorithm extends Algorithm{
 	    double W_LOWERBOUND = 0;
 	    double C1 = 2.0;
 	    double C2 = 2.0;
-
-	    private static ArrayList<Attribute> TotalAttributes = new ArrayList<>();
-	    private static ArrayList<Producer> Producers = new ArrayList<>();
-	    private static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 
 	    /* GA VARIABLES */
 	    private ArrayList<Integer> BestWSC = new ArrayList<>(); /* Stores the best wsc found */
@@ -48,31 +27,13 @@ public class PSOAlgorithm extends Algorithm{
 	    private ArrayList<Product> ProductBestWSC = new ArrayList<>(); /* Stores the best wsc found */
 	    private Product BestProduct = new Product(); /* Stores the best wsc found */
 
-
 	    /* STATISTICAL VARIABLES */
 	    private ArrayList<ArrayList<Integer>> Results = new ArrayList<>();
 	    private ArrayList<ArrayList<Integer>> Initial_Results = new ArrayList<>();
 	    private ArrayList<ArrayList<Integer>> Prices = new ArrayList<>();
-	    private int wscSum;
-	    public boolean maximizar = false;
-	    public static boolean isPSO = false;
-		public static boolean isAttributesLinked = false;
 		public static int number_Products = 1;
-		InputGUI añadir = new InputGUI();
-		InputRandom in = new InputRandom();
-		OutputResults out = new OutputResults();
-		Interpolation inter = new Interpolation();
-
-
-	    public void start(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
-			long inicio = System.currentTimeMillis();
-			statisticsAlgorithm(jtA, archivo, inputFile);
-			long tiempo = System.currentTimeMillis() - inicio;
-
-			double elapsedTimeSec = tiempo / 1.0E03;
-			jtA.append("\nTiempo de ejecución = " + String.format("%.2f", elapsedTimeSec) + " seconds" + "\n");
-		}
-
+		
+		
 	    public void statisticsAlgorithm(JTextArea jtA, String archivo, boolean inputFile) throws Exception {
 
 	        ArrayList<Double> sum = new ArrayList<>();
@@ -90,21 +51,7 @@ public class PSOAlgorithm extends Algorithm{
 	        Initial_Results = new ArrayList<>();
 	        Prices = new ArrayList<>();
 
-	        if (inputFile) {
-				int input = archivo.indexOf(".xml");
-				if(input != -1) añadir.inputXML(archivo);
-				else añadir.inputTxt(archivo);
-				generarDatosGUI();
-			} else {
-				if (añadir.isGenerarDatosEntrada())
-					generarDatosGUI();
-				else if (Producers.size() == 0) {
-					in.generate();
-					TotalAttributes = in.getTotalAttributes();
-					Producers = in.getProducers();
-					CustomerProfiles = in.getCustomerProfiles();
-				}
-			}
+	        inputData(inputFile,archivo);
 
 	        for (int i = 0; i < getNumExecutions(); i++) {
 	            if (i != 0) /*We reset myPP and create a new product as the first product*/ {
@@ -212,7 +159,7 @@ public class PSOAlgorithm extends Algorithm{
 					+ "Num atributos: " + TotalAttributes.size() + "\r\n"
 					+ "Num productores: " + Producers.size() + "\r\n" 
 					+ "Num perfiles: " + CustomerProfiles.size() + "\r\n"
-					+ "Number CustProf: " + añadir.getnum() + "\r\n" 
+					+ "Number CustProf: " + inputGUI.getnum() + "\r\n" 
 					+ "Máx Iteraciones: " + getMAX_ITERATION() + " %" + "\r\n" 
 					+ "Swarm Size: " + getSWARM_SIZE() + " %" + "\r\n"
 					+ "W_UPPERBOUND: " + getW_UPPERBOUND() + " %" + "\r\n"
@@ -225,6 +172,7 @@ public class PSOAlgorithm extends Algorithm{
 					+ "Num grupos de perfil: " + getRESP_PER_GROUP() + "\r\n" 
 					+ "Num productos: " + in.getNumber_Products() + "\r\n" 
 					+ "Atributos linkados: " + isAttributesLinked() + "\r\n" 
+					+ "Centroides: " + inWeka.getIndexProfiles().toString() + "\r\n"
 					+ "************* RESULTS *************" + "\r\n"  
 					+ "BestWSC: " + BestWSC + "\r\n" 
 					 + "Mean: " + meanTXT + "\r\n"
@@ -237,132 +185,7 @@ public class PSOAlgorithm extends Algorithm{
 			out.output(jtA, "Algoritmo PSO");
 	    }
 
-
-	    
-		/**
-		 * Generating the input data
-		 *
-		 * @throws Exception
-		 */
-		public void generarDatosGUI() throws Exception {
-			TotalAttributes = añadir.getTotalAttributes();
-			CustomerProfiles = añadir.getCustomerProfiles();
-			añadir.setProfiles();
-			añadir.divideCustomerProfile();
-			Producers = añadir.getProducers();
-
-		}
-
-	    /**
-	     * Creating a random product
-	     */
-	    public Product createRndProduct(ArrayList<Attribute> availableAttribute) {
-	        Product product = new Product(new HashMap<Attribute, Integer>());
-	        int limit = (int) (TotalAttributes.size() * KNOWN_ATTRIBUTES / 100);
-	        int attrVal = 0;
-
-	        for (int i = 0; i < limit; i++) {
-	            attrVal = (int) (TotalAttributes.get(i).getMAX() * Math.random());
-	            product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
-
-	        }
-
-	        for (int i = limit; i < TotalAttributes.size(); i++) {
-	            boolean attrFound = false;
-	            while (!attrFound) {
-	                attrVal = (int) (TotalAttributes.get(i).getMAX() * Math.random());
-
-	                if (availableAttribute.get(i).getAvailableValues().get(attrVal))
-	                    attrFound = true;
-
-	            }
-	            product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
-	        }
-
-	        //IF WE NEED THE VELOCTY FOR PSO
-	        if (isPSO()) {
-	            product.setVelocity(new HashMap<Attribute, Double>());
-	            for (int i = 0; i < TotalAttributes.size(); i++) {
-	                double velocity = (((VEL_HIGH - VEL_LOW) * Math.random()) - VEL_LOW);
-	                product.getVelocity().put(TotalAttributes.get(i), velocity);
-	            }
-	        }
-
-	        product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
-	        return product;
-	    }
-
-	    /**
-	     * Creating a product near various customer profiles
-	     */
-	    public Product createNearProduct(ArrayList<Attribute> availableAttribute, int nearCustProfs) {
-	        // improve having into account the sub-profiles*/
-	        Product product = new Product(new HashMap<Attribute, Integer>());
-	        int attrVal;
-
-	        ArrayList<Integer> custProfsInd = new ArrayList<>();
-	        for (int i = 1; i < nearCustProfs; i++)
-	            custProfsInd.add((int) Math.floor(CustomerProfiles.size() * Math.random()));
-
-
-	        for (int i = 0; i < TotalAttributes.size(); i++) {
-	            attrVal = chooseAttribute(i, custProfsInd, availableAttribute);
-	            product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
-	        }
-
-	        //IF WE NEED THE VELOCTY FOR PSO
-	        if (isPSO()) {
-	            product.setVelocity(new HashMap<Attribute, Double>());
-	            for (int i = 0; i < TotalAttributes.size(); i++) {
-	                Double velocity = (((VEL_HIGH - VEL_LOW) * Math.random()) + VEL_LOW);
-	                product.getVelocity().put(TotalAttributes.get(i), velocity);
-	            }
-	        }
-
-	        product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
-	        return product;
-	    }
-
-
-	    /**
-	     * Chosing an attribute near to the customer profiles given
-	     */
-	    private int chooseAttribute(int attrInd, ArrayList<Integer> custProfInd, ArrayList<Attribute> availableAttrs) {
-	        int attrVal;
-
-	        ArrayList<Integer> possibleAttr = new ArrayList<>();
-
-	        for (int i = 0; i < TotalAttributes.get(attrInd).getMAX(); i++) {
-	            /*We count the valoration of each selected profile for attribute attrInd value i*/
-	            int possible = 0;
-	            for (int j = 0; j < custProfInd.size(); j++) {
-	                possible += CustomerProfiles.get(custProfInd.get(j)).getScoreAttributes().get(attrInd).getScoreValues().get(i);
-	            }
-	            possibleAttr.add(possible);
-	        }
-	        attrVal = getMaxAttrVal(attrInd, possibleAttr, availableAttrs);
-
-	        return attrVal;
-	    }
-
-	    /**
-	     * Chosing the attribute with the maximum score for the customer profiles given
-	     */
-	    public int getMaxAttrVal(int attrInd, ArrayList<Integer> possibleAttr, ArrayList<Attribute> availableAttr) {
-
-	        int attrVal = -1;
-	        double max = -1;
-
-	        for (int i = 0; i < possibleAttr.size(); i++) {
-	            if (availableAttr.get(attrInd).getAvailableValues().get(i) && possibleAttr.get(i) > max) {
-	                max = possibleAttr.get(i);
-	                attrVal = i;
-	            }
-	        }
-	        return attrVal;
-	    }
-
-	    private void solvePSO() {
+	    private void solvePSO() throws Exception {
 
 	        ProductBestWSC = new ArrayList<>();
 	        ParticleBestWSC = new ArrayList<>();
@@ -437,7 +260,7 @@ public class PSOAlgorithm extends Algorithm{
 
 	    }
 
-	    private void updateFitness() {
+	    private void updateFitness() throws Exception {
 	        for(int i = 0; i < Population.size(); i++){
 
 	            int ParticleFitness = 0;
@@ -453,7 +276,7 @@ public class PSOAlgorithm extends Algorithm{
 	        }
 	    }
 
-	    private void createInitSwarm() {
+	    private void createInitSwarm() throws Exception {
 	        Population = new ArrayList<>();
 	        Fitness = new ArrayList<>();
 	        BestWSC = new ArrayList<>();
@@ -478,7 +301,10 @@ public class PSOAlgorithm extends Algorithm{
 
 	        for (int i = Producers.get(MY_PRODUCER).getProducts().size(); i < SWARM_SIZE; i++) {
 
-
+	        	for(int j = 0; j < inWeka.getIndexProfiles().size(); j++){
+					createNearProductCluster(Producers.get(MY_PRODUCER).getAvailableAttribute(),inWeka.getIndexProfiles().get(j));
+					
+				}
 	            if (i % 2 == 0) /*We create a random product*/
 	                Population.add(createRndProduct(Producers.get(MY_PRODUCER).getAvailableAttribute()));
 	            else /*We create a near product*/
@@ -507,140 +333,6 @@ public class PSOAlgorithm extends Algorithm{
 	        return -1;
 	    }
 
-	    public Integer computeBenefits(Product product, int myProducer) {
-	        return computeWSC(product, myProducer) * product.getPrice();
-	    }
-
-	    /***
-	     * Computing the weighted score of the producer
-	     * prodInd is the index of the producer
-	     *
-	     * @throws Exception
-	     **/
-	    public int computeWSC(Product product, int prodInd) {
-	        int wsc = 0;
-	        boolean isTheFavourite;
-	        int meScore, score, k, p, numTies;
-	        int count = 0;
-
-	        for (int i = 0; i < CustomerProfiles.size(); i++) {
-	            for (int j = 0; j < CustomerProfiles.get(i).getSubProfiles().size(); j++) {
-	                isTheFavourite = true;
-	                numTies = 1;
-	                meScore = scoreProduct(CustomerProfiles.get(i).getSubProfiles().get(j), product);
-
-	                if (isAttributesLinked())
-	                    meScore += scoreLinkedAttributes(CustomerProfiles.get(i).getLinkedAttributes(), product);
-
-	                k = 0;
-	                while (isTheFavourite && k < Producers.size()) {
-	                    p = 0;
-	                    while (isTheFavourite && p < Producers.get(k).getProducts().size()) {
-	                        if (Producers.get(k).getProducts().get(p) != product) {
-
-	                            score = scoreProduct(CustomerProfiles.get(i).getSubProfiles().get(j), Producers.get(k).getProducts().get(p));
-
-	                            if (isAttributesLinked())
-	                                score += scoreLinkedAttributes(CustomerProfiles.get(i).getLinkedAttributes(), product);
-
-	                            if (score > meScore)
-	                                isTheFavourite = false;
-
-	                            else if (score == meScore)
-	                                numTies += 1;
-	                        } else {
-	                            count++;
-	                        }
-	                        p++;
-	                    }
-	                    k++;
-	                }
-	                /* When there exists ties we loose some voters because of decimals (undecided voters)*/
-	                if (isTheFavourite) {
-	                    if ((j == CustomerProfiles.get(i).getSubProfiles().size()) && ((CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) != 0)) {
-	                        wsc += (CustomerProfiles.get(i).getNumberCustomers() % RESP_PER_GROUP) / numTies;
-	                    } else {
-	                        wsc += RESP_PER_GROUP / numTies;
-	                    }
-	                }
-	            }
-	        }
-
-	        return wsc;
-	    }
-
-	    public int scoreLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes, Product product) {
-	        int modifyScore = 0;
-	        for (int i = 0; i < linkedAttributes.size(); i++) {
-	            LinkedAttribute link = linkedAttributes.get(i);
-	            if (product.getAttributeValue().get(link.getAttribute1()) == link.getValue1() && product.getAttributeValue().get(link.getAttribute2()) == link.getValue2()) {
-	                modifyScore += link.getScoreModification();
-	            }
-	        }
-	        return modifyScore;
-	    }
-
-
-	    /**
-	     * Computing the score of a product given the customer profile index
-	     * custProfInd and the product
-	     */
-	    public int scoreProduct(SubProfile subprofile, Product product) {
-	        int score = 0;
-	        for (int i = 0; i < TotalAttributes.size(); i++) {
-	            score += scoreAttribute(TotalAttributes.get(i).getMAX(), subprofile.getValueChosen().get(TotalAttributes.get(i)), product.getAttributeValue().get(TotalAttributes.get(i)));
-	            // score += scoreAttribute(mAttributes(i), mCustProfAux(custProfInd)(custSubProfInd)(i), product(i))
-	        }
-	        return score;
-	    }
-
-	    /**
-	     * Computing the score of an attribute for a product given the
-	     * ' number of values
-	     */
-	    public int scoreAttribute(int numOfValsOfAttr, int valOfAttrCust, int valOfAttrProd) {
-	        int score = 0;
-	        switch (numOfValsOfAttr) {
-	            case 2: {
-	                if (valOfAttrCust == valOfAttrProd) score = 10;
-	                else score = 0;
-	            }
-	            break;
-	            case 3: {
-	                if (valOfAttrCust == valOfAttrProd) score = 10;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 1) score = 5;
-	                else score = 0;
-	            }
-	            break;
-	            case 4: {
-	                if (valOfAttrCust == valOfAttrProd) score = 10;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 1) score = 6;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 2) score = 2;
-	                else score = 0;
-	            }
-	            break;
-	            case 5: {
-	                if (valOfAttrCust == valOfAttrProd) score = 10;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 1) score = 6;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 2) score = 2;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 3) score = 1;
-	                else score = 0;
-	            }
-	            break;
-	            case 11: {
-	                if (valOfAttrCust == valOfAttrProd) score = 10;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 1) score = 8;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 2) score = 6;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 3) score = 4;
-	                else if (Math.abs(valOfAttrCust - valOfAttrProd) == 4) score = 2;
-	                else score = 0;
-	            }
-	            break;
-	        }
-	        return score;
-	    }
-
-
 	    /*************************************** " AUXILIARY METHODS STATISTICSPD()" ***************************************/
 
 	    /**
@@ -648,10 +340,10 @@ public class PSOAlgorithm extends Algorithm{
 	     */
 	    public double computeVariance(double mean) {//TODO me fijo solo en el primero
 	        double sqrSum = 0;
-	        for (int i = 0; i < NUM_EXECUTIONS; i++) {
+	        for (int i = 0; i < getNumExecutions(); i++) {
 	            sqrSum += Math.pow(Results.get(i).get(0) - mean, 2);
 	        }
-	        return (sqrSum / NUM_EXECUTIONS);
+	        return (sqrSum / getNumExecutions());
 	    }
 
 	    /**
@@ -660,7 +352,7 @@ public class PSOAlgorithm extends Algorithm{
 	     * @throws Exception
 	     */
 
-	    public void showWSC() {
+	    public void showWSC() throws Exception {
 	        int wsc;
 	        wscSum = 0;
 
@@ -671,106 +363,8 @@ public class PSOAlgorithm extends Algorithm{
 	            }
 	        }
 	    }
-	    
-	    /*************************************** " AUXILIARY METHODS STATISTICSPD()" ***************************************/
 
-		/**
-		 * Computing the variance
-		 */
-/*	    public void showAttributes(JTextArea jTextArea) {
-			jTextArea.setText("");
-			for (int k = 0; k < TotalAttributes.size(); k++) {
-				jTextArea.append(TotalAttributes.get(k).getName() + "\n" + "MIN: " + TotalAttributes.get(k).getMIN() + "\n"
-						+ "MAX: " + TotalAttributes.get(k).getMAX() + "\n");
-			}
-			jTextArea.repaint();
-		}
-
-		public void showCustomerProfile(JTextArea jTextArea) {
-			jTextArea.setText("");
-			for (int i = 0; i < CustomerProfiles.size(); i++) {
-				CustomerProfile cp = CustomerProfiles.get(i);
-				jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
-				for (int j = 0; j < cp.getScoreAttributes().size(); j++) {
-					jTextArea.append(cp.getScoreAttributes().get(j).getName() + "\n");
-					for (int z = 0; z < cp.getScoreAttributes().get(j).getScoreValues().size(); z++) {
-						jTextArea.append("Value -> " + cp.getScoreAttributes().get(j).getScoreValues().get(z) + "\n");
-					}
-				}
-			}
-			jTextArea.repaint();
-		}
-
-		public void showSubProfile(JTextArea jTextArea) {
-			jTextArea.setText("");
-			for (int i = 0; i < CustomerProfiles.size(); i++) {
-				CustomerProfile cp = CustomerProfiles.get(i);
-				jTextArea.append("CUSTOMER PROFILE " + (i + 1) + "\n");
-				for (int j = 0; j < cp.getSubProfiles().size(); j++) {
-					jTextArea.append(cp.getSubProfiles().get(j).getName() + "\n");
-					for (int z = 0; z < cp.getSubProfiles().get(j).getValueChosen().size(); z++) {
-						jTextArea.append("Value -> "
-								+ cp.getSubProfiles().get(j).getValueChosen().get(TotalAttributes.get(z)) + "\n");
-
-					}
-				}
-			}
-			jTextArea.repaint();
-		}
-
-		public void showProducers(JTextArea jTextArea) {
-			jTextArea.setText("");
-			for (int i = 0; i < Producers.size(); i++) {
-				Producer p = Producers.get(i);
-				for(int k = 0; k < p.getProducts().size(); k++){
-					for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
-						jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
-						jTextArea.append("Producto " + (k + 1) + " ");
-						jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
-								+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-		
-					}
-				}
-			}
-			jTextArea.repaint();
-		}
-*/
 		/*************************************** " GETTERS Y SETTERS OF ATTRIBUTES " ***************************************/
-		public int getNumExecutions() {
-			return NUM_EXECUTIONS;
-		}
-
-		public void setNumExecutions(int exec) {
-			NUM_EXECUTIONS = exec;
-		}
-
-		public ArrayList<Attribute> getTotalAttributes() {
-			return TotalAttributes;
-		}
-
-		public ArrayList<Producer> getProducers() {
-			return Producers;
-		}
-
-		public ArrayList<CustomerProfile> getCustomerProfiles() {
-			return CustomerProfiles;
-		}
-
-		public boolean isMaximizar() {
-			return maximizar;
-		}
-
-		public void setMaximizar(boolean maximizar) {
-			this.maximizar = maximizar;
-		}
-
-		public boolean isAttributesLinked() {
-			return isAttributesLinked;
-		}
-
-		public void setAttributesLinked(boolean AttributesLinked) {
-			isAttributesLinked = AttributesLinked;
-		}
 		
 		public int getNumber_Products() {
 			return number_Products;
@@ -800,10 +394,6 @@ public class PSOAlgorithm extends Algorithm{
 			return C2;
 		}
 
-		public boolean isPSO() {
-			return isPSO;
-		}
-
 		public void setSWARM_SIZE(int sWARM_SIZE) {
 			SWARM_SIZE = sWARM_SIZE;
 		}
@@ -824,10 +414,6 @@ public class PSOAlgorithm extends Algorithm{
 			C2 = c2;
 		}
 
-		public void setPSO(boolean ispso) {
-			this.isPSO = ispso;
-		}
-
 		public int getMAX_ITERATION() {
 			return MAX_ITERATION;
 		}
@@ -835,25 +421,5 @@ public class PSOAlgorithm extends Algorithm{
 		public void setMAX_ITERATION(int mAX_ITERATION) {
 			MAX_ITERATION = mAX_ITERATION;
 		}
-
-
-		public double getKNOWN_ATTRIBUTES() {
-			return KNOWN_ATTRIBUTES;
-		}
-
-		@Override
-		public void setKNOWN_ATTRIBUTES(double kNOWN_ATTRIBUTES) {
-			KNOWN_ATTRIBUTES = kNOWN_ATTRIBUTES;			
-		}
-		public int getRESP_PER_GROUP() {
-			return RESP_PER_GROUP;
-		}
-		@Override
-		public void setRESP_PER_GROUP(int rESP_PER_GROUP) {
-			RESP_PER_GROUP = rESP_PER_GROUP;
-			
-		}
-
-
-		
+	
 }

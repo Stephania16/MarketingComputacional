@@ -93,22 +93,8 @@ public class GUI extends JFrame implements ActionListener{
 		gaVar = new GeneticAlgorithmVariant();
 		minimax = new Minimax();
 		pso = new PSOAlgorithm();
-		Object[] opciones = { "Maximizar clientes", "Maximizar ingresos"};
-		int resp = JOptionPane.showOptionDialog(null, "Seleccione opción", "Opciones", 
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-
-		if (JOptionPane.YES_OPTION == resp){
-	    	  ga.setMaximizar(true);
-	    	  gaVar.setMaximizar(true);
-	    	  pso.setMaximizar(true);
-	    	  minimax.setMaximizar(true);
-		}
-		else{ // if(JOptionPane.NO_OPTION == resp)
-			ga.setMaximizar(false);
-			gaVar.setMaximizar(false);
-			pso.setMaximizar(false);
-			minimax.setMaximizar(false);
-		}
+		
+		options();
 		
 			//FRAME
 			window = new JFrame();
@@ -201,7 +187,7 @@ public class GUI extends JFrame implements ActionListener{
 			prof.addActionListener(this);
 			subprof.addActionListener(this);
 		
-			// A�adimos opciones al panel de botones
+			// Añadimos opciones al panel de botones
 			panel.add(attr);
 			panel.add(prod);
 			panel.add(prof);
@@ -589,8 +575,7 @@ public class GUI extends JFrame implements ActionListener{
 			num_pef.add(textA1);
 			num_pef.add(pAttr);
 			num_pef.add(textPAttr);
-			//num_pef.add(button_prof);
-		
+
 			perfiles.add(attr_linkados);
 			
 			attr_linkados.add(a2);
@@ -848,6 +833,7 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						int x1 = Integer.parseInt(num_attr);
+						inputGUI.setNumData(true);
 						inputGUI.setnum_attr(x1);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
@@ -913,6 +899,7 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						int x2 = Integer.parseInt(num2);
+						inputGUI.setNumData(true);
 						inputGUI.setnum_prod(x2);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
@@ -969,11 +956,16 @@ public class GUI extends JFrame implements ActionListener{
 						Attribute attribute = new Attribute(attr.getName(),attr.getMIN(),attr.getMAX());
 						if(inputGUI.isElement(inputGUI.getTotalAttributes(),attribute)) 
 						{ 
-							inputGUI.inputGUIValorAtributo(attribute,x16,x20,xProd);
-							jtA4.append("Productor " + x20 + "  " + "Producto " + xProd + "  " + "Nombre: " + attribute.getName() + " " + "Valor " +  inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute) + ": " + x16 + "\n");
-							text20.setEnabled(true);
-							textProducto.setEnabled(true);
-							text10.setEnabled(true);
+							if(attribute.getMAX() > x16){
+								inputGUI.inputGUIValorAtributo(attribute,x16,x20,xProd);
+								jtA4.append("Productor " + x20 + "  " + "Producto " + xProd + "  " + "Nombre: " + attribute.getName() + " " + "Valor " +  inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute) + ": " + x16 + "\n");
+								text20.setEnabled(true);
+								textProducto.setEnabled(true);
+								text10.setEnabled(true);
+							}
+							else{
+								JOptionPane.showMessageDialog(tab4, "Valor de atributo no correcto");
+							}
 						}
 						else 
 						{	JOptionPane.showMessageDialog(tab4, "Este atributo disponible no existe"); }
@@ -1044,10 +1036,13 @@ public class GUI extends JFrame implements ActionListener{
 					try{
 						int x7 = Integer.parseInt(puntuacion);
 						int x17 = Integer.parseInt(posCust);
-						inputGUI.inputGUIValoracion(attribute, x7, x17);
-						
-						jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor " + valoracionActual + ": " + x7 + "\n");
-						valoracionActual++;
+						if(attribute.getMAX() < x7) JOptionPane.showMessageDialog(tab4, "Puntuacion incorrecta");
+						else {
+							inputGUI.inputGUIValoracion(attribute, x7, x17);
+							
+							jtA4.append("Perfil " + posCust + "  " + "Nombre: " + attribute.getName() + " " + "Valor " + valoracionActual + ": " + x7 + "\n");
+							valoracionActual++;
+						}
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 					
@@ -1061,7 +1056,7 @@ public class GUI extends JFrame implements ActionListener{
 				String a2 = textA2.getText();
 				String Va2 = textSAttr.getText();
 				String pun = textpuntNueva.getText();
-				 int pos = 0;
+				int pos = 0;
 				try{
 					if(a1.isEmpty() || Va1.isEmpty() || a2.isEmpty() || Va2.isEmpty() || pun.isEmpty()){
 						JOptionPane.showMessageDialog(tab4, "Casilla Vacía");
@@ -1081,10 +1076,13 @@ public class GUI extends JFrame implements ActionListener{
 								ga.setAttributesLinked(true);
 								gaVar.setAttributesLinked(true);
 								minimax.setAttributesLinked(true);
-								inputGUI.AtributosLinkados(postCust, attribute1, attribute2, xVa1, xVa2, Xpun);
-								jtA4.append("Perfil " + postCust + "  " + "Atributo 1: " + attribute1.getName() + " " + "Valor " + xVa1 + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute1)).getScoreValues().indexOf(xVa1) +  "\n");
-								jtA4.append("Perfil " + postCust + "  " + "Atributo 2: " + attribute2.getName() + " " + "Valor " + xVa2  + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute2)).getScoreValues().indexOf(xVa2) + "\n");
-								jtA4.append("Puntuacion nueva: " + Xpun + "\n");
+								if(attribute1.getMAX() < xVa1 || attribute2.getMAX() < xVa2) JOptionPane.showMessageDialog(tab4, "Valor incorrecto");
+								else {
+									inputGUI.AtributosLinkados(postCust, attribute1, attribute2, xVa1, xVa2, Xpun);
+									jtA4.append("Perfil " + postCust + "  " + "Atributo 1: " + attribute1.getName() + " " + "Valor " + xVa1 + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute1)).getScoreValues().indexOf(xVa1) +  "\n");
+									jtA4.append("Perfil " + postCust + "  " + "Atributo 2: " + attribute2.getName() + " " + "Valor " + xVa2  + ": " + inputGUI.getCustomerProfiles().get(postCust).getScoreAttributes().get(inputGUI.getIndexOf(inputGUI.getTotalAttributes(), attribute2)).getScoreValues().indexOf(xVa2) + "\n");
+									jtA4.append("Puntuacion nueva: " + Xpun + "\n");
+								}
 							}
 							else{
 								JOptionPane.showMessageDialog(tab4, "Este atributo no existe");
@@ -1103,6 +1101,7 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						int x8 = Integer.parseInt(t8);
+						inputGUI.setNumData(true);
 						inputGUI.setnum(x8);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
@@ -1415,4 +1414,24 @@ public class GUI extends JFrame implements ActionListener{
 		this.numProd = numProd;
 	}
 
+	public void options(){
+		Object[] opciones = { "Maximizar clientes", "Maximizar ingresos"};
+		int resp = JOptionPane.showOptionDialog(null, "Seleccione opción", "Opciones", 
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+		if (resp == 0){ 
+	    	  ga.setMaximizar(true);
+	    	  gaVar.setMaximizar(true);
+	    	  pso.setMaximizar(true);
+	    	  minimax.setMaximizar(true);
+		}
+		else if (resp == 1){ 
+			ga.setMaximizar(false);
+			gaVar.setMaximizar(false);
+			pso.setMaximizar(false);
+			minimax.setMaximizar(false);
+		}
+		else if (resp == -1){System.exit(0);}
+	}
+	
 }
