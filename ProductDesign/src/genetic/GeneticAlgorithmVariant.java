@@ -159,15 +159,15 @@ public class GeneticAlgorithmVariant extends Algorithm{
 				initStdDevTXT += ", " + String.format("%.2f", initStdDev);
 
 			if (i == 0)
-				percCustTXT += String.format("%.2f", percCust);
+				percCustTXT += String.format("%.2f", percCust) + " %";
 			else
-				percCustTXT += ", " + String.format("%.2f", percCust);
+				percCustTXT += ", " + String.format("%.2f", percCust) + " %";
 
 			if (isMaximizar())
 				if (i == 0)
-					initPercCustTXT += String.format("%.2f", initPercCust);
+					initPercCustTXT += String.format("%.2f", initPercCust) + " %";
 				else
-					initPercCustTXT += ", " + String.format("%.2f", initPercCust);
+					initPercCustTXT += ", " + String.format("%.2f", initPercCust) + " %";
 
 			if (i == 0)
 				priceTXT += String.format("%.2f", priceDoub) + " €";
@@ -175,31 +175,7 @@ public class GeneticAlgorithmVariant extends Algorithm{
 				priceTXT += ", " + String.format("%.2f", priceDoub) + " €";
 		}
 		
-		/*double mean = sum.get(0) / getNumExecutions();
-		double initMean = initSum.get(0) / getNumExecutions();
-		double variance = computeVariance(mean);
-		double initVariance = computeVariance(initMean);
-		double stdDev = Math.sqrt(variance);
-		double initStdDev = Math.sqrt(initVariance);
-		double percCust = 100 * mean / custMean; /* % of customers achieved */
-		/*double initPercCust = 100 * initMean / custMean; /* % of initial customers achieved */
-		/*double My_price = prices.get(0) / getNumExecutions();*/
 		jtA.setText("");
-		/*jtA.append("Num productos: " + in.getNumber_Products() + "\n" 
-				 + "Mean: " + String.format("%.2f", mean) + "\n"
-				 + "initMean: " + String.format("%.2f", initMean) + "\n"
-				 + "variance: " + String.format("%.2f", variance) + "\n"
-				 + "initVariance: " + String.format("%.2f", initVariance) + "\n" 
-				 + "stdDev: " + String.format("%.2f", stdDev) + "\n"
-				 + "initStdDev: " + String.format("%.2f", initStdDev) + "\n" 
-				 + "Price: " + String.format("%.2f", My_price) + " €" +"\n");
-		if (isMaximizar()) {
-			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\n" 
-					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\n");
-			
-		} else{
-			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\n");
-		}*/
 
 		jtA.append("Num Ejecuciones: " + getNumExecutions() + "\r\n" 
 				+ "Num atributos: " + TotalAttributes.size() + "\r\n"

@@ -129,15 +129,15 @@ public class PSOAlgorithm extends Algorithm{
 					initStdDevTXT += ", " + String.format("%.2f", initStdDev);
 
 				if (i == 0)
-					percCustTXT += String.format("%.2f", percCust);
+					percCustTXT += String.format("%.2f", percCust) + " %";
 				else
-					percCustTXT += ", " + String.format("%.2f", percCust);
+					percCustTXT += ", " + String.format("%.2f", percCust) + " %";
 
 				if (isMaximizar())
 					if (i == 0)
-						initPercCustTXT += String.format("%.2f", initPercCust);
+						initPercCustTXT += String.format("%.2f", initPercCust) + " %";
 					else
-						initPercCustTXT += ", " + String.format("%.2f", initPercCust);
+						initPercCustTXT += ", " + String.format("%.2f", initPercCust) + " %";
 
 				if (i == 0)
 					priceTXT += String.format("%.2f", priceDoub) + " €";

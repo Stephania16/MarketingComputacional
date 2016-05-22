@@ -175,6 +175,14 @@ public abstract class Algorithm {
 			attrVal = chooseAttributeCluster(i, index, availableAttribute);
 			product.getAttributeValue().put(TotalAttributes.get(i), attrVal);
 		}
+		//IF WE NEED THE VELOCTY FOR PSO
+        if (isPSO()) {
+            product.setVelocity(new HashMap<Attribute, Double>());
+            for (int i = 0; i < TotalAttributes.size(); i++) {
+                double velocity = (((VEL_HIGH - VEL_LOW) * Math.random()) - VEL_LOW);
+                product.getVelocity().put(TotalAttributes.get(i), velocity);
+            }
+        }
 		product.setPrice(inter.calculatePrice(product, getTotalAttributes(), getProducers()));
 		return product;
 	}

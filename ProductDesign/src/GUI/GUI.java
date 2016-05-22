@@ -15,6 +15,7 @@ import input.InputWeka;
 import minimax.Minimax;
 import output.ShowResults;
 import pso.PSOAlgorithm;
+import sa.SAAlgorithm;
 
 /**
  * Genetic Algorithm GUI
@@ -46,6 +47,7 @@ public class GUI extends JFrame implements ActionListener{
 	GeneticAlgorithm ga;
 	GeneticAlgorithmVariant gaVar;
 	PSOAlgorithm pso;
+	SAAlgorithm sa;
 	Minimax minimax;
 	InputGUI inputGUI = new InputGUI();
 	InputRandom in = new InputRandom();
@@ -56,7 +58,8 @@ public class GUI extends JFrame implements ActionListener{
 	int valoracionActual = 0;
 	
 	boolean showGenetic = false, showInputGen = false, showGeneticVar = false, showInputGenVar = false,
-			showPSO = false, showInputPso = false, showMinimax = false, showInputMin = false;
+			showPSO = false, showInputPso = false, showMinimax = false, showInputMin = false,
+			showSA = false, showInputSA = false;
 	private JLabel labelAttrCon, labelAttrEsp,labelMutAttr,labelProfNear,labelNumPop,
 				   labelNumGen,labelGruPer,labelCross,labelMutProb,labelDepth0,labelDepth1,
 				   labelNumAttr,labelTurPrev,labelTur,pAttr, sAttr, puntNueva, a1,a2;
@@ -93,6 +96,7 @@ public class GUI extends JFrame implements ActionListener{
 		gaVar = new GeneticAlgorithmVariant();
 		minimax = new Minimax();
 		pso = new PSOAlgorithm();
+		sa = new SAAlgorithm();
 		
 		options();
 		
@@ -732,7 +736,7 @@ public class GUI extends JFrame implements ActionListener{
 			case "Start Minimax Algorithm":
 			try {
 				minimax.start(jtA2,null,false);
-				showMinimax = false;
+				showMinimax = true;
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab2, e1.getMessage());
 			}
@@ -744,7 +748,7 @@ public class GUI extends JFrame implements ActionListener{
 					if(nombre_min.equals("")) JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 					else
 					{	minimax.start(jtA2,nombre_min,true);
-						showInputMin = false;
+						showInputMin = true;
 					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab2, e1.getMessage());
@@ -756,7 +760,7 @@ public class GUI extends JFrame implements ActionListener{
 				try {
 					pso.setPSO(true);
 					pso.start(jtA7,null,false);
-					showPSO = false;
+					showPSO = true;
 				} catch (Exception e1) {
 					try {
 						pso.start(jtA7,null,false);
@@ -774,11 +778,12 @@ public class GUI extends JFrame implements ActionListener{
 					{	
 						pso.setPSO(true);
 						pso.start(jtA7,nombre_pso,true);
-						showInputPso = false;
+						showInputPso = true;
 					}
 				} catch (Exception e1) {
 					try {
 						pso.start(jtA7,nombre_pso,true);
+						showInputPso = true;
 					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(tab7, e2.getMessage());
 					}
@@ -787,9 +792,9 @@ public class GUI extends JFrame implements ActionListener{
 			
 			case "Ejecutar SA":
 				try {
-					/*pso.setPSO(true);
-					pso.start(jtA8,null,false);
-					showPSO = false;*/
+					//pso.setPSO(true);
+					sa.start(jtA8,null,false);
+					showSA = true;
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab8, e1.getMessage());
 				}
@@ -799,12 +804,12 @@ public class GUI extends JFrame implements ActionListener{
 				try {
 					String nombre_SA = nombre_txt_SA.getText();
 					if(nombre_SA.equals("")) JOptionPane.showMessageDialog(jtA8, "Error abriendo el fichero");
-				/*	else
+					else
 					{	
-						pso.setPSO(true);
-						pso.start(jtA7,nombre_SA,true);
-						showInput = false;
-					}*/
+						//pso.setPSO(true);
+						sa.start(jtA8,nombre_SA,true);
+						showInputSA = true;
+					}
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(tab8, e1.getMessage());
 					
@@ -882,9 +887,10 @@ public class GUI extends JFrame implements ActionListener{
 				else{
 					try{
 						numProd = Integer.parseInt(numProduc);
-						setNumProd(numProd);
 						in.setNumber_Products(numProd);
 						gaVar.setNumber_Products(numProd);
+						pso.setNumber_Products(numProd);
+						sa.setNumber_Products(numProd);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab4, nfe.getMessage());}
 
@@ -1119,7 +1125,9 @@ public class GUI extends JFrame implements ActionListener{
 					else if(showGeneticVar || showInputGenVar)
 						show.showAttributes(jtA3, gaVar.getTotalAttributes());
 					else if(showPSO || showInputPso)
-						show.showAttributes(jtA7, pso.getTotalAttributes());
+						show.showAttributes(jtA3, pso.getTotalAttributes());
+					else if(showSA || showInputSA)
+						show.showAttributes(jtA3, pso.getTotalAttributes());
 					else show.showAttributes(jtA3, minimax.getTotalAttributes());
 			break;
 			case "Producers":
@@ -1128,7 +1136,9 @@ public class GUI extends JFrame implements ActionListener{
 					else if(showGeneticVar || showInputGenVar)
 						show.showProducers(jtA3, gaVar.getTotalAttributes(), gaVar.getProducers());
 					else if(showPSO || showInputPso)
-						show.showProducers(jtA7, pso.getTotalAttributes(), pso.getProducers());
+						show.showProducers(jtA3, pso.getTotalAttributes(), pso.getProducers());
+					else if(showSA || showInputSA)
+						show.showProducers(jtA3, sa.getTotalAttributes(), sa.getProducers());
 					else show.showProducers(jtA3, minimax.getTotalAttributes(), minimax.getProducers());
 			break;
 			case "Profiles":
@@ -1137,7 +1147,9 @@ public class GUI extends JFrame implements ActionListener{
 					else if(showGeneticVar || showInputGenVar)
 						show.showCustomerProfile(jtA3, gaVar.getCustomerProfiles());
 					else if(showPSO || showInputPso)
-						show.showCustomerProfile(jtA7, pso.getCustomerProfiles());
+						show.showCustomerProfile(jtA3, pso.getCustomerProfiles());
+					else if(showSA || showInputSA)
+						show.showCustomerProfile(jtA3, sa.getCustomerProfiles());
 					else
 						show.showCustomerProfile(jtA3, minimax.getCustomerProfiles());
 			break;
@@ -1147,7 +1159,9 @@ public class GUI extends JFrame implements ActionListener{
 					else if(showGeneticVar || showInputGenVar)
 						show.showSubProfile(jtA3, gaVar.getTotalAttributes(), gaVar.getCustomerProfiles());
 					else if(showPSO || showInputPso)
-						show.showSubProfile(jtA7, pso.getTotalAttributes(), pso.getCustomerProfiles());
+						show.showSubProfile(jtA3, pso.getTotalAttributes(), pso.getCustomerProfiles());
+					else if(showSA || showInputSA)
+						show.showSubProfile(jtA3, sa.getTotalAttributes(), sa.getCustomerProfiles());
 					else jtA3.setText("Subprofiles not available");			
 			break;
 			
@@ -1179,6 +1193,8 @@ public class GUI extends JFrame implements ActionListener{
 						gaVar.setKNOWN_ATTRIBUTES(attrCon);
 						minimax.setKNOWN_ATTRIBUTES(attrCon);
 						in.setKNOWN_ATTRIBUTES(attrCon);
+						pso.setKNOWN_ATTRIBUTES(attrCon);
+						sa.setKNOWN_ATTRIBUTES(attrCon);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
@@ -1228,6 +1244,8 @@ public class GUI extends JFrame implements ActionListener{
 						ga.setNEAR_CUST_PROFS(profne);
 						gaVar.setNEAR_CUST_PROFS(profne);
 						in.setNEAR_CUST_PROFS(profne);
+						pso.setNEAR_CUST_PROFS(profne);
+						sa.setNEAR_CUST_PROFS(profne);
 						//minimax.setNEAR_CUST_PROFS(profne);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
@@ -1275,6 +1293,8 @@ public class GUI extends JFrame implements ActionListener{
 						ga.setRESP_PER_GROUP(gruper);
 						gaVar.setRESP_PER_GROUP(gruper);
 						in.setRESP_PER_GROUP(gruper);
+						pso.setRESP_PER_GROUP(gruper);
+						sa.setRESP_PER_GROUP(gruper);
 					}catch(NumberFormatException nfe)
 					{ JOptionPane.showMessageDialog(tab5, nfe.getMessage());}
 				}
@@ -1424,12 +1444,14 @@ public class GUI extends JFrame implements ActionListener{
 	    	  gaVar.setMaximizar(true);
 	    	  pso.setMaximizar(true);
 	    	  minimax.setMaximizar(true);
+	    	  sa.setMaximizar(true);
 		}
 		else if (resp == 1){ 
 			ga.setMaximizar(false);
 			gaVar.setMaximizar(false);
 			pso.setMaximizar(false);
 			minimax.setMaximizar(false);
+			sa.setMaximizar(false);
 		}
 		else if (resp == -1){System.exit(0);}
 	}
