@@ -152,9 +152,15 @@ public class SAAlgorithm extends Algorithm{
 				 + "initMean: " + initMeanTXT + "\r\n"
 				 + "stdDev: " + stdDevTXT + "\r\n"
 				 + "initStdDev: " + initStdDevTXT + "\r\n"
-				 + "percCust: " + percCustTXT + "\r\n"
-				 + "initPercCust: " + initPercCustTXT + "\r\n"
+			//	 + "percCust: " + percCustTXT + "\r\n"
+			//	 + "initPercCust: " + initPercCustTXT + "\r\n"
 				 + "My_priceString: " + priceTXT + "\r\n");
+        if (isMaximizar()) { 
+			jtA.append("percCust: " + percCustTXT + "\r\n"
+					 + "initPercCust: " + initPercCustTXT  + "\r\n");
+		} else { 
+			jtA.append("percCust: " + percCustTXT + "\r\n");
+		}
 		out.output(jtA, "Algoritmo Simulated Annealing");
         
     }

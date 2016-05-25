@@ -336,6 +336,16 @@ public class InputGUI {
 		return false;
 
 	}
+	
+	public boolean isElementCust(ArrayList<CustomerProfile> customers, Attribute attr) {
+		for (int i = 0; i < customers.size(); i++) {
+			for(int j = 0; j < customers.get(i).getScoreAttributes().size(); j++){
+				if (customers.get(i).getScoreAttributes().get(j).equals(attr))
+					return true;
+			}
+		}
+		return false;
+	}
 
 	public void writeTxt(String archivo) throws FileNotFoundException, IOException {
 		File fichero = new File(archivo);

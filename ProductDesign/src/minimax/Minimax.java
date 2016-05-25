@@ -83,10 +83,10 @@ public class Minimax extends Algorithm{
 	               "stdDev: " + String.format("%.2f", stdDev) + "\r\n" + 
 	    		   "custMean: " + String.format("%.2f", custMean) + "\r\n" + 
 	    		   "Price: " + String.format("%.2f", My_price) + " €" + "\r\n");	    			
-	    if (isMaximizar()) { // fit == customers
+	    if (isMaximizar()) {
 			jtA.append("percCust: " + String.format("%.2f", percCust) + " %" + "\r\n" 
 					 + "initPercCust: " + String.format("%.2f", initPercCust) + " %" + "\r\n");
-		} else { // if (fit == Benefits)
+		} else { 
 			jtA.append("percCust: " + String.format("%.2f", ((100 * mean) / initMean)) + " %" + "\r\n");
 		}
 	    out.output(jtA, "Algoritmo Minimax");

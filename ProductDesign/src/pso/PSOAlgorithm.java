@@ -25,7 +25,7 @@ public class PSOAlgorithm extends Algorithm{
 
 	    private ArrayList<Integer> ParticleBestWSC = new ArrayList<>(); /* Stores the best wsc found */
 	    private ArrayList<Product> ProductBestWSC = new ArrayList<>(); /* Stores the best wsc found */
-	    private Product BestProduct = new Product(); /* Stores the best wsc found */
+	  //  private Product BestProduct = new Product(); /* Stores the best wsc found */
 
 	    /* STATISTICAL VARIABLES */
 	    private ArrayList<ArrayList<Integer>> Results = new ArrayList<>();
@@ -147,21 +147,13 @@ public class PSOAlgorithm extends Algorithm{
 
 			jtA.setText("");
 
-	        /*StoredData.meanString = meanTXT;
-	        StoredData.initMeanString = initMeanTXT;
-	        StoredData.stdDevString = stdDevTXT;
-	        StoredData.initStdDevString = initStdDevTXT;
-	        StoredData.percCustString = percCustTXT;
-	        StoredData.initPercCustString = initPercCustTXT;
-	        StoredData.My_priceString = priceTXT;*/
-			
 			jtA.append("Num Ejecuciones: " + getNumExecutions() + "\r\n" 
 					+ "Num atributos: " + TotalAttributes.size() + "\r\n"
 					+ "Num productores: " + Producers.size() + "\r\n" 
 					+ "Num perfiles: " + CustomerProfiles.size() + "\r\n"
 					+ "Number CustProf: " + inputGUI.getnum() + "\r\n" 
-					+ "Máx Iteraciones: " + getMAX_ITERATION() + " %" + "\r\n" 
-					+ "Swarm Size: " + getSWARM_SIZE() + " %" + "\r\n"
+					+ "Máx Iteraciones: " + getMAX_ITERATION() + "\r\n" 
+					+ "Swarm Size: " + getSWARM_SIZE() + "\r\n"
 					+ "W_UPPERBOUND: " + getW_UPPERBOUND() + " %" + "\r\n"
 					+ "W_LOWERBOUND: " + getW_LOWERBOUND() + " %" + "\r\n"
 					+ "C1: " + getC1() + " %" + "\r\n"
@@ -179,9 +171,15 @@ public class PSOAlgorithm extends Algorithm{
 					 + "initMean: " + initMeanTXT + "\r\n"
 					 + "stdDev: " + stdDevTXT + "\r\n"
 					 + "initStdDev: " + initStdDevTXT + "\r\n"
-					 + "percCust: " + percCustTXT + "\r\n"
-					 + "initPercCust: " + initPercCustTXT + "\r\n"
+				//	 + "percCust: " + percCustTXT + "\r\n"
+				//	 + "initPercCust: " + initPercCustTXT + "\r\n"
 					 + "My_priceString: " + priceTXT + "\r\n");
+			if (isMaximizar()) { 
+				jtA.append("percCust: " + percCustTXT + "\r\n"
+						 + "initPercCust: " + initPercCustTXT  + "\r\n");
+			} else { 
+				jtA.append("percCust: " + percCustTXT + "\r\n");
+			}
 			out.output(jtA, "Algoritmo PSO");
 	    }
 

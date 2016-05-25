@@ -46,7 +46,7 @@ public class CustomerProfile {
 		this.linkedAttributes = linkedAttributes;
 	}
 	
-	public boolean equals(CustomerProfile cust)
+	/*public boolean equals(CustomerProfile cust)
 	{
 		for(int i = 0; i < cust.getScoreAttributes().size(); i++)
 		{
@@ -56,6 +56,6 @@ public class CustomerProfile {
 			
 		}
 		return false;
-	}
+	}*/
 }
 

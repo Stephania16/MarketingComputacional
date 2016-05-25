@@ -203,6 +203,12 @@ public class GeneticAlgorithmVariant extends Algorithm{
 				 + "percCust: " + percCustTXT + "\r\n"
 				 + "initPercCust: " + initPercCustTXT + "\r\n"
 				 + "My_priceString: " + priceTXT + "\r\n");
+		if (isMaximizar()) { 
+			jtA.append("percCust: " + percCustTXT + "\r\n"
+					 + "initPercCust: " + initPercCustTXT  + "\r\n");
+		} else { 
+			jtA.append("percCust: " + percCustTXT + "\r\n");
+		}
 		out.output(jtA, "Algoritmo Genético");
 
 	}
@@ -285,6 +291,7 @@ public class GeneticAlgorithmVariant extends Algorithm{
 		int wsc = 0;
 		boolean isTheFavourite;
 		int meScore, score, k, p, numTies;
+		@SuppressWarnings("unused")
 		int count = 0;
 
 		for (int i = 0; i < CustomerProfiles.size(); i++) {
