@@ -18,6 +18,7 @@ import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 
+/** Clase que realiza la implementación del algoritmo de agrupamiento */
 public class InputWeka {
 	OutputCSV inCsv = new OutputCSV();
 	InputRandom in = new InputRandom();
@@ -25,102 +26,109 @@ public class InputWeka {
 	static ArrayList<CustomerProfile> CustomerProfiles = new ArrayList<>();
 	static ArrayList<Integer> indexProfiles = new ArrayList<>();
 	static boolean clusters = false;
-	public InputWeka(){}
-	
-	public void ClusteringWeka(JTextArea jtA, int numClusters, String archivoCSV, String archivoArff) throws FileNotFoundException, IOException{
+
+	public InputWeka() {
+	}
+
+	/** Método que realiza la clusterización */
+	public void ClusteringWeka(JTextArea jtA, int numClusters, String archivoCSV, String archivoArff)
+			throws FileNotFoundException, IOException {
 
 		if (numClusters < 1 || archivoCSV.equals("")) {
-            mensajeError(jtA);
-            System.exit(0);
-        }
-		
+			mensajeError(jtA);
+			System.exit(0);
+		}
+
 		if (inputGUI.isGenerarDatosEntrada())
 			inCsv.WriteCSV(inputGUI.getCustomerProfiles(), archivoCSV);
-		else{
+		else {
 			inCsv.WriteCSV(in.getCustomerProfiles(), archivoCSV);
 		}
-		
-        try {
-        	
-        	long time_start = System.currentTimeMillis();
-        	
-            // Crear y configurar algoritmo de clustering
-            jtA.append("Crear algoritmo de clustering ..." + "\r\n");
-            SimpleKMeans clusterer = new SimpleKMeans();
-            clusterer.setNumClusters(numClusters);
-            clusterer.setMaxIterations(100);
-            
-            // Cargar dataset desde CSV
-            CSVLoader loader = new CSVLoader();
-            loader.setSource(new File(archivoCSV)); //FileInputStream
-            Instances dataset = loader.getDataSet();
-            
-            NumericToNominal prueba = new NumericToNominal();
 
-            prueba.setInputFormat(dataset);
-            Instances newData = Filter.useFilter(dataset, prueba); 
+		try {
 
-            // save ARFF
-            ArffSaver saver = new ArffSaver();
-            saver.setInstances(newData);           
-            saver.setFile(new File(archivoArff));
-            saver.writeBatch();
+			long time_start = System.currentTimeMillis();
 
-            // Entrenar algoritmo de clustering
-            jtA.append("Entrenar algoritmo de clustering ..." + "\r\n");
-            clusterer.buildClusterer(newData);
-            jtA.append("\r\n");
+			// Crear y configurar algoritmo de clustering
+			jtA.append("Crear algoritmo de clustering ..." + "\r\n");
+			SimpleKMeans clusterer = new SimpleKMeans();
+			clusterer.setNumClusters(numClusters);
+			clusterer.setMaxIterations(100);
 
-            // Identificar el cluster de cada instancia
-            Instance instancia;
-            int cluster;
-            jtA.append("Asignacion de instancias a clusters ..." + "\r\n");
-            for (int i=0; i < newData.numInstances(); i++)  {
-                instancia = newData.instance(i);
-                cluster = clusterer.clusterInstance(instancia);
-                jtA.append("[Cluster "+cluster+"] Instancia: "+instancia.toString() + "\r\n");
-            }
-            jtA.append("\r\n");
-            
-            // Imprimir centroides           
-            double[] tamanoClusters = clusterer.getClusterSizes();
-            Instances centroides = clusterer.getClusterCentroids();
-            Instance centroide;
-            jtA.append("Centroides k-means ..." + "\r\n");
-            for(cluster=0; cluster < clusterer.numberOfClusters(); cluster++){
-                centroide = centroides.instance(cluster);
-                jtA.append("Cluster "+cluster+" ("+tamanoClusters[cluster]+" instancias): " + "\r\n");
-                jtA.append("Centroide["+centroide.toString()+"]" + "\r\n");  
-                ArrayList<Integer> ScoreValues = new ArrayList<>();
-                
-                ArrayList<Attribute> attrs = new ArrayList<>();
-                Attribute attr = inputGUI.getAttribute(in.getTotalAttributes(), in.getCustomerProfiles().get((int)(centroide.value(centroide.attribute(0)))).getScoreAttributes().get((int)(centroide.value(1))).getName());
-                for(int i = 2; i < centroide.numAttributes();i++)
-                {
-                	//if(centroide.value(i) != 0)
-                		ScoreValues.add((int)(centroide.value(i)));
-                }
-                attr.setScoreValues(ScoreValues);
-                attrs.add(attr);
-                CustomerProfile custprof = new CustomerProfile(attrs);
-                indexProfiles.add(Integer.parseInt(centroide.toString((centroide.attribute(0)))));
-                CustomerProfiles.add(custprof);
-            }
-            jtA.append("\r\n");
-            long time_end = System.currentTimeMillis();
-            double elapsed = (time_end - time_start) / 1000.0;
-            jtA.append("Time taken to build model (full training data): " + elapsed + " seconds" + "\r\n");
-            
-        } catch (Exception e) {
-        	jtA.append("Error en clustering: Ejecutar primero un algoritmo para generar perfiles" /*e.getMessage()*/ + "\r\n");
-        }
-    }
+			// Cargar dataset desde CSV
+			CSVLoader loader = new CSVLoader();
+			loader.setSource(new File(archivoCSV)); // FileInputStream
+			Instances dataset = loader.getDataSet();
 
-    private static void mensajeError(JTextArea jtA) {
-    	jtA.append("ERROR: parametros incorrectos" + "\r\n");
-    	jtA.append("formato: java ClusteringSimple [num. clusters] [fichero ARFF]" + "\r\n");
-    }
+			NumericToNominal prueba = new NumericToNominal();
 
+			prueba.setInputFormat(dataset);
+			Instances newData = Filter.useFilter(dataset, prueba);
+
+			// save ARFF
+			ArffSaver saver = new ArffSaver();
+			saver.setInstances(newData);
+			saver.setFile(new File(archivoArff));
+			saver.writeBatch();
+
+			// Entrenar algoritmo de clustering
+			jtA.append("Entrenar algoritmo de clustering ..." + "\r\n");
+			clusterer.buildClusterer(newData);
+			jtA.append("\r\n");
+
+			// Identificar el cluster de cada instancia
+			Instance instancia;
+			int cluster;
+			jtA.append("Asignacion de instancias a clusters ..." + "\r\n");
+			for (int i = 0; i < newData.numInstances(); i++) {
+				instancia = newData.instance(i);
+				cluster = clusterer.clusterInstance(instancia);
+				jtA.append("[Cluster " + cluster + "] Instancia: " + instancia.toString() + "\r\n");
+			}
+			jtA.append("\r\n");
+
+			// Imprimir centroides
+			double[] tamanoClusters = clusterer.getClusterSizes();
+			Instances centroides = clusterer.getClusterCentroids();
+			Instance centroide;
+			jtA.append("Centroides k-means ..." + "\r\n");
+			for (cluster = 0; cluster < clusterer.numberOfClusters(); cluster++) {
+				centroide = centroides.instance(cluster);
+				jtA.append("Cluster " + cluster + " (" + tamanoClusters[cluster] + " instancias): " + "\r\n");
+				jtA.append("Centroide[" + centroide.toString() + "]" + "\r\n");
+				ArrayList<Integer> ScoreValues = new ArrayList<>();
+
+				ArrayList<Attribute> attrs = new ArrayList<>();
+				Attribute attr = inputGUI.getAttribute(in.getTotalAttributes(),
+						in.getCustomerProfiles().get((int) (centroide.value(centroide.attribute(0))))
+								.getScoreAttributes().get((int) (centroide.value(1))).getName());
+				for (int i = 2; i < centroide.numAttributes(); i++) {
+					ScoreValues.add((int) (centroide.value(i)));
+				}
+				attr.setScoreValues(ScoreValues);
+				attrs.add(attr);
+				CustomerProfile custprof = new CustomerProfile(attrs);
+				indexProfiles.add(Integer.parseInt(centroide.toString((centroide.attribute(0)))));
+				CustomerProfiles.add(custprof);
+			}
+			jtA.append("\r\n");
+			long time_end = System.currentTimeMillis();
+			double elapsed = (time_end - time_start) / 1000.0;
+			jtA.append("Time taken to build model (full training data): " + elapsed + " seconds" + "\r\n");
+
+		} catch (Exception e) {
+			jtA.append("Error en clustering: Ejecutar primero un algoritmo para generar perfiles"
+					/* e.getMessage() */ + "\r\n");
+		}
+	}
+
+	/** Muestra un mensaje de error si falla */
+	private static void mensajeError(JTextArea jtA) {
+		jtA.append("ERROR: parametros incorrectos" + "\r\n");
+		jtA.append("formato: java ClusteringSimple [num. clusters] [fichero ARFF]" + "\r\n");
+	}
+
+	/** MÉTODOS GETTERS Y SETTERS */
 	public ArrayList<CustomerProfile> getCustomerProfiles() {
 		return CustomerProfiles;
 	}
@@ -144,7 +152,5 @@ public class InputWeka {
 	public void setIndexProfiles(ArrayList<Integer> indexProf) {
 		indexProfiles = indexProf;
 	}
-		
-	
 
 }

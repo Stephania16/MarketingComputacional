@@ -9,13 +9,13 @@ import general.CustomerProfile;
 import general.Producer;
 
 public class ShowResults {
-	
-	public ShowResults(){}
-	
-	/**
-	 * Creating the attributes and the possible values of them
-	 */
 
+	public ShowResults() {
+	}
+
+	/**
+	 * Mostrar atributos y sus valores posibles
+	 */
 	public void showAttributes(JTextArea jTextArea, ArrayList<Attribute> TotalAttributes) {
 		jTextArea.setText("");
 		for (int k = 0; k < TotalAttributes.size(); k++) {
@@ -25,6 +25,9 @@ public class ShowResults {
 		jTextArea.repaint();
 	}
 
+	/**
+	 * Mostrar los perfiles de clientes y sus determinados valores
+	 */
 	public void showCustomerProfile(JTextArea jTextArea, ArrayList<CustomerProfile> CustomerProfiles) {
 		jTextArea.setText("");
 		for (int i = 0; i < CustomerProfiles.size(); i++) {
@@ -40,7 +43,11 @@ public class ShowResults {
 		jTextArea.repaint();
 	}
 
-	public void showSubProfile(JTextArea jTextArea, ArrayList<Attribute> TotalAttributes, ArrayList<CustomerProfile> CustomerProfiles) {
+	/**
+	 * Mostrar los subperfiles a partir de los perfiles de clientes
+	 */
+	public void showSubProfile(JTextArea jTextArea, ArrayList<Attribute> TotalAttributes,
+			ArrayList<CustomerProfile> CustomerProfiles) {
 		jTextArea.setText("");
 		for (int i = 0; i < CustomerProfiles.size(); i++) {
 			CustomerProfile cp = CustomerProfiles.get(i);
@@ -57,17 +64,21 @@ public class ShowResults {
 		jTextArea.repaint();
 	}
 
-	public void showProducers(JTextArea jTextArea, ArrayList<Attribute> TotalAttributes, ArrayList<Producer> Producers) {
+	/**
+	 * Mostrar los productores y sus determinados valores
+	 */
+	public void showProducers(JTextArea jTextArea, ArrayList<Attribute> TotalAttributes,
+			ArrayList<Producer> Producers) {
 		jTextArea.setText("");
 		for (int i = 0; i < Producers.size(); i++) {
 			Producer p = Producers.get(i);
-			for(int k = 0; k < p.getProducts().size(); k++){
+			for (int k = 0; k < p.getProducts().size(); k++) {
 				for (int j = 0; j < p.getAvailableAttribute().size(); j++) {
 					jTextArea.append("PRODUCTOR " + (i + 1) + "\n");
 					jTextArea.append("Producto " + (k + 1) + " ");
 					jTextArea.append(p.getAvailableAttribute().get(j).getName() + " " + "Value -> "
 							+ p.getProducts().get(k).getAttributeValue().get(TotalAttributes.get(j)) + "\n");
-	
+
 				}
 			}
 		}

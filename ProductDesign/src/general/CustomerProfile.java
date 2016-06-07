@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import genetic.SubProfile;
 
+/** Clase que representa la estructura de un perfil de cliente */
 public class CustomerProfile {
 
 	private int numberCustomers;
@@ -15,6 +16,7 @@ public class CustomerProfile {
 		super();
 		this.scoreAttributes = scoreAttributes;
 	}
+
 	public ArrayList<Attribute> getScoreAttributes() {
 		return scoreAttributes;
 	}
@@ -38,6 +40,7 @@ public class CustomerProfile {
 	public void setSubProfiles(ArrayList<SubProfile> subProfiles) {
 		this.subProfiles = subProfiles;
 	}
+
 	public ArrayList<LinkedAttribute> getLinkedAttributes() {
 		return linkedAttributes;
 	}
@@ -45,17 +48,16 @@ public class CustomerProfile {
 	public void setLinkedAttributes(ArrayList<LinkedAttribute> linkedAttributes) {
 		this.linkedAttributes = linkedAttributes;
 	}
-	
-	/*public boolean equals(CustomerProfile cust)
-	{
-		for(int i = 0; i < cust.getScoreAttributes().size(); i++)
-		{
-			if((cust.getScoreAttributes().get(i).getName().equals(scoreAttributes.get(i).getName())) &&
-			   (cust.getScoreAttributes().get(i).getMAX() == (scoreAttributes.get(i).getMAX()))	&&
-			   (cust.getScoreAttributes().get(i).getMIN() == (scoreAttributes.get(i).getMIN()))) return true;
-			
-		}
-		return false;
-	}*/
-}
 
+	/*
+	 * public boolean equals(CustomerProfile cust) { for(int i = 0; i <
+	 * cust.getScoreAttributes().size(); i++) {
+	 * if((cust.getScoreAttributes().get(i).getName().equals(scoreAttributes.get
+	 * (i).getName())) && (cust.getScoreAttributes().get(i).getMAX() ==
+	 * (scoreAttributes.get(i).getMAX())) &&
+	 * (cust.getScoreAttributes().get(i).getMIN() ==
+	 * (scoreAttributes.get(i).getMIN()))) return true;
+	 * 
+	 * } return false; }
+	 */
+}

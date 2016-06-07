@@ -1,14 +1,16 @@
 package general;
+
 import java.util.ArrayList;
 
+/** Clase que representa la estructura de un atributo */
 public class Attribute {
-	
+
 	public String name;
 	public int MIN;
 	public int MAX;
 	private ArrayList<Boolean> availableValues;
 	private ArrayList<Integer> scoreValues;
-	
+
 	public Attribute(String name, int Min, int Max) {
 		super();
 		this.name = name;
@@ -56,11 +58,11 @@ public class Attribute {
 		this.scoreValues = scoreValues;
 	}
 
-	public boolean equals (Attribute a){	 
-	        if(a.getName().equals(name)){
-	            return true;
-	        }else{
-	            return false;
-	        }
+	public boolean equals(Attribute a) {
+		if (a.getName().equals(name)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

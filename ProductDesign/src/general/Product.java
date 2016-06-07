@@ -2,8 +2,10 @@ package general;
 
 import java.util.HashMap;
 
-public class Product implements Cloneable{
-	
+/** Clase que representa un producto */
+
+public class Product implements Cloneable {
+
 	private HashMap<Attribute, Integer> attributeValue;
 	private HashMap<Attribute, Double> velocity;
 	private int Price;
@@ -25,13 +27,14 @@ public class Product implements Cloneable{
 		attributeValue = product;
 	}
 
-	/**Creates a deep copy of Product*/
-	public Product clone(){
+	/** Crea un copia del producto */
+	public Product clone() {
 		Product product = new Product(this.attributeValue);
 		product.setPrice(this.Price);
 		product.setVelocity(this.velocity);
 		return product;
 	}
+
 	public int getPrice() {
 		return Price;
 	}
@@ -48,6 +51,3 @@ public class Product implements Cloneable{
 		this.velocity = velocity;
 	}
 }
-
-
-

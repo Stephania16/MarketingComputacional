@@ -2,12 +2,14 @@ package general;
 
 import java.util.ArrayList;
 
+/** Clase que implementa el algoritmo de interpolación */
 public class Interpolation {
-	
-	public Interpolation(){}
-	
+
+	public Interpolation() {
+	}
+
 	/***************************************
-	 * " AUXILIARY METHODS TO CALCULATE THE PRICE"
+	 * " MÉTODOS PARA CALCULAR EL PRECIO"
 	 ***************************************/
 
 	public int calculatePrice(Product product, ArrayList<Attribute> TotalAttributes, ArrayList<Producer> Producers) {
@@ -29,7 +31,7 @@ public class Interpolation {
 
 	}
 
-	public double getDistanceTo(Product my_product, Product prod_competence,ArrayList<Attribute> TotalAttributes) {
+	public double getDistanceTo(Product my_product, Product prod_competence, ArrayList<Attribute> TotalAttributes) {
 		double distance = 0;
 		for (int i = 0; i < TotalAttributes.size(); i++) {
 			distance += Math.pow(my_product.getAttributeValue().get(TotalAttributes.get(i))

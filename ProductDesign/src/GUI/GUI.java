@@ -5,19 +5,20 @@ import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
+
+import general.Algorithm;
 import general.Attribute;
-import genetic.GeneticAlgorithm;
-import genetic.GeneticAlgorithmVariant;
+import genetic.GeneticProblem;
 import input.InputGUI;
 import input.InputRandom;
 import input.InputWeka;
-import minimax.Minimax;
+import minimax.MinimaxProblem;
 import output.ShowResults;
-import pso.PSOAlgorithm;
-import sa.SAAlgorithm;
+import pso.ParticleSwarmOptimizationProblem;
+import sa.SimulatedAnnealingProblem;
 
 /**
- * GUI
+ * GUI - Clase que implementa la interfaz gráfica de escritorio
  */
 public class GUI extends JFrame implements ActionListener {
 	// Declaramos los componentes que usamos:
@@ -26,60 +27,69 @@ public class GUI extends JFrame implements ActionListener {
 	private static final int NUMERO_FILAS = 25;
 	private int maxValoraciones = 0;
 	private int valoracionActual = 0;
-	private boolean showGenetic = false, showInputGen = false, showGeneticVar = false, showInputGenVar = false, showPSO = false,
-			showInputPso = false, showSA = false, showInputSA = false;
+	private boolean showMin = false;
 	private int numProd = 1;
 	private JTextArea jtA1, jtA2, jtA3, jtA4, jtA6, jtA7, jtA8;
-	private JLabel label2, label3, label4, label5, label6, label7, label8, label9, label12, label15, label16, label17, 
-			label18, labelTxt, numClusters, archivoCSV, labelAttrCon, labelAttrEsp, labelMutAttr, labelProfNear, labelNumPop, 
-			labelNumGen, labelGruPer, labelCross, labelMutProb, labelDepth0, labelDepth1, labelNumAttr, labelTurPrev, labelTur, 
-			pAttr, sAttr, puntNueva, a1, a2;
+	private JLabel label2, label3, label4, label5, label6, label7, label8, label9, label12, label15, label16, label17,
+			label18, labelTxt, numClusters, archivoCSV, labelAttrCon, labelAttrEsp, labelMutAttr, labelProfNear,
+			labelNumPop, labelNumGen, labelGruPer, labelCross, labelMutProb, labelDepth0, labelDepth1, labelNumAttr,
+			labelTurPrev, labelTur, pAttr, sAttr, puntNueva, a1, a2, labelIte, labelCon1, labelCon2, labelCotaSup,
+			labelCotaInf, labelTemp, labelVelEnf, labelProbAttr;
 	private JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11,
 			button_prod, button_prof, button_txt, borrar, attr, prod, prof, subprof, button_txt_min, buttonTxt,
 			buttonCSV, buttonPSO, button_txt_pso, buttonSA, button_txt_SA, buttonAttrCon, buttonAttrEsp, buttonMutAttr,
 			buttonProfNear, buttonNumPop, buttonNumGen, buttonGruPer, buttonCross, buttonMutProb, buttonDepth0,
-			buttonDepth1, buttonNumAttr, buttonTurPrev, buttonTur, buttonP, buttonPunt;
+			buttonDepth1, buttonNumAttr, buttonTurPrev, buttonTur, buttonP, buttonPunt, buttonIte, buttonCon1,
+			buttonCon2, buttonCotaSup, buttonCotaInf, buttonTemp, buttonVelEnf, buttonProbAttr;
 	private JScrollPane sp1, sp2, sp3;
 	private JTabbedPane pestaña;
-	private JPanel tab1, tab2, tab3, tab4, tab7, tab8, panel, panelLabel, tab5, panelGeneral, tab6;
-	private JTextField textEjecucion, posAttr1, posAttr2, posAttr3, text3, text4, text7, text8, text10,
-			text16, text17, text20, text21, nombre_txt, nombre_txt_min, textTxt, textProducto, textP, textClusters, 
-			textCSV, textAttrCon, textAttrEsp, textMutAttr, textProfNear, textNumPop, textNumGen, textGruPer, textCross, 
-			textMutProb, textDepth0, textDepth1, textNumAttr, textTurPrev, textTur, textPAttr, textSAttr, textpuntNueva, 
-			textA1, textA2, nombre_txt_pso, nombre_txt_SA;
-	GeneticAlgorithm ga;
-	GeneticAlgorithmVariant gaVar;
-	PSOAlgorithm pso;
-	SAAlgorithm sa;
-	Minimax minimax;
+	private JPanel tab1, tab2, tab3, tab4, tab6, tab7, tab8, tab9, panel, panelLabel, tab5, panelGeneral, panelAlgorit;
+	private JTextField textEjecucion, posAttr1, posAttr2, posAttr3, text3, text4, text7, text8, text10, text16, text17,
+			text20, text21, nombre_txt, nombre_txt_min, textTxt, textProducto, textP, textClusters, textCSV,
+			textAttrCon, textAttrEsp, textMutAttr, textProfNear, textNumPop, textNumGen, textGruPer, textCross,
+			textMutProb, textDepth0, textDepth1, textNumAttr, textTurPrev, textTur, textPAttr, textSAttr, textpuntNueva,
+			textA1, textA2, nombre_txt_pso, nombre_txt_SA, textIte, textCon1, textCon2, textCotaInf, textCotaSup,
+			textTemp, textVelEnf, textProbAttr;
+	GeneticProblem ga;
+	ParticleSwarmOptimizationProblem pso;
+	SimulatedAnnealingProblem sa;
+	MinimaxProblem minimax;
 	InputGUI inputGUI;
 	InputRandom in;
 	InputWeka inW;
 	ShowResults show;
+	Algorithm alg;
 
-	// En el constructor solo llamamos un metodo:
+	/** En el constructor solo llamamos un metodo que arranca la gui */
 	public GUI() throws Exception {
 		iniciarGUI();
 	}
 
+	/**
+	 * Método realiza la llamada a los métodos que inicializan y crean las
+	 * instancias
+	 */
 	private void iniciarGUI() throws Exception {
 		inicializar();
 		instanciarGUI();
 	}
-	private void inicializar(){
-		ga = new GeneticAlgorithm();
-		gaVar = new GeneticAlgorithmVariant();
-		minimax = new Minimax();
-		pso = new PSOAlgorithm();
-		sa = new SAAlgorithm();
+
+	/** Método que inicializa las instancias */
+	private void inicializar() {
+		ga = new GeneticProblem();
+		minimax = new MinimaxProblem();
+		pso = new ParticleSwarmOptimizationProblem();
+		sa = new SimulatedAnnealingProblem();
 		inputGUI = new InputGUI();
 		in = new InputRandom();
 		inW = new InputWeka();
 		show = new ShowResults();
+		alg = new Algorithm();
 	}
+
+	/** Método que inicializa y crea cada panel */
 	private void instanciarGUI() throws Exception {
 		options();
-		// JTABBEPANE
 		pestaña = new JTabbedPane();
 		panelAlgGenetico();
 		panelAlgMinimax();
@@ -88,6 +98,7 @@ public class GUI extends JFrame implements ActionListener {
 		panelGenerarListas();
 		panelModEntrada();
 		panelModGenerales();
+		panelModAlgorit();
 		panelClusters();
 
 		/* Añadir */
@@ -99,9 +110,11 @@ public class GUI extends JFrame implements ActionListener {
 		pestaña.add("Generar Listas", tab3);
 		pestaña.add("Modificar Datos de Entrada", tab4);
 		pestaña.add("Modificar Datos Generales", tab5);
-		pestaña.add("Clusterización", tab6);	
+		pestaña.add("Modificar Datos Algoritmos", tab9);
+		pestaña.add("Clusterización", tab6);
 	}
 
+	/** Método que implementa los eventos de cada botón */
 	public void actionPerformed(ActionEvent e) {
 		// Buttons
 		String op = e.getActionCommand();
@@ -109,13 +122,10 @@ public class GUI extends JFrame implements ActionListener {
 		switch (op) {
 		case "Ejecutar Algoritmo Genetico":
 			try {
-				if (getNumProd() > 1) {
-					gaVar.start(jtA1, null, false);
-					showGeneticVar = true;
-				} else {
-					ga.start(jtA1, null, false);
-					showGenetic = true;
-				}
+				ga.start(jtA1, null, false);
+				showMin = false;
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab1, "Hace falta subperfiles");
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
 			}
@@ -127,24 +137,25 @@ public class GUI extends JFrame implements ActionListener {
 				if (nombre.equals(""))
 					JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 				else {
-					if (getNumProd() > 1) {
-						gaVar.start(jtA1, nombre, true);
-						showInputGenVar = true;
-					} else {
-						ga.start(jtA1, nombre, true);
-						showInputGen = true;
-					}
-
+					ga.start(jtA1, nombre, true);
+					showMin = false;
 				}
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab1, "Hace falta subperfiles");
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
 			}
 			break;
 		case "Ejecutar Algoritmo Minimax":
 			try {
+				showMin = true;
 				minimax.start(jtA2, null, false);
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab1, "Hace falta subperfiles");
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(tab1, "Formato incorrecto");
 			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(tab2, e1.getMessage());
+				JOptionPane.showMessageDialog(tab1, e1.getMessage());
 			}
 			break;
 
@@ -154,8 +165,13 @@ public class GUI extends JFrame implements ActionListener {
 				if (nombre_min.equals(""))
 					JOptionPane.showMessageDialog(jtA1, "Error abriendo el fichero");
 				else {
+					showMin = true;
 					minimax.start(jtA2, nombre_min, true);
 				}
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab1, "Hace falta subperfiles");
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(tab2, "Formato incorrecto");
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab2, e1.getMessage());
 			}
@@ -163,12 +179,14 @@ public class GUI extends JFrame implements ActionListener {
 
 		case "Ejecutar Algoritmo PSO":
 			try {
-				pso.setPSO(true);
+				alg.setPSO(true);
 				pso.start(jtA7, null, false);
-				showPSO = true;
+				showMin = false;
 			} catch (Exception e1) {
 				try {
 					pso.start(jtA7, null, false);
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(tab7, "Hace falta subperfiles");
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(tab7, e2.getMessage());
 				}
@@ -181,14 +199,18 @@ public class GUI extends JFrame implements ActionListener {
 				if (nombre_pso.equals(""))
 					JOptionPane.showMessageDialog(jtA7, "Error abriendo el fichero");
 				else {
-					pso.setPSO(true);
+					alg.setPSO(true);
 					pso.start(jtA7, nombre_pso, true);
-					showInputPso = true;
+					showMin = false;
 				}
 			} catch (Exception e1) {
 				try {
 					pso.start(jtA7, nombre_pso, true);
-					showInputPso = true;
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(tab7, "Hace falta subperfiles");
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(tab7, "Formato incorrecto");
+
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(tab7, e2.getMessage());
 				}
@@ -198,7 +220,9 @@ public class GUI extends JFrame implements ActionListener {
 		case "Ejecutar Algoritmo SA":
 			try {
 				sa.start(jtA8, null, false);
-				showSA = true;
+				showMin = false;
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab8, "Hace falta subperfiles");
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab8, e1.getMessage());
 			}
@@ -211,11 +235,15 @@ public class GUI extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(jtA8, "Error abriendo el fichero");
 				else {
 					sa.start(jtA8, nombre_SA, true);
-					showInputSA = true;
+					showMin = false;
 				}
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(tab8, "Hace falta subperfiles");
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(tab8, "Formato incorrecto");
+
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab8, e1.getMessage());
-
 			}
 			break;
 		case "Modificar Ejecuciones":
@@ -225,8 +253,8 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int x1 = Integer.parseInt(num);
-					ga.setNumExecutions(x1);
-					minimax.setNumExecutions(x1);
+					alg.setNumExecutions(x1);
+					pso.setSWARM_SIZE(x1);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -286,6 +314,7 @@ public class GUI extends JFrame implements ActionListener {
 		case "Borrar Atributos":
 			jtA4.append("Borrando todos los atributos.." + "\n");
 			inputGUI.getTotalAttributes().clear();
+			alg.getTotalAttributes().clear();
 			break;
 
 		case "Añadir productos":
@@ -295,10 +324,9 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					numProd = Integer.parseInt(numProduc);
+					inputGUI.setNumData(true);
 					in.setNumber_Products(numProd);
-					gaVar.setNumber_Products(numProd);
-					pso.setNumber_Products(numProd);
-					sa.setNumber_Products(numProd);
+					alg.setNumber_Products(numProd);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab4, nfe.getMessage());
 				}
@@ -411,6 +439,7 @@ public class GUI extends JFrame implements ActionListener {
 		case "Borrar Productores":
 			jtA4.append("Borrando todos los productores.." + "\n");
 			inputGUI.getProducers().clear();
+			alg.getProducers().clear();
 			break;
 
 		case "Añadir Perfil":
@@ -463,8 +492,8 @@ public class GUI extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(tab4, "Puntuación Vacía");
 				} else if (valoracionActual == maxValoraciones
 						- 1) { /*
-								 * habilitar todo lo deshabilitado y poner a 0 el
-								 * valoracionActual
+								 * habilitar todo lo deshabilitado y poner a 0
+								 * el valoracionActual
 								 */
 					int x7 = Integer.parseInt(puntuacion);
 					int x17 = Integer.parseInt(posCust);
@@ -535,9 +564,7 @@ public class GUI extends JFrame implements ActionListener {
 					if (inputGUI.isElement(inputGUI.getTotalAttributes(), attribute1)
 							&& inputGUI.isElement(inputGUI.getTotalAttributes(), attribute2)) {
 						in.setAttributesLinked(true);
-						ga.setAttributesLinked(true);
-						gaVar.setAttributesLinked(true);
-						minimax.setAttributesLinked(true);
+						alg.setAttributesLinked(true);
 						if (attribute1.getMAX() < xVa1 || attribute2.getMAX() < xVa2)
 							JOptionPane.showMessageDialog(tab4, "Valor incorrecto");
 						else {
@@ -583,55 +610,23 @@ public class GUI extends JFrame implements ActionListener {
 		case "Borrar Perfiles":
 			jtA4.append("Borrando todos los perfiles.." + "\n");
 			inputGUI.getCustomerProfiles().clear();
+			alg.getCustomerProfiles().clear();
 			break;
 
 		case "Atributos":
-			if (showGenetic || showInputGen)
-				show.showAttributes(jtA3, ga.getTotalAttributes());
-			else if (showGeneticVar || showInputGenVar)
-				show.showAttributes(jtA3, gaVar.getTotalAttributes());
-			else if (showPSO || showInputPso)
-				show.showAttributes(jtA3, pso.getTotalAttributes());
-			else if (showSA || showInputSA)
-				show.showAttributes(jtA3, pso.getTotalAttributes());
-			else
-				show.showAttributes(jtA3, minimax.getTotalAttributes());
+			show.showAttributes(jtA3, alg.getTotalAttributes());
 			break;
 		case "Productores":
-			if (showGenetic || showInputGen)
-				show.showProducers(jtA3, ga.getTotalAttributes(), ga.getProducers());
-			else if (showGeneticVar || showInputGenVar)
-				show.showProducers(jtA3, gaVar.getTotalAttributes(), gaVar.getProducers());
-			else if (showPSO || showInputPso)
-				show.showProducers(jtA3, pso.getTotalAttributes(), pso.getProducers());
-			else if (showSA || showInputSA)
-				show.showProducers(jtA3, sa.getTotalAttributes(), sa.getProducers());
-			else
-				show.showProducers(jtA3, minimax.getTotalAttributes(), minimax.getProducers());
+			show.showProducers(jtA3, alg.getTotalAttributes(), alg.getProducers());
 			break;
 		case "Perfiles":
-			if (showGenetic || showInputGen)
-				show.showCustomerProfile(jtA3, ga.getCustomerProfiles());
-			else if (showGeneticVar || showInputGenVar)
-				show.showCustomerProfile(jtA3, gaVar.getCustomerProfiles());
-			else if (showPSO || showInputPso)
-				show.showCustomerProfile(jtA3, pso.getCustomerProfiles());
-			else if (showSA || showInputSA)
-				show.showCustomerProfile(jtA3, sa.getCustomerProfiles());
-			else
-				show.showCustomerProfile(jtA3, minimax.getCustomerProfiles());
+			show.showCustomerProfile(jtA3, alg.getCustomerProfiles());
 			break;
 		case "SubPerfiles":
-			if (showGenetic || showInputGen)
-				show.showSubProfile(jtA3, ga.getTotalAttributes(), ga.getCustomerProfiles());
-			else if (showGeneticVar || showInputGenVar)
-				show.showSubProfile(jtA3, gaVar.getTotalAttributes(), gaVar.getCustomerProfiles());
-			else if (showPSO || showInputPso)
-				show.showSubProfile(jtA3, pso.getTotalAttributes(), pso.getCustomerProfiles());
-			else if (showSA || showInputSA)
-				show.showSubProfile(jtA3, sa.getTotalAttributes(), sa.getCustomerProfiles());
-			else
+			if (showMin) {
 				jtA3.setText("Subperfiles no disponibles");
+			} else
+				show.showSubProfile(jtA3, alg.getTotalAttributes(), alg.getCustomerProfiles());
 			break;
 
 		case "Guardar":
@@ -657,12 +652,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					double attrCon = Double.parseDouble(AttrCon);
-					ga.setKNOWN_ATTRIBUTES(attrCon);
-					gaVar.setKNOWN_ATTRIBUTES(attrCon);
-					minimax.setKNOWN_ATTRIBUTES(attrCon);
-					in.setKNOWN_ATTRIBUTES(attrCon);
-					pso.setKNOWN_ATTRIBUTES(attrCon);
-					sa.setKNOWN_ATTRIBUTES(attrCon);
+					alg.setKNOWN_ATTRIBUTES(attrCon);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -707,11 +697,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int profne = Integer.parseInt(profNe);
-					ga.setNEAR_CUST_PROFS(profne);
-					gaVar.setNEAR_CUST_PROFS(profne);
-					in.setNEAR_CUST_PROFS(profne);
-					pso.setNEAR_CUST_PROFS(profne);
-					sa.setNEAR_CUST_PROFS(profne);
+					alg.setNEAR_CUST_PROFS(profne);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -725,8 +711,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int numpob = Integer.parseInt(nump);
-					ga.setNUM_POPULATION(numpob);
-					gaVar.setNUM_POPULATION(numpob);
+					alg.setNUM_POPULATION(numpob);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -740,8 +725,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int numgen = Integer.parseInt(Numge);
-					ga.setNUM_GENERATIONS(numgen);
-					gaVar.setNUM_GENERATIONS(numgen);
+					alg.setNUM_GENERATIONS(numgen);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -755,11 +739,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int gruper = Integer.parseInt(GruPe);
-					ga.setRESP_PER_GROUP(gruper);
-					gaVar.setRESP_PER_GROUP(gruper);
-					in.setRESP_PER_GROUP(gruper);
-					pso.setRESP_PER_GROUP(gruper);
-					sa.setRESP_PER_GROUP(gruper);
+					alg.setRESP_PER_GROUP(gruper);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -773,8 +753,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int cross = Integer.parseInt(Cro);
-					ga.setCROSSOVER_PROB(cross);
-					gaVar.setCROSSOVER_PROB(cross);
+					alg.setCROSSOVER_PROB(cross);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -788,8 +767,7 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				try {
 					int mutpro = Integer.parseInt(MutPro);
-					ga.setMUTATION_PROB(mutpro);
-					gaVar.setMUTATION_PROB(mutpro);
+					alg.setMUTATION_PROB(mutpro);
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(tab5, nfe.getMessage());
 				}
@@ -888,12 +866,122 @@ public class GUI extends JFrame implements ActionListener {
 				}
 			}
 			break;
+		case "Modificar Iteraciones":
+			String textIt = textIte.getText();
+			if (textIt.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					int textit = Integer.parseInt(textIt);
+					pso.setMAX_ITERATION(textit);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
 
+		case "Modificar Constante 1":
+			String textC1 = textCon1.getText();
+			if (textC1.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double textc1 = Double.parseDouble(textC1);
+					pso.setC1(textc1);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar Constante 2":
+			String textC2 = textCon2.getText();
+			if (textC2.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double textc2 = Double.parseDouble(textC2);
+					pso.setC2(textc2);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar Cota Superior":
+			String textCotaS = textCotaSup.getText();
+			if (textCotaS.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double textCotaSu = Double.parseDouble(textCotaS);
+					pso.setW_UPPERBOUND(textCotaSu);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar Cota Inferior":
+			String textCotaI = textCotaInf.getText();
+			if (textCotaI.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double textcotaI = Double.parseDouble(textCotaI);
+					pso.setW_LOWERBOUND(textcotaI);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar Temperatura":
+			String textTe = textTemp.getText();
+			if (textTe.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double texttemp = Double.parseDouble(textTe);
+					sa.setStart_TEMP(texttemp);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar velocidad":
+			String textVel = textVelEnf.getText();
+			if (textVel.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					double textVelE = Double.parseDouble(textVel);
+					sa.setCoolingRate(textVelE);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
+
+		case "Modificar probabilidad":
+			String textProb = textProbAttr.getText();
+			if (textProb.isEmpty()) {
+				JOptionPane.showMessageDialog(tab9, "Casilla Vacía");
+			} else {
+				try {
+					int textProbA = Integer.parseInt(textProb);
+					sa.setCHANGE_ATTRIBUTE_PROB(textProbA);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(tab9, nfe.getMessage());
+				}
+			}
+			break;
 		}
 	}
 
-	public void panelAlgGenetico(){
-		// JTAB 1
+	/** Método que crea el panel para el algoritmo genético */
+	public void panelAlgGenetico() {
 		tab1 = new JPanel();
 		tab1.setBorder(BorderFactory.createTitledBorder("Algoritmo Genético"));
 		JPanel genetic = new JPanel();
@@ -906,16 +994,16 @@ public class GUI extends JFrame implements ActionListener {
 		jtA1 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 		jtA1.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA1.setEditable(false);
-		
+
 		tab1.add(jtA1);
 		tab1.add(genetic);
 		genetic.add(button1);
 		genetic.add(button_txt);
 		genetic.add(nombre_txt);
 	}
-	
-	public void panelAlgMinimax(){
-		// JTAB2
+
+	/** Método que crea el panel para el algoritmo minimax */
+	public void panelAlgMinimax() {
 		tab2 = new JPanel();
 		tab2.setBorder(BorderFactory.createTitledBorder("Algoritmo Minimax"));
 		JPanel panel_minimax = new JPanel();
@@ -928,15 +1016,16 @@ public class GUI extends JFrame implements ActionListener {
 		jtA2 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 		jtA2.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA2.setEditable(false);
-		
+
 		tab2.add(jtA2);
 		tab2.add(panel_minimax);
 		panel_minimax.add(button2);
 		panel_minimax.add(button_txt_min);
 		panel_minimax.add(nombre_txt_min);
 	}
-	public void panelAlgPSO(){
-		// JTAB7
+
+	/** Método que crea el panel para el algoritmo PSO */
+	public void panelAlgPSO() {
 		tab7 = new JPanel();
 		tab7.setBorder(BorderFactory.createTitledBorder("Algoritmo PSO"));
 		JPanel panel_pso = new JPanel();
@@ -949,17 +1038,15 @@ public class GUI extends JFrame implements ActionListener {
 		jtA7 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 		jtA7.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA7.setEditable(false);
-		
-		// tab7
 		tab7.add(jtA7);
 		tab7.add(panel_pso);
 		panel_pso.add(buttonPSO);
 		panel_pso.add(button_txt_pso);
 		panel_pso.add(nombre_txt_pso);
 	}
-	
-	public void panelAlgSA(){
-		// JTAB8
+
+	/** Método que crea el panel para el algoritmo SA */
+	public void panelAlgSA() {
 		tab8 = new JPanel();
 		tab8.setBorder(BorderFactory.createTitledBorder("Algoritmo SA"));
 		JPanel panel_SA = new JPanel();
@@ -972,28 +1059,26 @@ public class GUI extends JFrame implements ActionListener {
 		jtA8 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 		jtA8.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA8.setEditable(false);
-		
-		// tab8
 		tab8.add(jtA8);
 		tab8.add(panel_SA);
 		panel_SA.add(buttonSA);
 		panel_SA.add(button_txt_SA);
 		panel_SA.add(nombre_txt_SA);
 	}
-	
-	public void panelGenerarListas(){
-		// JTAB3 - contenedor
+
+	/**
+	 * Método que crea el panel que permite visualizar los atributos,
+	 * productores, perfiles de clientes y subperfiles
+	 */
+	public void panelGenerarListas() {
 		tab3 = new JPanel();
 		tab3.setBorder(BorderFactory.createTitledBorder("Datos Estadísticos"));
-		// Panel de botones de la pestaña 3
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 1));
 
-		// Inicializamos el text area
 		jtA3 = new JTextArea(NUMERO_FILAS, NUMERO_COLUMNAS);
 		jtA3.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA3.setEditable(false);
-		// Añadimos el Scroll
 		sp1 = new JScrollPane();
 		sp1.setViewportView(jtA3);
 
@@ -1006,7 +1091,6 @@ public class GUI extends JFrame implements ActionListener {
 		prof.addActionListener(this);
 		subprof.addActionListener(this);
 
-		// Añadimos opciones al panel de botones
 		panel.add(attr);
 		panel.add(prod);
 		panel.add(prof);
@@ -1018,9 +1102,12 @@ public class GUI extends JFrame implements ActionListener {
 		tab3.add(sp1);
 		tab3.add(panel);
 	}
-	
-	public void panelModEntrada(){
-		// JTAB4
+
+	/**
+	 * Método que crea el panel que permite introducir datos de entrada a través
+	 * de la gui
+	 */
+	public void panelModEntrada() {
 		tab4 = new JPanel(new GridLayout(1, 1));
 		panelLabel = new JPanel();
 		panelLabel.setLayout(new GridLayout(3, 1));
@@ -1030,7 +1117,7 @@ public class GUI extends JFrame implements ActionListener {
 		JPanel panelTxt = new JPanel(new GridLayout(1, 1));
 		panelTxt.setBorder(BorderFactory.createTitledBorder("Guardar en TXT o XML"));
 		JPanel borrar_total = new JPanel();
-		
+
 		jtA4 = new JTextArea(28, 28);
 		jtA4.setBorder(BorderFactory.createLineBorder(Color.black));
 		jtA4.setEditable(false);
@@ -1140,16 +1227,12 @@ public class GUI extends JFrame implements ActionListener {
 		textpuntNueva = new JTextField(5);
 		buttonPunt = new JButton("Añadir Puntuación");
 		buttonPunt.addActionListener(this);
-		
-		
-		// tab4
+
 		tab4.add(panelLabel);
 		tab4.add(paneltexts);
-
 		panelLabel.add(atributos);
 		panelLabel.add(productores);
 		panelLabel.add(perfiles);
-
 		paneltexts.add(paneltextArea);
 		paneltexts.add(panelTxt);
 		paneltextArea.add(sp2);
@@ -1160,7 +1243,6 @@ public class GUI extends JFrame implements ActionListener {
 		borrar_total.add(borrar);
 		borrar_total.add(button_prod);
 		borrar_total.add(button_prof);
-
 		atributos.add(num_atributos);
 		atributos.add(atributo);
 		num_atributos.add(label18);
@@ -1174,37 +1256,29 @@ public class GUI extends JFrame implements ActionListener {
 		atributo.add(label16);
 		atributo.add(posAttr3);
 		atributo.add(button4);
-
 		productores.add(numeroProductos);
 		productores.add(num_product);
 		productores.add(productor_producto);
 		productores.add(attr_disp);
 		productores.add(product);
 		productores.add(button_add);
-
 		numeroProductos.add(numProds);
 		numeroProductos.add(textP);
 		numeroProductos.add(buttonP);
-
 		num_product.add(label4);
 		num_product.add(text3);
 		num_product.add(button10);
-
 		productor_producto.add(prod);
 		productor_producto.add(text20);
 		productor_producto.add(producto);
 		productor_producto.add(textProducto);
-
 		attr_disp.add(disp);
 		attr_disp.add(label5);
 		attr_disp.add(text10);
-
 		product.add(valor);
 		product.add(text16);
-
 		button_add.add(button5);
 		button_add.add(button9);
-
 		perfiles.add(attr_pef);
 		attr_pef.add(label9);
 		attr_pef.add(text17);
@@ -1215,19 +1289,15 @@ public class GUI extends JFrame implements ActionListener {
 		attr_pef.add(text7);
 		attr_pef.add(button8);
 		attr_pef.add(button6);
-
 		perfiles.add(num_pef);
 		num_pef.add(label8);
 		num_pef.add(text8);
 		num_pef.add(button7);
-
 		num_pef.add(a1);
 		num_pef.add(textA1);
 		num_pef.add(pAttr);
 		num_pef.add(textPAttr);
-
 		perfiles.add(attr_linkados);
-
 		attr_linkados.add(a2);
 		attr_linkados.add(textA2);
 		attr_linkados.add(sAttr);
@@ -1235,11 +1305,13 @@ public class GUI extends JFrame implements ActionListener {
 		attr_linkados.add(puntNueva);
 		attr_linkados.add(textpuntNueva);
 		attr_linkados.add(buttonPunt);
-		
 	}
-	
-	public void panelModGenerales(){
-		// JTAB5
+
+	/**
+	 * Método que crea el panel que permite modificar los valores de atributos
+	 * generales y especificos de cada algoritmo
+	 */
+	public void panelModGenerales() {
 		tab5 = new JPanel(new GridLayout(1, 1));
 		panelGeneral = new JPanel();
 		panelGeneral.setLayout(new GridLayout(3, 1));
@@ -1345,8 +1417,7 @@ public class GUI extends JFrame implements ActionListener {
 		textTur = new JTextField(5);
 		buttonTur = new JButton("Modificar turnos");
 		buttonTur.addActionListener(this);
-		
-		
+
 		tab5.add(panelGeneral);
 		panelGeneral.add(ejecuciones);
 		panelGeneral.add(panelGenetico);
@@ -1428,10 +1499,125 @@ public class GUI extends JFrame implements ActionListener {
 		numberTurn.add(labelTur);
 		numberTurn.add(textTur);
 		numberTurn.add(buttonTur);
-		
+
 	}
 
-	public void panelClusters(){
+	/**
+	 * Método que crea el panel que permite modificar los valores especificos de
+	 * los algoritmos restantes
+	 */
+	public void panelModAlgorit() {
+		// JTAB9
+		tab9 = new JPanel(new GridLayout(1, 1));
+		panelAlgorit = new JPanel();
+		panelAlgorit.setLayout(new GridLayout(3, 1));
+
+		/* Panel PSO */
+		JPanel panelPSO = new JPanel();
+		panelPSO.setLayout(new GridLayout(5, 1));
+		panelPSO.setBorder(BorderFactory.createTitledBorder("Algoritmo PSO"));
+		JPanel max_iteracion = new JPanel();
+		JPanel constante1 = new JPanel();
+		JPanel constante2 = new JPanel();
+		JPanel cota_superior = new JPanel();
+		JPanel cota_inferior = new JPanel();
+		labelIte = new JLabel("Número máximo de iteraciones:");
+		textIte = new JTextField(5);
+		buttonIte = new JButton("Modificar Iteraciones");
+		buttonIte.addActionListener(this);
+
+		labelCon1 = new JLabel("Constante 1: ");
+		textCon1 = new JTextField(5);
+		buttonCon1 = new JButton("Modificar Constante 1");
+		buttonCon1.addActionListener(this);
+
+		labelCon2 = new JLabel("Constante 2: ");
+		textCon2 = new JTextField(5);
+		buttonCon2 = new JButton("Modificar Constante 2");
+		buttonCon2.addActionListener(this);
+
+		labelCotaSup = new JLabel("Cota Superior: ");
+		textCotaSup = new JTextField(5);
+		buttonCotaSup = new JButton("Modificar Cota Superior");
+		buttonCotaSup.addActionListener(this);
+
+		labelCotaInf = new JLabel("Cota Inferior: ");
+		textCotaInf = new JTextField(5);
+		buttonCotaInf = new JButton("Modificar Cota Inferior");
+		buttonCotaInf.addActionListener(this);
+
+		/* Panel SA */
+		JPanel panelSA = new JPanel();
+		panelSA.setLayout(new GridLayout(5, 1));
+		panelSA.setBorder(BorderFactory.createTitledBorder("Algoritmo SA"));
+		JPanel temperatura = new JPanel();
+		JPanel velEnfri = new JPanel();
+		JPanel probAttr = new JPanel();
+
+		labelTemp = new JLabel("Temperatura: ");
+		textTemp = new JTextField(5);
+		buttonTemp = new JButton("Modificar Temperatura");
+		buttonTemp.addActionListener(this);
+
+		labelVelEnf = new JLabel("Velocidad de Enfriamiento: ");
+		textVelEnf = new JTextField(5);
+		buttonVelEnf = new JButton("Modificar velocidad");
+		buttonVelEnf.addActionListener(this);
+
+		labelProbAttr = new JLabel("Probabilidad cambio atributo: ");
+		textProbAttr = new JTextField(5);
+		buttonProbAttr = new JButton("Modificar probabilidad");
+		buttonProbAttr.addActionListener(this);
+
+		tab9.add(panelAlgorit);
+		panelAlgorit.add(panelPSO);
+		panelAlgorit.add(panelSA);
+
+		panelPSO.add(max_iteracion);
+		panelPSO.add(constante1);
+		panelPSO.add(constante2);
+		panelPSO.add(cota_superior);
+		panelPSO.add(cota_inferior);
+
+		max_iteracion.add(labelIte);
+		max_iteracion.add(textIte);
+		max_iteracion.add(buttonIte);
+
+		constante1.add(labelCon1);
+		constante1.add(textCon1);
+		constante1.add(buttonCon1);
+
+		constante2.add(labelCon2);
+		constante2.add(textCon2);
+		constante2.add(buttonCon2);
+
+		cota_superior.add(labelCotaSup);
+		cota_superior.add(textCotaSup);
+		cota_superior.add(buttonCotaSup);
+
+		cota_inferior.add(labelCotaInf);
+		cota_inferior.add(textCotaInf);
+		cota_inferior.add(buttonCotaInf);
+
+		panelSA.add(temperatura);
+		panelSA.add(velEnfri);
+		panelSA.add(probAttr);
+
+		temperatura.add(labelTemp);
+		temperatura.add(textTemp);
+		temperatura.add(buttonTemp);
+
+		velEnfri.add(labelVelEnf);
+		velEnfri.add(textVelEnf);
+		velEnfri.add(buttonVelEnf);
+
+		probAttr.add(labelProbAttr);
+		probAttr.add(textProbAttr);
+		probAttr.add(buttonProbAttr);
+	}
+
+	/** Método que crea el panel que permite generar los clusters */
+	public void panelClusters() {
 		// JTAB6
 		tab6 = new JPanel(new GridLayout(1, 1)); //
 		JPanel panelClusterBut = new JPanel();
@@ -1452,7 +1638,7 @@ public class GUI extends JFrame implements ActionListener {
 		// Añadimos el Scroll
 		sp3 = new JScrollPane();
 		sp3.setViewportView(jtA6);
-		
+
 		tab6.add(panelClusterBut);
 		tab6.add(panelClusterTex);
 		panelClusterBut.add(numClusters);
@@ -1462,31 +1648,16 @@ public class GUI extends JFrame implements ActionListener {
 		panelClusterBut.add(buttonCSV);
 		panelClusterTex.add(sp3);
 	}
-	
-	public int getNumProd() {
-		return numProd;
-	}
 
-	public void setNumProd(int numProd) {
-		this.numProd = numProd;
-	}
-
+	/** Método que crea el panel que permite elegir opcionse */
 	public void options() {
 		Object[] opciones = { "Maximizar clientes", "Maximizar ingresos" };
 		int resp = JOptionPane.showOptionDialog(null, "Seleccione opción", "Opciones", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 		if (resp == 0) {
-			ga.setMaximizar(true);
-			gaVar.setMaximizar(true);
-			pso.setMaximizar(true);
-			minimax.setMaximizar(true);
-			sa.setMaximizar(true);
+			alg.setMaximizar(true);
 		} else if (resp == 1) {
-			ga.setMaximizar(false);
-			gaVar.setMaximizar(false);
-			pso.setMaximizar(false);
-			minimax.setMaximizar(false);
-			sa.setMaximizar(false);
+			alg.setMaximizar(false);
 		} else if (resp == -1) {
 			System.exit(0);
 		}

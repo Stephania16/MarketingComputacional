@@ -2,19 +2,20 @@ package general;
 
 import java.util.ArrayList;
 
+/** Clase que representa a cada productor */
 public class Producer {
 
 	private String Name;
 	public ArrayList<Attribute> AvailableAttribute;
 	public Product product;
-	
+
 	private ArrayList<Product> products = new ArrayList<>();
 
-	/****** FOR MINIMAX *******/
+	/****** PARA MINIMAX *******/
 	private ArrayList<Integer> CustomersGathered = new ArrayList<>();
 
 	public Producer() {
-		
+
 	}
 
 	public Producer(ArrayList<Attribute> availableAttribute, Product product) {
@@ -55,6 +56,7 @@ public class Producer {
 		CustomersGathered = customersGathered;
 	}
 
+	/** Cuenta el número de clientes almacenados */
 	public int getNumber_CustomerGathered() {
 
 		int Number_CG = 0;
@@ -63,7 +65,7 @@ public class Producer {
 
 		return Number_CG;
 	}
-	
+
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
