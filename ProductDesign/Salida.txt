@@ -2656,3 +2656,170 @@ percCust: 91,00 %
 initPercCust: 88,27 %
 
 
+Algoritmo Genético
+Num Ejecuciones: 20
+Num atributos: 10
+Num productores: 2
+Num perfiles: 16
+Number CustProf: 200
+Num Población: 20
+Num Generaciones: 100
+Atributos conocidos: 100.0 %
+Atributos especiales: 33.0 %
+% Mutación de atributos: 33.0 %
+% Crossover: 80 %
+% Mutación: 1 %
+Num grupos de perfil: 20
+Num perfiles cercanos: 4
+Num productos: 1
+Atributos linkados: false
+Centroides: []
+************* RESULTS *************
+BestWSC: [1520]
+Mean: 1600,00
+initMean: 1405,00
+stdDev: 339,12
+initStdDev: 391,18
+percCust: 79,21 %
+initPercCust: 69,55 %
+My_priceString: 51,00 €
+percCust: 79,21 %
+initPercCust: 69,55 %
+
+
+Algoritmo Minimax
+Num Ejecuciones: 20
+Num atributos: 10
+Num productores: 2
+Num perfiles: 16
+Number CustProf: 200
+Depth Prod 0: 3
+Depth Prod 1: 2
+Num atributos modificables: 1
+Num turnos previos: 5
+Num productos: 1
+Atributos linkados: false
+************* RESULTS *************
+Num turnos: 5
+Mean: 8238,05
+stdDev: 1355,16
+custMean: 17166,00
+Price: 289,00 €
+percCust: 47,99 %
+initPercCust: 0,29 %
+
+
+Algoritmo Genético
+Num Ejecuciones: 20
+Num atributos: 63
+Num productores: 10
+Num perfiles: 21
+Number CustProf: 200
+Num Población: 20
+Num Generaciones: 100
+Atributos conocidos: 100.0 %
+Atributos especiales: 33.0 %
+% Mutación de atributos: 33.0 %
+% Crossover: 80 %
+% Mutación: 1 %
+Num grupos de perfil: 20
+Num perfiles cercanos: 4
+Num productos: 1
+Atributos linkados: false
+Centroides: []
+************* RESULTS *************
+BestWSC: [3760]
+Mean: 4033,50
+initMean: 3400,50
+stdDev: 232,02
+initStdDev: 674,18
+percCust: 96,04 %
+initPercCust: 80,96 %
+My_priceString: 131,00 €
+percCust: 96,04 %
+initPercCust: 80,96 %
+
+
+Algoritmo Genético
+Num Ejecuciones: 20
+Num atributos: 63
+Num productores: 10
+Num perfiles: 21
+Number CustProf: 200
+Num Población: 20
+Num Generaciones: 100
+Atributos conocidos: 100.0 %
+Atributos especiales: 33.0 %
+% Mutación de atributos: 33.0 %
+% Crossover: 80 %
+% Mutación: 1 %
+Num grupos de perfil: 20
+Num perfiles cercanos: 4
+Num productos: 1
+Atributos linkados: false
+Centroides: []
+************* RESULTS *************
+BestWSC: [4160]
+Mean: 4005,00
+initMean: 3575,00
+stdDev: 210,08
+initStdDev: 478,58
+percCust: 95,36 %
+initPercCust: 85,12 %
+My_priceString: 132,00 €
+percCust: 95,36 %
+initPercCust: 85,12 %
+
+
+Algoritmo PSO
+Num Ejecuciones: 20
+Num atributos: 63
+Num productores: 10
+Num perfiles: 21
+Number CustProf: 200
+Máx Iteraciones: 60
+Swarm Size: 20
+W_UPPERBOUND: 1.0 %
+W_LOWERBOUND: 0.0 %
+C1: 2.0 %
+C2: 2.0 %
+Atributos conocidos: 100.0 %
+Atributos especiales: 33.0 %
+% Mutación de atributos: 33.0 %
+Num grupos de perfil: 20
+Num productos: 1
+Atributos linkados: false
+Centroides: []
+************* RESULTS *************
+BestWSC: [4140]
+Mean: 4144,00
+initMean: 3952,50
+stdDev: 8,00
+initStdDev: 191,67
+My_priceString: 52,00 €
+percCust: 98,67 %
+initPercCust: 94,11 %
+
+
+Algoritmo Minimax
+Num Ejecuciones: 20
+Num atributos: 10
+Num productores: 2
+Num perfiles: 16
+Number CustProf: 200
+Depth Prod 0: 3
+Depth Prod 1: 2
+Num atributos modificables: 1
+Num turnos previos: 5
+Num productos: 1
+Atributos linkados: false
+************* RESULTS *************
+Num turnos: 5
+Mean: 7752,45
+stdDev: 929,48
+custMean: 16195,00
+Price: 293,00 €
+percCust: 47,87 %
+initPercCust: 0,28 %
+
+

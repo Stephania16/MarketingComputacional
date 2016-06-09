@@ -186,9 +186,16 @@ public class MinimaxProblem extends MinimaxAlgorithm {
 	@SuppressWarnings("static-access")
 	private int scoreProduct(CustomerProfile profile, Product product) throws Exception {
 		int score = 0;
-		for (int i = 0; i < alg.TotalAttributes.size(); i++)
+		for (int i = 0; i < alg.TotalAttributes.size(); i++){
+			
+			int attrVal = product.getAttributeValue().get(alg.TotalAttributes.get(i));
+			
+			if(attrVal >= profile.getScoreAttributes().get(i).getScoreValues().size())
+				attrVal = profile.getScoreAttributes().get(i).getScoreValues().size() - 1;
+
 			score += profile.getScoreAttributes().get(i).getScoreValues()
-					.get(product.getAttributeValue().get(alg.TotalAttributes.get(i)));
+					.get(attrVal);
+		}
 
 		return score;
 	}
@@ -238,6 +245,9 @@ public class MinimaxProblem extends MinimaxAlgorithm {
 	@SuppressWarnings("static-access")
 	@Override
 	public boolean isPosibleToChange(int playerIndex, int dimension, int attrVal) {
+		if(attrVal >= alg.Producers.get(playerIndex).getAvailableAttribute().get(dimension).getAvailableValues().size())
+			attrVal = alg.Producers.get(playerIndex).getAvailableAttribute().get(dimension).getAvailableValues().size() - 1;
+		
 		return alg.Producers.get(playerIndex).getAvailableAttribute().get(dimension).getAvailableValues().get(attrVal);
 	}
 
