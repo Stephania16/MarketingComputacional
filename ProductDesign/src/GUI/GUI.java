@@ -141,9 +141,11 @@ public class GUI extends JFrame implements ActionListener {
 					showMin = false;
 				}
 			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(tab1, "Hace falta subperfiles");
+				JOptionPane.showMessageDialog(tab1, e1.getMessage()); //"Hace falta subperfiles"
+				//e1.printStackTrace();
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab1, e1.getMessage());
+				//e1.printStackTrace();
 			}
 			break;
 		case "Ejecutar Algoritmo Minimax":
@@ -174,6 +176,7 @@ public class GUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(tab2, "Formato incorrecto");
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(tab2, e1.getMessage());
+				e1.printStackTrace();
 			}
 			break;
 

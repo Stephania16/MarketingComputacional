@@ -224,7 +224,11 @@ public class InputGUI {
 	/** Añadir valoración de atributo cogidos desde la gui **/
 	public void inputGUIValorAtributo(Attribute attr, int punt, int posProducer, int posProduct) {
 		ArrayList<Boolean> avaiableValues = new ArrayList<Boolean>();
-		for (int j = 0; j < attr.getMAX(); j++)
+		int size = 0;
+		if(attr.getMAX() == 43) size = 7;
+		else if(attr.getMAX() == 37) size = 6;
+		else size = attr.getMAX();
+		for (int j = 0; j < size; j++) //attr.getMAX()
 			avaiableValues.add(true);
 		attr.setAvailableValues(avaiableValues);
 
@@ -451,12 +455,17 @@ public class InputGUI {
 					if (isElement(TotalAttributes, atribute)) {
 						int puntuacion = in.nextInt();
 						int cont = 1;
+						int size = 0;
+						if(attr.getMAX() == 43) size = 8;
+						else if(attr.getMAX() == 37) size = 7;
+						else size = attr.getMAX();
 						while (in.hasNextInt() && attr.getMAX() > puntuacion) {
 							inputGUICustomer(atribute, posCustomer);
-
-							while (cont < attr.getMAX()) {
+							while (cont < size - 1) {
+								//attr.getMAX()
 								inputGUIValoracion(atribute, puntuacion, posCustomer);
 								puntuacion = in.nextInt();
+								//System.out.println(posCustomer + atrib_perfil + puntuacion);
 								cont++;
 							}
 							if (!in.hasNextInt()) {

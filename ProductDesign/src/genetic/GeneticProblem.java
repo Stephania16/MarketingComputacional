@@ -318,7 +318,11 @@ public class GeneticProblem extends GeneticAlgorithm {
 			if (mutation <= alg.getMUTATION_PROB()) {
 				boolean attrFound = false;
 				while (!attrFound) {
-					attrVal = (int) (Math.floor(alg.TotalAttributes.get(j).getMAX() * Math.random()));
+					int size = 0;
+					if(alg.TotalAttributes.get(j).getMAX() == 43) size = 7;
+					else if(alg.TotalAttributes.get(j).getMAX() == 37) size = 6;
+					else size = alg.TotalAttributes.get(j).getMAX();
+					attrVal = (int) (Math.floor(size * Math.random())); //alg.TotalAttributes.get(j).getMAX()
 					if (alg.Producers.get(alg.MY_PRODUCER).getAvailableAttribute().get(j).getAvailableValues()
 							.get(attrVal))
 						attrFound = true;

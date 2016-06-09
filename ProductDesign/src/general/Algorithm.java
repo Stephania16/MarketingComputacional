@@ -140,8 +140,12 @@ public class Algorithm {
 		int attrVal;
 
 		ArrayList<Integer> possibleAttr = new ArrayList<>();
+		int size = 0;
+		if(TotalAttributes.get(attrInd).getMAX() == 43) size = 7;
+		else if(TotalAttributes.get(attrInd).getMAX() == 37) size = 6;
+		else size = TotalAttributes.get(attrInd).getMAX();
 
-		for (int i = 0; i < TotalAttributes.get(attrInd).getMAX(); i++) {
+		for (int i = 0; i < size - 1; i++) {
 			/*
 			 * We count the valoration of each selected profile for attribute
 			 * attrInd value i
@@ -345,6 +349,8 @@ public class Algorithm {
 				score = 0;
 		}
 			break;
+		case 37:
+		case 43:
 		case 11: {
 			if (valOfAttrCust == valOfAttrProd)
 				score = 10;
