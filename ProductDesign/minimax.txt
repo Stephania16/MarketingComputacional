@@ -1,0 +1,664 @@
+@atributo
+atributo1 1 6
+atributo2 1 37
+atributo3 1 37
+atributo4 1 37
+atributo5 1 37
+atributo6 1 37
+atributo7 1 5
+atributo8 1 4
+atributo9 1 6
+atributo10 1 37
+atributo11 1 5
+atributo12 1 5
+atributo13 1 37
+atributo14 1 4
+atributo15 1 4
+atributo16 1 4
+atributo17 1 43
+atributo18 1 43
+atributo19 1 43
+atributo20 1 43
+atributo21 1 43
+atributo22 1 43
+atributo23 1 5
+atributo24 1 5
+atributo25 1 6
+atributo26 1 43
+atributo27 1 37
+atributo28 1 37
+atributo29 1 4
+atributo30 1 43
+@productor
+productor 0 producto 0 atributo1 0
+productor 0 producto 0 atributo2 2
+productor 0 producto 0 atributo3 3
+productor 0 producto 0 atributo4 1
+productor 0 producto 0 atributo5 3
+productor 0 producto 0 atributo6 4
+productor 0 producto 0 atributo7 5
+productor 0 producto 0 atributo8 2
+productor 0 producto 0 atributo9 1
+productor 0 producto 0 atributo10 4
+productor 0 producto 0 atributo11 1
+productor 0 producto 0 atributo12 0
+productor 0 producto 0 atributo13 1
+productor 0 producto 0 atributo14 2
+productor 0 producto 0 atributo15 1
+productor 0 producto 0 atributo16 2
+productor 0 producto 0 atributo17 6
+productor 0 producto 0 atributo18 6
+productor 0 producto 0 atributo19 4
+productor 0 producto 0 atributo20 3
+productor 0 producto 0 atributo21 4
+productor 0 producto 0 atributo22 1
+productor 0 producto 0 atributo23 8
+productor 0 producto 0 atributo24 4
+productor 0 producto 0 atributo25 5
+productor 0 producto 0 atributo26 5
+productor 0 producto 0 atributo27 1
+productor 0 producto 0 atributo28 0
+productor 0 producto 0 atributo29 1
+productor 0 producto 0 atributo30 2
+productor 0 producto 0 atributo31 1
+productor 1 producto 0 atributo1 0
+productor 1 producto 0 atributo2 3
+productor 1 producto 0 atributo3 1
+productor 1 producto 0 atributo4 4
+productor 1 producto 0 atributo5 2
+productor 1 producto 0 atributo6 4
+productor 1 producto 0 atributo7 3
+productor 1 producto 0 atributo8 0
+productor 1 producto 0 atributo9 0
+productor 1 producto 0 atributo10 0
+productor 1 producto 0 atributo11 0
+productor 1 producto 0 atributo12 2
+productor 1 producto 0 atributo13 1
+productor 1 producto 0 atributo14 1
+productor 1 producto 0 atributo15 5
+productor 1 producto 0 atributo16 2
+productor 1 producto 0 atributo17 6
+productor 1 producto 0 atributo18 1
+productor 1 producto 0 atributo19 1
+productor 1 producto 0 atributo20 4
+productor 1 producto 0 atributo21 1
+productor 1 producto 0 atributo22 0
+productor 1 producto 0 atributo23 3
+productor 1 producto 0 atributo24 1
+productor 1 producto 0 atributo25 1
+productor 1 producto 0 atributo26 0
+productor 1 producto 0 atributo27 2
+productor 1 producto 0 atributo28 6
+productor 1 producto 0 atributo29 2
+productor 1 producto 0 atributo30 0
+productor 2 producto 0 atributo1 0
+productor 2 producto 0 atributo2 2
+productor 2 producto 0 atributo3 2
+productor 2 producto 0 atributo4 0
+productor 2 producto 0 atributo5 3
+productor 2 producto 0 atributo6 4
+productor 2 producto 0 atributo7 4
+productor 2 producto 0 atributo8 2
+productor 2 producto 0 atributo9 2
+productor 2 producto 0 atributo10 0
+productor 2 producto 0 atributo11 2
+productor 2 producto 0 atributo12 1
+productor 2 producto 0 atributo13 1
+productor 2 producto 0 atributo14 0
+productor 2 producto 0 atributo15 0
+productor 2 producto 0 atributo16 0
+productor 2 producto 0 atributo17 6
+productor 2 producto 0 atributo18 4
+productor 2 producto 0 atributo19 4
+productor 2 producto 0 atributo20 5
+productor 2 producto 0 atributo21 0
+productor 2 producto 0 atributo22 1
+productor 2 producto 0 atributo23 8
+productor 2 producto 0 atributo24 0
+productor 2 producto 0 atributo25 1
+productor 2 producto 0 atributo26 5
+productor 2 producto 0 atributo27 2
+productor 2 producto 0 atributo28 3
+productor 2 producto 0 atributo29 0
+productor 2 producto 0 atributo30 1
+productor 3 producto 0 atributo1 0
+productor 3 producto 0 atributo2 3
+productor 3 producto 0 atributo3 3
+productor 3 producto 0 atributo4 3
+productor 3 producto 0 atributo5 5
+productor 3 producto 0 atributo6 1
+productor 3 producto 0 atributo7 5
+productor 3 producto 0 atributo8 3
+productor 3 producto 0 atributo9 2
+productor 3 producto 0 atributo10 3
+productor 3 producto 0 atributo11 3
+productor 3 producto 0 atributo12 0
+productor 3 producto 0 atributo13 3
+productor 3 producto 0 atributo14 2
+productor 3 producto 0 atributo15 0
+productor 3 producto 0 atributo16 2
+productor 3 producto 0 atributo17 6
+productor 3 producto 0 atributo18 6
+productor 3 producto 0 atributo19 3
+productor 3 producto 0 atributo20 0
+productor 3 producto 0 atributo21 2
+productor 3 producto 0 atributo22 1
+productor 3 producto 0 atributo23 5
+productor 3 producto 0 atributo24 2
+productor 3 producto 0 atributo25 2
+productor 3 producto 0 atributo26 3
+productor 3 producto 0 atributo27 1
+productor 3 producto 0 atributo28 6
+productor 3 producto 0 atributo29 1
+productor 3 producto 0 atributo30 2
+productor 4 producto 0 atributo1 0
+productor 4 producto 0 atributo2 2
+productor 4 producto 0 atributo3 5
+productor 4 producto 0 atributo4 3
+productor 4 producto 0 atributo5 3
+productor 4 producto 0 atributo6 0
+productor 4 producto 0 atributo7 5
+productor 4 producto 0 atributo8 0
+productor 4 producto 0 atributo9 1
+productor 4 producto 0 atributo10 0
+productor 4 producto 0 atributo11 3
+productor 4 producto 0 atributo12 3
+productor 4 producto 0 atributo13 2
+productor 4 producto 0 atributo14 5
+productor 4 producto 0 atributo15 4
+productor 4 producto 0 atributo16 2
+productor 4 producto 0 atributo17 4
+productor 4 producto 0 atributo18 4
+productor 4 producto 0 atributo19 0
+productor 4 producto 0 atributo20 4
+productor 4 producto 0 atributo21 4
+productor 4 producto 0 atributo22 2
+productor 4 producto 0 atributo23 7
+productor 4 producto 0 atributo24 2
+productor 4 producto 0 atributo25 0
+productor 4 producto 0 atributo26 5
+productor 4 producto 0 atributo27 2
+productor 4 producto 0 atributo28 2
+productor 4 producto 0 atributo29 3
+productor 4 producto 0 atributo30 0
+productor 5 producto 0 atributo1 0
+productor 5 producto 0 atributo2 3
+productor 5 producto 0 atributo3 5
+productor 5 producto 0 atributo4 5
+productor 5 producto 0 atributo5 5
+productor 5 producto 0 atributo6 5
+productor 5 producto 0 atributo7 3
+productor 5 producto 0 atributo8 2
+productor 5 producto 0 atributo9 1
+productor 5 producto 0 atributo10 2
+productor 5 producto 0 atributo11 2
+productor 5 producto 0 atributo12 2
+productor 5 producto 0 atributo13 0
+productor 5 producto 0 atributo14 2
+productor 5 producto 0 atributo15 4
+productor 5 producto 0 atributo16 2
+productor 5 producto 0 atributo17 0
+productor 5 producto 0 atributo18 5
+productor 5 producto 0 atributo19 3
+productor 5 producto 0 atributo20 3
+productor 5 producto 0 atributo21 5
+productor 5 producto 0 atributo22 3
+productor 5 producto 0 atributo23 5
+productor 5 producto 0 atributo24 4
+productor 5 producto 0 atributo25 5
+productor 5 producto 0 atributo26 1
+productor 5 producto 0 atributo27 0
+productor 5 producto 0 atributo28 1
+productor 5 producto 0 atributo29 2
+productor 5 producto 0 atributo30 0
+productor 6 producto 0 atributo1 0
+productor 6 producto 0 atributo2 2
+productor 6 producto 0 atributo3 4
+productor 6 producto 0 atributo4 2
+productor 6 producto 0 atributo5 0
+productor 6 producto 0 atributo6 0
+productor 6 producto 0 atributo7 4
+productor 6 producto 0 atributo8 2
+productor 6 producto 0 atributo9 0
+productor 6 producto 0 atributo10 1
+productor 6 producto 0 atributo11 5
+productor 6 producto 0 atributo12 3
+productor 6 producto 0 atributo13 1
+productor 6 producto 0 atributo14 0
+productor 6 producto 0 atributo15 3
+productor 6 producto 0 atributo16 1
+productor 6 producto 0 atributo17 6
+productor 6 producto 0 atributo18 1
+productor 6 producto 0 atributo19 2
+productor 6 producto 0 atributo20 4
+productor 6 producto 0 atributo21 4
+productor 6 producto 0 atributo22 1
+productor 6 producto 0 atributo23 5
+productor 6 producto 0 atributo24 1
+productor 6 producto 0 atributo25 5
+productor 6 producto 0 atributo26 3
+productor 6 producto 0 atributo27 1
+productor 6 producto 0 atributo28 1
+productor 6 producto 0 atributo29 4
+productor 6 producto 0 atributo30 2
+productor 7 producto 0 atributo1 0
+productor 7 producto 0 atributo2 4
+productor 7 producto 0 atributo3 0
+productor 7 producto 0 atributo4 4
+productor 7 producto 0 atributo5 0
+productor 7 producto 0 atributo6 1
+productor 7 producto 0 atributo7 2
+productor 7 producto 0 atributo8 0
+productor 7 producto 0 atributo9 2
+productor 7 producto 0 atributo10 3
+productor 7 producto 0 atributo11 4
+productor 7 producto 0 atributo12 2
+productor 7 producto 0 atributo13 0
+productor 7 producto 0 atributo14 2
+productor 7 producto 0 atributo15 0
+productor 7 producto 0 atributo16 2
+productor 7 producto 0 atributo17 6
+productor 7 producto 0 atributo18 1
+productor 7 producto 0 atributo19 1
+productor 7 producto 0 atributo20 0
+productor 7 producto 0 atributo21 6
+productor 7 producto 0 atributo22 0
+productor 7 producto 0 atributo23 0
+productor 7 producto 0 atributo24 0
+productor 7 producto 0 atributo25 3
+productor 7 producto 0 atributo26 1
+productor 7 producto 0 atributo27 2
+productor 7 producto 0 atributo28 3
+productor 7 producto 0 atributo29 2
+productor 7 producto 0 atributo30 1
+productor 8 producto 0 atributo1 0
+productor 8 producto 0 atributo2 3
+productor 8 producto 0 atributo3 3
+productor 8 producto 0 atributo4 1
+productor 8 producto 0 atributo5 1
+productor 8 producto 0 atributo6 2
+productor 8 producto 0 atributo7 3
+productor 8 producto 0 atributo8 2
+productor 8 producto 0 atributo9 2
+productor 8 producto 0 atributo10 0
+productor 8 producto 0 atributo11 0
+productor 8 producto 0 atributo12 0
+productor 8 producto 0 atributo13 3
+productor 8 producto 0 atributo14 1
+productor 8 producto 0 atributo15 5
+productor 8 producto 0 atributo16 1
+productor 8 producto 0 atributo17 6
+productor 8 producto 0 atributo18 0
+productor 8 producto 0 atributo19 1
+productor 8 producto 0 atributo20 3
+productor 8 producto 0 atributo21 4
+productor 8 producto 0 atributo22 0
+productor 8 producto 0 atributo23 4
+productor 8 producto 0 atributo24 3
+productor 8 producto 0 atributo25 4
+productor 8 producto 0 atributo26 4
+productor 8 producto 0 atributo27 2
+productor 8 producto 0 atributo28 6
+productor 8 producto 0 atributo29 1
+productor 8 producto 0 atributo30 2
+productor 9 producto 0 atributo1 0
+productor 9 producto 0 atributo2 4
+productor 9 producto 0 atributo3 0
+productor 9 producto 0 atributo4 0
+productor 9 producto 0 atributo5 4
+productor 9 producto 0 atributo6 4
+productor 9 producto 0 atributo7 2
+productor 9 producto 0 atributo8 3
+productor 9 producto 0 atributo9 2
+productor 9 producto 0 atributo10 2
+productor 9 producto 0 atributo11 4
+productor 9 producto 0 atributo12 3
+productor 9 producto 0 atributo13 2
+productor 9 producto 0 atributo14 3
+productor 9 producto 0 atributo15 3
+productor 9 producto 0 atributo16 1
+productor 9 producto 0 atributo17 0
+productor 9 producto 0 atributo18 0
+productor 9 producto 0 atributo19 2
+productor 9 producto 0 atributo20 2
+productor 9 producto 0 atributo21 0
+productor 9 producto 0 atributo22 1
+productor 9 producto 0 atributo23 4
+productor 9 producto 0 atributo24 5
+productor 9 producto 0 atributo25 5
+productor 9 producto 0 atributo26 4
+productor 9 producto 0 atributo27 0
+productor 9 producto 0 atributo28 5
+productor 9 producto 0 atributo29 0
+productor 9 producto 0 atributo30 3
+@perfil
+perfil 0 atributo1 2 4 6 8 10
+perfil 0 atributo2 3 6 9 12 15 18
+perfil 0 atributo3 5 10 15 20 25 30
+perfil 0 atributo4 4 8 12 16 20 24
+perfil 0 atributo5 4 8 12 16 20 24
+perfil 0 atributo6 3 6 9 12 15 18
+perfil 0 atributo7 1 1 1 2
+perfil 0 atributo8 3 1 2
+perfil 0 atributo9 3 3 3 1 2
+perfil 0 atributo10 2 1 2 2 2 2
+perfil 0 atributo11 1 2 1 1
+perfil 0 atributo12 3 3 1 2
+perfil 0 atributo13 5 10 15 20 25 30
+perfil 0 atributo14 0 0 0
+perfil 0 atributo15 3 1 2
+perfil 0 atributo16 3 1 2
+perfil 0 atributo17 6 12 18 24 30 36 42
+perfil 0 atributo18 4 8 12 16 20 24 28
+perfil 0 atributo19 4 8 12 16 20 24 28
+perfil 0 atributo20 6 12 18 24 30 36 42
+perfil 0 atributo21 6 12 18 24 30 36 42
+perfil 0 atributo22 3 6 9 12 15 18 21
+perfil 0 atributo23 4 3 1 2
+perfil 0 atributo24 4 2 3 1
+perfil 0 atributo25 5 1 2 4 3
+perfil 0 atributo26 3 6 9 12 15 18 21
+perfil 0 atributo27 3 6 9 12 15 18
+perfil 0 atributo28 4 8 12 16 20 24
+perfil 0 atributo29 3 2 1
+perfil 0 atributo30 4 8 12 16 20 24 28
+perfil 1 atributo1 2 4 6 8 10
+perfil 1 atributo2 4 8 12 16 20 24
+perfil 1 atributo3 4 8 12 16 20 24
+perfil 1 atributo4 4 8 12 16 20 24
+perfil 1 atributo5 3 6 9 12 15 18
+perfil 1 atributo6 3 6 9 12 15 18
+perfil 1 atributo7 3 2 4 1
+perfil 1 atributo8 3 1 2
+perfil 1 atributo9 3 3 3 1 2
+perfil 1 atributo10 3 6 9 12 15 18
+perfil 1 atributo11 2 4 3 1
+perfil 1 atributo12 4 3 2 1
+perfil 1 atributo13 5 10 15 20 25 30
+perfil 1 atributo14 3 2 1
+perfil 1 atributo15 3 2 1
+perfil 1 atributo16 2 1 3
+perfil 1 atributo17 6 12 18 24 30 36 42
+perfil 1 atributo18 6 12 18 24 30 36 42
+perfil 1 atributo19 6 12 18 24 30 36 42
+perfil 1 atributo20 6 12 18 24 30 36 42
+perfil 1 atributo21 4 8 12 16 20 24 28
+perfil 1 atributo22 1 2 3 4 5 6 7
+perfil 1 atributo23 4 3 1 2
+perfil 1 atributo24 3 2 4 1
+perfil 1 atributo25 4 3 3 1 2
+perfil 1 atributo26 4 8 12 16 20 24 28
+perfil 1 atributo27 3 6 9 12 15 18
+perfil 1 atributo28 4 8 12 16 20 24
+perfil 1 atributo29 3 2 1 
+perfil 1 atributo30 4 8 12 16 20 24 28
+perfil 2 atributo1 2 4 6 8 10
+perfil 2 atributo2 5 10 15 20 25 30
+perfil 2 atributo3 3 6 9 12 15 18
+perfil 2 atributo4 3 6 9 12 15 18
+perfil 2 atributo5 3 6 9 12 15 18
+perfil 2 atributo6 3 6 9 12 15 18
+perfil 2 atributo7 2 2 3 1
+perfil 2 atributo8 3 2 1
+perfil 2 atributo9 3 3 3 2 1
+perfil 2 atributo10 2 4 6 8 10 12
+perfil 2 atributo11 3 2 2 1
+perfil 2 atributo12 4 3 1 2
+perfil 2 atributo13 5 10 15 20 25 30
+perfil 2 atributo14 3 2 1
+perfil 2 atributo15 0 0 0
+perfil 2 atributo16 2 1 3
+perfil 2 atributo17 6 12 18 24 30 36 42
+perfil 2 atributo18 6 12 18 24 30 36 42
+perfil 2 atributo19 6 12 18 24 30 36 42
+perfil 2 atributo20 6 12 18 24 30 36 42
+perfil 2 atributo21 5 10 15 20 25 30 35 
+perfil 2 atributo22 5 10 15 20 25 30 35
+perfil 2 atributo23 4 3 1 2
+perfil 2 atributo24 4 2 3 1
+perfil 2 atributo25 4 2 2 3 1
+perfil 2 atributo26 5 10 15 20 25 30 35
+perfil 2 atributo27 4 8 12 16 20 24
+perfil 2 atributo28 4 8 12 16 20 24
+perfil 2 atributo29 3 2 1
+perfil 2 atributo30 4 8 12 16 20 24 28
+perfil 3 atributo1 2 4 6 8 10
+perfil 3 atributo2 5 10 15 20 25 30
+perfil 3 atributo3 5 10 15 20 25 30
+perfil 3 atributo4 3 6 9 12 15 18
+perfil 3 atributo5 2 4 6 8 10 12
+perfil 3 atributo6 0 0 0 0 0 0
+perfil 3 atributo7 4 2 3 1
+perfil 3 atributo8 3 2 1 
+perfil 3 atributo9 3 3 3 1 2
+perfil 3 atributo10 5 10 15 20 25 30
+perfil 3 atributo11 2 3 2 1
+perfil 3 atributo12 4 3 1 2
+perfil 3 atributo13 5 10 15 20 25 30
+perfil 3 atributo14 3 2 1
+perfil 3 atributo15 3 2 1
+perfil 3 atributo16 2 1 3
+perfil 3 atributo17 6 12 18 24 30 36 42
+perfil 3 atributo18 6 12 18 24 30 36 42
+perfil 3 atributo19 6 12 18 24 30 36 42
+perfil 3 atributo20 6 12 18 24 30 36 42
+perfil 3 atributo21 4 8 12 16 20 24 28
+perfil 3 atributo22 3 6 9 12 15 18 21
+perfil 3 atributo23 3 2 1 4
+perfil 3 atributo24 3 2 1 4
+perfil 3 atributo25 5 3 2 4 1
+perfil 3 atributo26 4 8 12 16 20 24 28
+perfil 3 atributo27 3 6 9 12 15 18
+perfil 3 atributo28 4 8 12 16 20 24
+perfil 3 atributo29 3 2 1
+perfil 3 atributo30 4 8 12 16 20 24 28
+perfil 4 atributo1 2 4 6 8 10
+perfil 4 atributo2 5 10 15 20 25 30
+perfil 4 atributo3 5 10 15 20 25 30
+perfil 4 atributo4 3 6 9 12 15 18
+perfil 4 atributo5 2 4 6 8 10 12
+perfil 4 atributo6 2 4 6 8 10 12
+perfil 4 atributo7 4 2 3 1
+perfil 4 atributo8 3 1 2
+perfil 4 atributo9 3 4 4 1 2
+perfil 4 atributo10 3 6 9 12 15 18
+perfil 4 atributo11 3 4 2 1
+perfil 4 atributo12 4 3 2 1
+perfil 4 atributo13 4 8 12 16 20 24
+perfil 4 atributo14 2 3 1
+perfil 4 atributo15 3 2 1
+perfil 4 atributo16 3 1 2
+perfil 4 atributo17 6 12 18 24 30 36 42
+perfil 4 atributo18 6 12 18 24 30 36 42
+perfil 4 atributo19 6 12 18 24 30 36 42
+perfil 4 atributo20 6 12 18 24 30 36 42
+perfil 4 atributo21 1 2 3 4 5 6 7
+perfil 4 atributo22 5 10 15 20 25 30 35
+perfil 4 atributo23 4 1 2 3
+perfil 4 atributo24 4 2 3 1
+perfil 4 atributo25 3 2 1 3 2
+perfil 4 atributo26 2 4 6 8 10 12 14
+perfil 4 atributo27 3 6 9 12 15 18
+perfil 4 atributo28 4 8 12 16 20 24
+perfil 4 atributo29 3 1 2
+perfil 4 atributo30 6 12 18 24 30 36 42
+perfil 5 atributo1 2 4 6 8 10
+perfil 5 atributo2 5 10 15 20 25 30
+perfil 5 atributo3 4 8 12 16 20 24
+perfil 5 atributo4 3 6 9 12 15 18
+perfil 5 atributo5 0 0 0 0 0 0
+perfil 5 atributo6 0 0 0 0 0 0
+perfil 5 atributo7 4 1 3 2
+perfil 5 atributo8 3 2 1 
+perfil 5 atributo9 3 3 2 1 2
+perfil 5 atributo10 4 8 12 16 20 24
+perfil 5 atributo11 4 3 2 1
+perfil 5 atributo12 2 3 1 2
+perfil 5 atributo13 5 10 15 20 25 30
+perfil 5 atributo14 2 2 1
+perfil 5 atributo15 2 2 1
+perfil 5 atributo16 2 1 3
+perfil 5 atributo17 6 12 18 24 30 36 42
+perfil 5 atributo18 6 12 18 24 30 36 42
+perfil 5 atributo19 6 12 18 24 30 36 42
+perfil 5 atributo20 6 12 18 24 30 36 42
+perfil 5 atributo21 5 10 15 20 25 30 35
+perfil 5 atributo22 2 4 6 8 10 12 14
+perfil 5 atributo23 4 2 1 3
+perfil 5 atributo24 3 2 3 1
+perfil 5 atributo25 5 4 3 2 1
+perfil 5 atributo26 6 12 18 24 30 36 42
+perfil 5 atributo27 5 10 15 20 25 30
+perfil 5 atributo28 5 10 15 20 25 30
+perfil 5 atributo29 3 1 2
+perfil 5 atributo30 5 10 15 20 25 30 35
+perfil 6 atributo1 2 4 6 8 10
+perfil 6 atributo2 4 8 12 16 20 24
+perfil 6 atributo3 4 8 12 16 20 24
+perfil 6 atributo4 3 6 9 12 15 18
+perfil 6 atributo5 3 6 9 12 15 18
+perfil 6 atributo6 3 6 9 12 15 18
+perfil 6 atributo7 3 2 4 1
+perfil 6 atributo8 3 1 2
+perfil 6 atributo9 3 4 4 1 2
+perfil 6 atributo10 1 2 3 4 5 6
+perfil 6 atributo11 3 4 2 1
+perfil 6 atributo12 3 4 2 1  
+perfil 6 atributo13 5 10 15 20 25 30
+perfil 6 atributo14 3 2 1
+perfil 6 atributo15 0 0 0 
+perfil 6 atributo16 2 1 3
+perfil 6 atributo17 6 12 18 24 30 36 42
+perfil 6 atributo18 5 10 15 20 25 30 35
+perfil 6 atributo19 6 12 18 24 30 36 42
+perfil 6 atributo20 6 12 18 24 30 36 42
+perfil 6 atributo21 2 4 6 8 10 12 14
+perfil 6 atributo22 4 8 12 16 20 24 28
+perfil 6 atributo23 4 3 1 2
+perfil 6 atributo24 4 1 3 2
+perfil 6 atributo25 4 2 2 3 1
+perfil 6 atributo26 5 10 15 20 25 30 35
+perfil 6 atributo27 3 6 9 12 15 18
+perfil 6 atributo28 5 10 15 20 25 30
+perfil 6 atributo29 3 2 1
+perfil 6 atributo30 4 8 12 16 20 24 28
+perfil 7 atributo1 2 4 6 8 10
+perfil 7 atributo2 4 8 12 16 20 24
+perfil 7 atributo3 4 8 12 16 20 24
+perfil 7 atributo4 3 6 9 12 15 18
+perfil 7 atributo5 3 6 9 12 15 18
+perfil 7 atributo6 3 6 9 12 15 18
+perfil 7 atributo7 3 2 4 1
+perfil 7 atributo8 3 2 1
+perfil 7 atributo9 4 4 3 1 2
+perfil 7 atributo10 4 8 12 16 20 24
+perfil 7 atributo11 2 4 3 1
+perfil 7 atributo12 4 3 2 1
+perfil 7 atributo13 5 10 15 20 25 30
+perfil 7 atributo14 3 2 1
+perfil 7 atributo15 0 0 0
+perfil 7 atributo16 3 1 2
+perfil 7 atributo17 6 12 18 24 30 36 42
+perfil 7 atributo18 6 12 18 24 30 36 42
+perfil 7 atributo19 6 12 18 24 30 36 42
+perfil 7 atributo20 6 12 18 24 30 36 42
+perfil 7 atributo21 4 8 12 16 20 24 28 
+perfil 7 atributo22 4 8 12 16 20 24 28
+perfil 7 atributo23 4 2 1 3
+perfil 7 atributo24 3 2 3 1
+perfil 7 atributo25 4 3 2 3 1
+perfil 7 atributo26 5 10 15 20 25 30 35
+perfil 7 atributo27 5 10 15 20 25 30
+perfil 7 atributo28 4 8 12 16 20 24
+perfil 7 atributo29 3 2 1
+perfil 7 atributo30 3 6 9 12 15 18 21
+perfil 8 atributo1 3 6 9 12 15
+perfil 8 atributo2 5 10 15 20 25 30
+perfil 8 atributo3 5 10 15 20 25 30
+perfil 8 atributo4 4 8 12 16 20 24
+perfil 8 atributo5 3 6 9 12 15 18
+perfil 8 atributo6 2 4 6 8 10 12
+perfil 8 atributo7 3 1 4 2
+perfil 8 atributo8 3 1 2
+perfil 8 atributo9 3 4 4 1 2
+perfil 8 atributo10 5 10 15 20 25 30
+perfil 8 atributo11 3 4 2 1
+perfil 8 atributo12 4 2 1 3
+perfil 8 atributo13 4 8 12 16 20 24
+perfil 8 atributo14 3 2 1
+perfil 8 atributo15 3 1 2 
+perfil 8 atributo16 2 1 3
+perfil 8 atributo17 6 12 18 24 30 36 42
+perfil 8 atributo18 6 12 18 24 30 36 42
+perfil 8 atributo19 6 12 18 24 30 36 42
+perfil 8 atributo20 6 12 18 24 30 36 42
+perfil 8 atributo21 4 8 12 16 20 24 28
+perfil 8 atributo22 3 6 9 12 15 18 21
+perfil 8 atributo23 4 2 1 3
+perfil 8 atributo24 3 2 3 1
+perfil 8 atributo25 5 3 2 4 1
+perfil 8 atributo26 0 0 0 0 0 0 0
+perfil 8 atributo27 3 6 9 12 15 18
+perfil 8 atributo28 4 8 12 16 20 24
+perfil 8 atributo29 3 2 1
+perfil 8 atributo30 4 8 12 16 20 24 28
+perfil 9 atributo1 2 4 6 8 10
+perfil 9 atributo2 5 10 15 20 25 30
+perfil 9 atributo3 5 10 15 20 25 30
+perfil 9 atributo4 4 8 12 16 20 24
+perfil 9 atributo5 3 6 9 12 15 18
+perfil 9 atributo6 3 6 9 12 15 18
+perfil 9 atributo7 3 1 4 2
+perfil 9 atributo8 3 1 2   
+perfil 9 atributo9 3 3 3 1 2
+perfil 9 atributo10 3 6 9 12 15 18
+perfil 9 atributo11 2 3 4 1 
+perfil 9 atributo12 2 3 2 1
+perfil 9 atributo13 4 8 12 16 20 24
+perfil 9 atributo14 2 3 1
+perfil 9 atributo15 2 1 3   
+perfil 9 atributo16 2 1 3
+perfil 9 atributo17 6 12 18 24 30 36 42
+perfil 9 atributo18 5 10 15 20 25 30 35
+perfil 9 atributo19 6 12 18 24 30 36 42
+perfil 9 atributo20 6 12 18 24 30 36 42
+perfil 9 atributo21 4 8 12 16 20 24 28
+perfil 9 atributo22 2 4 6 8 10 12 14
+perfil 9 atributo23 4 2 3 1
+perfil 9 atributo24 4 2 3 1
+perfil 9 atributo25 5 3 1 4 2
+perfil 9 atributo26 2 4 6 8 10 12 14 
+perfil 9 atributo27 4 8 12 16 20 24
+perfil 9 atributo28 4 8 12 16 20 24
+perfil 9 atributo29 0 0 0
+perfil 9 atributo30 5 10 15 20 25 30 35
+perfil 10 atributo1 2 4 6 8 10
+perfil 10 atributo2 5 10 15 20 25 30
+perfil 10 atributo3 5 10 15 20 25 30
+perfil 10 atributo4 3 6 9 12 15 18
+perfil 10 atributo5 3 6 9 12 15 18
+perfil 10 atributo6 3 6 9 12 15 18
+perfil 10 atributo7 3 2 4 1
+perfil 10 atributo8 3 2 1
+perfil 10 atributo9 3 4 4 1 2
+perfil 10 atributo10 5 10 15 20 25 30
+perfil 10 atributo11 2 4 3 1
+perfil 10 atributo12 4 3 2 1
+perfil 10 atributo13 5 10 15 20 25 30
+perfil 10 atributo14 3 2 1
+perfil 10 atributo15 2 3 1
+perfil 10 atributo16 2 1 3
+perfil 10 atributo17 6 12 18 24 30 36 42
+perfil 10 atributo18 6 12 18 24 30 36 42
+perfil 10 atributo19 6 12 18 24 30 36 42
+perfil 10 atributo20 6 12 18 24 30 36 42
+perfil 10 atributo21 2 4 6 8 10 12 14
+perfil 10 atributo22 3 6 9 12 15 18 21
+perfil 10 atributo23 4 3 2 1
+perfil 10 atributo24 4 2 1 3
+perfil 10 atributo25 5 2 3 4 1
+perfil 10 atributo26 0 0 0 0 0 0 0
+perfil 10 atributo27 1 2 3 4 5 6
+perfil 10 atributo28 3 6 9 12 15 18
+perfil 10 atributo29 3 2 1
+perfil 10 atributo30 4 8 12 16 20 24 28

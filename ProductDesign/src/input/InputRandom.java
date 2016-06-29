@@ -8,6 +8,7 @@ import general.CustomerProfile;
 import general.LinkedAttribute;
 import general.Producer;
 import general.Product;
+import general.StoredData;
 import genetic.SubProfile;
 
 /** Clase que crea aleatoriamente los datos de entrada */
@@ -28,8 +29,8 @@ public class InputRandom {
 	static int RESP_PER_GROUP = 20; // dividir cada perfil en grupos de
 									// encuestados
 	static int NEAR_CUST_PROFS = 4;
-	public static int number_Products = 1;
-	public static boolean isAttributesLinked = false;
+	//public static int number_Products = 1;
+	//public static boolean isAttributesLinked = false;
 
 	/**
 	 * Generar datos de entrada
@@ -38,23 +39,17 @@ public class InputRandom {
 	 */
 	public void generate() throws Exception {
 		generateAttributeRandom();
+		StoredData.Atributos = TotalAttributes;
+		
 		generateCustomerProfiles();
 		genCustomerProfilesNum();
-		divideCustomerProfile();
-		generateProducers();
+        divideCustomerProfile();
+        StoredData.Profiles = CustomerProfiles;
+        
+        generateProducers();
+        StoredData.Producers = Producers;
 	}
 
-	/**
-	 * Generar datos de entrada sin subpefiles
-	 *
-	 * @throws Exception
-	 */
-	public void generateInput() {
-		generateAttributeRandom();
-		generateCustomerProfiles();
-		genCustomerProfilesNum();
-		generateProducers();
-	}
 
 	/** Generar atributos aleatorios */
 	private void generateAttributeRandom() {
@@ -92,7 +87,7 @@ public class InputRandom {
 			}
 			CustomerProfile custProf = new CustomerProfile(attrs);
 
-			if (isAttributesLinked()) {
+			if (StoredData.isAttributesLinked) {
 				ArrayList<LinkedAttribute> linkedAttributes = new ArrayList<>();
 				for (int k = 0; k < TotalAttributes.size(); k++) {
 					if (Math.random() < (PROB_ATTRIBUTE_LINKED / 100)) {
@@ -137,7 +132,7 @@ public class InputRandom {
 
 			CustomerProfile custProf = new CustomerProfile(attrs);
 
-			if (isAttributesLinked()) {
+			if (StoredData.isAttributesLinked) {
 				ArrayList<LinkedAttribute> linkedAttributes = new ArrayList<>();
 				for (int k = 0; k < TotalAttributes.size(); k++) {
 					if (Math.random() < (PROB_ATTRIBUTE_LINKED / 100)) {
@@ -272,7 +267,7 @@ public class InputRandom {
 			new_producer.setProduct(createProduct(new_producer.getAvailableAttribute()));
 
 			ArrayList<Product> products = new ArrayList<>();
-			for (int k = 0; k < getNumber_Products(); k++)
+			for (int k = 0; k < StoredData.number_Products; k++)
 				products.add(createProduct(new_producer.getAvailableAttribute()));
 			new_producer.setProducts(products);
 
@@ -441,7 +436,7 @@ public class InputRandom {
 		NEAR_CUST_PROFS = nEAR_CUST_PROFS;
 	}
 
-	public boolean isAttributesLinked() {
+/*	public boolean isAttributesLinked() {
 		return isAttributesLinked;
 	}
 
@@ -456,7 +451,7 @@ public class InputRandom {
 	public void setNumber_Products(int number) {
 		number_Products = number;
 	}
-
+*/
 	public ArrayList<Attribute> getTotalAttributes() {
 		return TotalAttributes;
 	}
@@ -480,5 +475,4 @@ public class InputRandom {
 	public void setCustomerProfiles(ArrayList<CustomerProfile> customerProfiles) {
 		CustomerProfiles = customerProfiles;
 	}
-
 }

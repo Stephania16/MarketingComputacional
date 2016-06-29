@@ -36,6 +36,7 @@ import general.CustomerProfile;
 import general.LinkedAttribute;
 import general.Producer;
 import general.Product;
+import general.StoredData;
 import genetic.SubProfile;
 
 /**
@@ -54,7 +55,15 @@ public class InputGUI {
 	public static boolean isNumData = false;
 	static int RESP_PER_GROUP = 20; // número de grupos que se dividen los
 									// encuestados
-
+	
+	public void generateGUI() throws Exception {
+		StoredData.Atributos = TotalAttributes;
+		setProfiles();
+        divideCustomerProfile();
+        StoredData.Profiles = CustomerProfiles;
+        StoredData.Producers = Producers;
+	}
+	
 	/**** MÉTODOS GETTERS Y SETTERS ***/
 	public void setnum(int size) {
 		num_prof_num = size;

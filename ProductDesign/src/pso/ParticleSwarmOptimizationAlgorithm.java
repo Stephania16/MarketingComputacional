@@ -3,132 +3,202 @@ package pso;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Clase abstracta que representa el algoritmo PSO
- */
-public abstract class ParticleSwarmOptimizationAlgorithm {
+import javax.swing.JTextArea;
 
-	private ArrayList<Integer> ParticleBestWSC = new ArrayList<>();
-	private ArrayList<Object> BestObjects = new ArrayList<>();
-	private ArrayList<ArrayList<Double>> Velocity = new ArrayList<>();
+import Problem.Problem;
 
-	private ArrayList<Object> SWARM = new ArrayList<>();
-	private Object Best = null;
-	private Integer BestFitness = 0;
-	protected static int MAX_ITERATION = 60;
+public class ParticleSwarmOptimizationAlgorithm extends Problem{
+    //private static ParticleSwarmOptimizationAlgorithm PSOinstance = null;
 
-	protected static int SWARM_SIZE = 20;
+    private ArrayList<Integer> ParticleBestWSC = new ArrayList<>(); /* Stores the best wsc found */
+    private ArrayList<Object> BestObjects = new ArrayList<>(); /* Stores the best wsc found */
+    private ArrayList<ArrayList<Double>> Velocity = new ArrayList<>();
 
-	protected static double W_UPPERBOUND = 1;
-	protected static double W_LOWERBOUND = 0;
-	protected static double C1 = 2.0;
-	protected static double C2 = 2.0;
-	protected static double VEL_LOW = -2;
-	protected static double VEL_HIGH = 2;
+    private ArrayList<Object> SWARM = new ArrayList<>();
+    private ArrayList<Integer> Fitness = new ArrayList<>();
+    private Object Best = null;
+    private Integer BestFitness = 0;
+    private int MAX_ITERATION = 60;
+    private int SWARM_SIZE = 20;
 
-	public ArrayList<Integer> Fitness = new ArrayList<>();
+    double W_UPPERBOUND = 1;
+    double W_LOWERBOUND = 0;
+    double C1 = 2.0;
+    double C2 = 2.0;
+    double VEL_LOW = -2;
+    double VEL_HIGH = 2;
 
-	public ArrayList<Object> solvePSOAlgorithm() throws Exception {
+  /*  public static ParticleSwarmOptimizationAlgorithm getInstance() {
 
-		Velocity = new ArrayList<>();
-		Fitness = new ArrayList<>();
-		BestObjects = new ArrayList<>();
-		ParticleBestWSC = new ArrayList<>();
+        if (PSOinstance == null)
+            PSOinstance = new ParticleSwarmOptimizationAlgorithm();
 
-		Best = null;
-		BestFitness = 0;
+        return PSOinstance;
+    }*/
 
-		SWARM = createInitSwarm();
+    protected void startProblem(JTextArea jtA) throws Exception {
+        initializePSOproblem();
+    }
 
-		for (int i = 0; i < SWARM.size(); i++) {
-			ArrayList<Double> vel = new ArrayList<>();
-			for (int j = 0; j < getDimensions(); j++)
-				vel.add(((VEL_HIGH - VEL_LOW) * Math.random()) + VEL_LOW);
-			Velocity.add(vel);
-		}
+    protected Object solveProblem() throws Exception {
 
-		for (int i = 0; i < SWARM.size(); i++) {
-			Fitness.add(getFitness(SWARM.get(i)));
-			ParticleBestWSC.add(Fitness.get(i));
-			BestObjects.add(SWARM.get(i));
-		}
+        Velocity = new ArrayList<>();
+        Fitness = new ArrayList<>();
+        BestObjects = new ArrayList<>();
+        ParticleBestWSC = new ArrayList<>();
 
-		double w;
-		for (int i = 0; i < MAX_ITERATION; i++) {
+        Best = null;
+        BestFitness = 0;
 
-			// STEP 1 - UPDATE PARTICLE'S BEST
-			for (int j = 0; j < SWARM_SIZE; j++) {
-				if (Fitness.get(j) > ParticleBestWSC.get(j)) {
-					ParticleBestWSC.set(j, Fitness.get(j));
-					BestObjects.set(j, SWARM.get(j));
-				}
-			}
+        SWARM = createInitSwarm();
 
-			// // STEP 2 - UPDATE GENERAL BEST
-			for (int j = 0; j < Fitness.size(); j++) {
-				if (Fitness.get(j) > BestFitness) {
-					BestFitness = Fitness.get(j);
-					Best = SWARM.get(j);
-				}
-			}
+        for (int i = 0; i < SWARM.size(); i++) {
+            ArrayList<Double> vel = new ArrayList<>();
+            for (int j = 0; j < getDimensions(); j++)
+                vel.add(((VEL_HIGH - VEL_LOW) * Math.random()) + VEL_LOW);
+            Velocity.add(vel);
+        }
 
-			w = W_UPPERBOUND - (((double) i) / MAX_ITERATION) * (W_UPPERBOUND - W_LOWERBOUND);
+        for (int i = 0; i < SWARM.size(); i++) {
+            Fitness.add(getFitness(SWARM.get(i)));
+            ParticleBestWSC.add(Fitness.get(i));
+            BestObjects.add(SWARM.get(i));
+        }
 
-			for (int k = 0; k < SWARM_SIZE; k++) {
+        double w;
+        for (int i = 0; i < MAX_ITERATION; i++) {
 
-				Random generator = new Random();
+            // STEP 1 - UPDATE PARTICLE'S BEST
+            for (int j = 0; j < SWARM_SIZE; j++) {
+                if (Fitness.get(j) > ParticleBestWSC.get(j)) {
+                    ParticleBestWSC.set(j, Fitness.get(j));
+                    BestObjects.set(j, SWARM.get(j));
+                }
+            }
 
-				double r1 = generator.nextDouble();
-				double r2 = generator.nextDouble();
+//            // STEP 2 - UPDATE GENERAL BEST
+            for (int j = 0; j < Fitness.size(); j++) {
+                if (Fitness.get(j) > BestFitness) {
+                    BestFitness = Fitness.get(j);
+                    Best = SWARM.get(j);
+                }
+            }
 
-				Object obj = SWARM.get(k);
+            w = W_UPPERBOUND - (((double) i) / MAX_ITERATION) * (W_UPPERBOUND - W_LOWERBOUND);
 
-				for (int p = 0; p < Velocity.get(k).size(); p++) {
+            for (int k = 0; k < SWARM_SIZE; k++) {
 
-					// STEP 3 - UPDATE VELOCITY
-					double vel = (w * Velocity.get(k).get(p))
-							+ (r1 * C1) * (getLocationValue(BestObjects.get(k), p) - getLocationValue(obj, p))
-							+ (r2 * C2) * (getLocationValue(Best, p) - getLocationValue(obj, p));
+                Random generator = new Random();
 
-					// product.getVelocity().put(TotalAttributes.get(p), vel);
-					Velocity.get(k).set(p, vel);
+                double r1 = generator.nextDouble();
+                double r2 = generator.nextDouble();
 
-					// STEP 4 - UPDATE LOCATION
-					int new_value_for_location = (int) (getLocationValue(obj, p) + Velocity.get(k).get(p));
-					updateLocation(obj, p, new_value_for_location);
-				}
-			}
+                Object obj = SWARM.get(k);
 
-			updateFitness();
-		}
+                for (int p = 0; p < Velocity.get(k).size(); p++) {
 
-		// STEP 1 - UPDATE PARTICLE'S BEST
-		for (int j = 0; j < SWARM_SIZE; j++) {
-			if (Fitness.get(j) > ParticleBestWSC.get(j)) {
-				ParticleBestWSC.set(j, Fitness.get(j));
-				BestObjects.set(j, SWARM.get(j));
-			}
-		}
+                    //STEP 3 - UPDATE VELOCITY
+                    double vel = (w * Velocity.get(k).get(p)) +
+                            (r1 * C1) * (getLocationValue(BestObjects.get(k), p) - getLocationValue(obj, p)) +
+                            (r2 * C2) * (getLocationValue(Best, p) - getLocationValue(obj, p));
 
-		return BestObjects;
+//                    product.getVelocity().put(TotalAttributes.get(p), vel);
+                    Velocity.get(k).set(p, vel);
+
+
+                    //STEP 4 - UPDATE LOCATION
+                    int new_value_for_location = (int) (getLocationValue(obj, p) + Velocity.get(k).get(p));
+                    updateLocation(obj, p, new_value_for_location);
+                }
+            }
+
+            updateFitness();
+        }
+
+        // STEP 1 - UPDATE PARTICLE'S BEST
+        for (int j = 0; j < SWARM_SIZE; j++) {
+            if (Fitness.get(j) > ParticleBestWSC.get(j)) {
+                ParticleBestWSC.set(j, Fitness.get(j));
+                BestObjects.set(j, SWARM.get(j));
+            }
+        }
+        return BestObjects;
+    }
+
+
+    private void updateFitness() throws Exception {
+        for (int i = 0; i < SWARM.size(); i++) {
+            int ParticleFitness = getFitness(SWARM.get(i));
+            if (ParticleFitness > Fitness.get(i)) {
+                Fitness.set(i, ParticleFitness);
+            }
+        }
+    }
+
+	public int getSWARM_SIZE() {
+		return SWARM_SIZE;
 	}
 
-	protected abstract int getDimensions();
-
-	private void updateFitness() throws Exception {
-		for (int i = 0; i < SWARM.size(); i++) {
-			int ParticleFitness = getFitness(SWARM.get(i));
-			if (ParticleFitness > Fitness.get(i)) {
-				Fitness.set(i, ParticleFitness);
-			}
-		}
+	public double getW_UPPERBOUND() {
+		return W_UPPERBOUND;
 	}
 
-	public abstract ArrayList<Object> createInitSwarm() throws Exception;
+	public double getW_LOWERBOUND() {
+		return W_LOWERBOUND;
+	}
 
-	protected abstract void updateLocation(Object obj, int p, int new_value_for_location);
+	public double getC1() {
+		return C1;
+	}
 
-	protected abstract Integer getLocationValue(Object obj, int dimen);
+	public double getC2() {
+		return C2;
+	}
 
-	protected abstract Integer getFitness(Object object) throws Exception;
+	public double getVEL_LOW() {
+		return VEL_LOW;
+	}
+
+	public double getVEL_HIGH() {
+		return VEL_HIGH;
+	}
+
+	public void setSWARM_SIZE(int sWARM_SIZE) {
+		SWARM_SIZE = sWARM_SIZE;
+	}
+
+	public void setW_UPPERBOUND(double w_UPPERBOUND) {
+		W_UPPERBOUND = w_UPPERBOUND;
+	}
+
+	public void setW_LOWERBOUND(double w_LOWERBOUND) {
+		W_LOWERBOUND = w_LOWERBOUND;
+	}
+
+	public void setC1(double c1) {
+		C1 = c1;
+	}
+
+	public void setC2(double c2) {
+		C2 = c2;
+	}
+
+	public void setVEL_LOW(double vEL_LOW) {
+		VEL_LOW = vEL_LOW;
+	}
+
+	public void setVEL_HIGH(double vEL_HIGH) {
+		VEL_HIGH = vEL_HIGH;
+	}
+
+	public int getMAX_ITERATION() {
+		return MAX_ITERATION;
+	}
+
+	public void setMAX_ITERATION(int mAX_ITERATION) {
+		MAX_ITERATION = mAX_ITERATION;
+	}
+    
+    
+
 }

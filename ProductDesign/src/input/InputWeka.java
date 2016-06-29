@@ -13,7 +13,6 @@ import output.OutputCSV;
 import weka.clusterers.SimpleKMeans;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericToNominal;
@@ -65,12 +64,6 @@ public class InputWeka {
 			prueba.setInputFormat(dataset);
 			Instances newData = Filter.useFilter(dataset, prueba);
 
-			// save ARFF
-			ArffSaver saver = new ArffSaver();
-			saver.setInstances(newData);
-			saver.setFile(new File(archivoArff));
-			saver.writeBatch();
-
 			// Entrenar algoritmo de clustering
 			jtA.append("Entrenar algoritmo de clustering ..." + "\r\n");
 			clusterer.buildClusterer(newData);
@@ -117,8 +110,8 @@ public class InputWeka {
 			jtA.append("Time taken to build model (full training data): " + elapsed + " seconds" + "\r\n");
 
 		} catch (Exception e) {
-			jtA.append("Error en clustering: Ejecutar primero un algoritmo para generar perfiles"
-					/* e.getMessage() */ + "\r\n");
+			jtA.append("Error en clustering: Ejecutar primero un algoritmo para generar perfiles" +
+					 e.getMessage()  + "\r\n");
 		}
 	}
 

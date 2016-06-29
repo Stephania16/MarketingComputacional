@@ -57,7 +57,7 @@ atributo55 1 5
 atributo56 1 43
 atributo57 1 43
 atributo58 1 43
-atributo59 1 43
+atributo59 1 37
 atributo60 1 43
 atributo61 1 43
 atributo62 1 43
@@ -715,48 +715,48 @@ perfil 0 atributo18 4 8 12 16 20 24 28
 perfil 0 atributo19 4 8 12 16 20 24 28
 perfil 0 atributo20 6 12 18 24 30 36 42
 perfil 0 atributo21 6 12 18 24 30 36 42
-perfil 0 atributo22 3 6 9 12 15 18 21
-perfil 0 atributo23 4 3 1 2
-perfil 0 atributo24 4 2 3 1
-perfil 0 atributo25 5 1 2 4 3
-perfil 0 atributo26 3 6 9 12 15 18 21
-perfil 0 atributo27 3 6 9 12 15 18
-perfil 0 atributo28 4 8 12 16 20 24
-perfil 0 atributo29 3 2 1
-perfil 0 atributo30 4 8 12 16 20 24 28
-perfil 0 atributo31 5 10 15 20 25 30
-perfil 0 atributo32 3 4 1 2
-perfil 0 atributo33 3 3 2 1
-perfil 0 atributo34 4 8 12 16 20 24
-perfil 0 atributo35 3 4 2 1
-perfil 0 atributo36 5 10 15 20 25 30 35
-perfil 0 atributo37 1 2 3 4 5 6
+perfil 0 atributo22 4 8 12 16 20 24 28
+perfil 0 atributo23 3 3 1 2
+perfil 0 atributo24 3 2 2 1
+perfil 0 atributo25 4 3 2 1 3
+perfil 0 atributo26 6 12 18 24 30 36 42
+perfil 0 atributo27 4 8 12 16 20 24
+perfil 0 atributo28 5 10 15 20 25 30
+perfil 0 atributo29 2 2 1
+perfil 0 atributo30 5 10 15 20 25 30 35
+perfil 0 atributo31 4 8 12 16 20 24
+perfil 0 atributo32 3 3 1 2
+perfil 0 atributo33 3 3 1 2
+perfil 0 atributo34 3 6 9 12 15 18
+perfil 0 atributo35 2 2 2 1
+perfil 0 atributo36 6 12 18 24 30 36 42
+perfil 0 atributo37 5 10 15 20 25 30
 perfil 0 atributo38 3 1 2
 perfil 0 atributo39 3 1 2
-perfil 0 atributo40 3 6 9 12 15 18 21
+perfil 0 atributo40 6 12 18 24 30 36 42
 perfil 0 atributo41 4 8 12 16 20 24
-perfil 0 atributo42 4 8 12 16 20 24 28
-perfil 0 atributo43 3 6 9 12 15 18 21
-perfil 0 atributo44 2 4 6 8 10 12 14
-perfil 0 atributo45 3 6 9 12 15 18 21
-perfil 0 atributo46 4 3 2 1
-perfil 0 atributo47 4 8 12 16 20 24 28
-perfil 0 atributo48 6 12 18 24 30 36 42
-perfil 0 atributo49 3 6 9 12 15 18 21
-perfil 0 atributo50 3 6 9 12 15 18 21
-perfil 0 atributo51 2 4 6 8 10 12 14
-perfil 0 atributo52 3 6 9 12 15 18 21
-perfil 0 atributo53 5 4 2 3 1
-perfil 0 atributo54 0 0 0 0 0 0 0
-perfil 0 atributo55 4 3 2 1
-perfil 0 atributo56 2 4 6 8 10 12 14
-perfil 0 atributo57 4 8 12 16 20 24 28
-perfil 0 atributo58 4 8 12 16 20 24 28
-perfil 0 atributo59 4 8 12 16 20 24 28
-perfil 0 atributo60 3 6 9 12 15 18 21
-perfil 0 atributo61 5 10 15 20 25 30 35
-perfil 0 atributo62 0 0 0 0 0 0 0
-perfil 0 atributo63 3 6 9 12 15 18 21
+perfil 0 atributo42 5 10 15 20 25 30 35
+perfil 0 atributo43 6 12 18 24 30 36 42
+perfil 0 atributo44 4 8 12 16 20 24 28
+perfil 0 atributo45 4 8 12 16 20 24 28
+perfil 0 atributo46 2 3 3 1
+perfil 0 atributo47 6 12 18 24 30 36 42
+perfil 0 atributo48 3 6 9 12 15 18 21
+perfil 0 atributo49 6 12 18 24 30 36 42
+perfil 0 atributo50 0 0 0 0 0 0 0
+perfil 0 atributo51 6 12 18 24 30 36 42
+perfil 0 atributo52 4 8 12 16 20 24 28
+perfil 0 atributo53 3 2 2 2 1
+perfil 0 atributo54 6 12 18 24 30 36 42
+perfil 0 atributo55 1 3 3 2
+perfil 0 atributo56 4 8 12 16 20 24 28
+perfil 0 atributo57 6 12 18 24 30 36 42
+perfil 0 atributo58 6 12 18 24 30 36 42
+perfil 0 atributo59 5 10 15 20 25 30
+perfil 0 atributo60 6 12 18 24 30 36 42
+perfil 0 atributo61 6 12 18 24 30 36 42
+perfil 0 atributo62 6 12 18 24 30 36 42
+perfil 0 atributo63 5 10 15 20 25 30 35
 perfil 1 atributo1 2 4 6 8 10
 perfil 1 atributo2 4 8 12 16 20 24
 perfil 1 atributo3 4 8 12 16 20 24
@@ -778,48 +778,48 @@ perfil 1 atributo18 6 12 18 24 30 36 42
 perfil 1 atributo19 6 12 18 24 30 36 42
 perfil 1 atributo20 6 12 18 24 30 36 42
 perfil 1 atributo21 4 8 12 16 20 24 28
-perfil 1 atributo22 1 2 3 4 5 6 7
-perfil 1 atributo23 4 3 1 2
-perfil 1 atributo24 3 2 4 1
-perfil 1 atributo25 4 3 3 1 2
+perfil 1 atributo22 6 12 18 24 30 36 42
+perfil 1 atributo23 3 4 1 2
+perfil 1 atributo24 4 2 3 1
+perfil 1 atributo25 4 3 4 2 1
 perfil 1 atributo26 4 8 12 16 20 24 28
-perfil 1 atributo27 3 6 9 12 15 18
-perfil 1 atributo28 4 8 12 16 20 24
+perfil 1 atributo27 5 10 15 20 25 30
+perfil 1 atributo28 5 10 15 20 25 30
 perfil 1 atributo29 3 2 1 
-perfil 1 atributo30 4 8 12 16 20 24 28
+perfil 1 atributo30 6 12 18 24 30 36 42
 perfil 1 atributo31 5 10 15 20 25 30
-perfil 1 atributo32 3 4 1 2
-perfil 1 atributo33 3 4 2 1
-perfil 1 atributo34 4 8 12 16 20 24
-perfil 1 atributo35 3 4 2 1
-perfil 1 atributo36 5 10 15 20 25 30 35
-perfil 1 atributo37 3 6 9 12 15 18
+perfil 1 atributo32 3 3 1 2
+perfil 1 atributo33 4 3 2 1
+perfil 1 atributo34 5 10 15 20 25 30
+perfil 1 atributo35 3 3 2 1
+perfil 1 atributo36 6 12 18 24 30 36 42
+perfil 1 atributo37 5 10 15 20 25 30
 perfil 1 atributo38 3 1 2
 perfil 1 atributo39 3 1 2
-perfil 1 atributo40 3 6 9 12 15 18 21
-perfil 1 atributo41 4 8 12 16 20 24
+perfil 1 atributo40 6 12 18 24 30 36 42
+perfil 1 atributo41 5 10 15 20 25 30
 perfil 1 atributo42 6 12 18 24 30 36 42
-perfil 1 atributo43 2 4 6 8 10 12 14
-perfil 1 atributo44 3 6 9 12 15 18 21
-perfil 1 atributo45 4 8 12 16 20 24 28
-perfil 1 atributo46 4 3 2 1
+perfil 1 atributo43 6 12 18 24 30 36 42
+perfil 1 atributo44 6 12 18 24 30 36 42
+perfil 1 atributo45 6 12 18 24 30 36 42
+perfil 1 atributo46 3 4 2 1
 perfil 1 atributo47 6 12 18 24 30 36 42
-perfil 1 atributo48 4 8 12 16 20 24 28
+perfil 1 atributo48 6 12 18 24 30 36 42
 perfil 1 atributo49 6 12 18 24 30 36 42
-perfil 1 atributo50 0 0 0 0 0 0 0
-perfil 1 atributo51 4 8 12 16 20 24 28
-perfil 1 atributo52 0 0 0 0 0 0 0
-perfil 1 atributo53 5 4 1 2 3
+perfil 1 atributo50 4 8 12 16 20 24 28
+perfil 1 atributo51 6 12 18 24 30 36 42
+perfil 1 atributo52 6 12 18 24 30 36 42
+perfil 1 atributo53 5 3 4 2 1
 perfil 1 atributo54 4 8 12 16 20 24 28
-perfil 1 atributo55 4 3 1 2
-perfil 1 atributo56 5 10 15 20 25 30 35
-perfil 1 atributo57 3 6 9 12 15 18 21
-perfil 1 atributo58 5 10 15 20 25 30 35
-perfil 1 atributo59 2 4 6 8 10 12 14
-perfil 1 atributo60 3 6 9 12 15 18 21
-perfil 1 atributo61 4 8 12 16 20 24 28
-perfil 1 atributo62 4 8 12 16 20 24 28
-perfil 1 atributo63 2 4 6 8 10 12 14
+perfil 1 atributo55 2 3 1 4
+perfil 1 atributo56 4 8 12 16 20 24 28
+perfil 1 atributo57 6 12 18 24 30 36 42
+perfil 1 atributo58 6 12 18 24 30 36 42
+perfil 1 atributo59 5 10 15 20 25 30
+perfil 1 atributo60 6 12 18 24 30 36 42
+perfil 1 atributo61 6 12 18 24 30 36 42
+perfil 1 atributo62 6 12 18 24 30 36 42
+perfil 1 atributo63 6 12 18 24 30 36 42
 perfil 2 atributo1 2 4 6 8 10
 perfil 2 atributo2 5 10 15 20 25 30
 perfil 2 atributo3 3 6 9 12 15 18
@@ -841,48 +841,48 @@ perfil 2 atributo18 6 12 18 24 30 36 42
 perfil 2 atributo19 6 12 18 24 30 36 42
 perfil 2 atributo20 6 12 18 24 30 36 42
 perfil 2 atributo21 5 10 15 20 25 30 35 
-perfil 2 atributo22 5 10 15 20 25 30 35
-perfil 2 atributo23 4 3 1 2
+perfil 2 atributo22 4 8 12 16 20 24 28
+perfil 2 atributo23 2 2 1 2
 perfil 2 atributo24 4 2 3 1
-perfil 2 atributo25 4 2 2 3 1
-perfil 2 atributo26 5 10 15 20 25 30 35
-perfil 2 atributo27 4 8 12 16 20 24
-perfil 2 atributo28 4 8 12 16 20 24
-perfil 2 atributo29 3 2 1
-perfil 2 atributo30 4 8 12 16 20 24 28
-perfil 2 atributo31 5 10 15 20 25 30
-perfil 2 atributo32 3 4 1 2
-perfil 2 atributo33 2 4 3 1
+perfil 2 atributo25 4 2 4 1 3
+perfil 2 atributo26 4 8 12 16 20 24 28
+perfil 2 atributo27 5 10 15 20 25 30
+perfil 2 atributo28 5 10 15 20 25 30
+perfil 2 atributo29 2 2 1
+perfil 2 atributo30 6 12 18 24 30 36 42
+perfil 2 atributo31 4 8 12 16 20 24
+perfil 2 atributo32 3 2 1 3
+perfil 2 atributo33 3 2 4 1
 perfil 2 atributo34 4 8 12 16 20 24
-perfil 2 atributo35 2 4 3 1
+perfil 2 atributo35 3 4 2 1
 perfil 2 atributo36 5 10 15 20 25 30 35
-perfil 2 atributo37 2 4 6 8 10 12
+perfil 2 atributo37 5 10 15 20 25 30
 perfil 2 atributo38 3 1 2
 perfil 2 atributo39 3 1 2
-perfil 2 atributo40 3 6 9 12 15 18 21
-perfil 2 atributo41 5 10 15 20 25 30
-perfil 2 atributo42 6 12 18 24 30 36 42
-perfil 2 atributo43 3 6 9 12 15 18 21 
-perfil 2 atributo44 4 8 12 16 20 24 28
-perfil 2 atributo45 2 4 6 8 10 12 14
-perfil 2 atributo46 4 2 3 1
-perfil 2 atributo47 3 6 9 12 15 18 21
-perfil 2 atributo48 4 8 12 16 20 24 28
+perfil 2 atributo40 4 8 12 16 20 24 28
+perfil 2 atributo41 4 8 12 16 20 24
+perfil 2 atributo42 5 10 15 20 25 30 35
+perfil 2 atributo43 6 12 18 24 30 36 42
+perfil 2 atributo44 5 10 15 20 25 30 35
+perfil 2 atributo45 4 8 12 16 20 24 28
+perfil 2 atributo46 4 3 2 1
+perfil 2 atributo47 6 12 18 24 30 36 42
+perfil 2 atributo48 6 12 18 24 30 36 42
 perfil 2 atributo49 6 12 18 24 30 36 42
-perfil 2 atributo50 0 0 0 0 0 0 0
-perfil 2 atributo51 0 0 0 0 0 0 0
-perfil 2 atributo52 2 4 6 8 10 12 14
+perfil 2 atributo50 5 10 15 20 25 30 35
+perfil 2 atributo51 5 10 15 20 25 30 35
+perfil 2 atributo52 6 12 18 24 30 36 42
 perfil 2 atributo53 5 1 2 3 4
-perfil 2 atributo54 3 6 9 12 15 18 21
-perfil 2 atributo55 4 3 1 2
-perfil 2 atributo56 2 4 6 8 10 12 14
-perfil 2 atributo57 0 0 0 0 0 0 0
-perfil 2 atributo58 3 6 9 12 15 18 21
-perfil 2 atributo59 6 12 18 24 30 36 42
-perfil 2 atributo60 0 0 0 0 0 0 0
-perfil 2 atributo61 2 4 6 8 10 12 14
-perfil 2 atributo62 2 4 6 8 10 12 14
-perfil 2 atributo63 4 8 12 16 20 24 28
+perfil 2 atributo54 2 4 6 8 10 12 14
+perfil 2 atributo55 4 3 2 1
+perfil 2 atributo56 4 8 12 16 20 24 28
+perfil 2 atributo57 6 12 18 24 30 36 42
+perfil 2 atributo58 6 12 18 24 30 36 42
+perfil 2 atributo59 5 10 15 20 25 30
+perfil 2 atributo60 4 8 12 16 20 24 28
+perfil 2 atributo61 6 12 18 24 30 36 42
+perfil 2 atributo62 6 12 18 24 30 36 42
+perfil 2 atributo63 5 10 15 20 25 30 35
 perfil 3 atributo1 2 4 6 8 10
 perfil 3 atributo2 5 10 15 20 25 30
 perfil 3 atributo3 5 10 15 20 25 30
@@ -904,48 +904,48 @@ perfil 3 atributo18 6 12 18 24 30 36 42
 perfil 3 atributo19 6 12 18 24 30 36 42
 perfil 3 atributo20 6 12 18 24 30 36 42
 perfil 3 atributo21 4 8 12 16 20 24 28
-perfil 3 atributo22 3 6 9 12 15 18 21
-perfil 3 atributo23 3 2 1 4
-perfil 3 atributo24 3 2 1 4
-perfil 3 atributo25 5 3 2 4 1
-perfil 3 atributo26 4 8 12 16 20 24 28
-perfil 3 atributo27 3 6 9 12 15 18
-perfil 3 atributo28 4 8 12 16 20 24
-perfil 3 atributo29 3 2 1
-perfil 3 atributo30 4 8 12 16 20 24 28
+perfil 3 atributo22 6 12 18 24 30 36 42
+perfil 3 atributo23 3 4 1 2
+perfil 3 atributo24 4 2 3 1
+perfil 3 atributo25 4 3 2 4 1
+perfil 3 atributo26 0 0 0 0 0 0 0
+perfil 3 atributo27 5 10 15 20 25 30
+perfil 3 atributo28 5 10 15 20 25 30
+perfil 3 atributo29 2 3 1
+perfil 3 atributo30 6 12 18 24 30 36 42
 perfil 3 atributo31 5 10 15 20 25 30
-perfil 3 atributo32 3 4 1 2
-perfil 3 atributo33 4 3 2 1
+perfil 3 atributo32 3 3 1 2
+perfil 3 atributo33 3 4 2 1
 perfil 3 atributo34 4 8 12 16 20 24
 perfil 3 atributo35 4 2 3 1
-perfil 3 atributo36 5 10 15 20 25 30 35
-perfil 3 atributo37 3 6 9 12 15 18
+perfil 3 atributo36 6 12 18 24 30 36 42
+perfil 3 atributo37 5 10 15 20 25 30
 perfil 3 atributo38 3 1 2
-perfil 3 atributo39 3 2 1
-perfil 3 atributo40 4 8 12 16 20 24 28
+perfil 3 atributo39 3 1 2
+perfil 3 atributo40 6 12 18 24 30 36 42
 perfil 3 atributo41 5 10 15 20 25 30
 perfil 3 atributo42 6 12 18 24 30 36 42
-perfil 3 atributo43 2 4 6 8 10 12 14
-perfil 3 atributo44 4 8 12 16 20 24 28
-perfil 3 atributo45 3 6 9 12 15 18 21
-perfil 3 atributo46 4 3 2 1
-perfil 3 atributo47 3 6 9 12 15 18 21
-perfil 3 atributo48 4 8 12 16 20 24 28
+perfil 3 atributo43 6 12 18 24 30 36 42
+perfil 3 atributo44 6 12 18 24 30 36 42
+perfil 3 atributo45 4 8 12 16 20 24 28
+perfil 3 atributo46 3 3 2 1
+perfil 3 atributo47 6 12 18 24 30 36 42
+perfil 3 atributo48 6 12 18 24 30 36 42
 perfil 3 atributo49 6 12 18 24 30 36 42
-perfil 3 atributo50 5 10 15 20 25 30 35
-perfil 3 atributo51 4 8 12 16 20 24 28
-perfil 3 atributo52 5 10 15 20 25 30 35
-perfil 3 atributo53 0 0 0 0 0
-perfil 3 atributo54 5 10 15 20 25 30 35
-perfil 3 atributo55 4 1 2 3
-perfil 3 atributo56 3 6 9 12 15 18 21
-perfil 3 atributo57 4 8 12 16 20 24 28
-perfil 3 atributo58 4 8 12 16 20 24 28
-perfil 3 atributo59 3 6 9 12 15 18 21
-perfil 3 atributo60 5 10 15 20 25 30 35
-perfil 3 atributo61 2 4 6 8 10 12 14
-perfil 3 atributo62 5 10 15 20 25 30 35
-perfil 3 atributo63 5 10 15 20 25 30 35
+perfil 3 atributo50 6 12 18 24 30 36 42
+perfil 3 atributo51 6 12 18 24 30 36 42
+perfil 3 atributo52 6 12 18 24 30 36 42
+perfil 3 atributo53 5 4 2 3 1
+perfil 3 atributo54 2 4 6 8 10 12 14
+perfil 3 atributo55 4 2 1 3
+perfil 3 atributo56 6 12 18 24 30 36 42
+perfil 3 atributo57 6 12 18 24 30 36 42
+perfil 3 atributo58 6 12 18 24 30 36 42
+perfil 3 atributo59 5 10 15 20 25 30
+perfil 3 atributo60 6 12 18 24 30 36 42
+perfil 3 atributo61 6 12 18 24 30 36 42
+perfil 3 atributo62 6 12 18 24 30 36 42
+perfil 3 atributo63 6 12 18 24 30 36 42
 perfil 4 atributo1 2 4 6 8 10
 perfil 4 atributo2 5 10 15 20 25 30
 perfil 4 atributo3 5 10 15 20 25 30
@@ -967,48 +967,48 @@ perfil 4 atributo18 6 12 18 24 30 36 42
 perfil 4 atributo19 6 12 18 24 30 36 42
 perfil 4 atributo20 6 12 18 24 30 36 42
 perfil 4 atributo21 1 2 3 4 5 6 7
-perfil 4 atributo22 5 10 15 20 25 30 35
-perfil 4 atributo23 4 1 2 3
+perfil 4 atributo22 6 12 18 24 30 36 42
+perfil 4 atributo23 4 3 1 2
 perfil 4 atributo24 4 2 3 1
-perfil 4 atributo25 3 2 1 3 2
-perfil 4 atributo26 2 4 6 8 10 12 14
-perfil 4 atributo27 3 6 9 12 15 18
-perfil 4 atributo28 4 8 12 16 20 24
-perfil 4 atributo29 3 1 2
+perfil 4 atributo25 4 4 2 3 1
+perfil 4 atributo26 0 0 0 0 0 0 0
+perfil 4 atributo27 5 10 15 20 25 30
+perfil 4 atributo28 5 10 15 20 25 30
+perfil 4 atributo29 3 2 1
 perfil 4 atributo30 6 12 18 24 30 36 42
 perfil 4 atributo31 5 10 15 20 25 30
 perfil 4 atributo32 3 3 1 2
-perfil 4 atributo33 0 0 0 0
-perfil 4 atributo34 2 4 6 8 10 12
-perfil 4 atributo35 4 3 2 1
-perfil 4 atributo36 3 6 9 12 15 18 21
-perfil 4 atributo37 4 8 12 16 20 24
-perfil 4 atributo38 3 2 1
-perfil 4 atributo39 3 2 1
-perfil 4 atributo40 4 8 12 16 20 24 28
+perfil 4 atributo33 3 3 2 1
+perfil 4 atributo34 5 10 15 20 25 30
+perfil 4 atributo35 3 2 3 1
+perfil 4 atributo36 6 12 18 24 30 36 42
+perfil 4 atributo37 5 10 15 20 25 30
+perfil 4 atributo38 3 1 2
+perfil 4 atributo39 3 1 2
+perfil 4 atributo40 6 12 18 24 30 36 42
 perfil 4 atributo41 5 10 15 20 25 30
 perfil 4 atributo42 6 12 18 24 30 36 42
-perfil 4 atributo43 4 8 12 16 20 24 28
+perfil 4 atributo43 6 12 18 24 30 36 42
 perfil 4 atributo44 4 8 12 16 20 24 28
-perfil 4 atributo45 3 6 9 12 15 18 21
-perfil 4 atributo46 4 2 3 1
-perfil 4 atributo47 3 6 9 12 15 18 21
-perfil 4 atributo48 2 4 6 8 10 12 14
+perfil 4 atributo45 6 12 18 24 30 36 42
+perfil 4 atributo46 3 3 2 1
+perfil 4 atributo47 6 12 18 24 30 36 42
+perfil 4 atributo48 6 12 18 24 30 36 42
 perfil 4 atributo49 6 12 18 24 30 36 42
-perfil 4 atributo50 0 0 0 0 0 0 0
-perfil 4 atributo51 4 8 12 16 20 24 28
-perfil 4 atributo52 0 0 0 0 0 0 0
-perfil 4 atributo53 4 2 1 5 3
-perfil 4 atributo54 0 0 0 0 0 0 0
-perfil 4 atributo55 4 1 3 2
-perfil 4 atributo56 0 0 0 0 0 0 0
-perfil 4 atributo57 4 8 12 16 20 24 28
+perfil 4 atributo50 6 12 18 24 30 36 42
+perfil 4 atributo51 6 12 18 24 30 36 42
+perfil 4 atributo52 6 12 18 24 30 36 42
+perfil 4 atributo53 5 3 2 4 1
+perfil 4 atributo54 2 4 6 8 10 12 14
+perfil 4 atributo55 3 4 1 2
+perfil 4 atributo56 4 8 12 16 20 24 28
+perfil 4 atributo57 6 12 18 24 30 36 42
 perfil 4 atributo58 6 12 18 24 30 36 42
-perfil 4 atributo59 6 12 18 24 30 36 42
-perfil 4 atributo60 2 4 6 8 10 12 14
-perfil 4 atributo61 5 10 15 20 25 30 35
-perfil 4 atributo62 5 10 15 20 25 30 35
-perfil 4 atributo63 4 8 12 16 20 24 28
+perfil 4 atributo59 5 10 15 20 25 30
+perfil 4 atributo60 6 12 18 24 30 36 42
+perfil 4 atributo61 6 12 18 24 30 36 42
+perfil 4 atributo62 6 12 18 24 30 36 42
+perfil 4 atributo63 6 12 18 24 30 36 42
 perfil 5 atributo1 2 4 6 8 10
 perfil 5 atributo2 5 10 15 20 25 30
 perfil 5 atributo3 4 8 12 16 20 24
@@ -1030,48 +1030,48 @@ perfil 5 atributo18 6 12 18 24 30 36 42
 perfil 5 atributo19 6 12 18 24 30 36 42
 perfil 5 atributo20 6 12 18 24 30 36 42
 perfil 5 atributo21 5 10 15 20 25 30 35
-perfil 5 atributo22 2 4 6 8 10 12 14
-perfil 5 atributo23 4 2 1 3
-perfil 5 atributo24 3 2 3 1
-perfil 5 atributo25 5 4 3 2 1
-perfil 5 atributo26 6 12 18 24 30 36 42
+perfil 5 atributo22 4 8 12 16 20 24 28
+perfil 5 atributo23 3 4 1 2
+perfil 5 atributo24 4 2 3 1
+perfil 5 atributo25 4 3 2 4 1
+perfil 5 atributo26 4 8 12 16 20 24 28
 perfil 5 atributo27 5 10 15 20 25 30
 perfil 5 atributo28 5 10 15 20 25 30
-perfil 5 atributo29 3 1 2
-perfil 5 atributo30 5 10 15 20 25 30 35
-perfil 5 atributo31 3 6 9 12 15 18
-perfil 5 atributo32 3 4 1 2
-perfil 5 atributo33 3 4 1 2
-perfil 5 atributo34 4 8 12 16 20 24
-perfil 5 atributo35 3 4 2 1 
-perfil 5 atributo36 3 6 9 12 15 18 21
-perfil 5 atributo37 3 6 9 12 15 18
-perfil 5 atributo38 3 2 1
-perfil 5 atributo39 3 2 1
+perfil 5 atributo29 3 2 1
+perfil 5 atributo30 6 12 18 24 30 36 42
+perfil 5 atributo31 5 10 15 20 25 30
+perfil 5 atributo32 3 3 1 2
+perfil 5 atributo33 3 4 2 1
+perfil 5 atributo34 5 10 15 20 25 30
+perfil 5 atributo35 4 3 2 1 
+perfil 5 atributo36 6 12 18 24 30 36 42
+perfil 5 atributo37 5 10 15 20 25 30
+perfil 5 atributo38 3 1 2
+perfil 5 atributo39 3 1 2
 perfil 5 atributo40 6 12 18 24 30 36 42
 perfil 5 atributo41 5 10 15 20 25 30
 perfil 5 atributo42 6 12 18 24 30 36 42
-perfil 5 atributo43 5 10 15 20 25 30 35
+perfil 5 atributo43 6 12 18 24 30 36 42
 perfil 5 atributo44 5 10 15 20 25 30 35
-perfil 5 atributo45 4 8 12 16 20 24 28
+perfil 5 atributo45 6 12 18 24 30 36 42
 perfil 5 atributo46 4 3 2 1
-perfil 5 atributo47 4 8 12 16 20 24 28
-perfil 5 atributo48 3 6 9 12 15 18 21
+perfil 5 atributo47 6 12 18 24 30 36 42
+perfil 5 atributo48 6 12 18 24 30 36 42
 perfil 5 atributo49 6 12 18 24 30 36 42
 perfil 5 atributo50 4 8 12 16 20 24 28
-perfil 5 atributo51 2 4 6 8 10 12 14
-perfil 5 atributo52 2 4 6 8 10 12 14
-perfil 5 atributo53 5 4 3 2 1
-perfil 5 atributo54 3 6 9 12 15 18 21
-perfil 5 atributo55 4 1 2 3
-perfil 5 atributo56 2 4 6 8 10 12 14
-perfil 5 atributo57 2 4 6 8 10 12 14
-perfil 5 atributo58 3 6 9 12 15 18 21
-perfil 5 atributo59 0 0 0 0 0 0 0
-perfil 5 atributo60 2 4 6 8 10 12 14
-perfil 5 atributo61 3 6 9 12 15 18 21
-perfil 5 atributo62 3 6 9 12 15 18 21
-perfil 5 atributo63 3 6 9 12 15 18 21
+perfil 5 atributo51 6 12 18 24 30 36 42
+perfil 5 atributo52 6 12 18 24 30 36 42
+perfil 5 atributo53 5 2 3 4 1
+perfil 5 atributo54 4 8 12 16 20 24 28
+perfil 5 atributo55 2 4 1 3
+perfil 5 atributo56 4 8 12 16 20 24 28
+perfil 5 atributo57 6 12 18 24 30 36 42
+perfil 5 atributo58 6 12 18 24 30 36 42
+perfil 5 atributo59 5 10 15 20 25 30
+perfil 5 atributo60 6 12 18 24 30 36 42
+perfil 5 atributo61 6 12 18 24 30 36 42
+perfil 5 atributo62 6 12 18 24 30 36 42
+perfil 5 atributo63 6 12 18 24 30 36 42
 perfil 6 atributo1 2 4 6 8 10
 perfil 6 atributo2 4 8 12 16 20 24
 perfil 6 atributo3 4 8 12 16 20 24
@@ -1093,48 +1093,48 @@ perfil 6 atributo18 5 10 15 20 25 30 35
 perfil 6 atributo19 6 12 18 24 30 36 42
 perfil 6 atributo20 6 12 18 24 30 36 42
 perfil 6 atributo21 2 4 6 8 10 12 14
-perfil 6 atributo22 4 8 12 16 20 24 28
-perfil 6 atributo23 4 3 1 2
-perfil 6 atributo24 4 1 3 2
-perfil 6 atributo25 4 2 2 3 1
-perfil 6 atributo26 5 10 15 20 25 30 35
-perfil 6 atributo27 3 6 9 12 15 18
+perfil 6 atributo22 6 12 18 24 30 36 42
+perfil 6 atributo23 3 3 1 2
+perfil 6 atributo24 4 2 3 1
+perfil 6 atributo25 5 4 2 1 3
+perfil 6 atributo26 2 4 6 8 10 12 14
+perfil 6 atributo27 5 10 15 20 25 30
 perfil 6 atributo28 5 10 15 20 25 30
 perfil 6 atributo29 3 2 1
-perfil 6 atributo30 4 8 12 16 20 24 28
-perfil 6 atributo31 5 10 15 20 25 30
+perfil 6 atributo30 6 12 18 24 30 36 42
+perfil 6 atributo31 4 8 12 16 20 24
 perfil 6 atributo32 3 3 1 2
-perfil 6 atributo33 3 4 2 1
+perfil 6 atributo33 4 3 2 1
 perfil 6 atributo34 5 10 15 20 25 30
-perfil 6 atributo35 0 0 0 0
-perfil 6 atributo36 2 4 6 8 10 12 14
-perfil 6 atributo37 1 2 3 4 5 6
+perfil 6 atributo35 3 2 2 1
+perfil 6 atributo36 6 12 18 24 30 36 42
+perfil 6 atributo37 5 10 15 20 25 30
 perfil 6 atributo38 3 1 2
-perfil 6 atributo39 3 2 1
+perfil 6 atributo39 3 1 2
 perfil 6 atributo40 6 12 18 24 30 36 42
-perfil 6 atributo41 4 8 12 16 20 24
+perfil 6 atributo41 5 10 15 20 25 30
 perfil 6 atributo42 6 12 18 24 30 36 42
-perfil 6 atributo43 3 6 9 12 15 18 21
-perfil 6 atributo44 0 0 0 0 0 0 0
-perfil 6 atributo45 3 6 9 12 15 18 21
+perfil 6 atributo43 6 12 18 24 30 36 42
+perfil 6 atributo44 3 6 9 12 15 18 21
+perfil 6 atributo45 6 12 18 24 30 36 42
 perfil 6 atributo46 4 3 2 1
 perfil 6 atributo47 6 12 18 24 30 36 42
-perfil 6 atributo48 5 10 15 20 30 30 35
+perfil 6 atributo48 6 12 18 24 30 36 42
 perfil 6 atributo49 6 12 18 24 30 36 42
-perfil 6 atributo50 2 4 6 8 10 12 14
-perfil 6 atributo51 2 4 6 8 10 12 14
-perfil 6 atributo52 2 4 6 8 10 12 14
-perfil 6 atributo53 5 4 2 3 1
-perfil 6 atributo54 3 6 9 12 15 18 21
-perfil 6 atributo55 4 1 2 3
-perfil 6 atributo56 2 4 6 8 10 12 14
-perfil 6 atributo57 4 8 12 16 20 24 28
-perfil 6 atributo58 4 8 12 16 20 24 28
-perfil 6 atributo59 3 6 9 12 15 18 21
-perfil 6 atributo60 3 6 9 12 15 18 21 
-perfil 6 atributo61 2 4 6 8 10 12 14
-perfil 6 atributo62 2 4 6 8 10 12 14
-perfil 6 atributo63 2 4 6 8 10 12 14
+perfil 6 atributo50 5 10 15 20 25 30 35
+perfil 6 atributo51 6 12 18 24 30 36 42
+perfil 6 atributo52 6 12 18 24 30 36 42
+perfil 6 atributo53 2 3 5 4 1
+perfil 6 atributo54 2 4 6 8 10 12 14
+perfil 6 atributo55 3 4 1 2
+perfil 6 atributo56 4 8 12 16 20 24 28
+perfil 6 atributo57 5 10 15 20 25 30 35
+perfil 6 atributo58 6 12 18 24 30 36 42
+perfil 6 atributo59 5 10 15 20 25 30
+perfil 6 atributo60 6 12 18 24 30 36 42
+perfil 6 atributo61 6 12 18 24 30 36 42
+perfil 6 atributo62 6 12 18 24 30 36 42
+perfil 6 atributo63 4 8 12 16 20 24 28
 perfil 7 atributo1 2 4 6 8 10
 perfil 7 atributo2 4 8 12 16 20 24
 perfil 7 atributo3 4 8 12 16 20 24
@@ -1157,47 +1157,47 @@ perfil 7 atributo19 6 12 18 24 30 36 42
 perfil 7 atributo20 6 12 18 24 30 36 42
 perfil 7 atributo21 4 8 12 16 20 24 28 
 perfil 7 atributo22 4 8 12 16 20 24 28
-perfil 7 atributo23 4 2 1 3
-perfil 7 atributo24 3 2 3 1
-perfil 7 atributo25 4 3 2 3 1
-perfil 7 atributo26 5 10 15 20 25 30 35
+perfil 7 atributo23 3 4 1 2
+perfil 7 atributo24 4 2 3 1
+perfil 7 atributo25 5 2 4 3 1
+perfil 7 atributo26 4 8 12 16 20 24 28
 perfil 7 atributo27 5 10 15 20 25 30
-perfil 7 atributo28 4 8 12 16 20 24
+perfil 7 atributo28 5 10 15 20 25 30
 perfil 7 atributo29 3 2 1
-perfil 7 atributo30 3 6 9 12 15 18 21
-perfil 7 atributo31 3 6 9 12 15 18
-perfil 7 atributo32 3 4 1 2
+perfil 7 atributo30 6 12 18 24 30 36 42
+perfil 7 atributo31 5 10 15 20 25 30
+perfil 7 atributo32 3 3 1 2
 perfil 7 atributo33 4 3 2 1
-perfil 7 atributo34 2 4 6 8 10 12
-perfil 7 atributo35 4 3 1 2
-perfil 7 atributo36 5 10 15 20 25 30 35
-perfil 7 atributo37 4 8 12 16 20 24
+perfil 7 atributo34 5 10 15 20 25 30
+perfil 7 atributo35 4 3 2 1
+perfil 7 atributo36 6 12 18 24 30 36 42
+perfil 7 atributo37 5 10 15 20 25 30
 perfil 7 atributo38 3 1 2
-perfil 7 atributo39 3 2 1
-perfil 7 atributo40 4 8 12 16 20 24 28
-perfil 7 atributo41 3 6 9 12 15 18
-perfil 7 atributo42 3 6 9 12 15 18 21
-perfil 7 atributo43 3 6 9 12 15 18 21
-perfil 7 atributo44 2 4 6 8 10 12 14
-perfil 7 atributo45 5 10 15 20 25 30 35
+perfil 7 atributo39 3 1 2
+perfil 7 atributo40 6 12 18 24 30 36 42
+perfil 7 atributo41 5 10 15 20 25 30
+perfil 7 atributo42 6 12 18 24 30 36 42
+perfil 7 atributo43 6 12 18 24 30 36 42
+perfil 7 atributo44 5 10 15 20 25 30 35
+perfil 7 atributo45 6 12 18 24 30 36 42
 perfil 7 atributo46 4 2 3 1
 perfil 7 atributo47 6 12 18 24 30 36 42
-perfil 7 atributo48 5 10 15 20 25 30 35
+perfil 7 atributo48 6 12 18 24 30 36 42
 perfil 7 atributo49 6 12 18 24 30 36 42
-perfil 7 atributo50 4 8 12 16 20 24 28
-perfil 7 atributo51 3 6 9 12 15 18 21
-perfil 7 atributo52 2 4 6 8 10 12 14
-perfil 7 atributo53 0 0 0 0 0
-perfil 7 atributo54 3 6 9 12 15 18 21
-perfil 7 atributo55 0 0 0 0
-perfil 7 atributo56 3 6 9 12 15 18 21
-perfil 7 atributo57 4 8 12 16 20 24 28
-perfil 7 atributo58 4 8 12 16 20 24 28
-perfil 7 atributo59 3 6 9 12 15 18 21
-perfil 7 atributo60 2 4 6 8 10 12 14
-perfil 7 atributo61 2 4 6 8 10 12 14
-perfil 7 atributo62 2 4 6 8 10 12 14
-perfil 7 atributo63 3 6 9 12 15 18 21
+perfil 7 atributo50 6 12 18 24 30 36 42
+perfil 7 atributo51 6 12 18 24 30 36 42
+perfil 7 atributo52 6 12 18 24 30 36 42
+perfil 7 atributo53 5 2 3 4 1
+perfil 7 atributo54 2 4 6 8 10 12 14
+perfil 7 atributo55 3 2 1 4
+perfil 7 atributo56 5 10 15 20 25 30 35
+perfil 7 atributo57 6 12 18 24 30 36 42
+perfil 7 atributo58 6 12 18 24 30 36 42
+perfil 7 atributo59 5 10 15 20 25 30
+perfil 7 atributo60 6 12 18 24 30 36 42
+perfil 7 atributo61 6 12 18 24 30 36 42
+perfil 7 atributo62 6 12 18 24 30 36 42
+perfil 7 atributo63 6 12 18 24 30 36 42
 perfil 8 atributo1 3 6 9 12 15
 perfil 8 atributo2 5 10 15 20 25 30
 perfil 8 atributo3 5 10 15 20 25 30
@@ -1219,48 +1219,48 @@ perfil 8 atributo18 6 12 18 24 30 36 42
 perfil 8 atributo19 6 12 18 24 30 36 42
 perfil 8 atributo20 6 12 18 24 30 36 42
 perfil 8 atributo21 4 8 12 16 20 24 28
-perfil 8 atributo22 3 6 9 12 15 18 21
-perfil 8 atributo23 4 2 1 3
-perfil 8 atributo24 3 2 3 1
+perfil 8 atributo22 6 12 18 24 30 36 42
+perfil 8 atributo23 3 3 2 1
+perfil 8 atributo24 3 1 2 2
 perfil 8 atributo25 5 3 2 4 1
-perfil 8 atributo26 0 0 0 0 0 0 0
-perfil 8 atributo27 3 6 9 12 15 18
-perfil 8 atributo28 4 8 12 16 20 24
+perfil 8 atributo26 5 10 15 20 25 30 35
+perfil 8 atributo27 5 10 15 20 25 30
+perfil 8 atributo28 5 10 15 20 25 30
 perfil 8 atributo29 3 2 1
-perfil 8 atributo30 4 8 12 16 20 24 28
-perfil 8 atributo31 3 6 9 12 15 18
+perfil 8 atributo30 6 12 18 24 30 36 42
+perfil 8 atributo31 4 8 12 16 20 24
 perfil 8 atributo32 3 3 1 2
-perfil 8 atributo33 2 3 1 2
-perfil 8 atributo34 2 4 6 8 10 12
-perfil 8 atributo35 3 4 2 1
-perfil 8 atributo36 3 6 9 12 15 18 21
+perfil 8 atributo33 3 3 1 2
+perfil 8 atributo34 5 10 15 20 25 30
+perfil 8 atributo35 2 2 2 1
+perfil 8 atributo36 6 12 18 24 30 36 42
 perfil 8 atributo37 5 10 15 20 25 30
 perfil 8 atributo38 3 1 2
 perfil 8 atributo39 3 1 2
-perfil 8 atributo40 5 10 15 20 25 30 35
+perfil 8 atributo40 6 12 18 24 30 36 42
 perfil 8 atributo41 5 10 15 20 25 30
 perfil 8 atributo42 5 10 15 20 25 30 35
-perfil 8 atributo43 5 10 15 20 25 30 35
-perfil 8 atributo44 2 4 6 8 10 12 14
-perfil 8 atributo45 6 12 18 24 30 36 42
-perfil 8 atributo46 4 3 2 1 
+perfil 8 atributo43 6 12 18 24 30 36 42
+perfil 8 atributo44 4 8 12 16 20 24 28
+perfil 8 atributo45 5 10 15 20 25 30 35
+perfil 8 atributo46 2 2 2 1 
 perfil 8 atributo47 6 12 18 24 30 36 42
-perfil 8 atributo48 4 8 12 16 20 24 28
+perfil 8 atributo48 6 12 18 24 30 36 42
 perfil 8 atributo49 6 12 18 24 30 36 42
-perfil 8 atributo50 0 0 0 0 0 0 0
-perfil 8 atributo51 2 4 6 8 10 12 14
-perfil 8 atributo52 0 0 0 0 0 0 0
-perfil 8 atributo53 5 3 1 4 2
-perfil 8 atributo54 0 0 0 0 0 0 0
-perfil 8 atributo55 4 2 3 1
-perfil 8 atributo56 0 0 0 0 0 0 0
-perfil 8 atributo57 3 6 9 12 15 18 21
+perfil 8 atributo50 2 4 6 8 10 12 14
+perfil 8 atributo51 3 6 9 12 15 18 21
+perfil 8 atributo52 5 10 15 20 25 30 35
+perfil 8 atributo53 3 3 3 2 1
+perfil 8 atributo54 5 10 15 20 25 30 35
+perfil 8 atributo55 2 1 2 3
+perfil 8 atributo56 2 4 6 8 10 12 14
+perfil 8 atributo57 4 8 12 16 20 24 28
 perfil 8 atributo58 3 6 9 12 15 18 21
-perfil 8 atributo59 5 10 15 20 25 30 35
-perfil 8 atributo60 3 6 9 12 15 18 21
-perfil 8 atributo61 0 0 0 0 0 0 0
-perfil 8 atributo62 0 0 0 0 0 0 0
-perfil 8 atributo63 3 6 9 12 15 18 21
+perfil 8 atributo59 5 10 15 20 25 30
+perfil 8 atributo60 5 10 15 20 25 30 35
+perfil 8 atributo61 5 10 15 20 25 30 35
+perfil 8 atributo62 5 10 15 20 25 30 35
+perfil 8 atributo63 4 8 12 16 20 24 28
 perfil 9 atributo1 2 4 6 8 10
 perfil 9 atributo2 5 10 15 20 25 30
 perfil 9 atributo3 5 10 15 20 25 30
@@ -1282,48 +1282,48 @@ perfil 9 atributo18 5 10 15 20 25 30 35
 perfil 9 atributo19 6 12 18 24 30 36 42
 perfil 9 atributo20 6 12 18 24 30 36 42
 perfil 9 atributo21 4 8 12 16 20 24 28
-perfil 9 atributo22 2 4 6 8 10 12 14
-perfil 9 atributo23 4 2 3 1
-perfil 9 atributo24 4 2 3 1
-perfil 9 atributo25 5 3 1 4 2
-perfil 9 atributo26 2 4 6 8 10 12 14 
-perfil 9 atributo27 4 8 12 16 20 24
-perfil 9 atributo28 4 8 12 16 20 24
-perfil 9 atributo29 0 0 0
-perfil 9 atributo30 5 10 15 20 25 30 35
+perfil 9 atributo22 6 12 18 24 30 36 42
+perfil 9 atributo23 3 3 1 2
+perfil 9 atributo24 3 3 2 1
+perfil 9 atributo25 5 4 3 2 1
+perfil 9 atributo26 4 8 12 16 20 24 28
+perfil 9 atributo27 5 10 15 20 25 30
+perfil 9 atributo28 5 10 15 20 25 30
+perfil 9 atributo29 3 2 1
+perfil 9 atributo30 6 12 18 24 30 36 42
 perfil 9 atributo31 5 10 15 20 25 30
 perfil 9 atributo32 3 3 1 2
-perfil 9 atributo33 3 4 1 2
-perfil 9 atributo34 3 6 9 12 15 18
+perfil 9 atributo33 3 4 2 1
+perfil 9 atributo34 5 10 15 20 25 30
 perfil 9 atributo35 4 3 2 1
-perfil 9 atributo36 3 6 9 10 15 18 21
-perfil 9 atributo37 4 8 12 16 20 24
-perfil 9 atributo38 0 0 0
-perfil 9 atributo39 0 0 0
-perfil 9 atributo40 5 10 15 20 25 30 35
-perfil 9 atributo41 4 8 12 16 20 24
-perfil 9 atributo42 3 6 9 10 15 18 21
-perfil 9 atributo43 3 6 9 10 15 18 21
-perfil 9 atributo44 0 0 0 0 0 0 0
-perfil 9 atributo45 4 8 12 16 20 24 28
+perfil 9 atributo36 6 12 18 24 30 36 42
+perfil 9 atributo37 5 10 15 20 25 30
+perfil 9 atributo38 3 1 2
+perfil 9 atributo39 3 1 2
+perfil 9 atributo40 6 12 18 24 30 36 42
+perfil 9 atributo41 5 10 15 20 25 30
+perfil 9 atributo42 6 12 18 24 30 36 42
+perfil 9 atributo43 6 12 18 24 30 36 42
+perfil 9 atributo44 4 8 12 16 20 24 28
+perfil 9 atributo45 6 12 18 24 30 36 42
 perfil 9 atributo46 4 3 2 1
-perfil 9 atributo47 5 10 15 20 25 30 35
-perfil 9 atributo48 4 8 12 16 20 24 28
+perfil 9 atributo47 6 12 18 24 30 36 42
+perfil 9 atributo48 6 12 18 24 30 36 42
 perfil 9 atributo49 6 12 18 24 30 36 42
-perfil 9 atributo50 0 0 0 0 0 0 0
-perfil 9 atributo51 0 0 0 0 0 0 0
-perfil 9 atributo52 2 4 6 8 10 12 14 
-perfil 9 atributo53 0 0 0 0 0
-perfil 9 atributo54 4 8 12 16 20 24 28
-perfil 9 atributo55 4 1 2 3
-perfil 9 atributo56 2 4 6 8 10 12 14
-perfil 9 atributo57 2 4 6 8 10 12 14 
-perfil 9 atributo58 2 4 6 8 10 12 14
-perfil 9 atributo59 4 8 12 16 20 24 28
-perfil 9 atributo60 4 8 12 16 20 24 28
-perfil 9 atributo61 3 6 9 12 15 18 21
-perfil 9 atributo62 3 6 9 12 15 18 21
-perfil 9 atributo63 2 4 6 8 10 12 14
+perfil 9 atributo50 6 12 18 24 30 36 42
+perfil 9 atributo51 6 12 18 24 30 36 42
+perfil 9 atributo52 6 12 18 24 30 36 42
+perfil 9 atributo53 5 2 4 3 1
+perfil 9 atributo54 6 12 18 24 30 36 42
+perfil 9 atributo55 2 4 1 3
+perfil 9 atributo56 4 8 12 16 20 24 28
+perfil 9 atributo57 4 8 12 16 20 24 28
+perfil 9 atributo58 6 12 18 24 30 36 42
+perfil 9 atributo59 5 10 15 20 25 30
+perfil 9 atributo60 6 12 18 24 30 36 42
+perfil 9 atributo61 6 12 18 24 30 36 42
+perfil 9 atributo62 6 12 18 24 30 36 42
+perfil 9 atributo63 6 12 18 24 30 36 42
 perfil 10 atributo1 2 4 6 8 10
 perfil 10 atributo2 5 10 15 20 25 30
 perfil 10 atributo3 5 10 15 20 25 30
@@ -1345,48 +1345,48 @@ perfil 10 atributo18 6 12 18 24 30 36 42
 perfil 10 atributo19 6 12 18 24 30 36 42
 perfil 10 atributo20 6 12 18 24 30 36 42
 perfil 10 atributo21 2 4 6 8 10 12 14
-perfil 10 atributo22 3 6 9 12 15 18 21
-perfil 10 atributo23 4 3 2 1
-perfil 10 atributo24 4 2 1 3
-perfil 10 atributo25 5 2 3 4 1
+perfil 10 atributo22 2 4 6 8 10 12 14
+perfil 10 atributo23 4 3 1 2
+perfil 10 atributo24 4 2 3 1
+perfil 10 atributo25 5 2 4 3 1
 perfil 10 atributo26 0 0 0 0 0 0 0
-perfil 10 atributo27 1 2 3 4 5 6
-perfil 10 atributo28 3 6 9 12 15 18
-perfil 10 atributo29 3 2 1
-perfil 10 atributo30 4 8 12 16 20 24 28
-perfil 10 atributo31 2 4 6 8 10 12
-perfil 10 atributo32 2 4 1 3
+perfil 10 atributo27 5 10 15 20 25 30
+perfil 10 atributo28 5 10 15 20 25 30
+perfil 10 atributo29 2 3 1
+perfil 10 atributo30 6 12 18 24 30 36 42
+perfil 10 atributo31 5 10 15 20 25 30
+perfil 10 atributo32 3 3 1 2
 perfil 10 atributo33 4 3 2 1
-perfil 10 atributo34 3 6 9 12 15 18
-perfil 10 atributo35 0 0 0 0
-perfil 10 atributo36 3 6 9 12 15 18 21
-perfil 10 atributo37 2 4 8 10 12 14
+perfil 10 atributo34 5 10 15 20 25 30
+perfil 10 atributo35 2 2 2 1
+perfil 10 atributo36 6 12 18 24 30 36 42
+perfil 10 atributo37 5 10 15 20 25 30
 perfil 10 atributo38 3 1 2
 perfil 10 atributo39 3 1 2
 perfil 10 atributo40 6 12 18 24 30 36 42
-perfil 10 atributo41 3 6 9 12 15 18
-perfil 10 atributo42 3 6 9 12 15 18 21
-perfil 10 atributo43 2 4 8 10 12 14 18
-perfil 10 atributo44 2 4 8 10 12 14 18
-perfil 10 atributo45 4 8 12 16 20 24 28
+perfil 10 atributo41 5 10 15 20 25 30
+perfil 10 atributo42 6 12 18 24 30 36 42
+perfil 10 atributo43 6 12 18 24 30 36 42
+perfil 10 atributo44 5 10 15 20 25 30 35
+perfil 10 atributo45 6 12 18 24 30 36 42
 perfil 10 atributo46 4 3 2 1
 perfil 10 atributo47 6 12 18 24 30 36 42
-perfil 10 atributo48 5 10 15 20 25 30 35
+perfil 10 atributo48 6 12 18 24 30 36 42
 perfil 10 atributo49 6 12 18 24 30 36 42
-perfil 10 atributo50 0 0 0 0 0 0 0
-perfil 10 atributo51 3 6 9 12 15 18 21
-perfil 10 atributo52 3 6 9 12 15 18 21
-perfil 10 atributo53 5 1 3 4 2
-perfil 10 atributo54 3 6 9 12 15 18 21
-perfil 10 atributo55 4 3 2 1
-perfil 10 atributo56 0 0 0 0 0 0 0
-perfil 10 atributo57 4 8 12 16 20 24 28
-perfil 10 atributo58 4 8 12 16 20 24 28
-perfil 10 atributo59 2 4 6 8 10 12 14
-perfil 10 atributo60 2 4 6 8 10 12 14
-perfil 10 atributo61 2 4 6 8 10 12 14
-perfil 10 atributo62 2 4 6 8 10 12 14
-perfil 10 atributo63 4 8 12 16 20 24 28
+perfil 10 atributo50 4 8 12 16 20 24 28
+perfil 10 atributo51 6 12 18 24 30 36 42
+perfil 10 atributo52 6 12 18 24 30 36 42
+perfil 10 atributo53 5 2 4 3 1
+perfil 10 atributo54 6 12 18 24 30 36 42
+perfil 10 atributo55 0 0 0 0
+perfil 10 atributo56 5 10 15 20 25 30 35
+perfil 10 atributo57 6 12 18 24 30 36 42
+perfil 10 atributo58 6 12 18 24 30 36 42
+perfil 10 atributo59 5 10 15 20 25 30
+perfil 10 atributo60 6 12 18 24 30 36 42
+perfil 10 atributo61 6 12 18 24 30 36 42
+perfil 10 atributo62 6 12 18 24 30 36 42
+perfil 10 atributo63 6 12 18 24 30 36 42
 perfil 11 atributo1 2 4 6 8 10
 perfil 11 atributo2 4 8 12 16 20 24
 perfil 11 atributo3 4 8 12 16 20 24
@@ -1409,46 +1409,46 @@ perfil 11 atributo19 6 12 18 24 30 36 42
 perfil 11 atributo20 6 12 18 24 30 36 42
 perfil 11 atributo21 4 8 12 16 20 24 28
 perfil 11 atributo22 6 12 18 24 30 36 42
-perfil 11 atributo23 3 1 2 4
+perfil 11 atributo23 4 3 1 2
 perfil 11 atributo24 4 3 2 1
-perfil 11 atributo25 5 2 1 3 4
-perfil 11 atributo26 2 4 6 8 10 12 14
-perfil 11 atributo27 3 6 9 12 15 18
-perfil 11 atributo28 4 8 12 16 20 24
-perfil 11 atributo29 3 1 2
-perfil 11 atributo30 4 8 12 16 20 24 28
-perfil 11 atributo31 3 6 9 12 15 18
-perfil 11 atributo32 4 3 1 2
+perfil 11 atributo25 5 4 3 1 2
+perfil 11 atributo26 4 8 12 16 20 24 28
+perfil 11 atributo27 5 10 15 20 25 30
+perfil 11 atributo28 5 10 15 20 25 30
+perfil 11 atributo29 2 3 1
+perfil 11 atributo30 6 12 18 24 30 36 42
+perfil 11 atributo31 5 10 15 20 25 30
+perfil 11 atributo32 3 4 1 2
 perfil 11 atributo33 4 3 2 1
 perfil 11 atributo34 5 10 15 20 25 30
-perfil 11 atributo35 3 4 2 1
-perfil 11 atributo36 2 4 6 8 10 12 14
-perfil 11 atributo37 3 6 9 12 15 18
-perfil 11 atributo38 0 0 0
-perfil 11 atributo39 3 2 1
-perfil 11 atributo40 3 6 9 12 15 18 21
-perfil 11 atributo41 2 4 6 8 10 12
-perfil 11 atributo42 3 6 9 12 15 18 21
-perfil 11 atributo43 0 0 0 0 0 0 0
-perfil 11 atributo44 3 6 9 12 15 18 21
-perfil 11 atributo45 4 8 12 16 20 24 28
-perfil 11 atributo46 4 3 2 1
-perfil 11 atributo47 5 10 15 20 25 30 35
-perfil 11 atributo48 4 8 12 16 20 24 28
-perfil 11 atributo49 5 10 15 20 25 30 35
-perfil 11 atributo50 0 0 0 0 0 0 0
-perfil 11 atributo51 2 4 6 8 10 12 14
-perfil 11 atributo52 4 8 12 16 20 24 28
+perfil 11 atributo35 3 3 2 1
+perfil 11 atributo36 6 12 18 24 30 36 42
+perfil 11 atributo37 5 10 15 20 25 30
+perfil 11 atributo38 3 1 2
+perfil 11 atributo39 3 1 2
+perfil 11 atributo40 6 12 18 24 30 36 42
+perfil 11 atributo41 5 10 15 20 25 30
+perfil 11 atributo42 6 12 18 24 30 36 42
+perfil 11 atributo43 6 12 18 24 30 36 42
+perfil 11 atributo44 4 8 12 16 20 24 28
+perfil 11 atributo45 5 10 15 20 25 30 35
+perfil 11 atributo46 2 2 2 1
+perfil 11 atributo47 6 12 18 24 30 36 42
+perfil 11 atributo48 6 12 18 24 30 36 42
+perfil 11 atributo49 6 12 18 24 30 36 42
+perfil 11 atributo50 4 8 12 16 20 24 28
+perfil 11 atributo51 6 12 18 24 30 36 42
+perfil 11 atributo52 6 12 18 24 30 36 42
 perfil 11 atributo53 5 4 3 2 1
-perfil 11 atributo54 0 0 0 0 0 0 0
-perfil 11 atributo55 4 2 3 1
+perfil 11 atributo54 6 12 18 24 30 36 42
+perfil 11 atributo55 0 0 0 0
 perfil 11 atributo56 2 4 6 8 10 12 14
-perfil 11 atributo57 4 8 12 16 20 24 28
-perfil 11 atributo58 4 8 12 16 20 24 28
-perfil 11 atributo59 0 0 0 0 0 0 0
-perfil 11 atributo60 4 8 12 16 20 24 28
-perfil 11 atributo61 0 0 0 0 0 0 0
-perfil 11 atributo62 0 0 0 0 0 0 0
+perfil 11 atributo57 2 4 6 8 10 12 14
+perfil 11 atributo58 6 12 18 24 30 36 42
+perfil 11 atributo59 5 10 15 20 25 30
+perfil 11 atributo60 5 10 15 20 25 30 35
+perfil 11 atributo61 6 12 18 24 30 36 42
+perfil 11 atributo62 4 8 12 16 20 24 28
 perfil 11 atributo63 4 8 12 16 20 24 28
 perfil 12 atributo1 4 8 12 16 20
 perfil 12 atributo2 3 6 9 12 15 18
@@ -1471,48 +1471,48 @@ perfil 12 atributo18 6 12 18 24 30 36 42
 perfil 12 atributo19 6 12 18 24 30 36 42
 perfil 12 atributo20 6 12 18 24 30 36 42
 perfil 12 atributo21 3 6 9 12 15 18 21
-perfil 12 atributo22 5 10 15 20 25 30 35
-perfil 12 atributo23 4 1 2 3
+perfil 12 atributo22 6 12 18 24 30 36 42
+perfil 12 atributo23 4 3 1 2
 perfil 12 atributo24 4 2 3 1
-perfil 12 atributo25 4 2 2 3 1
-perfil 12 atributo26 3 6 9 12 15 18 21
-perfil 12 atributo27 4 8 12 16 20 24
-perfil 12 atributo28 3 6 9 12 15 18
+perfil 12 atributo25 5 4 3 1 2
+perfil 12 atributo26 4 8 12 16 20 24 28
+perfil 12 atributo27 5 10 15 20 25 30
+perfil 12 atributo28 5 10 15 20 25 30
 perfil 12 atributo29 3 2 1
-perfil 12 atributo30 3 6 9 12 15 18 21
-perfil 12 atributo31 4 8 12 16 20 24
-perfil 12 atributo32 2 4 1 3
+perfil 12 atributo30 6 12 18 24 30 36 42
+perfil 12 atributo31 5 10 15 20 25 30
+perfil 12 atributo32 3 3 1 2
 perfil 12 atributo33 4 3 2 1
 perfil 12 atributo34 4 8 12 16 20 24
 perfil 12 atributo35 4 3 2 1
-perfil 12 atributo36 2 4 6 8 10 12 14
-perfil 12 atributo37 3 6 9 12 15 18
+perfil 12 atributo36 6 12 18 24 30 36 42
+perfil 12 atributo37 5 10 15 20 25 30
 perfil 12 atributo38 3 1 2
 perfil 12 atributo39 3 1 2
-perfil 12 atributo40 3 6 9 12 15 18 21
+perfil 12 atributo40 6 12 18 24 30 36 42
 perfil 12 atributo41 5 10 15 20 25 30
-perfil 12 atributo42 3 6 9 12 15 18 21
-perfil 12 atributo43 2 4 6 8 10 12 14
-perfil 12 atributo44 2 4 6 8 10 12 14
-perfil 12 atributo45 4 8 12 16 20 24 28
+perfil 12 atributo42 6 12 18 24 30 36 42
+perfil 12 atributo43 6 12 18 24 30 36 42
+perfil 12 atributo44 5 10 15 20 25 30 35
+perfil 12 atributo45 6 12 18 24 30 36 42
 perfil 12 atributo46 4 3 2 1
 perfil 12 atributo47 6 12 18 24 30 36 42
-perfil 12 atributo48 4 8 12 16 20 24 28
+perfil 12 atributo48 6 12 18 24 30 36 42
 perfil 12 atributo49 6 12 18 24 30 36 42
-perfil 12 atributo50 3 6 9 12 15 18 21
-perfil 12 atributo51 0 0 0 0 0 0 0
-perfil 12 atributo52 0 0 0 0 0 0 0
-perfil 12 atributo53 5 4 3 2 1
-perfil 12 atributo54 4 8 12 16 20 24 28
-perfil 12 atributo55 4 1 2 3
-perfil 12 atributo56 2 4 6 8 10 12 14
-perfil 12 atributo57 3 6 9 12 15 18 21
-perfil 12 atributo58 3 6 9 12 15 18 21
-perfil 12 atributo59 3 6 9 12 15 18 21
-perfil 12 atributo60 4 8 12 16 20 24 28
-perfil 12 atributo61 0 0 0 0 0 0 0
-perfil 12 atributo62 0 0 0 0 0 0 0
-perfil 12 atributo63 3 6 9 12 15 18 21
+perfil 12 atributo50 6 12 18 24 30 36 42
+perfil 12 atributo51 6 12 18 24 30 36 42
+perfil 12 atributo52 6 12 18 24 30 36 42
+perfil 12 atributo53 5 2 3 4 1
+perfil 12 atributo54 6 12 18 24 30 36 42
+perfil 12 atributo55 2 3 1 4
+perfil 12 atributo56 3 6 9 12 15 18 21
+perfil 12 atributo57 6 12 18 24 30 36 42
+perfil 12 atributo58 6 12 18 24 30 36 42
+perfil 12 atributo59 5 10 15 20 25 30
+perfil 12 atributo60 6 12 18 24 30 36 42
+perfil 12 atributo61 6 12 18 24 30 36 42
+perfil 12 atributo62 4 8 12 16 20 24 28
+perfil 12 atributo63 6 12 18 24 30 36 42
 perfil 13 atributo1 2 4 6 8 10
 perfil 13 atributo2 5 10 15 20 25 30
 perfil 13 atributo3 5 10 15 20 25 30
@@ -1534,48 +1534,48 @@ perfil 13 atributo18 6 12 18 24 30 36 42
 perfil 13 atributo19 6 12 18 24 30 36 42
 perfil 13 atributo20 6 12 18 24 30 36 42
 perfil 13 atributo21 6 12 18 24 30 36 42
-perfil 13 atributo22 6 12 18 24 30 36 42
-perfil 13 atributo23 4 2 1 3
-perfil 13 atributo24 4 1 2 3
-perfil 13 atributo25 5 4 3 2 1
+perfil 13 atributo22 4 8 12 16 20 24 28
+perfil 13 atributo23 3 4 1 2
+perfil 13 atributo24 4 2 3 1
+perfil 13 atributo25 5 3 2 1 4
 perfil 13 atributo26 4 8 12 16 20 24 28
-perfil 13 atributo27 3 6 9 12 15 18
-perfil 13 atributo28 3 6 9 12 15 18
+perfil 13 atributo27 5 10 15 20 25 30
+perfil 13 atributo28 5 10 15 20 25 30
 perfil 13 atributo29 3 2 1
-perfil 13 atributo30 5 10 15 20 25 30 35
+perfil 13 atributo30 6 12 18 24 30 36 42
 perfil 13 atributo31 5 10 15 20 25 30
-perfil 13 atributo32 2 4 1 3
-perfil 13 atributo33 3 4 2 1
+perfil 13 atributo32 3 3 1 2
+perfil 13 atributo33 4 3 2 1
 perfil 13 atributo34 4 8 12 16 20 24
-perfil 13 atributo35 3 4 2 1
-perfil 13 atributo36 5 10 15 20 25 30 35
-perfil 13 atributo37 4 8 12 16 20 24
-perfil 13 atributo38 3 2 1
-perfil 13 atributo39 3 2 1
-perfil 13 atributo40 4 8 12 16 20 24 28
-perfil 13 atributo41 3 6 9 12 15 18
-perfil 13 atributo42 4 8 12 16 20 24 28
-perfil 13 atributo43 0 0 0 0 0 0 0
-perfil 13 atributo44 2 4 6 8 10 12 14
-perfil 13 atributo45 3 6 9 12 15 18 21
-perfil 13 atributo46 4 2 3 1
-perfil 13 atributo47 5 10 15 20 25 30 35
-perfil 13 atributo48 3 6 9 12 15 18 21
+perfil 13 atributo35 4 2 3 1
+perfil 13 atributo36 6 12 18 24 30 36 42
+perfil 13 atributo37 5 10 15 20 25 30
+perfil 13 atributo38 3 1 2
+perfil 13 atributo39 3 1 2
+perfil 13 atributo40 6 12 18 24 30 36 42
+perfil 13 atributo41 4 8 12 16 20 24
+perfil 13 atributo42 6 12 18 24 30 36 42
+perfil 13 atributo43 6 12 18 24 30 36 42
+perfil 13 atributo44 5 10 15 20 25 30 35
+perfil 13 atributo45 6 12 18 24 30 36 42
+perfil 13 atributo46 2 2 2 1
+perfil 13 atributo47 6 12 18 24 30 36 42
+perfil 13 atributo48 6 12 18 24 30 36 42
 perfil 13 atributo49 6 12 18 24 30 36 42
-perfil 13 atributo50 2 4 6 8 10 12 14
-perfil 13 atributo51 0 0 0 0 0 0 0
-perfil 13 atributo52 2 4 6 8 10 12 14
-perfil 13 atributo53 0 0 0 0 0
-perfil 13 atributo54 3 6 9 12 15 18 21
-perfil 13 atributo55 0 0 0 0
-perfil 13 atributo56 0 0 0 0 0 0 0
-perfil 13 atributo57 0 0 0 0 0 0 0
-perfil 13 atributo58 2 4 6 8 10 12 14
-perfil 13 atributo59 2 4 6 8 10 12 14
-perfil 13 atributo60 2 4 6 8 10 12 14
-perfil 13 atributo61 3 6 9 12 15 18 21
-perfil 13 atributo62 3 6 9 12 15 18 21
-perfil 13 atributo63 0 0 0 0 0 0 0
+perfil 13 atributo50 4 8 12 16 20 24 28
+perfil 13 atributo51 6 12 18 24 30 36 42
+perfil 13 atributo52 6 12 18 24 30 36 42
+perfil 13 atributo53 5 4 3 2 1
+perfil 13 atributo54 6 12 18 24 30 36 42
+perfil 13 atributo55 2 4 1 3
+perfil 13 atributo56 4 8 12 16 20 24 28
+perfil 13 atributo57 6 12 18 24 30 36 42
+perfil 13 atributo58 6 12 18 24 30 36 42
+perfil 13 atributo59 5 10 15 20 25 30
+perfil 13 atributo60 6 12 18 24 30 36 42
+perfil 13 atributo61 6 12 18 24 30 36 42
+perfil 13 atributo62 6 12 18 24 30 36 42
+perfil 13 atributo63 6 12 18 24 30 36 42
 perfil 14 atributo1 2 4 6 8 10
 perfil 14 atributo2 5 10 15 20 25 30
 perfil 14 atributo3 5 10 15 20 25 30
@@ -1598,47 +1598,47 @@ perfil 14 atributo19 6 12 18 24 30 36 42
 perfil 14 atributo20 6 12 18 24 30 36 42
 perfil 14 atributo21 4 8 12 16 20 24 28
 perfil 14 atributo22 4 8 12 16 20 24 28
-perfil 14 atributo23 3 1 2 3
-perfil 14 atributo24 3 1 3 2
-perfil 14 atributo25 0 0 0 0 0
-perfil 14 atributo26 0 0 0 0 0 0 0
-perfil 14 atributo27 2 4 6 8 10 12
-perfil 14 atributo28 3 6 9 12 15 18
+perfil 14 atributo23 3 3 1 2
+perfil 14 atributo24 4 2 3 1
+perfil 14 atributo25 5 4 3 1 2
+perfil 14 atributo26 3 6 9 12 15 18 21
+perfil 14 atributo27 5 10 15 20 25 30
+perfil 14 atributo28 5 10 15 20 25 30
 perfil 14 atributo29 3 2 1
-perfil 14 atributo30 3 6 9 12 15 18 21
+perfil 14 atributo30 6 12 18 24 30 36 42
 perfil 14 atributo31 4 8 12 16 20 24
-perfil 14 atributo32 4 3 2 1
-perfil 14 atributo33 4 3 2 1
-perfil 14 atributo34 5 10 15 20 25 30
-perfil 14 atributo35 3 4 2 1
-perfil 14 atributo36 2 4 6 8 10 12 14
+perfil 14 atributo32 3 4 1 2
+perfil 14 atributo33 4 2 3 1
+perfil 14 atributo34 4 8 12 16 20 24
+perfil 14 atributo35 3 3 2 1
+perfil 14 atributo36 5 10 15 20 25 30 35
 perfil 14 atributo37 5 10 15 20 25 30
-perfil 14 atributo38 3 2 1
+perfil 14 atributo38 3 1 2
 perfil 14 atributo39 3 1 2
-perfil 14 atributo40 3 6 9 12 15 18 21
-perfil 14 atributo41 4 8 12 16 20 24
-perfil 14 atributo42 3 6 9 12 15 18 21
-perfil 14 atributo43 3 6 9 12 15 18 21
-perfil 14 atributo44 2 4 6 8 10 12 14
-perfil 14 atributo45 3 6 9 12 15 18 21
-perfil 14 atributo46 4 3 2 1
-perfil 14 atributo47 5 10 15 20 25 30 35
-perfil 14 atributo48 4 8 12 16 20 24 28
+perfil 14 atributo40 6 12 18 24 30 36 42
+perfil 14 atributo41 5 10 15 20 25 30
+perfil 14 atributo42 6 12 18 24 30 36 42
+perfil 14 atributo43 6 12 18 24 30 36 42
+perfil 14 atributo44 3 6 9 12 15 18 21
+perfil 14 atributo45 6 12 18 24 30 36 42
+perfil 14 atributo46 2 2 2 1
+perfil 14 atributo47 6 12 18 24 30 36 42
+perfil 14 atributo48 6 12 18 24 30 36 42
 perfil 14 atributo49 6 12 18 24 30 36 42
-perfil 14 atributo50 2 4 6 8 10 12 14
-perfil 14 atributo51 2 4 6 8 10 12 14
-perfil 14 atributo52 0 0 0 0 0 0 0
-perfil 14 atributo53 0 0 0 0 0
-perfil 14 atributo54 3 6 9 12 15 18 21
-perfil 14 atributo55 4 2 1 3
-perfil 14 atributo56 2 4 6 8 10 12 14
-perfil 14 atributo57 3 6 9 12 15 18 21
-perfil 14 atributo58 3 6 9 12 15 18 21
-perfil 14 atributo59 4 8 12 16 20 24 28
-perfil 14 atributo60 0 0 0 0 0 0 0
-perfil 14 atributo61 2 4 6 8 10 12 14
-perfil 14 atributo62 2 4 6 8 10 12 14
-perfil 14 atributo63 3 6 9 12 15 18 21
+perfil 14 atributo50 6 12 18 24 30 36 42
+perfil 14 atributo51 6 12 18 24 30 36 42
+perfil 14 atributo52 6 12 18 24 30 36 42
+perfil 14 atributo53 5 2 4 3 1
+perfil 14 atributo54 6 12 18 24 30 36 42
+perfil 14 atributo55 0 0 0 0
+perfil 14 atributo56 5 10 15 20 25 30 35
+perfil 14 atributo57 6 12 18 24 30 36 42
+perfil 14 atributo58 6 12 18 24 30 36 42
+perfil 14 atributo59 5 10 15 20 25 30
+perfil 14 atributo60 6 12 18 24 30 36 42
+perfil 14 atributo61 6 12 18 24 30 36 42
+perfil 14 atributo62 6 12 18 24 30 36 42
+perfil 14 atributo63 6 12 18 24 30 36 42
 perfil 15 atributo1 2 4 6 8 10
 perfil 15 atributo2 5 10 15 20 25 30
 perfil 15 atributo3 3 6 9 12 15 18
@@ -1660,48 +1660,48 @@ perfil 15 atributo18 6 12 18 24 30 36 42
 perfil 15 atributo19 6 12 18 24 30 36 42
 perfil 15 atributo20 6 12 18 24 30 36 42
 perfil 15 atributo21 4 8 12 16 20 24 28
-perfil 15 atributo22 4 8 12 16 20 24 28
-perfil 15 atributo23 4 2 1 3
-perfil 15 atributo24 4 1 3 2
-perfil 15 atributo25 5 3 2 1 4
-perfil 15 atributo26 5 10 15 20 25 30 35
+perfil 15 atributo22 6 12 18 24 30 36 42
+perfil 15 atributo23 3 3 1 2
+perfil 15 atributo24 4 2 3 1
+perfil 15 atributo25 5 4 3 1 2
+perfil 15 atributo26 4 8 12 16 20 24 28
 perfil 15 atributo27 5 10 15 20 25 30
-perfil 15 atributo28 4 8 12 16 20 24
-perfil 15 atributo29 3 1 2
-perfil 15 atributo30 4 8 12 16 20 24 28
-perfil 15 atributo31 4 8 12 16 20 24
-perfil 15 atributo32 3 4 1 2
-perfil 15 atributo33 4 3 1 2
-perfil 15 atributo34 3 6 9 12 15 18
+perfil 15 atributo28 5 10 15 20 25 30
+perfil 15 atributo29 3 2 1
+perfil 15 atributo30 6 12 18 24 30 36 42
+perfil 15 atributo31 5 10 15 20 25 30
+perfil 15 atributo32 3 3 1 2
+perfil 15 atributo33 4 3 2 1
+perfil 15 atributo34 5 10 15 20 25 30
 perfil 15 atributo35 4 3 2 1
-perfil 15 atributo36 3 6 9 12 15 18 21
+perfil 15 atributo36 6 12 18 24 30 36 42
 perfil 15 atributo37 5 10 15 20 25 30
 perfil 15 atributo38 3 1 2
 perfil 15 atributo39 3 1 2
-perfil 15 atributo40 5 10 15 20 25 30 35
+perfil 15 atributo40 6 12 18 24 30 36 42
 perfil 15 atributo41 5 10 15 20 25 30
-perfil 15 atributo42 5 10 15 20 25 30 35
-perfil 15 atributo43 0 0 0 0 0 0 0
-perfil 15 atributo44 2 4 6 8 10 12 14
-perfil 15 atributo45 0 0 0 0 0 0 0
-perfil 15 atributo46 4 3 2 1
-perfil 15 atributo47 5 10 15 20 25 30 35
-perfil 15 atributo48 4 8 12 16 20 24 28
+perfil 15 atributo42 6 12 18 24 30 36 42
+perfil 15 atributo43 6 12 18 24 30 36 42
+perfil 15 atributo44 4 8 12 16 20 24 28
+perfil 15 atributo45 6 12 18 24 30 36 42
+perfil 15 atributo46 2 3 3 1
+perfil 15 atributo47 6 12 18 24 30 36 42
+perfil 15 atributo48 6 12 18 24 30 36 42
 perfil 15 atributo49 6 12 18 24 30 36 42
-perfil 15 atributo50 2 4 6 8 10 12 14
-perfil 15 atributo51 2 4 6 8 10 12 14
-perfil 15 atributo52 2 4 6 8 10 12 14
-perfil 15 atributo53 5 4 2 3 1
-perfil 15 atributo54 5 10 15 20 25 30 35
-perfil 15 atributo55 4 1 2 3
-perfil 15 atributo56 3 6 9 12 15 18 21
-perfil 15 atributo57 0 0 0 0 0 0 0
-perfil 15 atributo58 3 6 9 12 15 18 21
-perfil 15 atributo59 3 6 9 12 15 18 21
-perfil 15 atributo60 3 6 9 12 15 18 21
-perfil 15 atributo61 0 0 0 0 0 0 0
-perfil 15 atributo62 0 0 0 0 0 0 0
-perfil 15 atributo63 0 0 0 0 0 0 0
+perfil 15 atributo50 4 8 12 16 20 24 28
+perfil 15 atributo51 6 12 18 24 30 36 42
+perfil 15 atributo52 6 12 18 24 30 36 42
+perfil 15 atributo53 5 4 3 2 1
+perfil 15 atributo54 6 12 18 24 30 36 42
+perfil 15 atributo55 0 0 0 0
+perfil 15 atributo56 4 8 12 16 20 24 28
+perfil 15 atributo57 6 12 18 24 30 36 42
+perfil 15 atributo58 6 12 18 24 30 36 42
+perfil 15 atributo59 5 10 15 20 25 30
+perfil 15 atributo60 6 12 18 24 30 36 42
+perfil 15 atributo61 6 12 18 24 30 36 42
+perfil 15 atributo62 3 6 9 12 15 18 21
+perfil 15 atributo63 6 12 18 24 30 36 42
 perfil 16 atributo1 2 4 6 8 10
 perfil 16 atributo2 5 10 15 20 25 30
 perfil 16 atributo3 5 10 15 20 25 30
@@ -1723,47 +1723,47 @@ perfil 16 atributo18 6 12 18 24 30 36 42
 perfil 16 atributo19 6 12 18 24 30 36 42
 perfil 16 atributo20 6 12 18 24 30 36 42
 perfil 16 atributo21 5 10 15 20 25 30 35 
-perfil 16 atributo22 3 6 9 12 15 18 21
-perfil 16 atributo23 4 2 1 3
-perfil 16 atributo24 4 1 2 3
-perfil 16 atributo25 5 3 2 1 4
-perfil 16 atributo26 4 8 12 16 20 24 28
-perfil 16 atributo27 3 6 9 12 15 18
+perfil 16 atributo22 2 4 6 8 10 12 14
+perfil 16 atributo23 2 2 2 1
+perfil 16 atributo24 2 2 2 1
+perfil 16 atributo25 5 3 2 4 1
+perfil 16 atributo26 0 0 0 0 0 0 0
+perfil 16 atributo27 5 10 15 20 25 30
 perfil 16 atributo28 5 10 15 20 25 30
-perfil 16 atributo29 3 2 1
-perfil 16 atributo30 4 8 12 16 20 24 28
-perfil 16 atributo31 4 8 12 16 20 24
+perfil 16 atributo29 2 2 1
+perfil 16 atributo30 6 12 18 24 30 36 42
+perfil 16 atributo31 5 10 15 20 25 30
 perfil 16 atributo32 3 4 1 2
-perfil 16 atributo33 4 3 2 1
-perfil 16 atributo34 2 4 6 8 10 12
-perfil 16 atributo35 4 3 2 1
-perfil 16 atributo36 4 8 12 16 20 24 28
+perfil 16 atributo33 3 3 2 1
+perfil 16 atributo34 3 6 9 12 15 18
+perfil 16 atributo35 4 3 1 2
+perfil 16 atributo36 6 12 18 24 30 36 42
 perfil 16 atributo37 5 10 15 20 25 30
-perfil 16 atributo38 3 1 2
-perfil 16 atributo39 3 2 1
-perfil 16 atributo40 3 6 9 12 15 18 21
+perfil 16 atributo38 3 2 1
+perfil 16 atributo39 3 1 2
+perfil 16 atributo40 6 12 18 24 30 36 42
 perfil 16 atributo41 3 6 9 12 15 18
-perfil 16 atributo42 3 6 9 12 15 18 21
-perfil 16 atributo43 3 6 9 12 15 18 21
-perfil 16 atributo44 2 4 6 8 10 12 14
-perfil 16 atributo45 2 4 6 8 10 12 14
-perfil 16 atributo46 4 3 2 1
+perfil 16 atributo42 6 12 18 24 30 36 42
+perfil 16 atributo43 6 12 18 24 30 36 42
+perfil 16 atributo44 4 8 12 16 20 24 28
+perfil 16 atributo45 4 8 12 16 20 24 28
+perfil 16 atributo46 2 2 2 1
 perfil 16 atributo47 6 12 18 24 30 36 42
-perfil 16 atributo48 5 10 15 20 25 30 35
+perfil 16 atributo48 6 12 18 24 30 36 42
 perfil 16 atributo49 6 12 18 24 30 36 42
 perfil 16 atributo50 2 4 6 8 10 12 14
-perfil 16 atributo51 2 4 6 8 10 12 14
-perfil 16 atributo52 0 0 0 0 0 0 0
-perfil 16 atributo53 0 0 0 0 0
-perfil 16 atributo54 4 8 12 16 20 24 28
-perfil 16 atributo55 4 3 2 1
-perfil 16 atributo56 3 6 9 12 15 18 21
-perfil 16 atributo57 3 6 9 12 15 18 21
-perfil 16 atributo58 3 6 9 12 15 18 21
-perfil 16 atributo59 5 10 15 20 25 30 35
-perfil 16 atributo60 2 4 6 8 10 12 14
-perfil 16 atributo61 2 4 6 8 10 12 14
-perfil 16 atributo62 2 4 6 8 10 12 14
+perfil 16 atributo51 6 12 18 24 30 36 42
+perfil 16 atributo52 6 12 18 24 30 36 42
+perfil 16 atributo53 5 2 3 4 1
+perfil 16 atributo54 6 12 18 24 30 36 42
+perfil 16 atributo55 4 1 2 3
+perfil 16 atributo56 0 0 0 0 0 0 0
+perfil 16 atributo57 4 8 12 16 20 24 28
+perfil 16 atributo58 6 12 18 24 30 36 42
+perfil 16 atributo59 5 10 15 20 25 30
+perfil 16 atributo60 6 12 18 24 30 36 42
+perfil 16 atributo61 6 12 18 24 30 36 42
+perfil 16 atributo62 4 8 12 16 20 24 28
 perfil 16 atributo63 3 6 9 12 15 18 21
 perfil 17 atributo1 2 4 6 8 10
 perfil 17 atributo2 4 8 12 16 20 24
@@ -1787,47 +1787,47 @@ perfil 17 atributo19 6 12 18 24 30 36 42
 perfil 17 atributo20 6 12 18 24 30 36 42
 perfil 17 atributo21 6 12 18 24 30 36 42
 perfil 17 atributo22 6 12 18 24 30 36 42
-perfil 17 atributo23 4 1 2 3
-perfil 17 atributo24 4 1 3 2
-perfil 17 atributo25 4 3 3 1 2
-perfil 17 atributo26 4 8 12 16 20 24 28
-perfil 17 atributo27 2 4 6 8 10 12
-perfil 17 atributo28 2 4 6 8 10 12
-perfil 17 atributo29 3 1 2
-perfil 17 atributo30 5 10 15 20 25 30 35
-perfil 17 atributo31 4 8 12 16 20 24
-perfil 17 atributo32 3 4 1 2
-perfil 17 atributo33 3 4 2 1
-perfil 17 atributo34 3 6 9 12 15 18
-perfil 17 atributo35 4 3 2 1
-perfil 17 atributo36 2 4 6 8 10 12 14
-perfil 17 atributo37 2 4 6 8 10 12
-perfil 17 atributo38 3 2 1
-perfil 17 atributo39 3 2 1
-perfil 17 atributo40 4 8 12 16 20 24 28
-perfil 17 atributo41 3 6 9 12 15 18
-perfil 17 atributo42 4 8 12 16 20 24 28
-perfil 17 atributo43 0 0 0 0 0 0 0
-perfil 17 atributo44 2 4 6 8 10 12 14
-perfil 17 atributo45 2 4 6 8 10 12 14
-perfil 17 atributo46 4 3 2 1
-perfil 17 atributo47 4 8 12 16 20 24 28
-perfil 17 atributo48 3 6 9 12 15 18 21
+perfil 17 atributo23 3 3 1 2
+perfil 17 atributo24 3 4 2 1
+perfil 17 atributo25 3 3 2 1 2
+perfil 17 atributo26 6 12 18 24 30 36 42
+perfil 17 atributo27 5 10 15 20 25 30
+perfil 17 atributo28 5 10 15 20 25 30
+perfil 17 atributo29 3 2 1
+perfil 17 atributo30 6 12 18 24 30 36 42
+perfil 17 atributo31 5 10 15 20 25 30
+perfil 17 atributo32 4 3 1 2
+perfil 17 atributo33 3 2 2 1
+perfil 17 atributo34 5 10 15 20 25 30
+perfil 17 atributo35 3 2 3 1
+perfil 17 atributo36 6 12 18 24 30 36 42
+perfil 17 atributo37 5 10 15 20 25 30
+perfil 17 atributo38 3 1 2
+perfil 17 atributo39 3 1 2
+perfil 17 atributo40 6 12 18 24 30 36 42
+perfil 17 atributo41 5 10 15 20 25 30
+perfil 17 atributo42 6 12 18 24 30 36 42
+perfil 17 atributo43 6 12 18 24 30 36 42
+perfil 17 atributo44 6 12 18 24 30 36 42
+perfil 17 atributo45 6 12 18 24 30 36 42
+perfil 17 atributo46 3 3 2 1
+perfil 17 atributo47 6 12 18 24 30 36 42
+perfil 17 atributo48 6 12 18 24 30 36 42
 perfil 17 atributo49 6 12 18 24 30 36 42
-perfil 17 atributo50 3 6 9 12 15 18 21
-perfil 17 atributo51 3 6 9 12 15 18 21
-perfil 17 atributo52 2 4 6 8 10 12 14
-perfil 17 atributo53 5 4 3 2 1
-perfil 17 atributo54 0 0 0 0 0 0 0
-perfil 17 atributo55 4 1 2 3
-perfil 17 atributo56 4 8 12 16 20 24 28
-perfil 17 atributo57 0 0 0 0 0 0 0
-perfil 17 atributo58 0 0 0 0 0 0 0
-perfil 17 atributo59 4 8 12 16 20 24 28
-perfil 17 atributo60 3 6 9 12 15 18 21
+perfil 17 atributo50 6 12 18 24 30 36 42
+perfil 17 atributo51 6 12 18 24 30 36 42
+perfil 17 atributo52 6 12 18 24 30 36 42
+perfil 17 atributo53 2 3 2 4 1
+perfil 17 atributo54 4 8 12 16 20 24 28
+perfil 17 atributo55 2 4 3 1
+perfil 17 atributo56 6 12 18 24 30 36 42
+perfil 17 atributo57 3 6 9 12 15 18 21
+perfil 17 atributo58 5 10 15 20 25 30 35
+perfil 17 atributo59 5 10 15 20 25 30
+perfil 17 atributo60 6 12 18 24 30 36 42
 perfil 17 atributo61 3 6 9 12 15 18 21
 perfil 17 atributo62 3 6 9 12 15 18 21
-perfil 17 atributo63 0 0 0 0 0 0 0
+perfil 17 atributo63 6 12 18 24 30 36 42
 perfil 18 atributo1 2 4 6 8 10
 perfil 18 atributo2 4 8 12 16 20 24
 perfil 18 atributo3 4 8 12 16 20 24
@@ -1849,48 +1849,48 @@ perfil 18 atributo18 5 10 15 20 25 30 35
 perfil 18 atributo19 6 12 18 24 30 36 42
 perfil 18 atributo20 6 12 18 24 30 36 42
 perfil 18 atributo21 5 10 15 20 25 30 35
-perfil 18 atributo22 2 4 6 8 10 12 14
-perfil 18 atributo23 4 2 1 3
-perfil 18 atributo24 4 1 3 2
-perfil 18 atributo25 5 2 1 4 3
-perfil 18 atributo26 5 10 15 20 25 30 35
-perfil 18 atributo27 3 6 9 12 15 18
-perfil 18 atributo28 5 10 15 20 25 30
-perfil 18 atributo29 3 2 1
-perfil 18 atributo30 4 8 12 16 20 24 28
+perfil 18 atributo22 6 12 18 24 30 36 42
+perfil 18 atributo23 2 2 1 1
+perfil 18 atributo24 2 2 1 1
+perfil 18 atributo25 2 1 2 1 2
+perfil 18 atributo26 0 0 0 0 0 0 0
+perfil 18 atributo27 5 10 15 20 25 30
+perfil 18 atributo28 4 8 12 16 20 24
+perfil 18 atributo29 2 3 1
+perfil 18 atributo30 6 12 18 24 30 36 42
 perfil 18 atributo31 4 8 12 16 20 24
-perfil 18 atributo32 4 3 1 2
-perfil 18 atributo33 0 0 0 0
-perfil 18 atributo34 3 6 9 12 15 18
-perfil 18 atributo35 0 0 0 0
-perfil 18 atributo36 4 8 12 16 20 24 28
-perfil 18 atributo37 1 2 3 4 5 6
+perfil 18 atributo32 2 2 1 1
+perfil 18 atributo33 2 2 1 1
+perfil 18 atributo34 5 10 15 20 25 30
+perfil 18 atributo35 2 2 1 1
+perfil 18 atributo36 6 12 18 24 30 36 42
+perfil 18 atributo37 5 10 15 20 25 30
 perfil 18 atributo38 3 1 2
-perfil 18 atributo39 3 2 1
-perfil 18 atributo40 3 6 9 12 15 18 21
-perfil 18 atributo41 3 6 9 12 15 18
-perfil 18 atributo42 5 10 15 20 25 30 35
-perfil 18 atributo43 3 6 9 12 15 18 21
-perfil 18 atributo44 0 0 0 0 0 0 0
-perfil 18 atributo45 4 8 12 16 20 24 28
-perfil 18 atributo46 0 0 0 0
-perfil 18 atributo47 4 8 12 16 20 24 28
-perfil 18 atributo48 4 8 12 16 20 24 28
+perfil 18 atributo39 3 1 2
+perfil 18 atributo40 6 12 18 24 30 36 42
+perfil 18 atributo41 5 10 15 20 25 30
+perfil 18 atributo42 6 12 18 24 30 36 42
+perfil 18 atributo43 6 12 18 24 30 36 42
+perfil 18 atributo44 6 12 18 24 30 36 42
+perfil 18 atributo45 6 12 18 24 30 36 42
+perfil 18 atributo46 3 3 2 1
+perfil 18 atributo47 6 12 18 24 30 36 42
+perfil 18 atributo48 6 12 18 24 30 36 42
 perfil 18 atributo49 6 12 18 24 30 36 42
-perfil 18 atributo50 0 0 0 0 0 0 0
-perfil 18 atributo51 0 0 0 0 0 0 0
-perfil 18 atributo52 2 4 6 8 10 12 14
-perfil 18 atributo53 5 3 2 4 1
-perfil 18 atributo54 3 6 9 12 15 18 21
-perfil 18 atributo55 4 2 1 3
-perfil 18 atributo56 2 4 6 8 10 12 14
-perfil 18 atributo57 2 4 6 8 10 12 14
+perfil 18 atributo50 4 8 12 16 20 24 28
+perfil 18 atributo51 4 8 12 16 20 24 28
+perfil 18 atributo52 6 12 18 24 30 36 42
+perfil 18 atributo53 5 2 4 3 1
+perfil 18 atributo54 4 8 12 16 20 24 28
+perfil 18 atributo55 3 4 1 2
+perfil 18 atributo56 4 8 12 16 20 24 28
+perfil 18 atributo57 6 12 18 24 30 36 42
 perfil 18 atributo58 3 6 9 12 15 18 21
-perfil 18 atributo59 3 6 9 12 15 18 21
-perfil 18 atributo60 0 0 0 0 0 0 0
-perfil 18 atributo61 2 4 6 8 10 12 14
-perfil 18 atributo62 2 4 6 8 10 12 14
-perfil 18 atributo63 2 4 6 8 10 12 14
+perfil 18 atributo59 5 10 15 20 25 30
+perfil 18 atributo60 6 12 18 24 30 36 42
+perfil 18 atributo61 6 12 18 24 30 36 42
+perfil 18 atributo62 5 10 15 20 25 30 35
+perfil 18 atributo63 6 12 18 24 30 36 42
 perfil 19 atributo1 2 4 6 8 10
 perfil 19 atributo2 4 8 12 16 20 24
 perfil 19 atributo3 4 8 12 16 20 24
@@ -1912,48 +1912,48 @@ perfil 19 atributo18 6 12 18 24 30 36 42
 perfil 19 atributo19 6 12 18 24 30 36 42
 perfil 19 atributo20 5 10 15 20 25 30 35
 perfil 19 atributo21 3 6 9 12 15 18 21
-perfil 19 atributo22 3 6 9 12 15 18 21
-perfil 19 atributo23 4 2 1 3
-perfil 19 atributo24 4 1 3 2
-perfil 19 atributo25 5 1 2 3 4
-perfil 19 atributo26 2 4 6 8 10 12 14
-perfil 19 atributo27 3 6 9 12 15 18
-perfil 19 atributo28 3 6 9 12 15 18
-perfil 19 atributo29 3 1 2
-perfil 19 atributo30 2 4 6 8 10 12 14
-perfil 19 atributo31 4 8 12 16 20 24
-perfil 19 atributo32 3 4 1 2
-perfil 19 atributo33 4 3 2 1
-perfil 19 atributo34 3 6 9 12 15 18
-perfil 19 atributo35 4 3 2 1
-perfil 19 atributo36 5 10 15 20 25 30 35
-perfil 19 atributo37 3 6 9 12 15 18
+perfil 19 atributo22 6 12 18 24 30 36 42
+perfil 19 atributo23 4 3 1 2
+perfil 19 atributo24 4 3 2 1
+perfil 19 atributo25 4 4 3 2 1
+perfil 19 atributo26 6 12 18 24 30 36 42
+perfil 19 atributo27 5 10 15 20 25 30
+perfil 19 atributo28 5 10 15 20 25 30
+perfil 19 atributo29 2 3 1
+perfil 19 atributo30 6 12 18 24 30 36 42
+perfil 19 atributo31 5 10 15 20 25 30
+perfil 19 atributo32 3 3 1 2
+perfil 19 atributo33 3 4 2 1
+perfil 19 atributo34 5 10 15 20 25 30
+perfil 19 atributo35 3 2 3 1
+perfil 19 atributo36 6 12 18 24 30 36 42
+perfil 19 atributo37 5 10 15 20 25 30
 perfil 19 atributo38 3 1 2
-perfil 19 atributo39 3 2 1
-perfil 19 atributo40 5 10 15 20 25 30 35
+perfil 19 atributo39 3 1 2
+perfil 19 atributo40 6 12 18 24 30 36 42
 perfil 19 atributo41 5 10 15 20 25 30
-perfil 19 atributo42 4 8 12 16 20 24 28
-perfil 19 atributo43 3 6 9 12 15 18 21
-perfil 19 atributo44 0 0 0 0 0 0 0
+perfil 19 atributo42 6 12 18 24 30 36 42
+perfil 19 atributo43 4 8 12 16 20 24 28
+perfil 19 atributo44 4 8 12 16 20 24 28
 perfil 19 atributo45 4 8 12 16 20 24 28
-perfil 19 atributo46 4 3 2 1
+perfil 19 atributo46 3 3 2 1
 perfil 19 atributo47 6 12 18 24 30 36 42
-perfil 19 atributo48 5 10 15 20 25 30 35
+perfil 19 atributo48 6 12 18 24 30 36 42
 perfil 19 atributo49 6 12 18 24 30 36 42
-perfil 19 atributo50 0 0 0 0 0 0 0
-perfil 19 atributo51 2 4 6 8 10 12 14
-perfil 19 atributo52 0 0 0 0 0 0 0
-perfil 19 atributo53 0 0 0 0 0
-perfil 19 atributo54 4 8 12 16 20 24 28
+perfil 19 atributo50 4 8 12 16 20 24 28
+perfil 19 atributo51 5 10 15 20 25 30 35
+perfil 19 atributo52 5 10 15 20 25 30 35
+perfil 19 atributo53 5 2 3 4 1
+perfil 19 atributo54 2 4 6 8 10 12 14
 perfil 19 atributo55 0 0 0 0
-perfil 19 atributo56 0 0 0 0 0 0 0
-perfil 19 atributo57 2 4 6 8 10 12 14
-perfil 19 atributo58 2 4 6 8 10 12 14
-perfil 19 atributo59 3 6 9 12 15 18 21
-perfil 19 atributo60 2 4 6 8 10 12 14
-perfil 19 atributo61 2 4 6 8 10 12 14
-perfil 19 atributo62 2 4 6 8 10 12 14
-perfil 19 atributo63 2 4 6 8 10 12 14
+perfil 19 atributo56 3 6 9 12 15 18 21
+perfil 19 atributo57 4 8 12 16 20 24 28
+perfil 19 atributo58 6 12 18 24 30 36 42
+perfil 19 atributo59 5 10 15 20 25 30
+perfil 19 atributo60 4 8 12 16 20 24 28
+perfil 19 atributo61 5 10 15 20 25 30 35
+perfil 19 atributo62 6 12 18 24 30 36 42
+perfil 19 atributo63 6 12 18 24 30 36 42
 perfil 20 atributo1 2 4 6 8 10
 perfil 20 atributo2 4 8 12 16 20 24
 perfil 20 atributo3 4 8 12 16 20 24
@@ -1975,45 +1975,45 @@ perfil 20 atributo18 5 10 15 20 25 30 35
 perfil 20 atributo19 6 12 18 24 30 36 42
 perfil 20 atributo20 6 12 18 24 30 36 42
 perfil 20 atributo21 4 8 12 16 20 24 28
-perfil 20 atributo22 4 8 12 16 20 24 28
-perfil 20 atributo23 3 1 2 4
-perfil 20 atributo24 3 1 4 2
-perfil 20 atributo25 5 2 1 3 4
-perfil 20 atributo26 5 10 15 20 25 30 35
+perfil 20 atributo22 5 10 15 20 25 30 35
+perfil 20 atributo23 4 3 1 2
+perfil 20 atributo24 4 3 2 1
+perfil 20 atributo25 5 4 2 1 3
+perfil 20 atributo26 0 0 0 0 0 0 0
 perfil 20 atributo27 5 10 15 20 25 30
 perfil 20 atributo28 5 10 15 20 25 30
-perfil 20 atributo29 3 2 1
-perfil 20 atributo30 3 6 9 12 15 18 21
+perfil 20 atributo29 2 3 1
+perfil 20 atributo30 6 12 18 24 30 36 42
 perfil 20 atributo31 4 8 12 16 20 24
-perfil 20 atributo32 2 4 1 3
+perfil 20 atributo32 4 3 2 1
 perfil 20 atributo33 4 3 2 1
-perfil 20 atributo34 1 2 3 4 5 6
-perfil 20 atributo35 0 0 0 0
-perfil 20 atributo36 2 4 6 8 10 12 14
-perfil 20 atributo37 3 6 9 12 15 18
-perfil 20 atributo38 0 0 0
+perfil 20 atributo34 5 10 15 20 25 30
+perfil 20 atributo35 4 2 3 1
+perfil 20 atributo36 6 12 18 24 30 36 42
+perfil 20 atributo37 5 10 15 20 25 30
+perfil 20 atributo38 3 1 2
 perfil 20 atributo39 3 1 2
-perfil 20 atributo40 4 8 12 16 20 24 28
-perfil 20 atributo41 4 8 12 16 20 24
-perfil 20 atributo42 3 6 9 12 15 18 21
+perfil 20 atributo40 6 12 18 24 30 36 42
+perfil 20 atributo41 5 10 15 20 25 30
+perfil 20 atributo42 6 12 18 24 30 36 42
 perfil 20 atributo43 4 8 12 16 20 24 28
-perfil 20 atributo44 3 6 9 12 15 18 21
-perfil 20 atributo45 4 8 12 16 20 24 28
-perfil 20 atributo46 4 3 2 1
-perfil 20 atributo47 5 10 15 20 25 30 35
-perfil 20 atributo48 4 8 12 16 20 24 28
-perfil 20 atributo49 5 10 15 20 25 30 35
-perfil 20 atributo50 0 0 0 0 0 0 0
-perfil 20 atributo51 2 4 6 8 10 12 14
-perfil 20 atributo52 0 0 0 0 0 0 0
-perfil 20 atributo53 5 2 3 4 1
-perfil 20 atributo54 6 12 18 24 30 36 42
+perfil 20 atributo44 5 10 15 20 25 30 35
+perfil 20 atributo45 5 10 15 20 25 30 35
+perfil 20 atributo46 2 2 2 1
+perfil 20 atributo47 6 12 18 24 30 36 42
+perfil 20 atributo48 6 12 18 24 30 36 42
+perfil 20 atributo49 6 12 18 24 30 36 42
+perfil 20 atributo50 6 12 18 24 30 36 42
+perfil 20 atributo51 6 12 18 24 30 36 42
+perfil 20 atributo52 4 8 12 16 20 24 28
+perfil 20 atributo53 3 4 4 2 1
+perfil 20 atributo54 4 8 12 16 20 24 28
 perfil 20 atributo55 0 0 0 0
 perfil 20 atributo56 0 0 0 0 0 0 0
-perfil 20 atributo57 0 0 0 0 0 0 0
-perfil 20 atributo58 2 4 6 8 10 12 14
-perfil 20 atributo59 2 4 6 8 10 12 14
-perfil 20 atributo60 0 0 0 0 0 0 0
-perfil 20 atributo61 0 0 0 0 0 0 0
-perfil 20 atributo62 0 0 0 0 0 0 0
+perfil 20 atributo57 6 12 18 24 30 36 42
+perfil 20 atributo58 6 12 18 24 30 36 42
+perfil 20 atributo59 5 10 15 20 25 30
+perfil 20 atributo60 6 12 18 24 30 36 42
+perfil 20 atributo61 4 8 12 16 20 24 28
+perfil 20 atributo62 4 8 12 16 20 24 28
 perfil 20 atributo63 0 0 0 0 0 0 0
